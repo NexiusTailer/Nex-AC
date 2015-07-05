@@ -155,7 +155,11 @@ Currently they were not detected. If you find a bug, please write about it in th
 * Alex Westbrook - Spanish translation
 * lashona - Georgian translation
 * wampiros6 - Polish translation
-* DeitY - Serbian translation
+* DeitY, Dragony92 - Serbian translation
+* NicK_ - PT/BR translation
+* KyleSmith - Improve English translation
+* M4D - Persian (Farsi) Translation
+* Valera_Kovshikov - Ukrainian translation
 
 This script also contains materials of third-party projects with open source.
 Licensed under the GNU LGPL.
