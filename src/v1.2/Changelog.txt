@@ -1,6 +1,8 @@
+Changes:
 Compatible with y_dialog
 Additional compatibility with foreach
 
+Fixes:
 Fixed several bugs in Anti-God Mode
 Fixed a bug with a kick during prolonged shooting a minigun
 Fixed display of statistics and reports about kick
