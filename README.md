@@ -148,7 +148,7 @@ Currently they were not detected. If you find a bug, please write about it in th
 
 #Thanks:
 * Magic_York, TheHero, Nike_33, Unisheld - testing
-* ZiGGi, Urukhay - advice on the code
+* ZiGGi, Urukhay, Yashas, theYiin - advice on the code
 * Carper - German translation
 * Jstylezzz - Dutch translation
 * J4Rr3x - Italian translation
