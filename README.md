@@ -162,7 +162,6 @@ Currently they were not detected. If you find a bug, please write about it in th
 * Valera_Kovshikov - Ukrainian translation
 
 This script also contains materials of third-party projects with open source.
-Licensed under the GNU LGPL.
 
 P.s. I develop this anticheat about a year and spent on it a lot of effort and time. I very much hope that it will be useful to you.
 
