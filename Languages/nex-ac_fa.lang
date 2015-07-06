@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] ID %d Mashkook Mibashad. Dalil: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] IP %s Mashkook Mibashad. Dalil: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] In Noskhe Az Anticheat Ba Noskhe Server Sazgar Nist.",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Moshkel Dar Ijad Kardan/Baz Kardan %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d Be Bishtar Az %d Talash Baraye Flood Resid. ID Omoumi: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Noskhe Eshtebah Tavasote ID %d. Noskhe: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d Bishtar Az %d Etesal Az 1 IP-Address Ra Anjam Dad",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Talashe Namovafaghe IP %s Baraye Login Kardan Be RCON Ba Passworde %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d Az NOP %s Estefade Kard",
+#endif
+
+	KICK_MSG[] =			"Shoma Mashkook Be Estefade Az Cheat (#%03d) Bodid Va Az Server Kick Shodid.",
+	MAX_CONNECTS_MSG[] =	"Shoma Bishtar Az Hadeaksare Etesal Az 1 IP-Adress Ra Anjam Dadid.",
+	UNKNOWN_CLIENT_MSG[] =	"In Noskhe Az Cliente Shoma Ba Server Sazgar Nist.",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC Load Shod",
+	LOADED_MSG_2[] =		" Noskhe Anticheat: %s",
+	LOADED_MSG_3[] =		" Sazande: Nexius",
+
+	STATS_STRING_1[] =		" Amare Anticheat Nex-AC",
+	STATS_STRING_2[] =		" Detected and prevented:",
+	STATS_STRING_3[] =		"  %d Talash Baraye  Cheat",
+	STATS_STRING_4[] =		"  %d Talash Baraye  Hack",
+	STATS_STRING_5[] =		"  %d Talash Baraye Crash",
+	STATS_STRING_6[] =		"  %d Talash Baraye Flood",
+	STATS_STRING_7[] =		"  %d Talash Baraye Hamle",
+	STATS_STRING_8[] =		" %d Cheater Tashkhis Dade Va Mojazat Shod";

@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Actuacion de %d ID. El codigo de motivo: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Actuacion de IP %s. El codigo de motivo: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Esta version de anticheat no es adecuado para la version de servidor",
+	CFG_OPENING_ERROR[] =		"[Nex-AC] Error al crear / abrir %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d ha superado %d los intentos de flood. Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] La version incorrecta de el %d ID. version: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d ha superado %d de las conexiones desde el 1 de direcciones IP",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Mala sesion en la RCON con la IP %s uso de la contrasena %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d usado NOP %s",
+#endif
+
+	KICK_MSG[] =			"Usted se desconecta por sospechas de trampas (#%03d)",
+	MAX_CONNECTS_MSG[] =		"Se ha superado el numero maximo de conexiones desde el 1 de direcciones IP",
+	UNKNOWN_CLIENT_MSG[] =		"Esta version del cliente no es adecuado para jugar en el servidor",
+
+	LOADED_MSG_1[] =		" Nex-AC cargado!",
+	LOADED_MSG_2[] =		" version: %s",
+	LOADED_MSG_3[] =		" Autor: Nexius",
+
+	STATS_STRING_1[] =		" Estadisticas Nex-AC",
+	STATS_STRING_2[] =		" Detectado y evitado:",
+	STATS_STRING_3[] =		"  %d los intentos de conspiraciones",
+	STATS_STRING_4[] =		"  %d intentos de intrusion",
+	STATS_STRING_5[] =		"  %d los intentos de el desmoldeo",
+	STATS_STRING_6[] =		"  %d los intentos de flood",
+	STATS_STRING_7[] =		"  %d los ataques",
+	STATS_STRING_8[] =		" Todo es descubierto y castigado %d jugadores deshonestos";

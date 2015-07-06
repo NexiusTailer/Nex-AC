@@ -1,0 +1,38 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+//Translation by Carper (http://forum.sa-mp.com/member.php?u=215954)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Verdacht bei der ID %d. Ursachencode: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Verdacht bei der IP %s. Ursachencode: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Die Version vom Anticheat ist nicht geeignet für diese Server Version",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Fehler beim erstellen/öffnen %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d überschritt %d Flut-Versuche. Öffentliche ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Ungültige Version bei ID %d. Version: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d überschritt %d Verbindungen von einer IP-Adresse",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Falscher Rcon-Login mit der IP %s - angegebenes Passwort %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d benutzt NOP %s",
+#endif
+
+	KICK_MSG[] =			"Du wurdest wegen Verdacht eines Cheats gekickt (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Du hast die maximale Anzahl von Verbindungen mit eine IP-Adresse überschritten",
+	UNKNOWN_CLIENT_MSG[] =	"Deine Client-Version ist nicht geeignet um auf diesen Server spielen zu können",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC geladen!",
+	LOADED_MSG_2[] =		" Anticheat version: %s",
+	LOADED_MSG_3[] =		" Author: Nexius",
+
+	STATS_STRING_1[] =		" Statistiken anticheat Nex-AC",
+	STATS_STRING_2[] =		" Erkannt und verhindert:",
+	STATS_STRING_3[] =		"  %d cheating Versuche",
+	STATS_STRING_4[] =		"  %d hacking Versuche",
+	STATS_STRING_5[] =		"  %d crashing Versuche",
+	STATS_STRING_6[] =		"  %d flooding Versuche",
+	STATS_STRING_7[] =		"  %d angriffe",
+	STATS_STRING_8[] =		" Insgesamt erkannt und bestraft: %d Cheater";

@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Podejrzenie gracz o ID %d. Kod przyczyny: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Podejrzanie gracza o IP %s. Kod przyczyny: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Ta wersja Antycheat nie nadaje siê do wersji tej serwera",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] B³¹d tworzenia/otwierania %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d przekroczy³ %d prób floodu. Publiczne ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Nieprawid³owa wersja gracza ID %d. Wersja: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d przekroczy³ %d po³¹czeñ z 1 adresu IP",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] B³edne has³o rcon, IP %s u¿y³ has³a %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d u¿y³ NOP %s",
+#endif
+
+	KICK_MSG[] =			"Zosta³eœ wyrzucony z podejrzeniem o oszustwo przy u¿yciu programów Kod:(#%03d)",
+	MAX_CONNECTS_MSG[] =	"Zosta³eœ pojej¿any o maksymaln¹ lyczbê po³¹czeñ z 1 adresu IP",
+	UNKNOWN_CLIENT_MSG[] =	"Ta wersja klienta nie jest odpowiednia do grania na serwerze",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC za³adowany!",
+	LOADED_MSG_2[] =		" Anticheat wersja: %s",
+	LOADED_MSG_3[] =		" Autor: Nexius",
+
+	STATS_STRING_1[] =		" Statystyki antycheat Nex-AC",
+	STATS_STRING_2[] =		" Wykrycia i zapobiegania:",
+	STATS_STRING_3[] =		"  %d próby cheatowania",
+	STATS_STRING_4[] =		"  %d próby hackowania",
+	STATS_STRING_5[] =		"  %d próby crashowania",
+	STATS_STRING_6[] =		"  %d próby floodowania",
+	STATS_STRING_7[] =		"  %d ataki",
+	STATS_STRING_8[] =		" Razem wykrytych i zapobiegnietych %d cheaterów";

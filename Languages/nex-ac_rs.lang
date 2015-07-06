@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+ 
+#if defined _nex_ac_lang_included
+        #endinput
+#endif
+#define _nex_ac_lang_included
+ 
+new
+        SUSPICION_1[] =                 "[Nex-AC] Sumnjiv Igrac ID %d. Razlog: %03d%s",
+        SUSPICION_2[] =                 "[Nex-AC] Sumniv igrac sa IP %s. Razlog: %03d%s",
+        VERSION_WARNING[] =             "[Nex-AC] Ova verzija anti cheata ne odgovara verziji servera.",
+        CFG_OPENING_ERROR[] =   "[Nex-AC] Greska u kreiranju/otvaranju %s!",
+ 
+#if defined DEBUG
+        DEBUG_CODE_1[] =                "[Nex-AC debug] ID %d je prevazisao %d spam pokusaja. Njegov ID: %d",
+        DEBUG_CODE_2[] =                "[Nex-AC debug] Nevalidna klijent verzija ID %d. Verzija: %s",
+        DEBUG_CODE_3[] =                "[Nex-AC debug] ID %d je prevazisao %d konekcije sa 1 IP-adrese",
+        DEBUG_CODE_4[] =                "[Nex-AC debug] Pogresan RCON login od IP %s koristeci sifru %s",
+        DEBUG_CODE_5[] =                "[Nex-AC debug] ID %d koristi cheat NOP %s",
+#endif
+ 
+        KICK_MSG[] =                    "A da ugasis cheat, nista a? Kick cao poz. (#%03d)",
+        MAX_CONNECTS_MSG[] =    "Prevazisao si maksmimalan broj konekcija sa 1 Ip-adrese.",
+        UNKNOWN_CLIENT_MSG[] =  "Ova verzija klijenta ne odgovara verziji servera.",
+ 
+        LOADED_MSG_1[] =                " Anticheat Nex Ucitan!",
+        LOADED_MSG_2[] =                " Anticheat verzija: %s",
+        LOADED_MSG_3[] =                " Author: Nex-AC Translation Deity",
+ 
+        STATS_STRING_1[] =              " Statistike anticheata Nex-AC",
+        STATS_STRING_2[] =              " Uhvaceni i spreceni cheateri:",
+        STATS_STRING_3[] =              "  %d pokusaja cheatovanja",
+        STATS_STRING_4[] =              "  %d pokusaja hakovanja",
+        STATS_STRING_5[] =              "  %d pokusaja crashovanja",
+        STATS_STRING_6[] =              "  %d pokusaja spama",
+        STATS_STRING_7[] =              "  %d DDoS napada",
+        STATS_STRING_8[] =              " Ukupan broj uhvacenih cheatera %d kaznjeni.";

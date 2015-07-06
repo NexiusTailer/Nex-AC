@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+ 
+#if defined _nex_ac_lang_included
+        #endinput
+#endif
+#define _nex_ac_lang_included
+ 
+new
+        SUSPICION_1[] =                 "[Nex-AC] Sospetto su ID %d. Codice: %03d%s",
+        SUSPICION_2[] =                 "[Nex-AC] Sospetto su IP %s. Codice: %03d%s",
+        VERSION_WARNING[] =             "[Nex-AC] Questa versione dell'anti-cheat non è adatta per la versione del server.",
+        CFG_OPENING_ERROR[] =   "[Nex-AC] Errore durante la creazione/l'apertura di %s!",
+ 
+#if defined DEBUG
+        DEBUG_CODE_1[] =                "[Nex-AC debug] ID %d ha superato %d tentativi di flood. ID: %d",
+        DEBUG_CODE_2[] =                "[Nex-AC debug] Versiona invalida di ID %d. Versione: %s",
+        DEBUG_CODE_3[] =                "[Nex-AC debug] ID %d ha superato %d connessione da un IP",
+        DEBUG_CODE_4[] =                "[Nex-AC debug] Login RCON fallito da %s usando la password %s",
+        DEBUG_CODE_5[] =                "[Nex-AC debug] ID %d ha usato il NOP %s",
+#endif
+ 
+        KICK_MSG[] =                    "Sei stato kickato con il sospetto di uso di cheat (#%03d)",
+        MAX_CONNECTS_MSG[] =    "Hai superato il massimo di connessioni da un IP.",
+        UNKNOWN_CLIENT_MSG[] =  "Questa versione del client non è adatta per giocare su questo server.",
+ 
+        LOADED_MSG_1[] =                " Anticheat Nex-AC caricato!",
+        LOADED_MSG_2[] =                " Versione anticheat: %s",
+        LOADED_MSG_3[] =                " Autore: Nexius",
+ 
+        STATS_STRING_1[] =              " Statistiche anticheat Nex-AC",
+        STATS_STRING_2[] =              " Rilevato ed impedito:",
+        STATS_STRING_3[] =              "  %d sospetti di cheating",
+        STATS_STRING_4[] =              "  %d sospetti di hacking",
+        STATS_STRING_5[] =              "  %d sospetti di crashing",
+        STATS_STRING_6[] =              "  %d sospetti di flooding",
+        STATS_STRING_7[] =              "  %d attacchi",
+        STATS_STRING_8[] =              " Rilevati e bannati %d cheater";

@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+ 
+#if defined _nex_ac_lang_included
+        #endinput
+#endif
+#define _nex_ac_lang_included
+ 
+new
+        SUSPICION_1[] =                 "[Nex-AC] Sumnjiv igrac, ID %d. Razlog kod: %03d%s",
+        SUSPICION_2[] =                 "[Nex-AC] Sumnjiv igrac, IP %s. Razlog kod: %03d%s",
+        VERSION_WARNING[] =             "[Nex-AC] AntiCheat nije kompatibilan sa trenutnom verzijom SA-MP Servera",
+        CFG_OPENING_ERROR[] =   "[Nex-AC] Greska prilikom kreiranja ili otvaranja %s!",
+ 
+#if defined DEBUG
+        DEBUG_CODE_1[] =                "[Nex-AC debug] ID %d je prekoracio %d flood pokusaja. Public ID: %d",
+        DEBUG_CODE_2[] =                "[Nex-AC debug] ID %d ima neispravnu verziju klijenta. Verzija: %s",
+        DEBUG_CODE_3[] =                "[Nex-AC debug] ID %d je prekoracio %d konekcija sa 1 IP adrese",
+        DEBUG_CODE_4[] =                "[Nex-AC debug] Neispravano RCON prijavljivanje sa IP adrese %s koriscen password %s",
+        DEBUG_CODE_5[] =                "[Nex-AC debug] ID %d je koristio NOP %s",
+#endif
+ 
+        KICK_MSG[] =                    "Kikovani ste zbog sumnje da ste koristili cheat (#%03d)",
+        MAX_CONNECTS_MSG[] =    "Prekoracili ste broj dozvoljenih konekcija sa 1 IP adrese",
+        UNKNOWN_CLIENT_MSG[] =  "Verzija vaseg klijenta nije kompatibilna sa verzijom servera.",
+ 
+        LOADED_MSG_1[] =                " Anticheat Nex-AC je ucitan!",
+        LOADED_MSG_2[] =                " Anticheat verzija: %s",
+        LOADED_MSG_3[] =                " Autor: Nexius",
+ 
+        STATS_STRING_1[] =              " Nex-AC Statistika",
+        STATS_STRING_2[] =              " Detektovano i spreceno:",
+        STATS_STRING_3[] =              "  %d pokusaja varanja",
+        STATS_STRING_4[] =              "  %d pokusaja hakovanja",
+        STATS_STRING_5[] =              "  %d pokusaja kresovanja",
+        STATS_STRING_6[] =              "  %d pokusaja flood-a",
+        STATS_STRING_7[] =              "  %d napada",
+        STATS_STRING_8[] =              " Ukupno detektovano i kaznjeno %d cheater-a";

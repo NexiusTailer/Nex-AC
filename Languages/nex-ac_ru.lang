@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Срабатывание на %d ID. Код причины: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Срабатывание на IP %s. Код причины: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Данная версия античита не подходит для версии сервера",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Ошибка создания/открытия %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d превысил %d попыток флуда. Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Неверная версия у %d ID. Версия: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d превысил %d подключений с 1 IP-адреса",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Неудачный вход в RCON с IP %s используя пароль %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d использовал NOP %s",
+#endif
+
+	KICK_MSG[] =			"Вы были кикнуты по подозрению в использовании чит-программ (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Вы превысили максимальное число подключений с 1 IP-адреса",
+	UNKNOWN_CLIENT_MSG[] =	"Данная версия клиента не подходит для игры на сервере",
+
+	LOADED_MSG_1[] =		" Античит Nex-AC загружен!",
+	LOADED_MSG_2[] =		" Версия античита: %s",
+	LOADED_MSG_3[] =		" Автор: Nexius",
+
+	STATS_STRING_1[] =		" Статистика античита Nex-AC",
+	STATS_STRING_2[] =		" Обнаружено и предотвращено:",
+	STATS_STRING_3[] =		"  %d попыток читерства",
+	STATS_STRING_4[] =		"  %d попыток взлома",
+	STATS_STRING_5[] =		"  %d попыток краша",
+	STATS_STRING_6[] =		"  %d попыток флуда",
+	STATS_STRING_7[] =		"  %d атак",
+	STATS_STRING_8[] =		" Всего обнаружено и наказано %d читеров";

@@ -1,0 +1,38 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+//Translated to Dutch by Jstylezzz
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+ 
+new
+	SUSPICION_1[] =			"[Nex-AC] ID %d is verdacht. Reden code: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] IP %s is verdacht. Reden code: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Deze versie van de anticheat is niet juist voor de versie van de server", 
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Error bij het aanmaken/openen van %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d heeft %d flood pogingen overschreden. Publieke ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Verkeerde versie door ID %d. Versie: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d heeft %d connecties overschreden vanaf 1 IP adres",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Verkeerde RCON login door IP %s, het gebruikte wachtwoord is %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d heeft NOP %s gebruikt",
+#endif
+
+	KICK_MSG[] =			"Je bent gekickt omdat je er van verdacht wordt cheat programma's te gebruiken (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Je hebt het limiet van het maximum aantal connecties vanaf 1 IP adres overschreden", 
+	UNKNOWN_CLIENT_MSG[] =	"Deze versie van de client is niet geschikt voor deze server",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC geladen!",
+	LOADED_MSG_2[] =		" Anticheat versie: %s",
+	LOADED_MSG_3[] =		" Auteur: Nexius",
+
+	STATS_STRING_1[] =		" Nex-AC Anticheat Statistieken",
+	STATS_STRING_2[] =		" Gedetecteerd en voorkomen:",
+	STATS_STRING_3[] =		"  %d cheat pogingen",
+	STATS_STRING_4[] =		"  %d hack pogingen",
+	STATS_STRING_5[] =		"  %d crash pogingen",
+	STATS_STRING_6[] =		"  %d flood pogingen",
+	STATS_STRING_7[] =		"  %d aanvallen",
+	STATS_STRING_8[] =		" Totaal gedetecteerd en bestraft %d cheaters";

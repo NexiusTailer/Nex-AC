@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Amushavda %d ID. Mizezis Kodi: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Amushavde Ipze %s. Mizezis Kodi: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Es Anticheat Versia Ar Ergeba Serveris Versias",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Moxda Sheqmnis/Gaxsnis Shecdoma %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d Gadaacharba %d Flood Limits. Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Araswori Versia Motamashes %d ID. Version: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d Gadaacharba %d Connect-s 1 IP Misamartidan",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Warumatebeli RCON Login %s Gamoyenebuli Paroli %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d Gamoiyena NOP %s",
+#endif
+
+	KICK_MSG[] =			"Tqven Gaikicket Cheterobis Gamo (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Tqven Gadaacharbet Maqsimaluri Sheertebis Limits 1 IP-ze",
+	UNKNOWN_CLIENT_MSG[] =	"Klientis Es Versia Ar Midis Serveris Versiaze",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC Loaded!",
+	LOADED_MSG_2[] =		" AntiCheat Version: %s",
+	LOADED_MSG_3[] =		" Avtori: Nexius",
+
+	STATS_STRING_1[] =		" Nex-AC Stats",
+	STATS_STRING_2[] =		" Napovnia Da Dasjilia:",
+	STATS_STRING_3[] =		"  %d Cheteri",
+	STATS_STRING_4[] =		"  %d Gamtexi",
+	STATS_STRING_5[] =		"  %d Crasheris Mcdeloba",
+	STATS_STRING_6[] =		"  %d Flood Mcdeloba",
+	STATS_STRING_7[] =		"  %d Shemoteva",
+	STATS_STRING_8[] =		" Sul Napovnia Da Dasjilia %d Cheteri";

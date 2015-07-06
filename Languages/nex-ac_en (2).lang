@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+ 
+#if defined _nex_ac_lang_included
+        #endinput
+#endif
+#define _nex_ac_lang_included
+ 
+new
+        SUSPICION_1[] =                 "[Nex-AC] Suspicious player, ID %d. Reason code: %03d%s",
+        SUSPICION_2[] =                 "[Nex-AC] Suspicious player, IP %s. Reason code: %03d%s",
+        VERSION_WARNING[] =             "[Nex-AC] The anticheat version is not compatible with the current SA-MP Server",
+        CFG_OPENING_ERROR[] =   "[Nex-AC] Error creating or opening %s!",
+ 
+#if defined DEBUG
+        DEBUG_CODE_1[] =                "[Nex-AC debug] ID %d exceeded %d flood attempts. Public ID: %d",
+        DEBUG_CODE_2[] =                "[Nex-AC debug] Invalid version by ID %d. Version: %s",
+        DEBUG_CODE_3[] =                "[Nex-AC debug] ID %d exceeded %d connections from 1 IP-address",
+        DEBUG_CODE_4[] =                "[Nex-AC debug] Bad RCON login by IP %s using password %s",
+        DEBUG_CODE_5[] =                "[Nex-AC debug] ID %d used NOP %s",
+#endif
+ 
+        KICK_MSG[] =                    "You have been kicked on suspicion of using cheat programs (#%03d)",
+        MAX_CONNECTS_MSG[] =    "You have exceeded the maximum number of connections from 1 IP-address",
+        UNKNOWN_CLIENT_MSG[] =  "This version of the client is not compatible with the server version.",
+ 
+        LOADED_MSG_1[] =                " Anticheat Nex-AC loaded!",
+        LOADED_MSG_2[] =                " Anticheat version: %s",
+        LOADED_MSG_3[] =                " Author: Nexius",
+ 
+        STATS_STRING_1[] =              " Statistics anticheat Nex-AC",
+        STATS_STRING_2[] =              " Detected and prevented:",
+        STATS_STRING_3[] =              "  %d cheating attempts",
+        STATS_STRING_4[] =              "  %d hacking attempts",
+        STATS_STRING_5[] =              "  %d crashing attempts",
+        STATS_STRING_6[] =              "  %d flooding attempts",
+        STATS_STRING_7[] =              "  %d attacks",
+        STATS_STRING_8[] =              " Total detected and punished %d cheaters";

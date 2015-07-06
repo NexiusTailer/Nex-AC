@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Cпрацоўванне на %d ID. Код прычыны: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Cпрацоўванне на IP %s. Код прычыны: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Дадзеная версія анцiчыта не падыходзіць для версіі сервера",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Памылка стварэння/адкрыцця %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d перавысіў %d спробаў флуда. Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Няправільная версія ў %d ID. Версiя: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d перавысіў %d падключэнняў з 1 IP-адраса",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Няўдалы ўваход у RCON з IP %s выкарыстоўваючы пароль %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d выкарыстаў NOP %s",
+#endif
+
+	KICK_MSG[] =			"Вы былі кікнуты па падазрэнні ў выкарыстанні чыць-праграм (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Вы перавысілі максімальны лік падключэнняў з 1 IP-адраса",
+	UNKNOWN_CLIENT_MSG[] =	"Дадзеная версія клiента не падыходзіць для гульні на серверы",
+
+	LOADED_MSG_1[] =		" Анцiчыт Nex-AC загружаны!",
+	LOADED_MSG_2[] =		" Версiя анцiчыта: %s",
+	LOADED_MSG_3[] =		" Аўтар: Nexius",
+
+	STATS_STRING_1[] =		" Статыстыка анцiчыта Nex-AC",
+	STATS_STRING_2[] =		" Выяўлена і папярэджана:",
+	STATS_STRING_3[] =		"  %d спробаў чыцерства",
+	STATS_STRING_4[] =		"  %d спробаў узлому",
+	STATS_STRING_5[] =		"  %d спробаў краша",
+	STATS_STRING_6[] =		"  %d спробаў флуда",
+	STATS_STRING_7[] =		"  %d нападаў",
+	STATS_STRING_8[] =		" Усяго выяўлена і пакарана %d чыцераў";
