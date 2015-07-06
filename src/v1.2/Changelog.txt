@@ -1,0 +1,9 @@
+Compatible with y_dialog
+Additional compatibility with foreach
+
+Fixed several bugs in Anti-God Mode
+Fixed a bug with a kick during prolonged shooting a minigun
+Fixed display of statistics and reports about kick
+Tweaked Belarusian localization
+
+Now it is available on GitHub! (by popular demand)
