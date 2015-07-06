@@ -147,7 +147,7 @@ The script can be configured at any of the available languages. To do this, just
 Currently they were not detected. If you find a bug, please write about it in this thread.
 
 #Thanks:
-* Magic_York, TheHero, Nike_33, Unisheld - testing
+* Magic_York, Roberto_York, TheHero, Nike_33, Unisheld - testing
 * ZiGGi, Urukhay, Yashas, theYiin - advice on the code
 * Carper - German translation
 * Jstylezzz - Dutch translation
