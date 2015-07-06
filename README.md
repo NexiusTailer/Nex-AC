@@ -44,7 +44,7 @@ Anti-DoS combines customizable anti-flood, anti-DoS at the network level and a l
 * Anti-flood callback functions (complete list below)
 * Anti-crashers (complete list below)
 * Anti-NOP's (complete list below)
-* Anti-Ddos
+* Anti-Dos
 
 #Additional features:
 * Setting anti-cheat from file
