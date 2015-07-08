@@ -1,0 +1,37 @@
+/* Nex-AC 1.2 | SA-MP 0.3.7 | Indonesian  */
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Terdeteksi pada ID %d. Reason code: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Terdeteksi pada IP %s. Reason code: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Versi anticheat yang anda pakai tidak kompatibel dengan versi server",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Gagal membuka/membuat %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d melampaui batas floods (%d) . Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] ID %d terdeteksi memakai versi yang berbeda. Version: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d melampaui batas koneksi (%d)",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Bad RCON login oleh IP %s dengan password %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d terdeteksi menggunakan NOP %s",
+#endif
+
+	KICK_MSG[] =			"Koneksi diputus karena terdeteksi menggunakan program illegal (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Anda melampaui batas koneksi ( 1 koneksi dalam 1 IP-Address )",
+	UNKNOWN_CLIENT_MSG[] =	"Versi client yang anda pakai saat ini tidak kompatibel dengan versi server",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC loaded!",
+	LOADED_MSG_2[] =		" Anticheat version: %s",
+	LOADED_MSG_3[] =		" Author: Nexius",
+
+	STATS_STRING_1[] =		" statistik Nex-AC",
+	STATS_STRING_2[] =		" Terdeteksi dan dicegah:",
+	STATS_STRING_3[] =		"  %d percobaan cheat",
+	STATS_STRING_4[] =		"  %d percobaan hacking",
+	STATS_STRING_5[] =		"  %d percobaan crashing",
+	STATS_STRING_6[] =		"  %d percobaan flooding",
+	STATS_STRING_7[] =		"  %d penyerangan",
+	STATS_STRING_8[] =		" Jumlah terdeteksi dan diberi sanksi %d cheaters";
