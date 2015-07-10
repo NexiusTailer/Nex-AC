@@ -8,4 +8,4 @@ Fixes:
 Fixed load anticheat configuration from config-file
 Increased some values in favor of players with high ping
 Rcon protection (against Brute-force) now also dynamically enabled/disabled by function EnableAntiCheat
-Fixed minor bugs in the anti-cheats on ammo, RapidFire, SpeedHack in vehicle, Anti-GodMode on foot and in vehicle
+Fixed minor bugs in the anti-cheats on ammo hack, RapidFire, SpeedHack in vehicle, Anti-GodMode on foot and in vehicle
