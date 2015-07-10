@@ -133,6 +133,22 @@ EnableAntiCheatForPlayer(playerid, acid, enable)
   * acid - ID of the anti-cheat
   * enable - 1 to enable/0 to disable
 
+
+Added in v1.3:
+
+IsAntiCheatEnabled(acid)
+
+ Use to check enable/disable one of the anti-cheats
+* acid - ID of the anti-cheat
+* Return 1 (true) if enabled or 0 (false) if disabled
+
+IsAntiCheatEnabledForPlayer(acid, playerid)
+
+ Use to check enable/disable one of the anti-cheats for a particular player
+* acid - ID of the anti-cheat
+* playerid - ID of the player who needs for check enable/disable the anti-cheat
+* Return 1 (true) if enabled or 0 (false) if disabled
+
 #Multilingual:
 The script can be configured at any of the available languages. To do this, just download the link the desired localization, save it in a directory with the main include (nex_ac.inc) and recompile your script.
 
