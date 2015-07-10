@@ -120,11 +120,13 @@ public OnCheatDetected(playerid, ip_address[], type, code)
   * type - Type of offense (when 0 returns the ID, when 1 - IP)
   * code - Code (ID) of the anti-cheat
 
+
 EnableAntiCheat(acid, enable)
 
   Use to enable/disable one of the anti-cheats
   * acid - ID of the anti-cheat
   * enable - 1 to enable/0 to disable
+
 
 EnableAntiCheatForPlayer(playerid, acid, enable)
 
@@ -134,13 +136,16 @@ EnableAntiCheatForPlayer(playerid, acid, enable)
   * enable - 1 to enable/0 to disable
 
 
+
 Added in v1.3:
+
 
 IsAntiCheatEnabled(acid)
 
  Use to check enable/disable one of the anti-cheats
 * acid - ID of the anti-cheat
 * Return 1 (true) if enabled or 0 (false) if disabled
+
 
 IsAntiCheatEnabledForPlayer(acid, playerid)
 
