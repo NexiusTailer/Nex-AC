@@ -152,7 +152,7 @@ Currently they were not detected. If you find a bug, please write about it in th
 * Carper - German translation
 * Jstylezzz - Dutch translation
 * J4Rr3x - Italian translation
-* Alex Westbrook - Spanish translation
+* Alex Westbrook, JustBored - Spanish translation
 * lashona - Georgian translation
 * wampiros6 - Polish translation
 * DeitY, Dragony92 - Serbian translation
