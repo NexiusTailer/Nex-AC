@@ -161,8 +161,8 @@ The script can be configured at any of the available languages. To do this, just
 1. Download version of the anticheat which compatible with the version of your server
 2. Download the language file (.lang) on your preferred language
 3. Copy both files to the folder "/pawno/include" which is located in the folder with the server
-4. In gamemode and all filterscripts after "#include <a_samp>" write the following: "#include <nex-ac>"     
-Warning! If you are using a Streamer Plugin by Incognito, include it before nex-ac!
+4. In gamemode and all filterscripts after "#include <a_samp>" write the following: "#include <nex-ac>"
+	Warning! If you are using a Streamer Plugin by Incognito, include it before nex-ac!
 5. Compile the modified scripts
 
 #Bugs:
