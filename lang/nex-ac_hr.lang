@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Sumnja na ID %d. Razlog: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Sumnja na IP %s. Razlog: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Ova inacica AntiCheata nije podrzana za server inacicu.",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Greska u kreiranju/otvaranju %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d je prekoracio %d paketa. Javan ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Neispravna inacica od IDa %d. Inacica: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d prekoracio %d spajanja s 1 IP adrese",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Neuspjela prijava u RCON %sa, zaporka %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d je koristio NOP %s",
+#endif
+
+	KICK_MSG[] =			"Izbaceni ste sa servera zbog sumnje na koristenje cheat programa (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Prekoracili ste maksimalan broj prijava s jedne IP adrese",
+	UNKNOWN_CLIENT_MSG[] =	"Ova inacica ne odgovara inacici servera",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC je ucitan!",
+	LOADED_MSG_2[] =		" Anticheat inacica: %s",
+	LOADED_MSG_3[] =		" Author: Nexius",
+
+	STATS_STRING_1[] =		" Statistika anticheata Nex-AC",
+	STATS_STRING_2[] =		" Detektirano i sprijeceno:",
+	STATS_STRING_3[] =		"  %d pokusaja varanja",
+	STATS_STRING_4[] =		"  %d pokusaja hakiranja",
+	STATS_STRING_5[] =		"  %d pokusaja rusenja",
+	STATS_STRING_6[] =		"  %d pokusaja napada",
+	STATS_STRING_7[] =		"  %d napada",
+	STATS_STRING_8[] =		" Ukupno detektirano i kaznjeno %d varalica";
