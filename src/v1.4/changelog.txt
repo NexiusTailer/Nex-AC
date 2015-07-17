@@ -1,0 +1,12 @@
+Changes:
+Compatible with Socket Plugin
+Removed some anti-crashers (which are fixed in the new version r2)
+Improved cheat on tuning: now detects free tuning in ModShops
+Improved cheat on carshot
+
+Fixes:
+Tweaked some values in the anti-flood
+Fixed several bugs in anti-weapon hack
+Fixed a bug where all the cars could have a siren
+Fixed a bug in the anti-teleport hack with a kick at the entrance to ModShop
+Fixed a bug in the anti-GodMode onfoot with a kick if the bullets were desync
