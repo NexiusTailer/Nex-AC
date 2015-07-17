@@ -117,7 +117,7 @@ It also simplifies the translation of anti-cheat to other languages
   Called when the tripped one of the anti-cheats
 >  * `playerid` - ID of the cheater
 >  * `ip_address[]` - IP-address of the cheater
->  * `type` - Type of offense (when 0 returns the ID, when 1 - IP)
+>  * `type` - Type of offense (when `0` returns the ID, when `1` - IP)
 >  * `code` - Code (ID) of the anti-cheat
 
 
@@ -125,7 +125,7 @@ It also simplifies the translation of anti-cheat to other languages
 
   Use to enable/disable one of the anti-cheats
 >  * `acid` - ID of the anti-cheat
->  * `enable` - 1 to enable/0 to disable
+>  * `enable` - `1` to enable/`0` to disable
 
 
 #### EnableAntiCheatForPlayer(playerid, acid, enable)
@@ -133,7 +133,7 @@ It also simplifies the translation of anti-cheat to other languages
   Use to enable/disable one of the anti-cheats for a particular player
 >  * `playerid` - ID of the player who needs enable/disable the anti-cheat
 >  * `acid` - ID of the anti-cheat
->  * `enable` - 1 to enable/0 to disable
+>  * `enable` - `1` to enable/`0` to disable
 
 
 
