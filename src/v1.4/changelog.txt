@@ -1,8 +1,8 @@
 Changes:
 Compatible with Socket Plugin
 Removed some anti-crashers (which are fixed in the new version r2)
-Improved cheat on tuning: now detects free tuning in ModShops
-Improved cheat on carshot
+Improved anti-tuning hack: now detects free tuning in ModShops
+Improved anti-carshot
 
 Fixes:
 Tweaked some values in the anti-flood
