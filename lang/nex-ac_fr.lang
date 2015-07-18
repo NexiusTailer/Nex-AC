@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1 - by j3rry)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Trebucher sur %d ID. Code de raison: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Trebucher sur IP %s. Code de raison: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Cette version ne convient pas a la version du serveur anti-triche",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Impossible de creer / open %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d Depasse %d Essayer d'inonder. Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Mauvaise version %d ID. Version: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d Depasse %d lien avec 1 IP-Adresse",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Entree infructueuse RCON ñ IP %s En utilisant le mot de passe %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d utilise NOP %s",
+#endif
+
+	KICK_MSG[] =			"Vous avez ete expulse sur des soupcons d'utilisation de programmes de triche (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Vous avez depasse le nombre maximal de connexions d'une adresse IP",
+	UNKNOWN_CLIENT_MSG[] =	"Cette version du client est pas adapte pour jouer sur un serveur",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC charge!",
+	LOADED_MSG_2[] =		" Version anti-triche: %s",
+	LOADED_MSG_3[] =		" Auteur: Nexius",
+
+	STATS_STRING_1[] =		" Statistiques AntiCheat Nex-AC",
+	STATS_STRING_2[] =		" Detecte et empeche:",
+	STATS_STRING_3[] =		"  %d tentatives de tricherie",
+	STATS_STRING_4[] =		"  %d les tentatives de piratage",
+	STATS_STRING_5[] =		"  %d tentatives crush",
+	STATS_STRING_6[] =		"  %d essayer d'inonder",
+	STATS_STRING_7[] =		"  %d attaques",
+	STATS_STRING_8[] =		" Total retrouves et punis %d tricheurs";
