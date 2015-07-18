@@ -184,6 +184,7 @@ Currently they were not detected. If you find a bug, please write about it in th
 * Valera_Kovshikov - Ukrainian translation
 * RaefaldhiAmartya - Indonesian translation
 * vannesenn - Croatian translation
+* j3rry - French translation
 
 This script also contains materials of third-party projects with open source.
 
