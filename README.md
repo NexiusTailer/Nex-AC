@@ -7,7 +7,7 @@ Anti-cheat detects popular cheats instantly punishing cheaters.
 
 Anti-DoS combines customizable anti-flood, anti-DoS at the network level and a lot of protection tools against hacking, crashers etc.
 
-#List of basic anti-cheats:
+##List of basic anti-cheats:
 * Anti-AirBreak (onfoot/in vehicle)
 * Anti-teleport hack (onfoot/into/in/between vehicles)
 * Anti-teleport pickups
@@ -58,7 +58,7 @@ Optionally you can enable debug-mode for log all actions
 Ability to set any of the available languages.
 It also simplifies the translation of anti-cheat to other languages
 
-#List of publics which are protected by anti-flood:
+##List of publics which are protected by anti-flood:
 * OnDialogResponse
 * OnEnterExitModShop
 * OnPlayerClickMap
@@ -86,7 +86,7 @@ It also simplifies the translation of anti-cheat to other languages
 * OnVehicleDamageStatusUpdate
 * OnPlayerSelectObject
 
-#Anti-NOP's:
+##Anti-NOP's:
 * SpawnPlayer
 * SetPlayerPos
 * SetVehiclePos
@@ -104,7 +104,7 @@ It also simplifies the translation of anti-cheat to other languages
 * TogglePlayerSpectating
 * RemovePlayerFromVehicle
 
-#Anti-Crashers:
+##Anti-Crashers:
 * Invalid tuning
 * Invalid vehicle seat
 * Illegal characters in the dialogues (deleting)
@@ -168,7 +168,7 @@ Warning! If you are using a Streamer Plugin by Incognito, include it before nex-
 #Bugs:
 Currently they were not detected. If you find a bug, please write about it in this thread.
 
-#Thanks:
+##Thanks:
 * Magic_York, Roberto_York, TheHero, Nike_33, Mix_Rargard, Unisheld - testing
 * ZiGGi, Urukhay, Yashas, theYiin - advice on the code
 * Carper - German translation
