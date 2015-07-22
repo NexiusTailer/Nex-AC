@@ -170,7 +170,7 @@ Currently they were not detected. If you find a bug, please write about it in th
 
 ##Thanks:
 * Magic_York, Roberto_York, TheHero, Nike_33, Mix_Rargard, Unisheld - testing
-* ZiGGi, Urukhay, Yashas, theYiin - advice on the code
+* ZiGGi, Urukhay, Yashas, theYiin, RaefaldhiAmartya, kvann - advice on the code
 * Carper - German translation
 * Jstylezzz - Dutch translation
 * J4Rr3x - Italian translation
