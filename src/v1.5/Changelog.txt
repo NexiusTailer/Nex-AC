@@ -11,4 +11,4 @@ Improved Anti-GodMode onfoot and Anti-GodMode in vehicle
 Fixed a bug in Anti-FlyHack with a kick when jumping on a bike
 Fixed some bugs in Anti-Invisible hack
 
-Special thanks to users kvann, RaefaldhiAmartya (RaeF) and everyone who participated in development project!
+Special thanks to users kvann, RaefaldhiAmartya and everyone who participated in development project!
