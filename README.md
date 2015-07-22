@@ -169,7 +169,7 @@ Warning! If you are using a Streamer Plugin by Incognito, include it before nex-
 Currently they were not detected. If you find a bug, please write about it in this thread.
 
 ##Thanks:
-* Magic_York, Roberto_York, TheHero, Nike_33, Mix_Rargard, Unisheld - testing
+* Magic_York, Roberto_York, TheHero, Nike_33, Vitalik_Gonsor, Mix_Rargard, Unisheld - testing
 * ZiGGi, Urukhay, Yashas, theYiin, RaefaldhiAmartya, kvann - advice on the code
 * Carper - German translation
 * Jstylezzz - Dutch translation
