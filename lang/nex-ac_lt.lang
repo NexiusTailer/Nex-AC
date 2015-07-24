@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R2)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Įtarimas ID %d. Priežasties kodas: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Įtarimas IP %s. Priežasties kodas: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Ši anticheat versija nepritaikyta serverio versijai!",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Klaida sukuriant/atidarant %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d viršijo %d flood limitą. Viešas ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Neteisinga versija ID %d. Versija: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d viršijo %d prisijungimų skaičių iš 1 IP adreso",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Blogas RCON prisijungimas, žaidėjas: %s naudojo slaptažodį %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d panaudojo NOP %s",
+#endif
+
+	KICK_MSG[] =			"Jūs buvote išmestas už cheat'ų naudojimą (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Jūs viršijote maksimalų prisijungimų skaičių iš 1 IP adreso",
+	UNKNOWN_CLIENT_MSG[] =	"Ši kliento versija netinkama serveriui!",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC užkrauta!",
+	LOADED_MSG_2[] =		" Anticheat versija: %s",
+	LOADED_MSG_3[] =		" Autorius: Nexius",
+
+	STATS_STRING_1[] =		" Statistika Nex-AC",
+	STATS_STRING_2[] =		" Aptikta ir sustabdyta:",
+	STATS_STRING_3[] =		"  %d cheat'inimo bandymai",
+	STATS_STRING_4[] =		"  %d hack'inimo bandymai",
+	STATS_STRING_5[] =		"  %d crash'inimo bandymai",
+	STATS_STRING_6[] =		"  %d flood'inimo bandymai",
+	STATS_STRING_7[] =		"  %d atakos",
+	STATS_STRING_8[] =		"Iš viso aptikta ir nubausta %d cheater'ių";
