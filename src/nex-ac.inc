@@ -1,4 +1,4 @@
-//Nex-AC by Nexius v1.1 (0.3.7-R1)
+//Nex-AC by Nexius v1.0 (0.3.7-R1)
 
 #if defined _nex_ac_included
 	#endinput
@@ -9,15 +9,15 @@
 
 #if !defined FILTERSCRIPT
 
-//#define DEBUG
+#define DEBUG
 
-#include <nex-ac_en.lang>	//Localization
+#include <nex-ac_ru.lang>	//Localization
 
 #if !defined _nex_ac_lang_included
 	#error Anticheat Nex-AC requires the installation of localization!
 #endif
 
-#define	NEX_AC_VERSION				"1.1"
+#define	NEX_AC_VERSION				"1.0"
 #define SERVER_VERSION				"0.3.7"
 
 #define CONFIG_FILE					"nex-ac_settings.cfg"
@@ -47,7 +47,6 @@
 #define MAX_AFK_GHOST_WARNINGS		2
 #define MAX_RAPID_FIRE_WARNINGS		1
 
-#define GetSpeed(%0,%1,%2) floatround(VectorSize(%0, %1, %2) * 179.28625)
 #define fpublic:%0(%1) forward %0(%1); public %0(%1)
 #define abs(%1) (((%1) < 0) ? (-(%1)) : ((%1)))
 
@@ -145,36 +144,10 @@ static const Mtfc[][] =
 	{150, 3}	//27 Cross-public
 },
 
-WeaponSlots[] =
-{
-	0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 10, 10, 10, 10, 10,
-	10, 8, 8, 8, 0, 0, 0, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5,
-	4, 6, 6, 7, 7, 7, 7, 8, 12, 9, 9, 9, 11, 11, 11
-},
-
-WeaponModels[] =
-{
-	0, 331, 333, 334, 335, 336, 337, 338, 339, 341, 321, 322, 323, 324, 325,
-	326, 342, 343, 344, 0, 0, 0, 346, 347, 348, 349, 350, 351, 352, 353, 355, 356,
-	372, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 371
-},
-
-VehicleTypes[] =
-{
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-	0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 3, 3,
-	3, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 3, 3, 0, 0, 1, 0, 0, 0, 0,
-	2, 0, 0, 3, 0, 0, 1, 1, 0, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 1, 1, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-},
-
 MaxPassengers[] =
 {
 	0x10331113, 0x11311131, 0x11331313, 0x80133301, 0x1381F110,
-	0x10311103, 0x10001F10, 0x11113311, 0x13113311, 0x31101100,
+	0x10311103, 0x10001F10, 0x11113311, 0x13113311,0x31101100,
 	0x30001301, 0x11031311, 0x11111331, 0x10013111, 0x01131100,
 	0x11111110, 0x11100031, 0x11130221, 0x33113311, 0x11111101,
 	0x33101133, 0x101001F0, 0x03133111, 0xFF11113F, 0x13330111,
@@ -677,14 +650,13 @@ enum ACInfo
 	pSpecAct,
 	pNextSpecAct,
 	pLastSpecAct,
-	pLastPickup,
 	pShotTime,
 	pSpawnTime,
 	pLastUpdate,
 	pTimerID,
 	pKicked,
 	pIp[16],
-	pSet[13],
+	pSet[12],
 	pGtc[17],
 	pWeapon[13],
 	pAmmo[13],
@@ -710,7 +682,6 @@ enum ACInfo
 	bool:pDead,
 	bool:pShot,
 	bool:pTpToZ,
-	bool:pPicked,
 	bool:pParachute,
 	bool:pIntEnterExits
 }
@@ -755,13 +726,11 @@ fpublic: ac_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y, Float:spawn_
 	{
 		AntiCheatVehInfo[vehicleid][vInt] = 0;
 		AntiCheatVehInfo[vehicleid][vPaintJob] = 3;
+		AntiCheatVehInfo[vehicleid][vPosDiff] = 0.0;
 		AntiCheatVehInfo[vehicleid][vSpawned] = true;
+		AntiCheatVehInfo[vehicleid][vSpeedDiff] = 0.0;
 		AntiCheatVehInfo[vehicleid][vHealth] = 1000.0;
-		AntiCheatVehInfo[vehicleid][vSpeedDiff] =
-		AntiCheatVehInfo[vehicleid][vPosDiff] =
-		AntiCheatVehInfo[vehicleid][vVel][0] =
-		AntiCheatVehInfo[vehicleid][vVel][1] =
-		AntiCheatVehInfo[vehicleid][vVel][2] = 0.0;
+		for(new i = 2; i != -1; --i) AntiCheatVehInfo[vehicleid][vVel][i] = 0.0;
 		AntiCheatVehInfo[vehicleid][vDriver] = 65535;
 	}
 	return vehicleid;
@@ -774,13 +743,11 @@ fpublic: ac_AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y, Float:spaw
 	{
 		AntiCheatVehInfo[vehicleid][vInt] = 0;
 		AntiCheatVehInfo[vehicleid][vPaintJob] = 3;
+		AntiCheatVehInfo[vehicleid][vPosDiff] = 0.0;
 		AntiCheatVehInfo[vehicleid][vSpawned] = true;
+		AntiCheatVehInfo[vehicleid][vSpeedDiff] = 0.0;
 		AntiCheatVehInfo[vehicleid][vHealth] = 1000.0;
-		AntiCheatVehInfo[vehicleid][vSpeedDiff] =
-		AntiCheatVehInfo[vehicleid][vPosDiff] =
-		AntiCheatVehInfo[vehicleid][vVel][0] =
-		AntiCheatVehInfo[vehicleid][vVel][1] =
-		AntiCheatVehInfo[vehicleid][vVel][2] = 0.0;
+		for(new i = 2; i != -1; --i) AntiCheatVehInfo[vehicleid][vVel][i] = 0.0;
 		AntiCheatVehInfo[vehicleid][vDriver] = 65535;
 	}
 	return vehicleid;
@@ -793,12 +760,10 @@ fpublic: ac_CreateVehicle(vehicletype, Float:x, Float:y, Float:z, Float:rotation
 	{
 		AntiCheatVehInfo[vehicleid][vInt] = 0;
 		AntiCheatVehInfo[vehicleid][vPaintJob] = 3;
+		AntiCheatVehInfo[vehicleid][vPosDiff] = 0.0;
+		AntiCheatVehInfo[vehicleid][vSpeedDiff] = 0.0;
 		AntiCheatVehInfo[vehicleid][vHealth] = 1000.0;
-		AntiCheatVehInfo[vehicleid][vSpeedDiff] =
-		AntiCheatVehInfo[vehicleid][vPosDiff] =
-		AntiCheatVehInfo[vehicleid][vVel][0] =
-		AntiCheatVehInfo[vehicleid][vVel][1] =
-		AntiCheatVehInfo[vehicleid][vVel][2] = 0.0;
+		for(new i = 2; i != -1; --i) AntiCheatVehInfo[vehicleid][vVel][i] = 0.0;
 		if(!(568 < vehicletype < 571)) AntiCheatVehInfo[vehicleid][vSpawned] = true;
 		AntiCheatVehInfo[vehicleid][vDriver] = 65535;
 	}
@@ -852,7 +817,6 @@ fpublic: ac_AddStaticPickup(model, type, Float:X, Float:Y, Float:Z, virtualworld
 {
 	new pickupid = CreatePickup(model, type, X, Y, Z, virtualworld);
 	if(pickupid == -1) return 0;
-	AntiCheatPickInfo[pickupid][pWeapon] = 0;
 	switch(type)
 	{
 		case 2, 3, 15, 22:
@@ -866,7 +830,7 @@ fpublic: ac_AddStaticPickup(model, type, Float:X, Float:Y, Float:Z, virtualworld
 				{
 					for(new i = 46; i != -1; --i)
 					{
-						if(WeaponModels[i] == model)
+						if(GetWeaponModel(i) == model)
 						{
 							AntiCheatPickInfo[pickupid][pType] = 1;
 							AntiCheatPickInfo[pickupid][pWeapon] = i;
@@ -889,7 +853,6 @@ fpublic: ac_CreatePickup(model, type, Float:X, Float:Y, Float:Z, virtualworld)
 	new pickupid = CreatePickup(model, type, X, Y, Z, virtualworld);
 	if(pickupid != -1)
 	{
-		AntiCheatPickInfo[pickupid][pWeapon] = 0;
 		switch(type)
 		{
 			case 2, 3, 15, 22:
@@ -903,7 +866,7 @@ fpublic: ac_CreatePickup(model, type, Float:X, Float:Y, Float:Z, virtualworld)
 					{
 						for(new i = 46; i != -1; --i)
 						{
-							if(WeaponModels[i] == model)
+							if(GetWeaponModel(i) == model)
 							{
 								AntiCheatPickInfo[pickupid][pType] = 1;
 								AntiCheatPickInfo[pickupid][pWeapon] = i;
@@ -922,41 +885,6 @@ fpublic: ac_CreatePickup(model, type, Float:X, Float:Y, Float:Z, virtualworld)
 	return pickupid;
 }
 
-#if defined CreateDynamicPickup\
-	|| defined CreateDynamicPickupEx
-	fpublic: STREAMER_TAG_PICKUP ac_CreateDynamicPickup(pickupid, modelid, type, Float:x, Float:y, Float:z)
-	{
-		switch(type)
-		{
-			case 2, 3, 15, 22:
-			{
-				switch(modelid)
-				{
-					case 370: AntiCheatPickInfo[pickupid][pType] = 2;
-					case 1240: AntiCheatPickInfo[pickupid][pType] = 3;
-					case 1242: AntiCheatPickInfo[pickupid][pType] = 4;
-					case 321..369, 371, 372:
-					{
-						for(new i = 46; i != -1; --i)
-						{
-							if(WeaponModels[i] == modelid)
-							{
-								AntiCheatPickInfo[pickupid][pType] = 1;
-								AntiCheatPickInfo[pickupid][pWeapon] = i;
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
-		AntiCheatPickInfo[pickupid][pIsStatic] = false;
-		AntiCheatPickInfo[pickupid][pPos][0] = x;
-		AntiCheatPickInfo[pickupid][pPos][1] = y;
-		AntiCheatPickInfo[pickupid][pPos][2] = z;
-	}
-#endif
-
 fpublic: ac_DestroyVehicle(vehicleid)
 {
 	if(!DestroyVehicle(vehicleid)) return 0;
@@ -970,28 +898,6 @@ fpublic: ac_DestroyPickup(pickup)
 	AntiCheatPickInfo[pickup][pType] = 0;
 	return 1;
 }
-
-#if defined DestroyDynamicPickup
-	fpublic: ac_DestroyDynamicPickup(STREAMER_TAG_PICKUP pickupid)
-	{
-		if(!DestroyDynamicPickup(pickupid)) return 0;
-		AntiCheatPickInfo[pickupid][pType] = 0;
-		return 1;
-	}
-#endif
-
-#if defined DestroyAllDynamicPickups\
-	&& defined IsValidDynamicPickup
-	fpublic: ac_DestroyAllDynamicPickups()
-	{
-		if(!DestroyAllDynamicPickups()) return 0;
-		for(new STREAMER_TAG_PICKUP i = MAX_PICKUPS - 1; i != -1; --i)
-		{
-			if(IsValidDynamicPickup(i)) AntiCheatPickInfo[i][pType] = 0;
-		}
-		return 1;
-	}
-#endif
 
 fpublic: ac_DisableInteriorEnterExits()
 {
@@ -1028,9 +934,10 @@ fpublic: ac_EnableStuntBonusForPlayer(playerid, enable)
 	return 1;
 }
 
-fpublic: ac_ShowPlayerDialog(playerid, dialogid)
+fpublic: ac_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[])
 {
-	if(IsPlayerConnected(playerid)) AntiCheatInfo[playerid][pDialog] = dialogid;
+	if(!ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2)) return 0;
+	AntiCheatInfo[playerid][pDialog] = dialogid;
 	return 1;
 }
 
@@ -1067,7 +974,7 @@ fpublic: ac_SpawnPlayer(playerid)
 
 fpublic: ac_SetPlayerHealth(playerid, Float:health)
 {
-	if(health > 16777250.0) health = 16777250.0;
+	if(health > 16777250) health = 16777250.0;
 	if(!SetPlayerHealth(playerid, health)) return 0;
 	if(health < 0.0) health = 0.0;
 	AntiCheatInfo[playerid][pNOPCount][3] = 0;
@@ -1078,7 +985,7 @@ fpublic: ac_SetPlayerHealth(playerid, Float:health)
 
 fpublic: ac_SetPlayerArmour(playerid, Float:armour)
 {
-	if(armour > 16777250.0) armour = 16777250.0;
+	if(armour > 16777250) armour = 16777250.0;
 	if(!SetPlayerArmour(playerid, armour)) return 0;
 	if(armour < 0.0) armour = 0.0;
 	AntiCheatInfo[playerid][pNOPCount][5] = 0;
@@ -1090,38 +997,36 @@ fpublic: ac_SetPlayerArmour(playerid, Float:armour)
 fpublic: ac_GivePlayerWeapon(playerid, weaponid, ammo)
 {
 	if(!IsPlayerConnected(playerid)) return 0;
-	if(!(!AntiCheatInfo[playerid][pAmmo][WeaponSlots[weaponid]] && !ammo))
+	new s = GetWeaponSlot(weaponid);
+	if(!(!AntiCheatInfo[playerid][pAmmo][s] && !ammo))
 	{
-		AntiCheatInfo[playerid][pNOPCount][0] =
+		AntiCheatInfo[playerid][pNOPCount][0] = 0;
 		AntiCheatInfo[playerid][pNOPCount][1] = 0;
 		if(15 < weaponid < 44)
 		{
-			if(2 < WeaponSlots[weaponid] < 6
-			|| (AntiCheatInfo[playerid][pSetWeapon][WeaponSlots[weaponid]] ==
-			-1 ? AntiCheatInfo[playerid][pWeapon][WeaponSlots[weaponid]]
-			: AntiCheatInfo[playerid][pSetWeapon][WeaponSlots[weaponid]])
-			== weaponid)
+			if(2 < s < 6 || (AntiCheatInfo[playerid][pSetWeapon][s]
+			== -1 ? AntiCheatInfo[playerid][pWeapon][s]
+			: AntiCheatInfo[playerid][pSetWeapon][s]) == weaponid)
 			{
-				AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[weaponid]] =
-				(AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[weaponid]] == -65535
-				? AntiCheatInfo[playerid][pAmmo][WeaponSlots[weaponid]]
-				: AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[weaponid]]) + ammo;
+				AntiCheatInfo[playerid][pGiveAmmo][s]
+				= (AntiCheatInfo[playerid][pGiveAmmo][s] == -65535
+				? AntiCheatInfo[playerid][pAmmo][s]
+				: AntiCheatInfo[playerid][pGiveAmmo][s]) + ammo;
 			}
-			else AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[weaponid]] = ammo;
-			if(AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[weaponid]] < -32768) ammo =
-			AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[weaponid]] = -32768;
-			else if(AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[weaponid]] > 32767) ammo =
-			AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[weaponid]] = 32767;
-			if(weaponid == 40 && ammo >
-			0) AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[weaponid]] = ammo = 1;
+			else AntiCheatInfo[playerid][pGiveAmmo][s] = ammo;
+			if(AntiCheatInfo[playerid][pGiveAmmo][s] < -32768) ammo
+			= AntiCheatInfo[playerid][pGiveAmmo][s] = -32768;
+			else if(AntiCheatInfo[playerid][pGiveAmmo][s] > 32767) ammo
+			= AntiCheatInfo[playerid][pGiveAmmo][s] = 32767;
+			if(weaponid == 40 && ammo
+			> 0) AntiCheatInfo[playerid][pGiveAmmo][s] = ammo = 1;
 		}
-		AntiCheatInfo[playerid][pSet][3] =
-		AntiCheatInfo[playerid][pSetWeapon][WeaponSlots[weaponid]] = weaponid;
+		AntiCheatInfo[playerid][pSet][3]
+		= AntiCheatInfo[playerid][pSetWeapon][s] = weaponid;
 	}
 	GivePlayerWeapon(playerid, weaponid, ammo);
-	AntiCheatInfo[playerid][pGtcGiveAmmo][WeaponSlots[weaponid]]
-	= AntiCheatInfo[playerid][pGtcSetWeapon][WeaponSlots[weaponid]] =
-	AntiCheatInfo[playerid][pGtc][2] = GetTickCount();
+	AntiCheatInfo[playerid][pGtcGiveAmmo][s] = AntiCheatInfo[playerid][pGtcSetWeapon][s]
+	= AntiCheatInfo[playerid][pGtc][2] = GetTickCount();
 	return 1;
 }
 
@@ -1132,12 +1037,15 @@ fpublic: ac_SetPlayerAmmo(playerid, weaponslot, ammo)
 	else if(ammo > 32767) ammo = 32767;
 	if(weaponslot == 40 && ammo) ammo = 1;
 	SetPlayerAmmo(playerid, weaponslot, ammo);
-	if(15 < weaponslot < 44
-	&& AntiCheatInfo[playerid][pWeapon][WeaponSlots[weaponslot]])
+	if(15 < weaponslot < 44)
 	{
-		AntiCheatInfo[playerid][pNOPCount][1] = 0;
-		AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[weaponslot]] = ammo;
-		AntiCheatInfo[playerid][pGtcGiveAmmo][WeaponSlots[weaponslot]] = GetTickCount();
+		new s = GetWeaponSlot(weaponslot);
+		if(AntiCheatInfo[playerid][pWeapon][s])
+		{
+			AntiCheatInfo[playerid][pNOPCount][1] = 0;
+			AntiCheatInfo[playerid][pGiveAmmo][s] = ammo;
+			AntiCheatInfo[playerid][pGtcGiveAmmo][s] = GetTickCount();
+		}
 	}
 	return 1;
 }
@@ -1145,7 +1053,7 @@ fpublic: ac_SetPlayerAmmo(playerid, weaponslot, ammo)
 fpublic: ac_SetPlayerArmedWeapon(playerid, weaponid)
 {
 	if(!SetPlayerArmedWeapon(playerid, weaponid)) return 0;
-	if(weaponid == AntiCheatInfo[playerid][pWeapon][WeaponSlots[weaponid]])
+	if(weaponid == AntiCheatInfo[playerid][pWeapon][GetWeaponSlot(weaponid)])
 	{
 		AntiCheatInfo[playerid][pNOPCount][0] = 0;
 		AntiCheatInfo[playerid][pSet][3] = weaponid;
@@ -1159,7 +1067,7 @@ fpublic: ac_ResetPlayerWeapons(playerid)
 	if(!ResetPlayerWeapons(playerid)) return 0;
 	for(new i = 12; i != -1; --i)
 	{
-		AntiCheatInfo[playerid][pWeapon][i] =
+		AntiCheatInfo[playerid][pWeapon][i] = 0;
 		AntiCheatInfo[playerid][pAmmo][i] = 0;
 		AntiCheatInfo[playerid][pSetWeapon][i] = -1;
 		AntiCheatInfo[playerid][pGiveAmmo][i] = -65535;
@@ -1190,23 +1098,23 @@ fpublic: ac_SetPlayerSpecialAction(playerid, actionid)
 	if(!SetPlayerSpecialAction(playerid, actionid)) return 0;
 	if(actionid == 2 || actionid == 68 || 4 < actionid < 9
 	|| 9 < actionid < 12 || 19 < actionid < 26 || !actionid
-	&& AntiCheatInfo[playerid][pSpecAct] != 10 || actionid ==
-	13 && AntiCheatInfo[playerid][pSpecAct] == 11)
+	&& AntiCheatInfo[playerid][pSpecAct] != 10 || actionid
+	== 13 && AntiCheatInfo[playerid][pSpecAct] == 11)
 	{
 		AntiCheatInfo[playerid][pNOPCount][6] = 0;
-		if((actionid == 68 || 9 < actionid < 12 || 19 <
-		actionid < 26) && 4 < AntiCheatInfo[playerid][pSpecAct] <
-		9) AntiCheatInfo[playerid][pNextSpecAct] = actionid;
+		if((actionid == 68 || 9 < actionid < 12 || 19
+		< actionid < 26) && 4 < AntiCheatInfo[playerid][pSpecAct]
+		< 9) AntiCheatInfo[playerid][pNextSpecAct] = actionid;
 		else
 		{
 			if(actionid == 13) actionid = 0;
-			else if(actionid == 2) AntiCheatInfo[playerid][pNextSpecAct] =
-			AntiCheatInfo[playerid][pSpecAct];
+			else if(actionid == 2) AntiCheatInfo[playerid][pNextSpecAct]
+			= AntiCheatInfo[playerid][pSpecAct];
 			else AntiCheatInfo[playerid][pNextSpecAct] = -1;
 			AntiCheatInfo[playerid][pSet][4] = actionid;
 			AntiCheatInfo[playerid][pGtc][6] = GetTickCount();
-			if(AntiCheatInfo[playerid][pSpecAct] ==
-			11) AntiCheatInfo[playerid][pGtc][6] += 2500;
+			if(AntiCheatInfo[playerid][pSpecAct]
+			== 11) AntiCheatInfo[playerid][pGtc][6] += 2500;
 		}
 	}
 	return 1;
@@ -1219,8 +1127,7 @@ fpublic: ac_SetPlayerInterior(playerid, interiorid)
 	if(interiorid != GetPlayerInterior(playerid))
 	{
 		AntiCheatInfo[playerid][pNOPCount][2] = 0;
-		if(AntiCheatInfo[playerid][pDead]) AntiCheatInfo[playerid][pSet][12] = interiorid;
-		else AntiCheatInfo[playerid][pSet][0] = interiorid;
+		AntiCheatInfo[playerid][pSet][0] = interiorid;
 		AntiCheatInfo[playerid][pGtc][0] = GetTickCount();
 	}
 	return 1;
@@ -1253,7 +1160,7 @@ fpublic: ac_SetPlayerPosFindZ(playerid, Float:x, Float:y, Float:z)
 fpublic: ac_SetPlayerVelocity(playerid, Float:X, Float:Y, Float:Z)
 {
 	if(!SetPlayerVelocity(playerid, X, Y, Z)) return 0;
-	AntiCheatInfo[playerid][pSpeed] = GetSpeed(X,Y,Z);
+	AntiCheatInfo[playerid][pSpeed] = GetSpeed(X, Y, Z);
 	AntiCheatInfo[playerid][pGtc][10] = GetTickCount();
 	return 1;
 }
@@ -1285,19 +1192,17 @@ fpublic: ac_RemovePlayerFromVehicle(playerid)
 fpublic: ac_SetVehiclePos(vehicleid, Float:x, Float:y, Float:z)
 {
 	if(!SetVehiclePos(vehicleid, x, y, z)) return 0;
-	AntiCheatVehInfo[vehicleid][vVel][0] =
-	AntiCheatVehInfo[vehicleid][vVel][1] =
-	AntiCheatVehInfo[vehicleid][vVel][2] = 0.0;
+	for(new i = 2; i != -1; --i) AntiCheatVehInfo[vehicleid][vVel][i] = 0.0;
 	if(AntiCheatVehInfo[vehicleid][vDriver] != 65535)
 	{
 		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pSet][8] = 1;
 		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pNOPCount][10] = 0;
-		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pSetPos][0] =
-		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pPos][0] = x;
-		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pSetPos][1] =
-		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pPos][1] = y;
-		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pSetPos][2] =
-		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pPos][2] = z;
+		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pSetPos][0]
+		= AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pPos][0] = x;
+		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pSetPos][1]
+		= AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pPos][1] = y;
+		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pSetPos][2]
+		= AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pPos][2] = z;
 		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pGtc][11] =
 		AntiCheatInfo[AntiCheatVehInfo[vehicleid][vDriver]][pGtc][9] = GetTickCount();
 	}
@@ -1442,38 +1347,6 @@ stock acc_CreatePickup(model, type, Float:X, Float:Y, Float:Z, virtualworld = 0)
 #endif
 #define CreatePickup acc_CreatePickup
 
-#if defined CreateDynamicPickup
-	stock STREAMER_TAG_PICKUP acc_CreateDynamicPickup(modelid, type, Float:x, Float:y, Float:z, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = 100.0)
-	{
-		new STREAMER_TAG_PICKUP pickupid = CreateDynamicPickup(modelid, type, x, y, z, worldid, interiorid, playerid, streamdistance);
-		if(pickupid > 0) CallRemoteFunction("ac_CreateDynamicPickup", "iiifff", pickupid, modelid, type, x, y, z);
-		return pickupid;
-	}
-
-	#if defined _ALS_CreateDynamicPickup
-		#undef CreateDynamicPickup
-	#else
-		#define _ALS_CreateDynamicPickup
-	#endif
-	#define CreateDynamicPickup acc_CreateDynamicPickup
-#endif
-
-#if defined CreateDynamicPickupEx
-	stock STREAMER_TAG_PICKUP acc_CreateDynamicPickupEx(modelid, type, Float:x, Float:y, Float:z, Float:streamdistance = 100.0, worlds[] = { -1 }, interiors[] = { -1 }, players[] = { -1 }, maxworlds = sizeof worlds, maxinteriors = sizeof interiors, maxplayers = sizeof players)
-	{
-		new STREAMER_TAG_PICKUP pickupid = CreateDynamicPickupEx(modelid, type, x, y, z, streamdistance, worlds, interiors, players, maxworlds, maxinteriors, maxplayers);
-		if(pickupid > 0) CallRemoteFunction("ac_CreateDynamicPickup", "iiifff", pickupid, modelid, type, x, y, z);
-		return pickupid;
-	}
-
-	#if defined _ALS_CreateDynamicPickupEx
-		#undef CreateDynamicPickupEx
-	#else
-		#define _ALS_CreateDynamicPickupEx
-	#endif
-	#define CreateDynamicPickupEx acc_CreateDynamicPickupEx
-#endif
-
 stock acc_DestroyVehicle(vehicleid) return CallRemoteFunction("ac_DestroyVehicle", "i", vehicleid);
 
 #if defined _ALS_DestroyVehicle
@@ -1491,28 +1364,6 @@ stock acc_DestroyPickup(pickup) return CallRemoteFunction("ac_DestroyPickup", "i
 	#define _ALS_DestroyPickup
 #endif
 #define DestroyPickup acc_DestroyPickup
-
-#if defined DestroyDynamicPickup
-	stock acc_DestroyDynamicPickup(STREAMER_TAG_PICKUP pickupid) return CallRemoteFunction("ac_DestroyDynamicPickup", "i", pickupid);
-
-	#if defined _ALS_DestroyDynamicPickup
-		#undef DestroyDynamicPickup
-	#else
-		#define _ALS_DestroyDynamicPickup
-	#endif
-	#define DestroyDynamicPickup acc_DestroyDynamicPickup
-#endif
-
-#if defined DestroyAllDynamicPickups
-	stock acc_DestroyAllDynamicPickups() return CallRemoteFunction("ac_DestroyAllDynamicPickups", "");
-
-	#if defined _ALS_DestroyAllDynamicPickups
-		#undef DestroyAllDynamicPickups
-	#else
-		#define _ALS_DestroyAllDynamicPickups
-	#endif
-	#define DestroyAllDynamicPickups acc_DestroyAllDynamicPickups
-#endif
 
 stock acc_DisableInteriorEnterExits() return CallRemoteFunction("ac_DisableInteriorEnterExits", "");
 
@@ -1560,8 +1411,7 @@ stock acc_EnableStuntBonusForPlayer(playerid, enable) return CallRemoteFunction(
 #define EnableStuntBonusForPlayer acc_EnableStuntBonusForPlayer
 
 stock acc_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[])
-	return CallRemoteFunction("ac_ShowPlayerDialog", "id", playerid, dialogid),
-	ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2);
+	return CallRemoteFunction("ac_ShowPlayerDialog", "idissss", playerid, dialogid, style, caption, info, button1, button2);
 
 #if defined _ALS_ShowPlayerDialog
 	#undef ShowPlayerDialog
@@ -1799,11 +1649,7 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 
 #if !defined FILTERSCRIPT
 
-#if defined _inc_y_hooks
-	Hook:ac_OnGameModeInit()
-#else
-	public OnGameModeInit()
-#endif
+public OnGameModeInit()
 {
 	if(!LoadCfg()) printf(CFG_OPENING_ERROR, CONFIG_FILE);
 	if(ACAllow[42]) SendRconCommand("rcon 0");
@@ -1816,8 +1662,7 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 	print(LOADED_MSG_3);
 	print("--------------------------------------\n");
 	new a = 1;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnGameModeInit
+	#if defined ac_OnGameModeInit
 		a = ac_OnGameModeInit();
 	#endif
 	new strtmp[10];
@@ -1827,27 +1672,20 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 	return a;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnGameModeInit
-		#undef OnGameModeInit
-	#else
-		#define _ALS_OnGameModeInit
-	#endif
-	#define OnGameModeInit ac_OnGameModeInit
-	#if defined ac_OnGameModeInit
-		forward ac_OnGameModeInit();
-	#endif
+#if defined _ALS_OnGameModeInit
+	#undef OnGameModeInit
+#else
+	#define _ALS_OnGameModeInit
+#endif
+#define OnGameModeInit ac_OnGameModeInit
+#if defined ac_OnGameModeInit
+	forward ac_OnGameModeInit();
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnGameModeExit()
-#else
-	public OnGameModeExit()
-#endif
+public OnGameModeExit()
 {
 	new a = 1;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnGameModeExit
+	#if defined ac_OnGameModeExit
 		a = ac_OnGameModeExit();
 	#endif
 	print(" ");
@@ -1864,23 +1702,17 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 	return a;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnGameModeExit
-		#undef OnGameModeExit
-	#else
-		#define _ALS_OnGameModeExit
-	#endif
-	#define OnGameModeExit ac_OnGameModeExit
-	#if defined ac_OnGameModeExit
-		forward ac_OnGameModeExit();
-	#endif
+#if defined _ALS_OnGameModeExit
+	#undef OnGameModeExit
+#else
+	#define _ALS_OnGameModeExit
+#endif
+#define OnGameModeExit ac_OnGameModeExit
+#if defined ac_OnGameModeExit
+	forward ac_OnGameModeExit();
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerConnect(playerid)
-#else
-	public OnPlayerConnect(playerid)
-#endif
+public OnPlayerConnect(playerid)
 {
 	GetPlayerIp(playerid, AntiCheatInfo[playerid][pIp], 16);
 	if(IsPlayerNPC(playerid))
@@ -1926,17 +1758,15 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 			}
 		}
 		AntiCheatInfo[playerid][pDead] = true;
-		AntiCheatInfo[playerid][pSpawnRes] =
+		AntiCheatInfo[playerid][pSpawnRes] = false;
 		AntiCheatInfo[playerid][pDeathRes] = false;
 		AntiCheatInfo[playerid][pIntEnterExits] = IntEnterExits;
 		AntiCheatInfo[playerid][pStuntBonus] = StuntBonus;
-		AntiCheatInfo[playerid][pCheatCount][0] =
-		AntiCheatInfo[playerid][pLastWeapon] =
-		AntiCheatInfo[playerid][pKicked] =
-		AntiCheatInfo[playerid][pMoney] = 0;
-		AntiCheatInfo[playerid][pSet][12] =
-		AntiCheatInfo[playerid][pSet][0] =
+		AntiCheatInfo[playerid][pCheatCount][0] = 0;
+		AntiCheatInfo[playerid][pLastWeapon] = 0;
 		AntiCheatInfo[playerid][pDialog] = -1;
+		AntiCheatInfo[playerid][pKicked] = 0;
+		AntiCheatInfo[playerid][pMoney] = 0;
 		AntiCheatInfo[playerid][pAnim] = -2;
 		for(i = 12; i != -1; --i)
 		{
@@ -1944,37 +1774,29 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 			AntiCheatInfo[playerid][pGiveAmmo][i] = -65535;
 		}
 		for(i = 27; i != -1; --i) AntiCheatInfo[playerid][pFloodCount][i] = 0;
-		AntiCheatInfo[playerid][pDropJP][0] = AntiCheatInfo[playerid][pDropJP][1] =
-		AntiCheatInfo[playerid][pDropJP][2] = 20001.0;
-		memcpy(AntiCheatInfo[playerid][pACAllow], ACAllow, 0, sizeof(ACAllow) * 4, sizeof ACAllow);
+		for(i = 2; i != -1; --i) AntiCheatInfo[playerid][pDropJP][i] = 20001.0;
+		for(i = sizeof(ACAllow) - 1; i != -1; --i) AntiCheatInfo[playerid][pACAllow][i] = ACAllow[i];
 		AntiCheatInfo[playerid][pTimerID] = SetTimerEx("acTimer", 1000, false, "i", playerid);
 	}
 	AntiCheatInfo[playerid][pOnline] = true;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerConnect
+	#if defined ac_OnPlayerConnect
 		return ac_OnPlayerConnect(playerid);
 	#else
 		return 1;
 	#endif
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerConnect
-		#undef OnPlayerConnect
-	#else
-		#define _ALS_OnPlayerConnect
-	#endif
-	#define OnPlayerConnect ac_OnPlayerConnect
-	#if defined ac_OnPlayerConnect
-		forward ac_OnPlayerConnect(playerid);
-	#endif
+#if defined _ALS_OnPlayerConnect
+	#undef OnPlayerConnect
+#else
+	#define _ALS_OnPlayerConnect
+#endif
+#define OnPlayerConnect ac_OnPlayerConnect
+#if defined ac_OnPlayerConnect
+	forward ac_OnPlayerConnect(playerid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerDisconnect(playerid, reason)
-#else
-	public OnPlayerDisconnect(playerid, reason)
-#endif
+public OnPlayerDisconnect(playerid, reason)
 {
 	if(AntiCheatInfo[playerid][pOnline])
 	{
@@ -2005,163 +1827,132 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 				AntiCheatVehInfo[AntiCheatInfo[playerid][pVeh]][vPaintJob]);
 			}
 		}
-		#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerDisconnect
+		#if defined ac_OnPlayerDisconnect
 			return ac_OnPlayerDisconnect(playerid, reason);
 		#endif
 	}
 	return 1;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerDisconnect
-		#undef OnPlayerDisconnect
-	#else
-		#define _ALS_OnPlayerDisconnect
-	#endif
-	#define OnPlayerDisconnect ac_OnPlayerDisconnect
-	#if defined ac_OnPlayerDisconnect
-		forward ac_OnPlayerDisconnect(playerid, reason);
-	#endif
+#if defined _ALS_OnPlayerDisconnect
+	#undef OnPlayerDisconnect
+#else
+	#define _ALS_OnPlayerDisconnect
+#endif
+#define OnPlayerDisconnect ac_OnPlayerDisconnect
+#if defined ac_OnPlayerDisconnect
+	forward ac_OnPlayerDisconnect(playerid, reason);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerSpawn(playerid)
-#else
-	public OnPlayerSpawn(playerid)
-#endif
+public OnPlayerSpawn(playerid)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	if(!IsPlayerNPC(playerid))
 	{
+		new i = GetTickCount();
 		if(AntiCheatInfo[playerid][pACAllow][27] && AntiCheatInfo[playerid][pSet][7] == -1
-		&& (!AntiCheatInfo[playerid][pSpawnRes] || GetTickCount() < AntiCheatInfo[playerid][pSpawnTime]
+		&& (!AntiCheatInfo[playerid][pSpawnRes] || i < AntiCheatInfo[playerid][pSpawnTime]
 		+ 1000)) KickWithCode(playerid, "", 0, 27);
-		new i;
-		for(i = 10; i != 0; --i) AntiCheatInfo[playerid][pSet][i] = -1;
+		for(i = 10; i != -1; --i) AntiCheatInfo[playerid][pSet][i] = -1;
 		for(i = 12; i != -1; --i)
 		{
-			AntiCheatInfo[playerid][pWeapon][i] =
+			AntiCheatInfo[playerid][pWeapon][i] = 0;
 			AntiCheatInfo[playerid][pAmmo][i] = 0;
 			AntiCheatInfo[playerid][pSetWeapon][i] = -1;
 			AntiCheatInfo[playerid][pGiveAmmo][i] = -65535;
 		}
-		AntiCheatInfo[playerid][pParachute] =
-		AntiCheatInfo[playerid][pVehDmgRes] =
-		AntiCheatInfo[playerid][pSpawnRes] =
-		AntiCheatInfo[playerid][pModShop] =
-		AntiCheatInfo[playerid][pDmgRes] =
-		AntiCheatInfo[playerid][pPicked] =
-		AntiCheatInfo[playerid][pTpToZ] =
-		AntiCheatInfo[playerid][pDead] = false;
+		AntiCheatInfo[playerid][pParachute] = false;
+		AntiCheatInfo[playerid][pVehDmgRes] = false;
+		AntiCheatInfo[playerid][pSpawnRes] = false;
+		AntiCheatInfo[playerid][pNextSpecAct] = -1;
+		AntiCheatInfo[playerid][pLastSpecAct] = 0;
+		AntiCheatInfo[playerid][pModShop] = false;
+		AntiCheatInfo[playerid][pDmgRes] = false;
 		AntiCheatInfo[playerid][pFreeze] = true;
-		AntiCheatInfo[playerid][pNextSpecAct] =
-		AntiCheatInfo[playerid][pLastPickup] =
-		AntiCheatInfo[playerid][pSeat] = -1;
-		AntiCheatInfo[playerid][pLastSpecAct] =
-		AntiCheatInfo[playerid][pSpecAct] =
-		AntiCheatInfo[playerid][pVeh] = 0;
+		AntiCheatInfo[playerid][pTpToZ] = false;
+		AntiCheatInfo[playerid][pDead] = false;
+		AntiCheatInfo[playerid][pSpecAct] = 0;
 		AntiCheatInfo[playerid][pSpeed] = 0.0;
+		AntiCheatInfo[playerid][pSeat] = -1;
+		AntiCheatInfo[playerid][pVeh] = 0;
 		SetPlayerHealth(playerid, 100.0);
 		SetPlayerArmour(playerid, 0.0);
 		for(i = 2; i != -1; --i)
 		{
 			if(AntiCheatInfo[playerid][pSpawnWeapon][i] != -1)
 			{
-				AntiCheatInfo[playerid][pWeapon][WeaponSlots[AntiCheatInfo[playerid]
-				[pSpawnWeapon][i]]] = AntiCheatInfo[playerid][pSpawnWeapon][i];
-				AntiCheatInfo[playerid][pAmmo][WeaponSlots[AntiCheatInfo[playerid]
-				[pSpawnWeapon][i]]] = AntiCheatInfo[playerid][pSpawnAmmo][i];
+				AntiCheatInfo[playerid][pWeapon][GetWeaponSlot(AntiCheatInfo[playerid]
+				[pSpawnWeapon][i])] = AntiCheatInfo[playerid][pSpawnWeapon][i];
+				AntiCheatInfo[playerid][pAmmo][GetWeaponSlot(AntiCheatInfo[playerid]
+				[pSpawnWeapon][i])] = AntiCheatInfo[playerid][pSpawnAmmo][i];
 			}
 		}
 	}
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerSpawn
+	#if defined ac_OnPlayerSpawn
 		return ac_OnPlayerSpawn(playerid);
 	#else
 		return 1;
 	#endif
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerSpawn
-		#undef OnPlayerSpawn
-	#else
-		#define _ALS_OnPlayerSpawn
-	#endif
-	#define OnPlayerSpawn ac_OnPlayerSpawn
-	#if defined ac_OnPlayerSpawn
-		forward ac_OnPlayerSpawn(playerid);
-	#endif
+#if defined _ALS_OnPlayerSpawn
+	#undef OnPlayerSpawn
+#else
+	#define _ALS_OnPlayerSpawn
+#endif
+#define OnPlayerSpawn ac_OnPlayerSpawn
+#if defined ac_OnPlayerSpawn
+	forward ac_OnPlayerSpawn(playerid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerDeath(playerid, killerid, reason)
-#else
-	public OnPlayerDeath(playerid, killerid, reason)
-#endif
+public OnPlayerDeath(playerid, killerid, reason)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	if(AntiCheatInfo[playerid][pACAllow][28] && (AntiCheatInfo[playerid][pDead]
 	|| !AntiCheatInfo[playerid][pDeathRes] && reason != 255 && (reason != 54
 	|| killerid != 65535))) KickWithCode(playerid, "", 0, 28);
 	AntiCheatInfo[playerid][pDeathRes] = false;
-	AntiCheatInfo[playerid][pSet][0] = -1;
-	AntiCheatInfo[playerid][pSpawnRes] =
+	AntiCheatInfo[playerid][pSpawnRes] = true;
 	AntiCheatInfo[playerid][pDead] = true;
-	AntiCheatInfo[playerid][pSpawnTime] = GetTickCount();
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerDeath
-		return ac_OnPlayerDeath(playerid, killerid, reason);
-	#else
-		return 1;
+	new a = 1;
+	#if defined ac_OnPlayerDeath
+		a = ac_OnPlayerDeath(playerid, killerid, reason);
 	#endif
+	AntiCheatInfo[playerid][pSpawnTime] = GetTickCount();
+	return a;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerDeath
-		#undef OnPlayerDeath
-	#else
-		#define _ALS_OnPlayerDeath
-	#endif
-	#define OnPlayerDeath ac_OnPlayerDeath
-	#if defined ac_OnPlayerDeath
-		forward ac_OnPlayerDeath(playerid, killerid, reason);
-	#endif
+#if defined _ALS_OnPlayerDeath
+	#undef OnPlayerDeath
+#else
+	#define _ALS_OnPlayerDeath
+#endif
+#define OnPlayerDeath ac_OnPlayerDeath
+#if defined ac_OnPlayerDeath
+	forward ac_OnPlayerDeath(playerid, killerid, reason);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
-#else
-	public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
-#endif
+public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 {
 	AntiCheatInfo[playerid][pDeathRes] = true;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerTakeDamage
+	#if defined ac_OnPlayerTakeDamage
 		return ac_OnPlayerTakeDamage(playerid, issuerid, amount, weaponid, bodypart);
 	#else
 		return 1;
 	#endif
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerTakeDamage
-		#undef OnPlayerTakeDamage
-	#else
-		#define _ALS_OnPlayerTakeDamage
-	#endif
-	#define OnPlayerTakeDamage ac_OnPlayerTakeDamage
-	#if defined ac_OnPlayerTakeDamage
-		forward ac_OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
-	#endif
+#if defined _ALS_OnPlayerTakeDamage
+	#undef OnPlayerTakeDamage
+#else
+	#define _ALS_OnPlayerTakeDamage
+#endif
+#define OnPlayerTakeDamage ac_OnPlayerTakeDamage
+#if defined ac_OnPlayerTakeDamage
+	forward ac_OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
-#else
-	public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
-#endif
+public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount();
@@ -2174,36 +1965,29 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 	if(AntiCheatInfo[playerid][pACAllow][39] && dialogid
 	!= AntiCheatInfo[playerid][pDialog]) return KickWithCode(playerid, "", 0, 39);
 	AntiCheatInfo[playerid][pDialog] = -1;
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][0] = i;
 	if(AntiCheatInfo[playerid][pACAllow][45])
 	{
 		while((i = strfind(inputtext, "%")) != -1) strdel(inputtext, i, i + 1);
 	}
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnDialogResponse
-		return ac_OnDialogResponse(playerid, dialogid, response, listitem, inputtext);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnDialogResponse
+		i = ac_OnDialogResponse(playerid, dialogid, response, listitem, inputtext);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][0] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnDialogResponse
-		#undef OnDialogResponse
-	#else
-		#define _ALS_OnDialogResponse
-	#endif
-	#define OnDialogResponse ac_OnDialogResponse
-	#if defined ac_OnDialogResponse
-		forward ac_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]);
-	#endif
+#if defined _ALS_OnDialogResponse
+	#undef OnDialogResponse
+#else
+	#define _ALS_OnDialogResponse
+#endif
+#define OnDialogResponse ac_OnDialogResponse
+#if defined ac_OnDialogResponse
+	forward ac_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnEnterExitModShop(playerid, enterexit, interiorid)
-#else
-	public OnEnterExitModShop(playerid, enterexit, interiorid)
-#endif
+public OnEnterExitModShop(playerid, enterexit, interiorid)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	#if !USE_TUNING_GARAGES
@@ -2218,34 +2002,27 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		}
 		AntiCheatInfo[playerid][pSet][0] = interiorid;
 		AntiCheatInfo[playerid][pModShop] = !!enterexit;
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][1] = i;
-		#if !defined _inc_y_hooks\
-			&& defined ac_OnEnterExitModShop
-			return ac_OnEnterExitModShop(playerid, enterexit, interiorid);
-		#else
-			return 1;
+		i = 1;
+		#if defined ac_OnEnterExitModShop
+			i = ac_OnEnterExitModShop(playerid, enterexit, interiorid);
 		#endif
+		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][1] = GetTickCount();
+		return i;
 	#endif
 	#undef USE_TUNING_GARAGES
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnEnterExitModShop
-		#undef OnEnterExitModShop
-	#else
-		#define _ALS_OnEnterExitModShop
-	#endif
-	#define OnEnterExitModShop ac_OnEnterExitModShop
-	#if defined ac_OnEnterExitModShop
-		forward ac_OnEnterExitModShop(playerid, enterexit, interiorid);
-	#endif
+#if defined _ALS_OnEnterExitModShop
+	#undef OnEnterExitModShop
+#else
+	#define _ALS_OnEnterExitModShop
+#endif
+#define OnEnterExitModShop ac_OnEnterExitModShop
+#if defined ac_OnEnterExitModShop
+	forward ac_OnEnterExitModShop(playerid, enterexit, interiorid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
-#else
-	public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
-#endif
+public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 {
 	if(!IsPlayerConnected(playerid)
 	|| AntiCheatInfo[playerid][pKicked]) return 0;
@@ -2256,40 +2033,32 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		{
 			if(AntiCheatInfo[playerid][pACAllow][3]) KickWithCode(playerid, "", 0, 3, 1);
 		}
-		else if(AntiCheatInfo[playerid][pACAllow][2] && !AntiCheatInfo[playerid][pIntEnterExits]
-		&& newinteriorid != AntiCheatInfo[playerid][pSet][12]) KickWithCode(playerid, "", 0, 2, 1);
+		else if(AntiCheatInfo[playerid][pACAllow][2]
+		&& !AntiCheatInfo[playerid][pIntEnterExits]) KickWithCode(playerid, "", 0, 2, 1);
 		GetPlayerPos(playerid, AntiCheatInfo[playerid][pPos][0],
 		AntiCheatInfo[playerid][pPos][1], AntiCheatInfo[playerid][pPos][2]);
 	}
 	if(!AntiCheatInfo[playerid][pKicked] && i) AntiCheatVehInfo[i][vInt] = newinteriorid;
-	if(AntiCheatInfo[playerid][pSet][12] == -1) AntiCheatInfo[playerid][pSet][0] = -1;
-	else AntiCheatInfo[playerid][pSet][12] = -1;
-	AntiCheatInfo[playerid][pGtc][11] = GetTickCount() + 1400;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerInteriorChange
-		return ac_OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid);
-	#else
-		return 1;
+	AntiCheatInfo[playerid][pSet][0] = -1;
+	i = 1;
+	#if defined ac_OnPlayerInteriorChange
+		i = ac_OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid);
 	#endif
+	AntiCheatInfo[playerid][pGtc][11] = GetTickCount() + 1400;
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerInteriorChange
-		#undef OnPlayerInteriorChange
-	#else
-		#define _ALS_OnPlayerInteriorChange
-	#endif
-	#define OnPlayerInteriorChange ac_OnPlayerInteriorChange
-	#if defined ac_OnPlayerInteriorChange
-		forward ac_OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid);
-	#endif
+#if defined _ALS_OnPlayerInteriorChange
+	#undef OnPlayerInteriorChange
+#else
+	#define _ALS_OnPlayerInteriorChange
+#endif
+#define OnPlayerInteriorChange ac_OnPlayerInteriorChange
+#if defined ac_OnPlayerInteriorChange
+	forward ac_OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnRconLoginAttempt(ip[], password[], success)
-#else
-	public OnRconLoginAttempt(ip[], password[], success)
-#endif
+public OnRconLoginAttempt(ip[], password[], success)
 {
 	if(ACAllow[42])
 	{
@@ -2331,31 +2100,24 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 			iptables[ip_index][1] = 0;
 		}
 	}
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnRconLoginAttempt
+	#if defined ac_OnRconLoginAttempt
 		return ac_OnRconLoginAttempt(ip, password, success);
 	#else
 		return 1;
 	#endif
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnRconLoginAttempt
-		#undef OnRconLoginAttempt
-	#else
-		#define _ALS_OnRconLoginAttempt
-	#endif
-	#define OnRconLoginAttempt ac_OnRconLoginAttempt
-	#if defined ac_OnRconLoginAttempt
-		forward ac_OnRconLoginAttempt(ip[], password[], success);
-	#endif
+#if defined _ALS_OnRconLoginAttempt
+	#undef OnRconLoginAttempt
+#else
+	#define _ALS_OnRconLoginAttempt
+#endif
+#define OnRconLoginAttempt ac_OnRconLoginAttempt
+#if defined ac_OnRconLoginAttempt
+	forward ac_OnRconLoginAttempt(ip[], password[], success);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerUpdate(playerid)
-#else
-	public OnPlayerUpdate(playerid)
-#endif
+public OnPlayerUpdate(playerid)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	static gpp, bool:ur;
@@ -2367,27 +2129,29 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		{
 			if(gpp > MAX_PING)
 			{
-				if(++AntiCheatInfo[playerid][pCheatCount][0] >
-				MAX_PING_WARNINGS) return KickWithCode(playerid, "", 0, 38);
+				if(++AntiCheatInfo[playerid][pCheatCount][0]
+				> MAX_PING_WARNINGS) return KickWithCode(playerid, "", 0, 38);
 				#undef MAX_PING_WARNINGS
 			}
 			else AntiCheatInfo[playerid][pCheatCount][0] = 0;
 		}
 		static stateanim;
-		if((stateanim = GetPlayerState(playerid)) != 9)
+		stateanim = GetPlayerState(playerid);
+		if(stateanim != 9)
 		{
 			gpp += 100;
-			static gtc, w, a;
+			static gtc, w, s, a;
 			gtc = GetTickCount();
 			a = GetPlayerAmmo(playerid);
 			w = GetPlayerWeapon(playerid);
+			s = GetWeaponSlot(w);
 			if(AntiCheatInfo[playerid][pSet][3] != -1)
 			{
 				if(AntiCheatInfo[playerid][pSet][3] == w)
 				{
-					AntiCheatInfo[playerid][pSet][3] =
-					AntiCheatInfo[playerid][pSetWeapon][WeaponSlots[w]] = -1;
-					AntiCheatInfo[playerid][pWeapon][WeaponSlots[w]] = w;
+					AntiCheatInfo[playerid][pSet][3] = -1;
+					AntiCheatInfo[playerid][pSetWeapon][s] = -1;
+					AntiCheatInfo[playerid][pWeapon][s] = w;
 				}
 				else if(AntiCheatInfo[playerid][pACAllow][52] && !(1 < stateanim < 4)
 				&& gtc > AntiCheatInfo[playerid][pGtc][2] + gpp
@@ -2399,15 +2163,15 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 					return KickWithCode(playerid, "", 0, 52, 1);
 				}
 			}
-			if(AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[w]] != -65535)
+			if(AntiCheatInfo[playerid][pGiveAmmo][s] != -65535)
 			{
-				if(AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[w]] == a)
+				if(AntiCheatInfo[playerid][pGiveAmmo][s] == a)
 				{
-					AntiCheatInfo[playerid][pGiveAmmo][WeaponSlots[w]] = -65535;
-					AntiCheatInfo[playerid][pAmmo][WeaponSlots[w]] = a;
+					AntiCheatInfo[playerid][pGiveAmmo][s] = -65535;
+					AntiCheatInfo[playerid][pAmmo][s] = a;
 				}
-				else if(AntiCheatInfo[playerid][pACAllow][52] && gtc >
-				AntiCheatInfo[playerid][pGtcGiveAmmo][WeaponSlots[w]] + gpp
+				else if(AntiCheatInfo[playerid][pACAllow][52] && gtc
+				> AntiCheatInfo[playerid][pGtcGiveAmmo][s] + gpp
 				&& ++AntiCheatInfo[playerid][pNOPCount][1] > MAX_NOP_WARNINGS)
 				{
 					#if defined DEBUG
@@ -2420,54 +2184,39 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 			i = GetPlayerInterior(playerid);
 			if(AntiCheatInfo[playerid][pLastWeapon] != w)
 			{
-				if(AntiCheatInfo[playerid][pWeapon][WeaponSlots[w]] != w)
+				if(AntiCheatInfo[playerid][pWeapon][s] != w)
 				{
 					if(w == 40 || w == 46 && AntiCheatInfo[playerid][pVeh]
 					&& AntiCheatInfo[playerid][pParachute])
 					{
-						AntiCheatInfo[playerid][pWeapon][WeaponSlots[w]] = w;
-						AntiCheatInfo[playerid][pAmmo][WeaponSlots[w]] = a;
+						AntiCheatInfo[playerid][pWeapon][s] = w;
+						AntiCheatInfo[playerid][pAmmo][s] = a;
 					}
 					else if(21 < w < 33 && IsPlayerInAmmuNation(playerid, i))
 					{
 						if(AntiCheatInfo[playerid][pSet][10]
 						!= -1) AntiCheatInfo[playerid][pSet][10] += AmmuNationInfo[w-22][0];
 						else AntiCheatInfo[playerid][pSet][10] = AmmuNationInfo[w-22][0];
-						AntiCheatInfo[playerid][pAmmo][WeaponSlots[w]] = AmmuNationInfo[w-22][1];
+						AntiCheatInfo[playerid][pAmmo][s] = AmmuNationInfo[w-22][1];
 						AntiCheatInfo[playerid][pCheatCount][10] = 0;
-						AntiCheatInfo[playerid][pWeapon][WeaponSlots[w]] = w;
+						AntiCheatInfo[playerid][pWeapon][s] = w;
 						ur = true;
 					}
-					else if(AntiCheatInfo[playerid][pLastPickup] > -1
-					&& AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pWeapon] == w
-					&& a == PickupAmmo[AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pWeapon]]
-					&& IsPlayerInRangeOfPoint(playerid, 5.0, AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pPos][0],
-					AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pPos][1],
-					AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pPos][2]))
-					{
-						AntiCheatInfo[playerid][pWeapon][WeaponSlots[w]] = w;
-						if(2 < WeaponSlots[AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pWeapon]] <
-						6) AntiCheatInfo[playerid][pAmmo][WeaponSlots[w]] +=
-						PickupAmmo[AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pWeapon]];
-						else AntiCheatInfo[playerid][pAmmo][WeaponSlots[w]] =
-						PickupAmmo[AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pWeapon]];
-					}
 					else if(AntiCheatInfo[playerid][pACAllow][15]
-					&& AntiCheatInfo[playerid][pSetWeapon][WeaponSlots[w]] == -1
 					&& gtc > AntiCheatInfo[playerid][pGtc][7]
 					+ gpp) return KickWithCode(playerid, "", 0, 15, 1);
 				}
 				AntiCheatInfo[playerid][pShot] = false;
 			}
-			else if(AntiCheatInfo[playerid][pAmmo][WeaponSlots[w]] != a)
+			else if(AntiCheatInfo[playerid][pAmmo][s] != a)
 			{
 				switch(w)
 				{
 					case 16, 17, 18, 35, 36, 39, 43:
 					{
-						if(AntiCheatInfo[playerid][pACAllow][16] && (!AntiCheatInfo[playerid][pAmmo][WeaponSlots[w]]
-						|| AntiCheatInfo[playerid][pAmmo][WeaponSlots[w]] - 1 != a)) return KickWithCode(playerid, "", 0, 16, 1);
-						AntiCheatInfo[playerid][pAmmo][WeaponSlots[w]]--;
+						if(AntiCheatInfo[playerid][pACAllow][16] && (!AntiCheatInfo[playerid][pAmmo][s]
+						|| AntiCheatInfo[playerid][pAmmo][s] - 1 != a)) return KickWithCode(playerid, "", 0, 16, 1);
+						AntiCheatInfo[playerid][pAmmo][s]--;
 					}
 				}
 			}
@@ -2499,8 +2248,8 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 			if(AntiCheatInfo[playerid][pACAllow][19] && AntiCheatInfo[playerid][pDmgRes])
 			{
 				if(health < AntiCheatInfo[playerid][pHealth]) AntiCheatInfo[playerid][pDmgRes] = false;
-				else if(gtc > AntiCheatInfo[playerid][pGtc][14] + gpp * 2 && ++AntiCheatInfo[playerid][pCheatCount][9] >
-				MAX_NOP_WARNINGS) return KickWithCode(playerid, "", 0, 19);
+				else if(gtc > AntiCheatInfo[playerid][pGtc][14] + gpp && ++AntiCheatInfo[playerid][pCheatCount][9]
+				> MAX_NOP_WARNINGS) return KickWithCode(playerid, "", 0, 19);
 			}
 			static Float:armour;
 			GetPlayerArmour(playerid, armour);
@@ -2551,11 +2300,11 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 			}
 			else if(AntiCheatInfo[playerid][pSet][10] != -1 && a < AntiCheatInfo[playerid][pMoney])
 			{
-				if(AntiCheatInfo[playerid][pSet][10] ==
-				(AntiCheatInfo[playerid][pMoney] - a)) AntiCheatInfo[playerid][pSet][10] = -1;
+				if(AntiCheatInfo[playerid][pSet][10]
+				== (AntiCheatInfo[playerid][pMoney] - a)) AntiCheatInfo[playerid][pSet][10] = -1;
 				else if(AntiCheatInfo[playerid][pACAllow][15] && gtc > AntiCheatInfo[playerid][pGtc][15]
-				+ 1030 && ++AntiCheatInfo[playerid][pCheatCount][10] >
-				MAX_NOP_WARNINGS) return KickWithCode(playerid, "", 0, 15, 3);
+				+ 1030 && ++AntiCheatInfo[playerid][pCheatCount][10]
+				> MAX_NOP_WARNINGS) return KickWithCode(playerid, "", 0, 15, 3);
 			}
 			if(AntiCheatInfo[playerid][pACAllow][52])
 			{
@@ -2592,7 +2341,7 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 					return KickWithCode(playerid, "", 0, 52, 8);
 				}
 			}
-			static s, Float:ppos[3];
+			static Float:ppos[3];
 			s = GetPlayerVehicleSeat(playerid);
 			GetPlayerPos(playerid, ppos[0], ppos[1], ppos[2]);
 			if(AntiCheatInfo[playerid][pSet][9] != -1)
@@ -2615,9 +2364,9 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 						AntiCheatInfo[playerid][pSetVehHealth] = -1;
 					}
 					AntiCheatInfo[playerid][pVehDmgRes] = false;
-					AntiCheatInfo[playerid][pSet][11] =
-					AntiCheatInfo[playerid][pSet][9] =
-					AntiCheatInfo[playerid][pSet][8] =
+					AntiCheatInfo[playerid][pSet][11] = -1;
+					AntiCheatInfo[playerid][pSet][9] = -1;
+					AntiCheatInfo[playerid][pSet][8] = -1;
 					AntiCheatInfo[playerid][pSet][5] = -1;
 					AntiCheatInfo[playerid][pSeat] = s;
 				}
@@ -2634,23 +2383,20 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 			{
 				if(AntiCheatInfo[playerid][pSet][8] != -1)
 				{
-					if(IsPlayerInRangeOfPoint(playerid, 5.0, AntiCheatInfo[playerid][pSetPos][0],
+					if(IsPlayerInRangeOfPoint(playerid, 3.0, AntiCheatInfo[playerid][pSetPos][0],
 					AntiCheatInfo[playerid][pSetPos][1], (AntiCheatInfo[playerid][pTpToZ]
 					? ppos[2] : AntiCheatInfo[playerid][pSetPos][2])))
 					{
 						AntiCheatInfo[playerid][pSet][8] = -1;
 						AntiCheatInfo[playerid][pGtc][11] = 0;
 						AntiCheatInfo[playerid][pTpToZ] = false;
-						AntiCheatInfo[playerid][pPos][0] = ppos[0];
-						AntiCheatInfo[playerid][pPos][1] = ppos[1];
-						AntiCheatInfo[playerid][pPos][2] = ppos[2];
 					}
 					else if(gtc > AntiCheatInfo[playerid][pGtc][11] + gpp)
 					{
 						AntiCheatInfo[playerid][pTpToZ] = false;
 						if(AntiCheatInfo[playerid][pACAllow][52]
-						&& ++AntiCheatInfo[playerid][pNOPCount][10] >
-						MAX_NOP_WARNINGS)
+						&& ++AntiCheatInfo[playerid][pNOPCount][10]
+						> MAX_NOP_WARNINGS)
 						{
 							#if defined DEBUG
 								printf(DEBUG_CODE_5, playerid, "SetPlayerPos");
@@ -2681,8 +2427,8 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 					{
 						if(AntiCheatInfo[playerid][pACAllow][32] && AntiCheatVehInfo[vehid][vDriver] != 65535
 						&& AntiCheatVehInfo[vehid][vDriver] != playerid) return ClearAnimations(playerid, 1);
-						if(AntiCheatInfo[playerid][pACAllow][35] && GetPlayerCameraMode(playerid) ==
-						55) return KickWithCode(playerid, "", 0, 35);
+						if(AntiCheatInfo[playerid][pACAllow][35] && GetPlayerCameraMode(playerid)
+						== 55) return KickWithCode(playerid, "", 0, 35);
 						static Float:vhealth;
 						GetVehicleHealth(vehid, vhealth);
 						if(AntiCheatInfo[playerid][pSetVehHealth] != -1)
@@ -2697,14 +2443,14 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 								return KickWithCode(playerid, "", 0, 52, 11);
 							}
 						}
-						else if(AntiCheatInfo[playerid][pACAllow][11] && vhealth >
-						AntiCheatVehInfo[vehid][vHealth] && !AntiCheatInfo[playerid][pModShop]
+						else if(AntiCheatInfo[playerid][pACAllow][11] && vhealth
+						> AntiCheatVehInfo[vehid][vHealth] && !AntiCheatInfo[playerid][pModShop]
 						&& !IsPlayerInPayNSpray(playerid, i)) return KickWithCode(playerid, "", 0, 11);
 						if(AntiCheatInfo[playerid][pACAllow][20] && AntiCheatInfo[playerid][pVehDmgRes])
 						{
 							if(vhealth < AntiCheatVehInfo[vehid][vHealth]) AntiCheatInfo[playerid][pVehDmgRes] = false;
-							else if(gtc > AntiCheatInfo[playerid][pGtc][16] + gpp * 2 && ++AntiCheatInfo[playerid][pCheatCount][11] >
-							MAX_NOP_WARNINGS) return KickWithCode(playerid, "", 0, 20);
+							else if(gtc > AntiCheatInfo[playerid][pGtc][16] + gpp && ++AntiCheatInfo[playerid][pCheatCount][11]
+							> MAX_NOP_WARNINGS) return KickWithCode(playerid, "", 0, 20);
 						}
 						static Float:zangle;
 						GetVehicleZAngle(vehid, zangle);
@@ -2713,51 +2459,50 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 						GetVehicleVelocity(vehid, pvel[0], pvel[1], pvel[2]);
 						if(gtc > AntiCheatInfo[playerid][pGtc][9] + gpp)
 						{
-							i = GetVehicleModel(vehid) - 400;
+							i = GetVehicleModel(vehid);
 							static Float:vsp, Float:spdiff;
-							vsp = GetSpeed(pvel[0],pvel[1],pvel[2]);
-							spdiff = vsp - GetSpeed(AntiCheatVehInfo[vehid][vVel][0],AntiCheatVehInfo[vehid][vVel][1],AntiCheatVehInfo[vehid][vVel][2]);
-							if(AntiCheatInfo[playerid][pACAllow][10] && spdiff >= 20.0 && AntiCheatVehInfo[vehid][vHealth] ==
-							vhealth && AntiCheatVehInfo[vehid][vSpeedDiff] <= spdiff && (i < 0 || VehicleTypes[i] != 2 || floatabs(pvel[0]) >
-							0.3 || floatabs(pvel[1]) > 0.3 || floatabs(pvel[2]) > 0.3)) return KickWithCode(playerid, "", 0, 10, 1);
+							vsp = GetSpeed(pvel[0], pvel[1], pvel[2]);
+							spdiff = vsp - GetSpeed(AntiCheatVehInfo[vehid][vVel][0],
+							AntiCheatVehInfo[vehid][vVel][1], AntiCheatVehInfo[vehid][vVel][2]);
+							if(AntiCheatInfo[playerid][pACAllow][10] && spdiff >= 20.0 && AntiCheatVehInfo[vehid][vHealth]
+							== vhealth && AntiCheatVehInfo[vehid][vSpeedDiff] <= spdiff && (!IsBikeVehicle(i) || floatabs(pvel[0])
+							> 0.3 || floatabs(pvel[1]) > 0.3 || floatabs(pvel[2]) > 0.3)) return KickWithCode(playerid, "", 0, 10, 1);
 							if(AntiCheatInfo[playerid][pACAllow][25] && vsp > 15.0 && floatabs(spdiff) < 25.0
 							&& floatround(floatabs(zangle - AntiCheatVehInfo[vehid][vZAngle])) == 180 && (pvel[0] < 0.0)
 							!= (AntiCheatVehInfo[vehid][vVel][0] < 0.0) && (pvel[1] < 0.0) != (AntiCheatVehInfo[vehid][vVel][1] < 0.0)
 							&& (pvel[2] < 0.0) != (AntiCheatVehInfo[vehid][vVel][2] < 0.0)) return KickWithCode(playerid, "", 0, 25);
 							static Float:zdiff;
 							zdiff = ppos[2] - AntiCheatInfo[playerid][pPos][2];
-							if(i > -1 && VehicleTypes[i] == 1)
+							if(IsAirVehicle(i))
 							{
 								if(AntiCheatInfo[playerid][pACAllow][10] && vsp > 269.0) return KickWithCode(playerid, "", 0, 10, 2);
 							}
-							else if(AntiCheatInfo[playerid][pACAllow][8] && pvel[2] >= 0.1 && pvel[2] >
-							AntiCheatVehInfo[vehid][vVel][2] && floatabs(AntiCheatInfo[playerid][pPos][0] - ppos[0]) <
-							zdiff * 1.2 && floatabs(AntiCheatInfo[playerid][pPos][1] - ppos[1]) < zdiff * 1.2)
+							else if(AntiCheatInfo[playerid][pACAllow][8] && pvel[2] >= 0.1 && pvel[2]
+							> AntiCheatVehInfo[vehid][vVel][2] && floatabs(AntiCheatInfo[playerid][pPos][0] - ppos[0])
+							< zdiff * 1.2 && floatabs(AntiCheatInfo[playerid][pPos][1] - ppos[1]) < zdiff * 1.2)
 							{
-								if(++AntiCheatInfo[playerid][pCheatCount][3] >
-								MAX_FLYHACK_VEH_WARNINGS) return KickWithCode(playerid, "", 0, 8, 1);
+								if(++AntiCheatInfo[playerid][pCheatCount][3]
+								> MAX_FLYHACK_VEH_WARNINGS) return KickWithCode(playerid, "", 0, 8, 1);
 							}
 							else AntiCheatInfo[playerid][pCheatCount][3] = 0;
 							if(vctsize > 0.4 && gtc > AntiCheatInfo[playerid][pGtc][11] + gpp)
 							{
 								if(vctsize > 15.0 && vctsize > AntiCheatVehInfo[vehid][vPosDiff] + ((vctsize / 3) * 1.5))
 								{
-									if(AntiCheatInfo[playerid][pACAllow][3] && AntiCheatInfo[playerid][pPos][2] >
-									-97.0) return KickWithCode(playerid, "", 0, 3, 2);
+									if(AntiCheatInfo[playerid][pACAllow][3] && AntiCheatInfo[playerid][pPos][2]
+									> -97.0) return KickWithCode(playerid, "", 0, 3, 2);
 								}
 								else if(AntiCheatInfo[playerid][pACAllow][1] && vsp < 16.0 && vctsize > 0.8)
 								{
-									if(++AntiCheatInfo[playerid][pCheatCount][2] >
-									MAX_AIR_VEH_WARNINGS) return KickWithCode(playerid, "", 0, 1);
+									if(++AntiCheatInfo[playerid][pCheatCount][2]
+									> MAX_AIR_VEH_WARNINGS) return KickWithCode(playerid, "", 0, 1);
 									#undef MAX_AIR_VEH_WARNINGS
 								}
 								else AntiCheatInfo[playerid][pCheatCount][2] = 0;
 							}
 							AntiCheatVehInfo[vehid][vSpeedDiff] = spdiff;
 						}
-						AntiCheatVehInfo[vehid][vVel][0] = pvel[0];
-						AntiCheatVehInfo[vehid][vVel][1] = pvel[1];
-						AntiCheatVehInfo[vehid][vVel][2] = pvel[2];
+						for(i = 2; i != -1; --i) AntiCheatVehInfo[vehid][vVel][i] = pvel[i];
 						AntiCheatVehInfo[vehid][vPosDiff] = vctsize;
 						AntiCheatVehInfo[vehid][vHealth] = vhealth;
 						AntiCheatVehInfo[vehid][vZAngle] = zangle;
@@ -2775,7 +2520,7 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 					}
 					stateanim = GetPlayerAnimationIndex(playerid);
 					GetPlayerVelocity(playerid, pvel[0], pvel[1], pvel[2]);
-					pvel[0] = GetSpeed(pvel[0],pvel[1],pvel[2]);
+					pvel[0] = GetSpeed(pvel[0], pvel[1], pvel[2]);
 					if(AntiCheatInfo[playerid][pAnim] != stateanim)
 					{
 						switch(stateanim)
@@ -2838,16 +2583,15 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 								case 1:
 								{
 									if(AntiCheatInfo[playerid][pSpecAct]
-									&& !(19 < AntiCheatInfo[playerid][pSpecAct] <
-									25)) return KickWithCode(playerid, "", 0, 18, 2);
+									&& !(19 < AntiCheatInfo[playerid][pSpecAct]
+									< 25)) return KickWithCode(playerid, "", 0, 18, 2);
 								}
 								case 2:
 								{
-									if(!IsPlayerInRangeOfPoint(playerid, 5.0,
+									if(!IsPlayerInRangeOfPoint(playerid, 3.0,
 									AntiCheatInfo[playerid][pDropJP][0], AntiCheatInfo[playerid][pDropJP][1],
 									AntiCheatInfo[playerid][pDropJP][2])) return KickWithCode(playerid, "", 0, 18, 3);
-									AntiCheatInfo[playerid][pDropJP][0] = AntiCheatInfo[playerid][pDropJP][1] =
-									AntiCheatInfo[playerid][pDropJP][2] = 20001.0;
+									for(i = 2; i != -1; --i) AntiCheatInfo[playerid][pDropJP][i] = 20001.0;
 								}
 								case 3:
 								{
@@ -2858,8 +2602,8 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 								}
 								default:
 								{
-									if(!(19 < specact < 25 && AntiCheatInfo[playerid][pSpecAct] == 1 && specact ==
-									AntiCheatInfo[playerid][pLastSpecAct]) && !((specact == 4 || specact == 11 || specact == 24
+									if(!(19 < specact < 25 && AntiCheatInfo[playerid][pSpecAct] == 1 && specact
+									== AntiCheatInfo[playerid][pLastSpecAct]) && !((specact == 4 || specact == 11 || specact == 24
 									|| specact == 25) && AntiCheatInfo[playerid][pVeh]) && !(AntiCheatInfo[playerid][pSpecAct] == 3
 									&& specact == AntiCheatInfo[playerid][pLastSpecAct])) return KickWithCode(playerid, "", 0, 18, 5);
 								}
@@ -2867,8 +2611,8 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 						}
 						AntiCheatInfo[playerid][pLastSpecAct] = AntiCheatInfo[playerid][pSpecAct];
 					}
-					if(gtc > AntiCheatInfo[playerid][pGtc][10] + gpp && GetPlayerSurfingVehicleID(playerid) ==
-					65535 && GetPlayerSurfingObjectID(playerid) == 65535)
+					if(gtc > AntiCheatInfo[playerid][pGtc][10] + gpp && GetPlayerSurfingVehicleID(playerid)
+					== 65535 && GetPlayerSurfingObjectID(playerid) == 65535)
 					{
 						if(AntiCheatInfo[playerid][pACAllow][9] && pvel[0] > 211.0
 						&& AntiCheatInfo[playerid][pSpeed] < pvel[0]) return KickWithCode(playerid, "", 0, 9);
@@ -2877,8 +2621,8 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 							if(vctsize > 30.0)
 							{
 								if(AntiCheatInfo[playerid][pACAllow][2]
-								&& AntiCheatInfo[playerid][pPos][2] >
-								-97.0) return KickWithCode(playerid, "", 0, 2, 2);
+								&& AntiCheatInfo[playerid][pPos][2]
+								> -97.0) return KickWithCode(playerid, "", 0, 2, 2);
 							}
 							else if(pvel[0] <= vctsize * (vctsize < 1.0 ? 30.0 : 5.0))
 							{
@@ -2887,8 +2631,8 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 									if(AntiCheatInfo[playerid][pACAllow][2]) return KickWithCode(playerid, "", 0, 2, 3);
 								}
 								else if(AntiCheatInfo[playerid][pACAllow][0] && pvel[0]
-								&& ++AntiCheatInfo[playerid][pCheatCount][1] >
-								MAX_AIR_WARNINGS) return KickWithCode(playerid, "", 0, 0);
+								&& ++AntiCheatInfo[playerid][pCheatCount][1]
+								> MAX_AIR_WARNINGS) return KickWithCode(playerid, "", 0, 0);
 								#undef MAX_AIR_WARNINGS
 							}
 						}
@@ -2900,17 +2644,14 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 				AntiCheatInfo[playerid][pHealth] = floatround(health, floatround_tozero);
 				AntiCheatInfo[playerid][pArmour] = floatround(armour, floatround_tozero);
 			}
-			AntiCheatInfo[playerid][pPos][0] = ppos[0];
-			AntiCheatInfo[playerid][pPos][1] = ppos[1];
-			AntiCheatInfo[playerid][pPos][2] = ppos[2];
+			for(i = 2; i != -1; --i) AntiCheatInfo[playerid][pPos][i] = ppos[i];
 			AntiCheatInfo[playerid][pLastWeapon] = w;
 			AntiCheatInfo[playerid][pVeh] = vehid;
 			AntiCheatInfo[playerid][pMoney] = a;
 		}
 	}
 	gpp = 1;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerUpdate
+	#if defined ac_OnPlayerUpdate
 		gpp = ac_OnPlayerUpdate(playerid);
 	#endif
 	AntiCheatInfo[playerid][pLastUpdate] = GetTickCount();
@@ -2919,56 +2660,41 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 	return gpp;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerUpdate
-		#undef OnPlayerUpdate
-	#else
-		#define _ALS_OnPlayerUpdate
-	#endif
-	#define OnPlayerUpdate ac_OnPlayerUpdate
-	#if defined ac_OnPlayerUpdate
-		forward ac_OnPlayerUpdate(playerid);
-	#endif
+#if defined _ALS_OnPlayerUpdate
+	#undef OnPlayerUpdate
+#else
+	#define _ALS_OnPlayerUpdate
+#endif
+#define OnPlayerUpdate ac_OnPlayerUpdate
+#if defined ac_OnPlayerUpdate
+	forward ac_OnPlayerUpdate(playerid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
-#else
-	public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
-#endif
+public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	if(newkeys & 16 && AntiCheatInfo[playerid][pSpecAct] ==
-	2 && GetPlayerSpecialAction(playerid) != 2)
+	if(newkeys & 16 && AntiCheatInfo[playerid][pSpecAct]
+	== 2 && GetPlayerSpecialAction(playerid) != 2)
 	{
-		AntiCheatInfo[playerid][pDropJP][0] = AntiCheatInfo[playerid][pPos][0];
-		AntiCheatInfo[playerid][pDropJP][1] = AntiCheatInfo[playerid][pPos][1];
-		AntiCheatInfo[playerid][pDropJP][2] = AntiCheatInfo[playerid][pPos][2];
+		for(new i = 2; i != -1; --i) AntiCheatInfo[playerid][pDropJP][i] = AntiCheatInfo[playerid][pPos][i];
 	}
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerKeyStateChange
+	#if defined ac_OnPlayerKeyStateChange
 		return ac_OnPlayerKeyStateChange(playerid, newkeys, oldkeys);
 	#else
 		return 1;
 	#endif
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerKeyStateChange
-		#undef OnPlayerKeyStateChange
-	#else
-		#define _ALS_OnPlayerKeyStateChange
-	#endif
-	#define OnPlayerKeyStateChange ac_OnPlayerKeyStateChange
-	#if defined ac_OnPlayerKeyStateChange
-		forward ac_OnPlayerKeyStateChange(playerid, newkeys, oldkeys);
-	#endif
+#if defined _ALS_OnPlayerKeyStateChange
+	#undef OnPlayerKeyStateChange
+#else
+	#define _ALS_OnPlayerKeyStateChange
+#endif
+#define OnPlayerKeyStateChange ac_OnPlayerKeyStateChange
+#if defined ac_OnPlayerKeyStateChange
+	forward ac_OnPlayerKeyStateChange(playerid, newkeys, oldkeys);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
-#else
-	public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
-#endif
+public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount();
@@ -2978,32 +2704,25 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
 		else AntiCheatInfo[playerid][pFloodCount][2] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][2] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerClickMap
-		return ac_OnPlayerClickMap(playerid, fX, fY, fZ);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnPlayerClickMap
+		i = ac_OnPlayerClickMap(playerid, fX, fY, fZ);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][2] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerClickMap
-		#undef OnPlayerClickMap
-	#else
-		#define _ALS_OnPlayerClickMap
-	#endif
-	#define OnPlayerClickMap ac_OnPlayerClickMap
-	#if defined ac_OnPlayerClickMap
-		forward ac_OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ);
-	#endif
+#if defined _ALS_OnPlayerClickMap
+	#undef OnPlayerClickMap
+#else
+	#define _ALS_OnPlayerClickMap
+#endif
+#define OnPlayerClickMap ac_OnPlayerClickMap
+#if defined ac_OnPlayerClickMap
+	forward ac_OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerClickPlayer(playerid, clickedplayerid, source)
-#else
-	public OnPlayerClickPlayer(playerid, clickedplayerid, source)
-#endif
+public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount();
@@ -3013,32 +2732,25 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
 		else AntiCheatInfo[playerid][pFloodCount][3] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][3] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerClickPlayer
-		return ac_OnPlayerClickPlayer(playerid, clickedplayerid, source);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnPlayerClickPlayer
+		i = ac_OnPlayerClickPlayer(playerid, clickedplayerid, source);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][3] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerClickPlayer
-		#undef OnPlayerClickPlayer
-	#else
-		#define _ALS_OnPlayerClickPlayer
-	#endif
-	#define OnPlayerClickPlayer ac_OnPlayerClickPlayer
-	#if defined ac_OnPlayerClickPlayer
-		forward ac_OnPlayerClickPlayer(playerid, clickedplayerid, source);
-	#endif
+#if defined _ALS_OnPlayerClickPlayer
+	#undef OnPlayerClickPlayer
+#else
+	#define _ALS_OnPlayerClickPlayer
+#endif
+#define OnPlayerClickPlayer ac_OnPlayerClickPlayer
+#if defined ac_OnPlayerClickPlayer
+	forward ac_OnPlayerClickPlayer(playerid, clickedplayerid, source);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerClickTextDraw(playerid, Text:clickedid)
-#else
-	public OnPlayerClickTextDraw(playerid, Text:clickedid)
-#endif
+public OnPlayerClickTextDraw(playerid, Text:clickedid)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount();
@@ -3048,32 +2760,25 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
 		else AntiCheatInfo[playerid][pFloodCount][4] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][4] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerClickTextDraw
-		return ac_OnPlayerClickTextDraw(playerid, clickedid);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnPlayerClickTextDraw
+		i = ac_OnPlayerClickTextDraw(playerid, clickedid);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][4] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerClickTextDraw
-		#undef OnPlayerClickTextDraw
-	#else
-		#define _ALS_OnPlayerClickTextDraw
-	#endif
-	#define OnPlayerClickTextDraw ac_OnPlayerClickTextDraw
-	#if defined ac_OnPlayerClickTextDraw
-		forward ac_OnPlayerClickTextDraw(playerid, Text:clickedid);
-	#endif
+#if defined _ALS_OnPlayerClickTextDraw
+	#undef OnPlayerClickTextDraw
+#else
+	#define _ALS_OnPlayerClickTextDraw
+#endif
+#define OnPlayerClickTextDraw ac_OnPlayerClickTextDraw
+#if defined ac_OnPlayerClickTextDraw
+	forward ac_OnPlayerClickTextDraw(playerid, Text:clickedid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerCommandText(playerid, cmdtext[])
-#else
-	public OnPlayerCommandText(playerid, cmdtext[])
-#endif
+public OnPlayerCommandText(playerid, cmdtext[])
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 1;
 	new i = GetTickCount();
@@ -3087,46 +2792,37 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
 		else AntiCheatInfo[playerid][pFloodCount][5] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][5] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerCommandText
-		return ac_OnPlayerCommandText(playerid, cmdtext);
-	#else
-		return 0;
+	i = 0;
+	#if defined ac_OnPlayerCommandText
+		i = ac_OnPlayerCommandText(playerid, cmdtext);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][5] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerCommandText
-		#undef OnPlayerCommandText
-	#else
-		#define _ALS_OnPlayerCommandText
-	#endif
-	#define OnPlayerCommandText ac_OnPlayerCommandText
-	#if defined ac_OnPlayerCommandText
-		forward ac_OnPlayerCommandText(playerid, cmdtext[]);
-	#endif
+#if defined _ALS_OnPlayerCommandText
+	#undef OnPlayerCommandText
+#else
+	#define _ALS_OnPlayerCommandText
+#endif
+#define OnPlayerCommandText ac_OnPlayerCommandText
+#if defined ac_OnPlayerCommandText
+	forward ac_OnPlayerCommandText(playerid, cmdtext[]);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
-#else
-	public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
-#endif
+public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
 	if(!IsPlayerConnected(playerid)
 	|| AntiCheatInfo[playerid][pKicked]) return 0;
-	new bool:ur;
+	new i = GetTickCount(), bool:ur;
 	if(!IsPlayerNPC(playerid))
 	{
-		new i = GetTickCount();
 		if(AntiCheatInfo[playerid][pACAllow][49])
 		{
 			if(i < AntiCheatInfo[playerid][pCall][6] + Mtfc[6][0]) return FloodDetect(playerid, 6);
 			if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
 			else AntiCheatInfo[playerid][pFloodCount][6] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 		}
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][6] = i;
 		i = GetVehicleModel(vehicleid);
 		if(AntiCheatInfo[playerid][pACAllow][44]
 		&& i == -1) return KickWithCode(playerid, "", 0, 44, 1);
@@ -3135,8 +2831,8 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		TmpPos[0] = VectorSize(AntiCheatInfo[playerid][pPos][0]
 		- TmpPos[0], AntiCheatInfo[playerid][pPos][1] - TmpPos[1],
 		AntiCheatInfo[playerid][pPos][2] - TmpPos[2]);
-		if(AntiCheatInfo[playerid][pACAllow][4] && (!(i == 577 || i == 592) && TmpPos[0] >
-		15.0 || TmpPos[0] > 40.0)) return KickWithCode(playerid, "", 0, 4, 3);
+		if(AntiCheatInfo[playerid][pACAllow][4] && (!(i == 577 || i == 592) && TmpPos[0]
+		> 15.0 || TmpPos[0] > 40.0)) return KickWithCode(playerid, "", 0, 4, 3);
 		if(AntiCheatInfo[playerid][pEnterVeh] == vehicleid) ur = true;
 		else
 		{
@@ -3146,36 +2842,30 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 			if(TmpPrm1)
 			{
 				AntiCheatInfo[playerid][pEnterVeh] = vehicleid;
-				if(VehicleTypes[i-400] == 3) AntiCheatInfo[playerid][pEnterVehTime] = 0, ur = true;
+				if(IsBoatVehicle(i)) AntiCheatInfo[playerid][pEnterVehTime] = 0, ur = true;
 			}
 		}
 	}
-	if(!ur) AntiCheatInfo[playerid][pEnterVehTime] = AntiCheatInfo[playerid][pCall][27];
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerEnterVehicle
-		return ac_OnPlayerEnterVehicle(playerid, vehicleid, ispassenger);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnPlayerEnterVehicle
+		i = ac_OnPlayerEnterVehicle(playerid, vehicleid, ispassenger);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][6] = GetTickCount();
+	if(!ur) AntiCheatInfo[playerid][pEnterVehTime] = AntiCheatInfo[playerid][pCall][27];
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerEnterVehicle
-		#undef OnPlayerEnterVehicle
-	#else
-		#define _ALS_OnPlayerEnterVehicle
-	#endif
-	#define OnPlayerEnterVehicle ac_OnPlayerEnterVehicle
-	#if defined ac_OnPlayerEnterVehicle
-		forward ac_OnPlayerEnterVehicle(playerid, vehicleid, ispassenger);
-	#endif
+#if defined _ALS_OnPlayerEnterVehicle
+	#undef OnPlayerEnterVehicle
+#else
+	#define _ALS_OnPlayerEnterVehicle
+#endif
+#define OnPlayerEnterVehicle ac_OnPlayerEnterVehicle
+#if defined ac_OnPlayerEnterVehicle
+	forward ac_OnPlayerEnterVehicle(playerid, vehicleid, ispassenger);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerExitVehicle(playerid, vehicleid)
-#else
-	public OnPlayerExitVehicle(playerid, vehicleid)
-#endif
+public OnPlayerExitVehicle(playerid, vehicleid)
 {
 	if(!IsPlayerConnected(playerid)
 	|| AntiCheatInfo[playerid][pKicked]) return 0;
@@ -3192,185 +2882,104 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		548, 553, 563, 577, 592, 593: AntiCheatInfo[playerid][pParachute] = true;
 		default: AntiCheatInfo[playerid][pParachute] = false;
 	}
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][7] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerExitVehicle
-		return ac_OnPlayerExitVehicle(playerid, vehicleid);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnPlayerExitVehicle
+		i = ac_OnPlayerExitVehicle(playerid, vehicleid);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][7] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerExitVehicle
-		#undef OnPlayerExitVehicle
-	#else
-		#define _ALS_OnPlayerExitVehicle
-	#endif
-	#define OnPlayerExitVehicle ac_OnPlayerExitVehicle
-	#if defined ac_OnPlayerExitVehicle
-		forward ac_OnPlayerExitVehicle(playerid, vehicleid);
-	#endif
-#endif
-
-#if defined OnPlayerPickUpDynamicPickup\
-	&& defined IsValidDynamicPickup
-	#if defined _inc_y_hooks
-		Hook:ac_OnPlayerPickUpDynamicPickup(playerid, STREAMER_TAG_PICKUP pickupid)
-	#else
-		public OnPlayerPickUpDynamicPickup(playerid, STREAMER_TAG_PICKUP pickupid)
-	#endif
-	{
-		if(!IsPlayerConnected(playerid) || AntiCheatInfo[playerid][pKicked]
-		|| !IsValidDynamicPickup(pickupid)) return 0;
-		new i = GetTickCount();
-		if(AntiCheatInfo[playerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[playerid][pCall][8] + Mtfc[8][0]) FloodDetect(playerid, 8);
-			else if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-			else AntiCheatInfo[playerid][pFloodCount][8] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
-		}
-		if(AntiCheatInfo[playerid][pACAllow][6] && !IsPlayerInRangeOfPoint(playerid, 5.0,
-		AntiCheatPickInfo[pickupid][pPos][0], AntiCheatPickInfo[pickupid][pPos][1],
-		AntiCheatPickInfo[pickupid][pPos][2])) return KickWithCode(playerid, "", 0, 6, 2);
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][8] = i;
-		switch(AntiCheatPickInfo[pickupid][pType])
-		{
-			case 1:
-			{
-				i = WeaponSlots[AntiCheatPickInfo[pickupid][pWeapon]];
-				if(AntiCheatInfo[playerid][pWeapon][i] ==
-				AntiCheatPickInfo[pickupid][pWeapon]) AntiCheatInfo[playerid][pAmmo][i] +=
-				PickupAmmo[AntiCheatPickInfo[pickupid][pWeapon]];
-			}
-			case 2: AntiCheatInfo[playerid][pSpecAct] = 2;
-			case 3: AntiCheatInfo[playerid][pHealth] = 100;
-			case 4: AntiCheatInfo[playerid][pArmour] = 100;
-		}
-		AntiCheatInfo[playerid][pLastPickup] = pickupid;
-		AntiCheatInfo[playerid][pPicked] = true;
-		#if !defined _inc_y_hooks\
-			&& defined ac_OnPlayerPickUpDynamicPickup
-			return ac_OnPlayerPickUpDynamicPickup(playerid, pickupid);
-		#else
-			return 1;
-		#endif
-	}
-
-	#if !defined _inc_y_hooks
-		#if defined _ALS_OnPlayerPick\
-			UpDynamicPickup
-			#undef OnPlayerPickUpDynamicPickup
-		#else
-			#define _ALS_OnPlayerPickUpDynamicPickup
-		#endif
-		#define OnPlayerPickUpDynamicPickup ac_OnPlayerPickUpDynamicPickup
-		#if defined ac_OnPlayerPickUpDynamicPickup
-			forward ac_OnPlayerPickUpDynamicPickup(playerid, STREAMER_TAG_PICKUP pickupid);
-		#endif
-	#endif
-#endif
-
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerPickUpPickup(playerid, pickupid)
+#if defined _ALS_OnPlayerExitVehicle
+	#undef OnPlayerExitVehicle
 #else
-	public OnPlayerPickUpPickup(playerid, pickupid)
+	#define _ALS_OnPlayerExitVehicle
 #endif
+#define OnPlayerExitVehicle ac_OnPlayerExitVehicle
+#if defined ac_OnPlayerExitVehicle
+	forward ac_OnPlayerExitVehicle(playerid, vehicleid);
+#endif
+
+public OnPlayerPickUpPickup(playerid, pickupid)
 {
 	if(!IsPlayerConnected(playerid)
 	|| AntiCheatInfo[playerid][pKicked]) return 0;
-	if(!AntiCheatInfo[playerid][pPicked])
-	{
-		new i = GetTickCount();
-		if(AntiCheatInfo[playerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[playerid][pCall][8] + Mtfc[8][0]) FloodDetect(playerid, 8);
-			else if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-			else AntiCheatInfo[playerid][pFloodCount][8] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
-		}
-		if(AntiCheatInfo[playerid][pACAllow][6]
-		&& (!(-1 < pickupid < MAX_PICKUPS) || !IsPlayerInRangeOfPoint(playerid,
-		5.0, AntiCheatPickInfo[pickupid][pPos][0], AntiCheatPickInfo[pickupid][pPos][1],
-		AntiCheatPickInfo[pickupid][pPos][2]))) return KickWithCode(playerid, "", 0, 6, 1);
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][8] = i;
-		switch(AntiCheatPickInfo[pickupid][pType])
-		{
-			case 1:
-			{
-				i = WeaponSlots[AntiCheatPickInfo[pickupid][pWeapon]];
-				if(AntiCheatInfo[playerid][pWeapon][i] ==
-				AntiCheatPickInfo[pickupid][pWeapon]) AntiCheatInfo[playerid][pAmmo][i] +=
-				PickupAmmo[AntiCheatPickInfo[pickupid][pWeapon]];
-			}
-			case 2: AntiCheatInfo[playerid][pSpecAct] = 2;
-			case 3: AntiCheatInfo[playerid][pHealth] = 100;
-			case 4: AntiCheatInfo[playerid][pArmour] = 100;
-		}
-		AntiCheatInfo[playerid][pLastPickup] = pickupid;
-	}
-	else AntiCheatInfo[playerid][pPicked] = false;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerPickUpPickup
-		if(!AntiCheatPickInfo[pickupid][pIsStatic]) return ac_OnPlayerPickUpPickup(playerid, pickupid);
-		return 1;
-	#else
-		return 1;
-	#endif
-}
-
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerPickUpPickup
-		#undef OnPlayerPickUpPickup
-	#else
-		#define _ALS_OnPlayerPickUpPickup
-	#endif
-	#define OnPlayerPickUpPickup ac_OnPlayerPickUpPickup
-	#if defined ac_OnPlayerPickUpPickup
-		forward ac_OnPlayerPickUpPickup(playerid, pickupid);
-	#endif
-#endif
-
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerRequestClass(playerid, classid)
-#else
-	public OnPlayerRequestClass(playerid, classid)
-#endif
-{
-	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount();
 	if(AntiCheatInfo[playerid][pACAllow][49])
 	{
-		if(i < AntiCheatInfo[playerid][pCall][9] + Mtfc[9][0]) return FloodDetect(playerid, 9);
-		if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-		else AntiCheatInfo[playerid][pFloodCount][9] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
+		if(i < AntiCheatInfo[playerid][pCall][8] + Mtfc[8][0]) FloodDetect(playerid, 8);
+		else if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
+		else AntiCheatInfo[playerid][pFloodCount][8] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pClassid] = classid;
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][9] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerRequestClass
-		return ac_OnPlayerRequestClass(playerid, classid);
-	#else
-		return 1;
+	if(AntiCheatInfo[playerid][pACAllow][6]
+	&& (!(-1 < pickupid < MAX_PICKUPS) || !IsPlayerInRangeOfPoint(playerid,
+	3.0, AntiCheatPickInfo[pickupid][pPos][0], AntiCheatPickInfo[pickupid][pPos][1],
+	AntiCheatPickInfo[pickupid][pPos][2]))) return KickWithCode(playerid, "", 0, 6);
+	switch(AntiCheatPickInfo[pickupid][pType])
+	{
+		case 1:
+		{
+			i = GetWeaponSlot(AntiCheatPickInfo[pickupid][pWeapon]);
+			AntiCheatInfo[playerid][pWeapon][i] = AntiCheatPickInfo[pickupid][pWeapon];
+			if(AntiCheatInfo[playerid][pWeapon][i] == AntiCheatPickInfo[pickupid][pWeapon]
+			|| 2 < i < 6) AntiCheatInfo[playerid][pAmmo][i] += PickupAmmo[AntiCheatPickInfo[pickupid][pWeapon]];
+			else AntiCheatInfo[playerid][pAmmo][i] = PickupAmmo[AntiCheatPickInfo[pickupid][pWeapon]];
+		}
+		case 2: AntiCheatInfo[playerid][pSpecAct] = 2;
+		case 3: AntiCheatInfo[playerid][pHealth] = 100;
+		case 4: AntiCheatInfo[playerid][pArmour] = 100;
+	}
+	i = 1;
+	#if defined ac_OnPlayerPickUpPickup
+		if(!AntiCheatPickInfo[pickupid][pIsStatic]) i = ac_OnPlayerPickUpPickup(playerid, pickupid);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][8] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerRequestClass
-		#undef OnPlayerRequestClass
-	#else
-		#define _ALS_OnPlayerRequestClass
-	#endif
-	#define OnPlayerRequestClass ac_OnPlayerRequestClass
-	#if defined ac_OnPlayerRequestClass
-		forward ac_OnPlayerRequestClass(playerid, classid);
-	#endif
+#if defined _ALS_OnPlayerPickUpPickup
+	#undef OnPlayerPickUpPickup
+#else
+	#define _ALS_OnPlayerPickUpPickup
+#endif
+#define OnPlayerPickUpPickup ac_OnPlayerPickUpPickup
+#if defined ac_OnPlayerPickUpPickup
+	forward ac_OnPlayerPickUpPickup(playerid, pickupid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerSelectedMenuRow(playerid, row)
+public OnPlayerRequestClass(playerid, classid)
+{
+	if(AntiCheatInfo[playerid][pKicked]) return 0;
+	new i = GetTickCount();
+	if(!IsPlayerNPC(playerid))
+	{
+		if(AntiCheatInfo[playerid][pACAllow][49])
+		{
+			if(i < AntiCheatInfo[playerid][pCall][9] + Mtfc[9][0]) return FloodDetect(playerid, 9);
+			if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
+			else AntiCheatInfo[playerid][pFloodCount][9] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
+		}
+		AntiCheatInfo[playerid][pClassid] = classid;
+	}
+	i = 1;
+	#if defined ac_OnPlayerRequestClass
+		i = ac_OnPlayerRequestClass(playerid, classid);
+	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][9] = GetTickCount();
+	return i;
+}
+
+#if defined _ALS_OnPlayerRequestClass
+	#undef OnPlayerRequestClass
 #else
-	public OnPlayerSelectedMenuRow(playerid, row)
+	#define _ALS_OnPlayerRequestClass
 #endif
+#define OnPlayerRequestClass ac_OnPlayerRequestClass
+#if defined ac_OnPlayerRequestClass
+	forward ac_OnPlayerRequestClass(playerid, classid);
+#endif
+
+public OnPlayerSelectedMenuRow(playerid, row)
 {
 	if(!IsPlayerConnected(playerid)
 	|| AntiCheatInfo[playerid][pKicked]) return 0;
@@ -3381,32 +2990,25 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		else if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
 		else AntiCheatInfo[playerid][pFloodCount][10] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][10] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerSelectedMenuRow
-		return ac_OnPlayerSelectedMenuRow(playerid, row);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnPlayerSelectedMenuRow
+		i = ac_OnPlayerSelectedMenuRow(playerid, row);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][10] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerSelectedMenuRow
-		#undef OnPlayerSelectedMenuRow
-	#else
-		#define _ALS_OnPlayerSelectedMenuRow
-	#endif
-	#define OnPlayerSelectedMenuRow ac_OnPlayerSelectedMenuRow
-	#if defined ac_OnPlayerSelectedMenuRow
-		forward ac_OnPlayerSelectedMenuRow(playerid, row);
-	#endif
+#if defined _ALS_OnPlayerSelectedMenuRow
+	#undef OnPlayerSelectedMenuRow
+#else
+	#define _ALS_OnPlayerSelectedMenuRow
+#endif
+#define OnPlayerSelectedMenuRow ac_OnPlayerSelectedMenuRow
+#if defined ac_OnPlayerSelectedMenuRow
+	forward ac_OnPlayerSelectedMenuRow(playerid, row);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerStateChange(playerid, newstate, oldstate)
-#else
-	public OnPlayerStateChange(playerid, newstate, oldstate)
-#endif
+public OnPlayerStateChange(playerid, newstate, oldstate)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount(), bool:ur;
@@ -3427,8 +3029,8 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 			{
 				case 2:
 				{
-					if(AntiCheatVehInfo[AntiCheatInfo[playerid][pVeh]][vDriver] ==
-					playerid) AntiCheatVehInfo[AntiCheatInfo[playerid][pVeh]][vDriver] = 65535;
+					if(AntiCheatVehInfo[AntiCheatInfo[playerid][pVeh]][vDriver]
+					== playerid) AntiCheatVehInfo[AntiCheatInfo[playerid][pVeh]][vDriver] = 65535;
 					if(GetVehicleModel(AntiCheatInfo[playerid][pVeh]) == 457
 					&& !AntiCheatInfo[playerid][pWeapon][1]) AntiCheatInfo[playerid][pWeapon][1] = 2;
 					AntiCheatInfo[playerid][pVehDmgRes] = false;
@@ -3445,7 +3047,7 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 			}
 			new Float:TmpVel[3];
 			GetPlayerVelocity(playerid, TmpVel[0], TmpVel[1], TmpVel[2]);
-			AntiCheatInfo[playerid][pSpeed] = GetSpeed(TmpVel[0],TmpVel[1],TmpVel[2]);
+			AntiCheatInfo[playerid][pSpeed] = GetSpeed(TmpVel[0], TmpVel[1], TmpVel[2]);
 			ur = true;
 		}
 		switch(newstate)
@@ -3462,8 +3064,8 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 				i = GetPlayerVehicleID(playerid);
 				if(AntiCheatInfo[playerid][pACAllow][44])
 				{
-					new seatid;
-					if((seatid = GetPlayerVehicleSeat(playerid)) != 128)
+					new seatid = GetPlayerVehicleSeat(playerid);
+					if(seatid != 128)
 					{
 						new model = GetVehicleModel(i) - 400;
 						if(seatid || model < 0 || MaxPassengers[model >>> 3] >>> ((model & 7) << 2) & 0xF == 15
@@ -3482,57 +3084,54 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 			case 3:
 			{
 				AntiCheatInfo[playerid][pCheatCount][4] = 0;
-				if(AntiCheatInfo[playerid][pACAllow][44] && (i = GetPlayerVehicleSeat(playerid)) != 128)
+				if(AntiCheatInfo[playerid][pACAllow][44])
 				{
-					if(GetVehicleModel(GetPlayerVehicleID(playerid)) ==
-					-1) KickWithCode(playerid, "", 0, 44, 3);
-					else
+					i = GetPlayerVehicleSeat(playerid);
+					if(i != 128)
 					{
-						new model = (MaxPassengers[model >>> 3] >>> ((model & 7) << 2)) & 0xF;
-						if(i < 1 || (model == 15 || i > model)
-						&& AntiCheatInfo[playerid][pSet][9] ==
-						-1) KickWithCode(playerid, "", 0, 44, 4);
+						new model = GetVehicleModel(GetPlayerVehicleID(playerid)) - 400;
+						if(model < 0) KickWithCode(playerid, "", 0, 44, 3);
+						else
+						{
+							model = (MaxPassengers[model >>> 3] >>> ((model & 7) << 2)) & 0xF;
+							if(i < 1 || (model == 15 || i > model)
+							&& AntiCheatInfo[playerid][pSet][9]
+							== -1) KickWithCode(playerid, "", 0, 44, 4);
+						}
 					}
 				}
 			}
 			case 9:
 			{
 				if(AntiCheatInfo[playerid][pACAllow][21]
-				&& AntiCheatInfo[playerid][pSet][6] ==
-				-1) KickWithCode(playerid, "", 0, 21);
+				&& AntiCheatInfo[playerid][pSet][6]
+				== -1) KickWithCode(playerid, "", 0, 21);
 				AntiCheatInfo[playerid][pSet][6] = -1;
 				AntiCheatInfo[playerid][pSpawnRes] = true;
 				AntiCheatInfo[playerid][pSpawnTime] = 0;
 			}
 		}
 	}
+	i = 1;
+	#if defined ac_OnPlayerStateChange
+		i = ac_OnPlayerStateChange(playerid, newstate, oldstate);
+	#endif
 	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][11] = GetTickCount();
 	if(ur) AntiCheatInfo[playerid][pGtc][10] = AntiCheatInfo[playerid][pCall][27];
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerStateChange
-		return ac_OnPlayerStateChange(playerid, newstate, oldstate);
-	#else
-		return 1;
-	#endif
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerStateChange
-		#undef OnPlayerStateChange
-	#else
-		#define _ALS_OnPlayerStateChange
-	#endif
-	#define OnPlayerStateChange ac_OnPlayerStateChange
-	#if defined ac_OnPlayerStateChange
-		forward ac_OnPlayerStateChange(playerid, newstate, oldstate);
-	#endif
+#if defined _ALS_OnPlayerStateChange
+	#undef OnPlayerStateChange
+#else
+	#define _ALS_OnPlayerStateChange
+#endif
+#define OnPlayerStateChange ac_OnPlayerStateChange
+#if defined ac_OnPlayerStateChange
+	forward ac_OnPlayerStateChange(playerid, newstate, oldstate);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
-#else
-	public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
-#endif
+public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	static i, bool:ur, bool:ur2;
@@ -3542,24 +3141,24 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 	{
 		if(AntiCheatInfo[playerid][pACAllow][22]
 		&& !LagCompMode) return KickWithCode(playerid, "", 0, 22);
-		if(AntiCheatInfo[playerid][pACAllow][34] && i >
-		AntiCheatInfo[playerid][pLastUpdate] + 3000)
+		if(AntiCheatInfo[playerid][pACAllow][34] && i
+		> AntiCheatInfo[playerid][pLastUpdate] + 3000)
 		{
-			if(++AntiCheatInfo[playerid][pCheatCount][5] >
-			MAX_AFK_GHOST_WARNINGS) return KickWithCode(playerid, "", 0, 34);
+			if(++AntiCheatInfo[playerid][pCheatCount][5]
+			> MAX_AFK_GHOST_WARNINGS) return KickWithCode(playerid, "", 0, 34);
 			#undef MAX_AFK_GHOST_WARNINGS
 		}
 		else AntiCheatInfo[playerid][pCheatCount][5] = 0;
-		if(AntiCheatInfo[playerid][pACAllow][29] && hittype == 1 && i <
-		AntiCheatInfo[hitid][pLastUpdate] + 1500 && !IsPlayerInAnyVehicle(hitid)
+		if(AntiCheatInfo[playerid][pACAllow][29] && hittype == 1 && i
+		< AntiCheatInfo[hitid][pLastUpdate] + 1500 && !IsPlayerInAnyVehicle(hitid)
 		&& GetPlayerSurfingVehicleID(hitid) == 65535 && GetPlayerSurfingObjectID(hitid) == 65535)
 		{
 			static Float:fPos[4];
 			GetPlayerLastShotVectors(playerid, fPos[3], fPos[3], fPos[3], fPos[0], fPos[1], fPos[2]);
-			if(!IsPlayerInRangeOfPoint(hitid, 5.0, fPos[0], fPos[1], fPos[2]))
+			if(!IsPlayerInRangeOfPoint(hitid, 3.0, fPos[0], fPos[1], fPos[2]))
 			{
-				if(++AntiCheatInfo[playerid][pCheatCount][6] >
-				MAX_PRO_AIM_WARNINGS) return KickWithCode(playerid, "", 0, 29);
+				if(++AntiCheatInfo[playerid][pCheatCount][6]
+				> MAX_PRO_AIM_WARNINGS) return KickWithCode(playerid, "", 0, 29);
 				#undef MAX_PRO_AIM_WARNINGS
 			}
 			else AntiCheatInfo[playerid][pCheatCount][6] = 0;
@@ -3613,40 +3212,41 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 				{
 					if(weaponid == 28 || weaponid == 32)
 					{
-						if(i < 30 && ++AntiCheatInfo[playerid][pCheatCount][8] >
-						MAX_RAPID_FIRE_WARNINGS) return KickWithCode(playerid, "", 0, 26, 1);
+						if(i < 30 && ++AntiCheatInfo[playerid][pCheatCount][8]
+						> MAX_RAPID_FIRE_WARNINGS) return KickWithCode(playerid, "", 0, 26, 1);
 					}
 					else if(i < 70 || 32 < weaponid < 35 && i < 386)
 					{
-						if(++AntiCheatInfo[playerid][pCheatCount][8] >
-						MAX_RAPID_FIRE_WARNINGS) return KickWithCode(playerid, "", 0, 26, 2);
+						if(++AntiCheatInfo[playerid][pCheatCount][8]
+						> MAX_RAPID_FIRE_WARNINGS) return KickWithCode(playerid, "", 0, 26, 2);
 					}
 					else AntiCheatInfo[playerid][pCheatCount][8] = 0;
 				}
 			}
 			else
 			{
-				if(AntiCheatInfo[playerid][pACAllow][26] && i <
-				30) return KickWithCode(playerid, "", 0, 26, 3);
+				if(AntiCheatInfo[playerid][pACAllow][26] && i
+				< 30) return KickWithCode(playerid, "", 0, 26, 3);
 				AntiCheatInfo[playerid][pCheatCount][8] = 0;
 				AntiCheatInfo[playerid][pShot] = true;
 			}
+			s = GetWeaponSlot(weaponid);
 			if(AntiCheatInfo[playerid][pACAllow][17])
 			{
-				if(!AntiCheatInfo[playerid][pAmmo][WeaponSlots[weaponid]]) return KickWithCode(playerid, "", 0, 17, 1);
-				if((i = abs(AntiCheatInfo[playerid][pAmmo][WeaponSlots[weaponid]] - GetPlayerAmmo(playerid))))
+				if(!AntiCheatInfo[playerid][pAmmo][s]) return KickWithCode(playerid, "", 0, 17, 1);
+				if((i = abs(AntiCheatInfo[playerid][pAmmo][s] - GetPlayerAmmo(playerid))))
 				{
 					switch(weaponid)
 					{
 						case 26:
 						{
-							if(i > 2 || ++AntiCheatInfo[playerid][pCheatCount][7] >
-							2) return KickWithCode(playerid, "", 0, 17, 2);
+							if(i > 2 || ++AntiCheatInfo[playerid][pCheatCount][7]
+							> 2) return KickWithCode(playerid, "", 0, 17, 2);
 						}
 						case 22, 29..31:
 						{
-							if(i > 1 || ++AntiCheatInfo[playerid][pCheatCount][7] >
-							1) return KickWithCode(playerid, "", 0, 17, 3);
+							if(i > 1 || ++AntiCheatInfo[playerid][pCheatCount][7]
+							> 1) return KickWithCode(playerid, "", 0, 17, 3);
 						}
 						case 28, 32:
 						{
@@ -3654,25 +3254,22 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 						}
 						case 38:
 						{
-							if(++AntiCheatInfo[playerid][pCheatCount][7] >
-							5) return KickWithCode(playerid, "", 0, 17, 5);
+							if(++AntiCheatInfo[playerid][pCheatCount][7]
+							> 5) return KickWithCode(playerid, "", 0, 17, 5);
 						}
 						default: return KickWithCode(playerid, "", 0, 17, 6);
 					}
 				}
 				else AntiCheatInfo[playerid][pCheatCount][7] = 0;
 			}
-			AntiCheatInfo[playerid][pAmmo][WeaponSlots[weaponid]]--;
-			if(AntiCheatInfo[playerid][pAmmo][WeaponSlots[weaponid]] <
-			-32768) AntiCheatInfo[playerid][pAmmo][WeaponSlots[weaponid]] += 65536;
-			else if(!AntiCheatInfo[playerid][pAmmo][WeaponSlots[weaponid]]
-			&& AntiCheatInfo[playerid][pSet][3] == weaponid) AntiCheatInfo[playerid][pSet][3] =
-			AntiCheatInfo[playerid][pSetWeapon][WeaponSlots[weaponid]] = -1;
+			AntiCheatInfo[playerid][pAmmo][s]--;
+			if(AntiCheatInfo[playerid][pAmmo][s] < -32768) AntiCheatInfo[playerid][pAmmo][s] += 65536;
+			else if(!AntiCheatInfo[playerid][pAmmo][s] && AntiCheatInfo[playerid][pSet][3]
+			== weaponid) AntiCheatInfo[playerid][pSet][3] = AntiCheatInfo[playerid][pSetWeapon][s] = -1;
 		}
 	}
 	i = 1;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerWeaponShot
+	#if defined ac_OnPlayerWeaponShot
 		i = ac_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, fX, fY, fZ);
 	#endif
 	AntiCheatInfo[playerid][pShotTime] = GetTickCount();
@@ -3686,30 +3283,24 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		if(ur2)
 		{
 			AntiCheatInfo[AntiCheatVehInfo[hitid][vDriver]][pVehDmgRes] = true;
-			AntiCheatInfo[AntiCheatVehInfo[hitid][vDriver]][pGtc][16] =
-			AntiCheatInfo[playerid][pShotTime];
+			AntiCheatInfo[AntiCheatVehInfo[hitid][vDriver]][pGtc][16]
+			= AntiCheatInfo[playerid][pShotTime];
 		}
 	}
 	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerWeaponShot
-		#undef OnPlayerWeaponShot
-	#else
-		#define _ALS_OnPlayerWeaponShot
-	#endif
-	#define OnPlayerWeaponShot ac_OnPlayerWeaponShot
-	#if defined ac_OnPlayerWeaponShot
-		forward ac_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
-	#endif
+#if defined _ALS_OnPlayerWeaponShot
+	#undef OnPlayerWeaponShot
+#else
+	#define _ALS_OnPlayerWeaponShot
+#endif
+#define OnPlayerWeaponShot ac_OnPlayerWeaponShot
+#if defined ac_OnPlayerWeaponShot
+	forward ac_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnVehicleMod(playerid, vehicleid, componentid)
-#else
-	public OnVehicleMod(playerid, vehicleid, componentid)
-#endif
+public OnVehicleMod(playerid, vehicleid, componentid)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount();
@@ -3722,32 +3313,25 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 	if(AntiCheatInfo[playerid][pACAllow][23] && !AntiCheatInfo[playerid][pModShop]) return KickWithCode(playerid, "", 0, 23, 2);
 	if(AntiCheatInfo[playerid][pACAllow][43] && !IsComponentidCompatible(GetVehicleModel(vehicleid),
 	componentid)) return KickWithCode(playerid, "", 0, 43, 1);
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][12] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnVehicleMod
-		return ac_OnVehicleMod(playerid, vehicleid, componentid);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnVehicleMod
+		i = ac_OnVehicleMod(playerid, vehicleid, componentid);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][12] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnVehicleMod
-		#undef OnVehicleMod
-	#else
-		#define _ALS_OnVehicleMod
-	#endif
-	#define OnVehicleMod ac_OnVehicleMod
-	#if defined ac_OnVehicleMod
-		forward ac_OnVehicleMod(playerid, vehicleid, componentid);
-	#endif
+#if defined _ALS_OnVehicleMod
+	#undef OnVehicleMod
+#else
+	#define _ALS_OnVehicleMod
+#endif
+#define OnVehicleMod ac_OnVehicleMod
+#if defined ac_OnVehicleMod
+	forward ac_OnVehicleMod(playerid, vehicleid, componentid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnVehiclePaintjob(playerid, vehicleid, paintjobid)
-#else
-	public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
-#endif
+public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount();
@@ -3760,32 +3344,25 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 	if(AntiCheatInfo[playerid][pACAllow][23] && !AntiCheatInfo[playerid][pModShop]) KickWithCode(playerid, "", 0, 23, 3);
 	else if(AntiCheatInfo[playerid][pACAllow][43] && !(-1 < paintjobid < 3)) KickWithCode(playerid, "", 0, 43, 2);
 	else AntiCheatVehInfo[vehicleid][vPaintJob] = paintjobid;
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][13] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnVehiclePaintjob
-		return ac_OnVehiclePaintjob(playerid, vehicleid, paintjobid);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnVehiclePaintjob
+		i = ac_OnVehiclePaintjob(playerid, vehicleid, paintjobid);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][13] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnVehiclePaintjob
-		#undef OnVehiclePaintjob
-	#else
-		#define _ALS_OnVehiclePaintjob
-	#endif
-	#define OnVehiclePaintjob ac_OnVehiclePaintjob
-	#if defined ac_OnVehiclePaintjob
-		forward ac_OnVehiclePaintjob(playerid, vehicleid, paintjobid);
-	#endif
+#if defined _ALS_OnVehiclePaintjob
+	#undef OnVehiclePaintjob
+#else
+	#define _ALS_OnVehiclePaintjob
+#endif
+#define OnVehiclePaintjob ac_OnVehiclePaintjob
+#if defined ac_OnVehiclePaintjob
+	forward ac_OnVehiclePaintjob(playerid, vehicleid, paintjobid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnVehicleRespray(playerid, vehicleid, color1, color2)
-#else
-	public OnVehicleRespray(playerid, vehicleid, color1, color2)
-#endif
+public OnVehicleRespray(playerid, vehicleid, color1, color2)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount();
@@ -3795,105 +3372,80 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		else if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
 		else AntiCheatInfo[playerid][pFloodCount][14] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][14] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnVehicleRespray
-		return ac_OnVehicleRespray(playerid, vehicleid, color1, color2);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnVehicleRespray
+		i = ac_OnVehicleRespray(playerid, vehicleid, color1, color2);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][14] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnVehicleRespray
-		#undef OnVehicleRespray
-	#else
-		#define _ALS_OnVehicleRespray
-	#endif
-	#define OnVehicleRespray ac_OnVehicleRespray
-	#if defined ac_OnVehicleRespray
-		forward ac_OnVehicleRespray(playerid, vehicleid, color1, color2);
-	#endif
+#if defined _ALS_OnVehicleRespray
+	#undef OnVehicleRespray
+#else
+	#define _ALS_OnVehicleRespray
+#endif
+#define OnVehicleRespray ac_OnVehicleRespray
+#if defined ac_OnVehicleRespray
+	forward ac_OnVehicleRespray(playerid, vehicleid, color1, color2);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnVehicleSpawn(vehicleid)
-#else
-	public OnVehicleSpawn(vehicleid)
-#endif
+public OnVehicleSpawn(vehicleid)
 {
 	AntiCheatVehInfo[vehicleid][vPaintJob] = 3;
+	AntiCheatVehInfo[vehicleid][vPosDiff] = 0.0;
 	AntiCheatVehInfo[vehicleid][vSpawned] = true;
+	AntiCheatVehInfo[vehicleid][vSpeedDiff] = 0.0;
 	AntiCheatVehInfo[vehicleid][vHealth] = 1000.0;
-	AntiCheatVehInfo[vehicleid][vSpeedDiff] =
-	AntiCheatVehInfo[vehicleid][vPosDiff] =
-	AntiCheatVehInfo[vehicleid][vVel][0] =
-	AntiCheatVehInfo[vehicleid][vVel][1] =
-	AntiCheatVehInfo[vehicleid][vVel][2] = 0.0;
+	for(new i = 2; i != -1; --i) AntiCheatVehInfo[vehicleid][vVel][i] = 0.0;
 	AntiCheatVehInfo[vehicleid][vDriver] = 65535;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnVehicleSpawn
+	#if defined ac_OnVehicleSpawn
 		return ac_OnVehicleSpawn(vehicleid);
 	#else
 		return 1;
 	#endif
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnVehicleSpawn
-		#undef OnVehicleSpawn
-	#else
-		#define _ALS_OnVehicleSpawn
-	#endif
-	#define OnVehicleSpawn ac_OnVehicleSpawn
-	#if defined ac_OnVehicleSpawn
-		forward ac_OnVehicleSpawn(vehicleid);
-	#endif
+#if defined _ALS_OnVehicleSpawn
+	#undef OnVehicleSpawn
+#else
+	#define _ALS_OnVehicleSpawn
+#endif
+#define OnVehicleSpawn ac_OnVehicleSpawn
+#if defined ac_OnVehicleSpawn
+	forward ac_OnVehicleSpawn(vehicleid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnVehicleDeath(vehicleid, killerid)
-#else
-	public OnVehicleDeath(vehicleid, killerid)
-#endif
+public OnVehicleDeath(vehicleid, killerid)
 {
-	if(killerid != 65535)
+	new i = GetTickCount();
+	if(killerid != 65535 && AntiCheatInfo[killerid][pACAllow][49])
 	{
-		new i = GetTickCount();
-		if(AntiCheatInfo[killerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[killerid][pCall][15] + Mtfc[15][0]) FloodDetect(killerid, 15);
-			else if(i < AntiCheatInfo[killerid][pCall][27] + Mtfc[27][0]) FloodDetect(killerid, 27);
-			else AntiCheatInfo[killerid][pFloodCount][15] = AntiCheatInfo[killerid][pFloodCount][27] = 0;
-		}
-		AntiCheatInfo[killerid][pCall][27] = AntiCheatInfo[killerid][pCall][15] = i;
+		if(i < AntiCheatInfo[killerid][pCall][15] + Mtfc[15][0]) FloodDetect(killerid, 15);
+		else if(i < AntiCheatInfo[killerid][pCall][27] + Mtfc[27][0]) FloodDetect(killerid, 27);
+		else AntiCheatInfo[killerid][pFloodCount][15] = AntiCheatInfo[killerid][pFloodCount][27] = 0;
 	}
 	AntiCheatVehInfo[vehicleid][vSpawned] = false;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnVehicleDeath
-		return ac_OnVehicleDeath(vehicleid, killerid);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnVehicleDeath
+		i = ac_OnVehicleDeath(vehicleid, killerid);
 	#endif
+	if(killerid != 65535) AntiCheatInfo[killerid][pCall][27]
+	= AntiCheatInfo[killerid][pCall][15] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnVehicleDeath
-		#undef OnVehicleDeath
-	#else
-		#define _ALS_OnVehicleDeath
-	#endif
-	#define OnVehicleDeath ac_OnVehicleDeath
-	#if defined ac_OnVehicleDeath
-		forward ac_OnVehicleDeath(vehicleid, killerid);
-	#endif
+#if defined _ALS_OnVehicleDeath
+	#undef OnVehicleDeath
+#else
+	#define _ALS_OnVehicleDeath
+#endif
+#define OnVehicleDeath ac_OnVehicleDeath
+#if defined ac_OnVehicleDeath
+	forward ac_OnVehicleDeath(vehicleid, killerid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerText(playerid, text[])
-#else
-	public OnPlayerText(playerid, text[])
-#endif
+public OnPlayerText(playerid, text[])
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount();
@@ -3903,218 +3455,118 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
 		else AntiCheatInfo[playerid][pFloodCount][16] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][16] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerText
-		return ac_OnPlayerText(playerid, text);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnPlayerText
+		i = ac_OnPlayerText(playerid, text);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][16] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerText
-		#undef OnPlayerText
-	#else
-		#define _ALS_OnPlayerText
-	#endif
-	#define OnPlayerText ac_OnPlayerText
-	#if defined ac_OnPlayerText
-		forward ac_OnPlayerText(playerid, text[]);
-	#endif
-#endif
-
-#if defined OnPlayerEnterDynamicCP
-	#if defined _inc_y_hooks
-		Hook:ac_OnPlayerEnterDynamicCP(playerid, STREAMER_TAG_CP checkpointid)
-	#else
-		public OnPlayerEnterDynamicCP(playerid, STREAMER_TAG_CP checkpointid)
-	#endif
-	{
-		if(AntiCheatInfo[playerid][pKicked]) return 0;
-		new i = GetTickCount();
-		if(AntiCheatInfo[playerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[playerid][pCall][17] + Mtfc[17][0]) return FloodDetect(playerid, 17);
-			if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-			else AntiCheatInfo[playerid][pFloodCount][17] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
-		}
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][17] = i;
-		#if !defined _inc_y_hooks\
-			&& defined ac_OnPlayerEnterDynamicCP
-			return ac_OnPlayerEnterDynamicCP(playerid, checkpointid);
-		#else
-			return 1;
-		#endif
-	}
-
-	#if !defined _inc_y_hooks
-		#if defined _ALS_OnPlayerEnterDynamicCP
-			#undef OnPlayerEnterDynamicCP
-		#else
-			#define _ALS_OnPlayerEnterDynamicCP
-		#endif
-		#define OnPlayerEnterDynamicCP ac_OnPlayerEnterDynamicCP
-		#if defined ac_OnPlayerEnterDynamicCP
-			forward ac_OnPlayerEnterDynamicCP(playerid, STREAMER_TAG_CP checkpointid);
-		#endif
-	#endif
+#if defined _ALS_OnPlayerText
+	#undef OnPlayerText
 #else
-	#if defined _inc_y_hooks
-		Hook:ac_OnPlayerEnterCheckpoint(playerid)
-	#else
-		public OnPlayerEnterCheckpoint(playerid)
-	#endif
-	{
-		if(AntiCheatInfo[playerid][pKicked]) return 0;
-		new i = GetTickCount();
-		if(AntiCheatInfo[playerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[playerid][pCall][17] + Mtfc[17][0]) return FloodDetect(playerid, 17);
-			if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-			else AntiCheatInfo[playerid][pFloodCount][17] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
-		}
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][17] = i;
-		#if !defined _inc_y_hooks\
-			&& defined ac_OnPlayerEnterCheckpoint
-			return ac_OnPlayerEnterCheckpoint(playerid);
-		#else
-			return 1;
-		#endif
-	}
-
-	#if !defined _inc_y_hooks
-		#if defined _ALS_OnPlayerEnterCheckpoint
-			#undef OnPlayerEnterCheckpoint
-		#else
-			#define _ALS_OnPlayerEnterCheckpoint
-		#endif
-		#define OnPlayerEnterCheckpoint ac_OnPlayerEnterCheckpoint
-		#if defined ac_OnPlayerEnterCheckpoint
-			forward ac_OnPlayerEnterCheckpoint(playerid);
-		#endif
-	#endif
+	#define _ALS_OnPlayerText
+#endif
+#define OnPlayerText ac_OnPlayerText
+#if defined ac_OnPlayerText
+	forward ac_OnPlayerText(playerid, text[]);
 #endif
 
-#if defined OnPlayerLeaveDynamicCP
-	#if defined _inc_y_hooks
-		Hook:ac_OnPlayerLeaveDynamicCP(playerid, STREAMER_TAG_CP checkpointid)
-	#else
-		public OnPlayerLeaveDynamicCP(playerid, STREAMER_TAG_CP checkpointid)
-	#endif
-	{
-		if(AntiCheatInfo[playerid][pKicked]) return 0;
-		new i = GetTickCount();
-		if(AntiCheatInfo[playerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[playerid][pCall][18] + Mtfc[18][0]) return FloodDetect(playerid, 18);
-			if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-			else AntiCheatInfo[playerid][pFloodCount][18] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
-		}
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][18] = i;
-		#if !defined _inc_y_hooks\
-			&& defined ac_OnPlayerLeaveDynamicCP
-			return ac_OnPlayerLeaveDynamicCP(playerid, checkpointid);
-		#else
-			return 1;
-		#endif
-	}
-
-	#if !defined _inc_y_hooks
-		#if defined _ALS_OnPlayerLeaveDynamicCP
-			#undef OnPlayerLeaveDynamicCP
-		#else
-			#define _ALS_OnPlayerLeaveDynamicCP
-		#endif
-		#define OnPlayerLeaveDynamicCP ac_OnPlayerLeaveDynamicCP
-		#if defined ac_OnPlayerLeaveDynamicCP
-			forward ac_OnPlayerLeaveDynamicCP(playerid, STREAMER_TAG_CP checkpointid);
-		#endif
-	#endif
-#else
-	#if defined _inc_y_hooks
-		Hook:ac_OnPlayerLeaveCheckpoint(playerid)
-	#else
-		public OnPlayerLeaveCheckpoint(playerid)
-	#endif
-	{
-		if(AntiCheatInfo[playerid][pKicked]) return 0;
-		new i = GetTickCount();
-		if(AntiCheatInfo[playerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[playerid][pCall][18] + Mtfc[18][0]) return FloodDetect(playerid, 18);
-			if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-			else AntiCheatInfo[playerid][pFloodCount][18] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
-		}
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][18] = i;
-		#if !defined _inc_y_hooks\
-			&& defined ac_OnPlayerLeaveCheckpoint
-			return ac_OnPlayerLeaveCheckpoint(playerid);
-		#else
-			return 1;
-		#endif
-	}
-
-	#if !defined _inc_y_hooks
-		#if defined _ALS_OnPlayerLeaveCheckpoint
-			#undef OnPlayerLeaveCheckpoint
-		#else
-			#define _ALS_OnPlayerLeaveCheckpoint
-		#endif
-		#define OnPlayerLeaveCheckpoint ac_OnPlayerLeaveCheckpoint
-		#if defined ac_OnPlayerLeaveCheckpoint
-			forward ac_OnPlayerLeaveCheckpoint(playerid);
-		#endif
-	#endif
-#endif
-
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerRequestSpawn(playerid)
-#else
-	public OnPlayerRequestSpawn(playerid)
-#endif
+public OnPlayerEnterCheckpoint(playerid)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount();
 	if(AntiCheatInfo[playerid][pACAllow][49])
 	{
-		if(i < AntiCheatInfo[playerid][pCall][19] + Mtfc[19][0]) return FloodDetect(playerid, 19);
+		if(i < AntiCheatInfo[playerid][pCall][17] + Mtfc[17][0]) return FloodDetect(playerid, 17);
 		if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-		else AntiCheatInfo[playerid][pFloodCount][19] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
+		else AntiCheatInfo[playerid][pFloodCount][17] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pSpawnWeapon][0] = Class[AntiCheatInfo[playerid][pClassid]][0][0];
-	AntiCheatInfo[playerid][pSpawnAmmo][0] = Class[AntiCheatInfo[playerid][pClassid]][0][1];
-	AntiCheatInfo[playerid][pSpawnWeapon][1] = Class[AntiCheatInfo[playerid][pClassid]][1][0];
-	AntiCheatInfo[playerid][pSpawnAmmo][1] = Class[AntiCheatInfo[playerid][pClassid]][1][1];
-	AntiCheatInfo[playerid][pSpawnWeapon][2] = Class[AntiCheatInfo[playerid][pClassid]][2][0];
-	AntiCheatInfo[playerid][pSpawnAmmo][2] = Class[AntiCheatInfo[playerid][pClassid]][2][1];
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][19] = i;
 	i = 1;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerRequestSpawn
+	#if defined ac_OnPlayerEnterCheckpoint
+		i = ac_OnPlayerEnterCheckpoint(playerid);
+	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][17] = GetTickCount();
+	return i;
+}
+
+#if defined _ALS_OnPlayerEnterCheckpoint
+	#undef OnPlayerEnterCheckpoint
+#else
+	#define _ALS_OnPlayerEnterCheckpoint
+#endif
+#define OnPlayerEnterCheckpoint ac_OnPlayerEnterCheckpoint
+#if defined ac_OnPlayerEnterCheckpoint
+	forward ac_OnPlayerEnterCheckpoint(playerid);
+#endif
+
+public OnPlayerLeaveCheckpoint(playerid)
+{
+	if(AntiCheatInfo[playerid][pKicked]) return 0;
+	new i = GetTickCount();
+	if(AntiCheatInfo[playerid][pACAllow][49])
+	{
+		if(i < AntiCheatInfo[playerid][pCall][18] + Mtfc[18][0]) return FloodDetect(playerid, 18);
+		if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
+		else AntiCheatInfo[playerid][pFloodCount][18] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
+	}
+	i = 1;
+	#if defined ac_OnPlayerLeaveCheckpoint
+		i = ac_OnPlayerLeaveCheckpoint(playerid);
+	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][18] = GetTickCount();
+	return i;
+}
+
+#if defined _ALS_OnPlayerLeaveCheckpoint
+	#undef OnPlayerLeaveCheckpoint
+#else
+	#define _ALS_OnPlayerLeaveCheckpoint
+#endif
+#define OnPlayerLeaveCheckpoint ac_OnPlayerLeaveCheckpoint
+#if defined ac_OnPlayerLeaveCheckpoint
+	forward ac_OnPlayerLeaveCheckpoint(playerid);
+#endif
+
+public OnPlayerRequestSpawn(playerid)
+{
+	if(AntiCheatInfo[playerid][pKicked]) return 0;
+	new i = GetTickCount();
+	if(!IsPlayerNPC(playerid))
+	{
+		if(AntiCheatInfo[playerid][pACAllow][49])
+		{
+			if(i < AntiCheatInfo[playerid][pCall][19] + Mtfc[19][0]) return FloodDetect(playerid, 19);
+			if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
+			else AntiCheatInfo[playerid][pFloodCount][19] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
+		}
+		for(i = 2; i != -1; --i)
+		{
+			AntiCheatInfo[playerid][pSpawnWeapon][i] = Class[AntiCheatInfo[playerid][pClassid]][i][0];
+			AntiCheatInfo[playerid][pSpawnAmmo][i] = Class[AntiCheatInfo[playerid][pClassid]][i][1];
+		}
+	}
+	i = 1;
+	#if defined ac_OnPlayerRequestSpawn
 		i = ac_OnPlayerRequestSpawn(playerid);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][19] = GetTickCount();
 	if(i) AntiCheatInfo[playerid][pSet][7] = 1;
 	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerRequestSpawn
-		#undef OnPlayerRequestSpawn
-	#else
-		#define _ALS_OnPlayerRequestSpawn
-	#endif
-	#define OnPlayerRequestSpawn ac_OnPlayerRequestSpawn
-	#if defined ac_OnPlayerRequestSpawn
-		forward ac_OnPlayerRequestSpawn(playerid);
-	#endif
+#if defined _ALS_OnPlayerRequestSpawn
+	#undef OnPlayerRequestSpawn
+#else
+	#define _ALS_OnPlayerRequestSpawn
+#endif
+#define OnPlayerRequestSpawn ac_OnPlayerRequestSpawn
+#if defined ac_OnPlayerRequestSpawn
+	forward ac_OnPlayerRequestSpawn(playerid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerExitedMenu(playerid)
-#else
-	public OnPlayerExitedMenu(playerid)
-#endif
+public OnPlayerExitedMenu(playerid)
 {
 	if(!IsPlayerConnected(playerid)
 	|| AntiCheatInfo[playerid][pKicked]) return 0;
@@ -4125,182 +3577,83 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		else if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
 		else AntiCheatInfo[playerid][pFloodCount][20] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][20] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerExitedMenu
-		return ac_OnPlayerExitedMenu(playerid);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnPlayerExitedMenu
+		i = ac_OnPlayerExitedMenu(playerid);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][20] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerExitedMenu
-		#undef OnPlayerExitedMenu
-	#else
-		#define _ALS_OnPlayerExitedMenu
-	#endif
-	#define OnPlayerExitedMenu ac_OnPlayerExitedMenu
-	#if defined ac_OnPlayerExitedMenu
-		forward ac_OnPlayerExitedMenu(playerid);
-	#endif
-#endif
-
-#if defined OnPlayerEnterDynamicRaceCP
-	#if defined _inc_y_hooks
-		Hook:ac_OnPlayerEnterDynamicRaceCP(playerid, STREAMER_TAG_RACE_CP checkpointid)
-	#else
-		public OnPlayerEnterDynamicRaceCP(playerid, STREAMER_TAG_RACE_CP checkpointid)
-	#endif
-	{
-		if(AntiCheatInfo[playerid][pKicked]) return 0;
-		new i = GetTickCount();
-		if(AntiCheatInfo[playerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[playerid][pCall][21] + Mtfc[21][0]) return FloodDetect(playerid, 21);
-			if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-			else AntiCheatInfo[playerid][pFloodCount][21] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
-		}
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][21] = i;
-		#if !defined _inc_y_hooks\
-			&& defined ac_OnPlayerEnterDynamicRaceCP
-			return ac_OnPlayerEnterDynamicRaceCP(playerid, checkpointid);
-		#else
-			return 1;
-		#endif
-	}
-
-	#if !defined _inc_y_hooks
-		#if defined _ALS_OnPlayerEnterDynamicRaceCP
-			#undef OnPlayerEnterDynamicRaceCP
-		#else
-			#define _ALS_OnPlayerEnterDynamicRaceCP
-		#endif
-		#define OnPlayerEnterDynamicRaceCP ac_OnPlayerEnterDynamicRaceCP
-		#if defined ac_OnPlayerEnterDynamicRaceCP
-			forward ac_OnPlayerEnterDynamicRaceCP(playerid, STREAMER_TAG_RACE_CP checkpointid);
-		#endif
-	#endif
+#if defined _ALS_OnPlayerExitedMenu
+	#undef OnPlayerExitedMenu
 #else
-	#if defined _inc_y_hooks
-		Hook:ac_OnPlayerEnterRaceCheckpoint(playerid)
-	#else
-		public OnPlayerEnterRaceCheckpoint(playerid)
-	#endif
-	{
-		if(AntiCheatInfo[playerid][pKicked]) return 0;
-		new i = GetTickCount();
-		if(AntiCheatInfo[playerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[playerid][pCall][21] + Mtfc[21][0]) return FloodDetect(playerid, 21);
-			if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-			else AntiCheatInfo[playerid][pFloodCount][21] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
-		}
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][21] = i;
-		#if !defined _inc_y_hooks\
-			&& defined ac_OnPlayerEnterRaceCheckpoint
-			return ac_OnPlayerEnterRaceCheckpoint(playerid);
-		#else
-			return 1;
-		#endif
-	}
-
-	#if !defined _inc_y_hooks
-		#if defined _ALS_OnPlayerEnter\
-			RaceCheckpoint
-			#undef OnPlayerEnterRaceCheckpoint
-		#elseif defined _ALS_OnPlayerEnterRaceCP
-			#undef OnPlayerEnterRaceCheckpoint
-		#else
-			#define _ALS_OnPlayerEnterRaceCheckpoint
-		#endif
-		#define OnPlayerEnterRaceCheckpoint ac_OnPlayerEnterRaceCheckpoint
-		#if defined ac_OnPlayerEnterRaceCheckpoint
-			forward ac_OnPlayerEnterRaceCheckpoint(playerid);
-		#endif
-	#endif
+	#define _ALS_OnPlayerExitedMenu
+#endif
+#define OnPlayerExitedMenu ac_OnPlayerExitedMenu
+#if defined ac_OnPlayerExitedMenu
+	forward ac_OnPlayerExitedMenu(playerid);
 #endif
 
-#if defined OnPlayerLeaveDynamicRaceCP
-	#if defined _inc_y_hooks
-		Hook:ac_OnPlayerLeaveDynamicRaceCP(playerid, STREAMER_TAG_RACE_CP checkpointid)
-	#else
-		public OnPlayerLeaveDynamicRaceCP(playerid, STREAMER_TAG_RACE_CP checkpointid)
-	#endif
+public OnPlayerEnterRaceCheckpoint(playerid)
+{
+	if(AntiCheatInfo[playerid][pKicked]) return 0;
+	new i = GetTickCount();
+	if(AntiCheatInfo[playerid][pACAllow][49])
 	{
-		if(AntiCheatInfo[playerid][pKicked]) return 0;
-		new i = GetTickCount();
-		if(AntiCheatInfo[playerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[playerid][pCall][22] + Mtfc[22][0]) return FloodDetect(playerid, 22);
-			if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-			else AntiCheatInfo[playerid][pFloodCount][22] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
-		}
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][22] = i;
-		#if !defined _inc_y_hooks\
-			&& defined ac_OnPlayerLeaveDynamicRaceCP
-			return ac_OnPlayerLeaveDynamicRaceCP(playerid, checkpointid);
-		#else
-			return 1;
-		#endif
+		if(i < AntiCheatInfo[playerid][pCall][21] + Mtfc[21][0]) return FloodDetect(playerid, 21);
+		if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
+		else AntiCheatInfo[playerid][pFloodCount][21] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-
-	#if !defined _inc_y_hooks
-		#if defined _ALS_OnPlayerLeaveDynamicRaceCP
-			#undef OnPlayerLeaveDynamicRaceCP
-		#else
-			#define _ALS_OnPlayerLeaveDynamicRaceCP
-		#endif
-		#define OnPlayerLeaveDynamicRaceCP ac_OnPlayerLeaveDynamicRaceCP
-		#if defined ac_OnPlayerLeaveDynamicRaceCP
-			forward ac_OnPlayerLeaveDynamicRaceCP(playerid, STREAMER_TAG_RACE_CP checkpointid);
-		#endif
+	i = 1;
+	#if defined ac_OnPlayerEnterRaceCheckpoint
+		i = ac_OnPlayerEnterRaceCheckpoint(playerid);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][21] = GetTickCount();
+	return i;
+}
+
+#if defined _ALS_OnPlayerEnter\
+	RaceCheckpoint
+	#undef OnPlayerEnterRaceCheckpoint
 #else
-	#if defined _inc_y_hooks
-		Hook:ac_OnPlayerLeaveRaceCheckpoint(playerid)
-	#else
-		public OnPlayerLeaveRaceCheckpoint(playerid)
-	#endif
+	#define _ALS_OnPlayerEnterRaceCheckpoint
+#endif
+#define OnPlayerEnterRaceCheckpoint ac_OnPlayerEnterRaceCheckpoint
+#if defined ac_OnPlayerEnterRaceCheckpoint
+	forward ac_OnPlayerEnterRaceCheckpoint(playerid);
+#endif
+
+public OnPlayerLeaveRaceCheckpoint(playerid)
+{
+	if(AntiCheatInfo[playerid][pKicked]) return 0;
+	new i = GetTickCount();
+	if(AntiCheatInfo[playerid][pACAllow][49])
 	{
-		if(AntiCheatInfo[playerid][pKicked]) return 0;
-		new i = GetTickCount();
-		if(AntiCheatInfo[playerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[playerid][pCall][22] + Mtfc[22][0]) return FloodDetect(playerid, 22);
-			if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-			else AntiCheatInfo[playerid][pFloodCount][22] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
-		}
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][22] = i;
-		#if !defined _inc_y_hooks\
-			&& defined ac_OnPlayerLeaveRaceCheckpoint
-			return ac_OnPlayerLeaveRaceCheckpoint(playerid);
-		#else
-			return 1;
-		#endif
+		if(i < AntiCheatInfo[playerid][pCall][22] + Mtfc[22][0]) return FloodDetect(playerid, 22);
+		if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
+		else AntiCheatInfo[playerid][pFloodCount][22] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-
-	#if !defined _inc_y_hooks
-		#if defined _ALS_OnPlayerLeave\
-			RaceCheckpoint
-			#undef OnPlayerLeaveRaceCheckpoint
-		#elseif defined _ALS_OnPlayerLeaveRaceCP
-			#undef OnPlayerLeaveRaceCheckpoint
-		#else
-			#define _ALS_OnPlayerLeaveRaceCheckpoint
-		#endif
-		#define OnPlayerLeaveRaceCheckpoint ac_OnPlayerLeaveRaceCheckpoint
-		#if defined ac_OnPlayerLeaveRaceCheckpoint
-			forward ac_OnPlayerLeaveRaceCheckpoint(playerid);
-		#endif
+	i = 1;
+	#if defined ac_OnPlayerLeaveRaceCheckpoint
+		i = ac_OnPlayerLeaveRaceCheckpoint(playerid);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][22] = GetTickCount();
+	return i;
+}
+
+#if defined _ALS_OnPlayerLeave\
+	RaceCheckpoint
+	#undef OnPlayerLeaveRaceCheckpoint
+#else
+	#define _ALS_OnPlayerLeaveRaceCheckpoint
+#endif
+#define OnPlayerLeaveRaceCheckpoint ac_OnPlayerLeaveRaceCheckpoint
+#if defined ac_OnPlayerLeaveRaceCheckpoint
+	forward ac_OnPlayerLeaveRaceCheckpoint(playerid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
-#else
-	public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
-#endif
+public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount();
@@ -4310,35 +3663,26 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
 		else AntiCheatInfo[playerid][pFloodCount][23] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][23] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerClickPlayerTextDraw
-		return ac_OnPlayerClickPlayerTextDraw(playerid, playertextid);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnPlayerClickPlayerTextDraw
+		i = ac_OnPlayerClickPlayerTextDraw(playerid, playertextid);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][23] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerClick\
-		PlayerTextDraw
-		#undef OnPlayerClickPlayerTextDraw
-	#elseif defined _ALS_OnPlayerClickPlayerTD
-		#undef OnPlayerClickPlayerTextDraw
-	#else
-		#define _ALS_OnPlayerClickPlayerTextDraw
-	#endif
-	#define OnPlayerClickPlayerTextDraw ac_OnPlayerClickPlayerTextDraw
-	#if defined ac_OnPlayerClickPlayerTextDraw
-		forward ac_OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid);
-	#endif
+#if defined _ALS_OnPlayerClick\
+	PlayerTextDraw
+	#undef OnPlayerClickPlayerTextDraw
+#else
+	#define _ALS_OnPlayerClickPlayerTextDraw
+#endif
+#define OnPlayerClickPlayerTextDraw ac_OnPlayerClickPlayerTextDraw
+#if defined ac_OnPlayerClickPlayerTextDraw
+	forward ac_OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnVehicleDamageStatusUpdate(vehicleid, playerid)
-#else
-	public OnVehicleDamageStatusUpdate(vehicleid, playerid)
-#endif
+public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 {
 	new i = GetTickCount();
 	if(AntiCheatInfo[playerid][pACAllow][49])
@@ -4347,35 +3691,27 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		else if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
 		else AntiCheatInfo[playerid][pFloodCount][24] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][24] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnVehicleDamageStatusUpdate
-		return ac_OnVehicleDamageStatusUpdate(vehicleid, playerid);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnVehicleDamage\
+	StatusUpdate
+		i = ac_OnVehicleDamageStatusUpdate(vehicleid, playerid);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][24] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnVehicleDamage\
-		StatusUpdate
-		#undef OnVehicleDamageStatusUpdate
-	#elseif defined _ALS_OnVehicleDamageStatusUpd
-		#undef OnVehicleDamageStatusUpdate
-	#else
-		#define _ALS_OnVehicleDamageStatusUpdate
-	#endif
-	#define OnVehicleDamageStatusUpdate ac_OnVehicleDamageStatusUpdate
-	#if defined ac_OnVehicleDamageStatusUpdate
-		forward ac_OnVehicleDamageStatusUpdate(vehicleid, playerid);
-	#endif
+#if defined _ALS_OnVehicleDamage\
+	StatusUpdate
+	#undef OnVehicleDamageStatusUpdate
+#else
+	#define _ALS_OnVehicleDamageStatusUpdate
+#endif
+#define OnVehicleDamageStatusUpdate ac_OnVehicleDamageStatusUpdate
+#if defined ac_OnVehicleDamageStatusUpdate
+	forward ac_OnVehicleDamageStatusUpdate(vehicleid, playerid);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnVehicleSirenStateChange(playerid, vehicleid, newstate)
-#else
-	public OnVehicleSirenStateChange(playerid, vehicleid, newstate)
-#endif
+public OnVehicleSirenStateChange(playerid, vehicleid, newstate)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	new i = GetTickCount();
@@ -4385,105 +3721,53 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 		else if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
 		else AntiCheatInfo[playerid][pFloodCount][25] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][25] = i;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnVehicleSirenStateChange
-		return ac_OnVehicleSirenStateChange(playerid, vehicleid, newstate);
-	#else
-		return 1;
+	i = 1;
+	#if defined ac_OnVehicleSirenStateChange
+		i = ac_OnVehicleSirenStateChange(playerid, vehicleid, newstate);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][25] = GetTickCount();
+	return i;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnVehicleSirenStateChange
-		#undef OnVehicleSirenStateChange
-	#else
-		#define _ALS_OnVehicleSirenStateChange
-	#endif
-	#define OnVehicleSirenStateChange ac_OnVehicleSirenStateChange
-	#if defined ac_OnVehicleSirenStateChange
-		forward ac_OnVehicleSirenStateChange(playerid, vehicleid, newstate);
-	#endif
-#endif
-
-#if defined OnPlayerSelectDynamicObject
-	#if defined _inc_y_hooks
-		Hook:ac_OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y, Float:z)
-	#else
-		public OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y, Float:z)
-	#endif
-	{
-		if(AntiCheatInfo[playerid][pKicked]) return 0;
-		new i = GetTickCount();
-		if(AntiCheatInfo[playerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[playerid][pCall][26] + Mtfc[26][0]) FloodDetect(playerid, 26);
-			else if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-			else AntiCheatInfo[playerid][pFloodCount][26] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
-		}
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][26] = i;
-		#if !defined _inc_y_hooks\
-			&& defined ac_OnPlayerSelectDynamicObject
-			return ac_OnPlayerSelectDynamicObject(playerid, objectid, modelid, x, y, z);
-		#else
-			return 1;
-		#endif
-	}
-
-	#if !defined _inc_y_hooks
-		#if defined _ALS_OnPlayerSelect\
-			DynamicObject
-			#undef OnPlayerSelectDynamicObject
-		#else
-			#define _ALS_OnPlayerSelectDynamicObject
-		#endif
-		#define OnPlayerSelectDynamicObject ac_OnPlayerSelectDynamicObject
-		#if defined ac_OnPlayerSelectDynamicObject
-			forward ac_OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y, Float:z);
-		#endif
-	#endif
+#if defined _ALS_OnVehicleSirenStateChange
+	#undef OnVehicleSirenStateChange
 #else
-	#if defined _inc_y_hooks
-		Hook:ac_OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ)
-	#else
-		public OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ)
-	#endif
+	#define _ALS_OnVehicleSirenStateChange
+#endif
+#define OnVehicleSirenStateChange ac_OnVehicleSirenStateChange
+#if defined ac_OnVehicleSirenStateChange
+	forward ac_OnVehicleSirenStateChange(playerid, vehicleid, newstate);
+#endif
+
+public OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ)
+{
+	if(AntiCheatInfo[playerid][pKicked]) return 0;
+	new i = GetTickCount();
+	if(AntiCheatInfo[playerid][pACAllow][49])
 	{
-		if(AntiCheatInfo[playerid][pKicked]) return 0;
-		new i = GetTickCount();
-		if(AntiCheatInfo[playerid][pACAllow][49])
-		{
-			if(i < AntiCheatInfo[playerid][pCall][26] + Mtfc[26][0]) FloodDetect(playerid, 26);
-			else if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
-			else AntiCheatInfo[playerid][pFloodCount][26] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
-		}
-		AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][26] = i;
-		#if !defined _inc_y_hooks\
-			&& defined ac_OnPlayerSelectObject
-			return ac_OnPlayerSelectObject(playerid, type, objectid, modelid, fX, fY, fZ);
-		#else
-			return 1;
-		#endif
+		if(i < AntiCheatInfo[playerid][pCall][26] + Mtfc[26][0]) FloodDetect(playerid, 26);
+		else if(i < AntiCheatInfo[playerid][pCall][27] + Mtfc[27][0]) FloodDetect(playerid, 27);
+		else AntiCheatInfo[playerid][pFloodCount][26] = AntiCheatInfo[playerid][pFloodCount][27] = 0;
 	}
-
-	#if !defined _inc_y_hooks
-		#if defined _ALS_OnPlayerSelectObject
-			#undef OnPlayerSelectObject
-		#else
-			#define _ALS_OnPlayerSelectObject
-		#endif
-		#define OnPlayerSelectObject ac_OnPlayerSelectObject
-		#if defined ac_OnPlayerSelectObject
-			forward ac_OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ);
-		#endif
+	i = 1;
+	#if defined ac_OnPlayerSelectObject
+		i = ac_OnPlayerSelectObject(playerid, type, objectid, modelid, fX, fY, fZ);
 	#endif
+	AntiCheatInfo[playerid][pCall][27] = AntiCheatInfo[playerid][pCall][26] = GetTickCount();
+	return i;
+}
+
+#if defined _ALS_OnPlayerSelectObject
+	#undef OnPlayerSelectObject
+#else
+	#define _ALS_OnPlayerSelectObject
+#endif
+#define OnPlayerSelectObject ac_OnPlayerSelectObject
+#if defined ac_OnPlayerSelectObject
+	forward ac_OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z)
-#else
-	public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z)
-#endif
+public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	static Float:vpos[4];
@@ -4493,24 +3777,24 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 	{
 		static Float:zdiff;
 		zdiff = new_z - vpos[2];
-		if(AntiCheatInfo[playerid][pACAllow][31] && (floatabs(vel_x) > 0.3 && floatabs(vel_x) >=
-		floatabs(AntiCheatVehInfo[vehicleid][vVel][0]) || floatabs(vel_y) > 0.3 && floatabs(vel_y) >=
-		floatabs(AntiCheatVehInfo[vehicleid][vVel][1])) && zdiff > -5.0)
+		if(AntiCheatInfo[playerid][pACAllow][31] && (floatabs(vel_x) > 0.3 && floatabs(vel_x)
+		>= floatabs(AntiCheatVehInfo[vehicleid][vVel][0]) || floatabs(vel_y) > 0.3 && floatabs(vel_y)
+		>= floatabs(AntiCheatVehInfo[vehicleid][vVel][1])) && vpos[2] < new_z + 5.0)
 		{
-			if(++AntiCheatInfo[playerid][pCheatCount][4] >
-			MAX_CARSHOT_WARNINGS) return KickWithCode(playerid, "", 0, 31);
+			if(++AntiCheatInfo[playerid][pCheatCount][4]
+			> MAX_CARSHOT_WARNINGS) return KickWithCode(playerid, "", 0, 31);
 			#undef MAX_CARSHOT_WARNINGS
 		}
-		else if(AntiCheatInfo[playerid][pACAllow][8] && vel_z >= 0.1 && vel_z >
-		AntiCheatVehInfo[vehicleid][vVel][2] && floatabs(vpos[0] - new_x) <
-		zdiff * 1.2 && floatabs(vpos[1] - new_y) < zdiff * 1.2)
+		else if(AntiCheatInfo[playerid][pACAllow][8] && vel_z >= 0.1 && vel_z
+		> AntiCheatVehInfo[vehicleid][vVel][2] && floatabs(vpos[0] - new_x)
+		< zdiff * 1.2 && floatabs(vpos[1] - new_y) < zdiff * 1.2)
 		{
-			if(++AntiCheatInfo[playerid][pCheatCount][3] >
-			MAX_FLYHACK_VEH_WARNINGS) return KickWithCode(playerid, "", 0, 8, 2);
+			if(++AntiCheatInfo[playerid][pCheatCount][3]
+			> MAX_FLYHACK_VEH_WARNINGS) return KickWithCode(playerid, "", 0, 8, 2);
 			#undef MAX_FLYHACK_VEH_WARNINGS
 		}
-		else AntiCheatInfo[playerid][pCheatCount][4] =
-		AntiCheatInfo[playerid][pCheatCount][3] = 0;
+		else AntiCheatInfo[playerid][pCheatCount][4]
+		= AntiCheatInfo[playerid][pCheatCount][3] = 0;
 	}
 	if(AntiCheatInfo[playerid][pACAllow][5] && vpos[3] > 15.0 && vpos[2] > -70.0
 	&& vpos[3] > AntiCheatVehInfo[vehicleid][vPosDiff] + ((vpos[3] / 3) * 1.5))
@@ -4522,15 +3806,14 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 	}
 	static a;
 	a = 1;
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnUnoccupiedVehicleUpdate
+	#if defined ac_OnUnoccupiedVehicleUpdate
 		a = ac_OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, new_x, new_y, new_z, vel_x, vel_y, vel_z);
 	#endif
 	if(a)
 	{
-		AntiCheatVehInfo[vehicleid][vSpeedDiff] =
-		GetSpeed(vel_x,vel_y,vel_z)
-		- GetSpeed(AntiCheatVehInfo[vehicleid][vVel][0],AntiCheatVehInfo[vehicleid][vVel][1],AntiCheatVehInfo[vehicleid][vVel][2]);
+		AntiCheatVehInfo[vehicleid][vSpeedDiff]
+		= GetSpeed(vel_x, vel_y, vel_z) - GetSpeed(AntiCheatVehInfo[vehicleid][vVel][0],
+		AntiCheatVehInfo[vehicleid][vVel][1], AntiCheatVehInfo[vehicleid][vVel][2]);
 		AntiCheatVehInfo[vehicleid][vPosDiff] = vpos[3];
 		AntiCheatVehInfo[vehicleid][vVel][0] = vel_x;
 		AntiCheatVehInfo[vehicleid][vVel][1] = vel_y;
@@ -4539,51 +3822,42 @@ stock acc_RepairVehicle(vehicleid) return CallRemoteFunction("ac_RepairVehicle",
 	return a;
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnUnoccupiedVehicleUpdate
-		#undef OnUnoccupiedVehicleUpdate
-	#else
-		#define _ALS_OnUnoccupiedVehicleUpdate
-	#endif
-	#define OnUnoccupiedVehicleUpdate ac_OnUnoccupiedVehicleUpdate
-	#if defined ac_OnUnoccupiedVehicleUpdate
-		forward ac_OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z);
-	#endif
+#if defined _ALS_OnUnoccupiedVehicleUpdate
+	#undef OnUnoccupiedVehicleUpdate
+#else
+	#define _ALS_OnUnoccupiedVehicleUpdate
+#endif
+#define OnUnoccupiedVehicleUpdate ac_OnUnoccupiedVehicleUpdate
+#if defined ac_OnUnoccupiedVehicleUpdate
+	forward ac_OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z);
 #endif
 
-#if defined _inc_y_hooks
-	Hook:ac_OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
-#else
-	public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
-#endif
+public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
 {
 	if(AntiCheatInfo[playerid][pKicked]) return 0;
 	if(AntiCheatInfo[playerid][pACAllow][46] && 383 < modelid < 394) return KickWithCode(playerid, "", 0, 46);
-	#if !defined _inc_y_hooks\
-		&& defined ac_OnPlayerEditAttachedObject
+	#if defined ac_OnPlayerEditAttachedObject
 		return ac_OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, fOffsetX, fOffsetY, fOffsetZ, fRotX, fRotY, fRotZ, fScaleX, fScaleY, fScaleZ);
 	#else
 		return 1;
 	#endif
 }
 
-#if !defined _inc_y_hooks
-	#if defined _ALS_OnPlayerEditAttachedObject
-		#undef OnPlayerEditAttachedObject
-	#else
-		#define _ALS_OnPlayerEditAttachedObject
-	#endif
-	#define OnPlayerEditAttachedObject ac_OnPlayerEditAttachedObject
-	#if defined ac_OnPlayerEditAttachedObject
-		forward ac_OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ);
-	#endif
+#if defined _ALS_OnPlayerEditAttachedObject
+	#undef OnPlayerEditAttachedObject
+#else
+	#define _ALS_OnPlayerEditAttachedObject
+#endif
+#define OnPlayerEditAttachedObject ac_OnPlayerEditAttachedObject
+#if defined ac_OnPlayerEditAttachedObject
+	forward ac_OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ);
 #endif
 
 fpublic: acTimer(playerid)
 {
 	if(!IsPlayerConnected(playerid) || AntiCheatInfo[playerid][pKicked]) return 0;
-	if(AntiCheatInfo[playerid][pACAllow][51] && NetStats_MessagesRecvPerSecond(playerid) >
-	MAX_MSGS_REC_DIFF) KickWithCode(playerid, "", 0, 51);
+	if(AntiCheatInfo[playerid][pACAllow][51] && NetStats_MessagesRecvPerSecond(playerid)
+	> MAX_MSGS_REC_DIFF) KickWithCode(playerid, "", 0, 51);
 	#undef MAX_MSGS_REC_DIFF
 	static gtc, gpp, bool:ur;
 	gtc = GetTickCount();
@@ -4591,7 +3865,7 @@ fpublic: acTimer(playerid)
 	gpp = GetPlayerPing(playerid) + 100;
 	if(gtc > AntiCheatInfo[playerid][pGtc][7] + gpp)
 	{
-		for(new i, w, a, bool:cw, s = WeaponSlots[GetPlayerWeapon(playerid)]; i < 13; ++i)
+		for(new i, w, a, bool:cw, s = GetWeaponSlot(GetPlayerWeapon(playerid)); i < 13; ++i)
 		{
 			GetPlayerWeaponData(playerid, i, w, a);
 			if(w == 39) cw = true;
@@ -4629,19 +3903,6 @@ fpublic: acTimer(playerid)
 							AntiCheatInfo[playerid][pWeapon][i] = w;
 							AntiCheatInfo[playerid][pAmmo][i] = a;
 						}
-						else if(AntiCheatInfo[playerid][pLastPickup] > -1
-						&& AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pWeapon] == w
-						&& a == PickupAmmo[AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pWeapon]]
-						&& IsPlayerInRangeOfPoint(playerid, 5.0, AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pPos][0],
-						AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pPos][1],
-						AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pPos][2]))
-						{
-							AntiCheatInfo[playerid][pWeapon][i] = w;
-							if(2 < i < 6) AntiCheatInfo[playerid][pAmmo][i] +=
-							PickupAmmo[AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pWeapon]];
-							else AntiCheatInfo[playerid][pAmmo][i] =
-							PickupAmmo[AntiCheatPickInfo[AntiCheatInfo[playerid][pLastPickup]][pWeapon]];
-						}
 						else if(AntiCheatInfo[playerid][pACAllow][15] && !((15 < w < 40
 						|| 40 < w < 44) && !a)) KickWithCode(playerid, "", 0, 15, 2);
 					}
@@ -4652,8 +3913,8 @@ fpublic: acTimer(playerid)
 							AntiCheatInfo[playerid][pGiveAmmo][i] = -65535;
 							AntiCheatInfo[playerid][pAmmo][i] = a;
 						}
-						else if(AntiCheatInfo[playerid][pACAllow][52] && gtc >
-						AntiCheatInfo[playerid][pGtcGiveAmmo][i] + gpp)
+						else if(AntiCheatInfo[playerid][pACAllow][52] && gtc
+						> AntiCheatInfo[playerid][pGtcGiveAmmo][i] + gpp)
 						{
 							if(++AntiCheatInfo[playerid][pNOPCount][1] > MAX_NOP_WARNINGS)
 							{
@@ -4668,8 +3929,8 @@ fpublic: acTimer(playerid)
 					if(15 < w < 44)
 					{
 						if(w == 40 && !a) AntiCheatInfo[playerid][pAmmo][i] = 0;
-						else if(AntiCheatInfo[playerid][pACAllow][16] && a >
-						AntiCheatInfo[playerid][pAmmo][i]) KickWithCode(playerid, "", 0, 16, 2);
+						else if(AntiCheatInfo[playerid][pACAllow][16] && a
+						> AntiCheatInfo[playerid][pAmmo][i]) KickWithCode(playerid, "", 0, 16, 2);
 					}
 				}
 			}
@@ -4680,8 +3941,8 @@ fpublic: acTimer(playerid)
 				&& AntiCheatInfo[playerid][pGiveAmmo][i] == -65535)
 				{
 					if(21 < w < 33 && !ur && IsPlayerInAmmuNation(playerid,
-					GetPlayerInterior(playerid)) && AmmuNationInfo[w-22][1] ==
-					abs(a - AntiCheatInfo[playerid][pAmmo][i]))
+					GetPlayerInterior(playerid)) && AmmuNationInfo[w-22][1]
+					== abs(a - AntiCheatInfo[playerid][pAmmo][i]))
 					{
 						#undef abs
 						if(AntiCheatInfo[playerid][pSet][10]
@@ -4698,9 +3959,9 @@ fpublic: acTimer(playerid)
 			}
 		}
 	}
-	AntiCheatInfo[playerid][pCheatCount][1] =
+	AntiCheatInfo[playerid][pCheatCount][1] = 0;
 	AntiCheatInfo[playerid][pCheatCount][2] = 0;
-	if(ur) AntiCheatInfo[playerid][pGtc][15] = gtc;
+	if(ur) AntiCheatInfo[playerid][pGtc][15] = GetTickCount();
 	AntiCheatInfo[playerid][pTimerID] = SetTimerEx("acTimer", 1000, false, "i", playerid);
 	return 1;
 }
@@ -4752,6 +4013,47 @@ stock EnableAntiCheatForPlayer(playerid, acid, enable)
 	AntiCheatInfo[playerid][pACAllow][acid] = !!enable;
 	return 1;
 }
+
+static stock GetWeaponModel(weaponid)
+{
+	switch(weaponid)
+	{
+		case 1: return 331;
+		case 2..8: return weaponid + 331;
+		case 9: return 341;
+		case 10..15: return weaponid + 311;
+		case 16..18: return weaponid + 326;
+		case 22..29: return weaponid + 324;
+		case 30, 31: return weaponid + 325;
+		case 32: return 372;
+		case 33..45: return weaponid + 324;
+		case 46: return 371;
+	}
+	return 0;
+}
+
+static GetWeaponSlot(weaponid)
+{
+	switch(weaponid)
+	{
+		case 0, 1: return 0;
+		case 2..9: return 1;
+		case 10..15: return 10;
+		case 16..18, 39: return 8;
+		case 22..24: return 2;
+		case 25..27: return 3;
+		case 28, 29, 32: return 4;
+		case 30, 31: return 5;
+		case 33, 34: return 6;
+		case 35..38: return 7;
+		case 40: return 12;
+		case 41..43: return 9;
+		case 44..46: return 11;
+	}
+	return -1;
+}
+
+static GetSpeed(Float:vX, Float:vY, Float:vZ) return floatround(VectorSize(vX, vY, vZ) * 179.28625);
 
 static IsPlayerInRestaurant(playerid, interiorid)
 {
@@ -4855,6 +4157,35 @@ static IsPlayerInCasino(playerid, interiorid)
 		}
 	#endif
 	#undef USE_CASINOS
+	return false;
+}
+
+static IsAirVehicle(modelid)
+{
+	switch(modelid)
+	{
+		case 417, 425, 447, 460, 469, 476, 487, 488, 497, 511,
+		512, 513, 519, 520, 548, 553, 563, 577, 592, 593: return true;
+	}
+	return false;
+}
+
+static IsBikeVehicle(modelid)
+{
+	switch(modelid)
+	{
+		case 481, 509, 510: return true;
+	}
+	return false;
+}
+
+static IsBoatVehicle(modelid)
+{
+	switch(modelid)
+	{
+		case 430, 446, 452, 453, 454,
+		472, 473, 484, 493, 595: return true;
+	}
 	return false;
 }
 
