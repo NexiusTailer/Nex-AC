@@ -186,6 +186,7 @@ Currently they were not detected. If you find a bug, please write about it in th
 * vannesenn - Croatian translation
 * j3rry, vic1997 - French translation
 * zaibaslr2 - Lithuanian translation
+* UnforgiveNNN - Romanian translation
 
 This script also contains materials of third-party projects with open source.
 
