@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Suspiciune de la ID %d. Motiv cod: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Suspiciune de la IP %s. Motiv cod: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Aceasta versiune de anti-cheat nu este potrivita pentru server",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Eroare la crearea/deschidera %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d a depasit %d incercarile de flood. ID public: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Versiune invalida de la IP %d. Versiune: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d a depasit %d conexiunile de la o singura adresa IP",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Autentificare nereusita de RCON de la IP %s folosind parola %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d a folosit NOP %s",
+#endif
+
+	KICK_MSG[] =			"Ai primit kick deoarece ai fost suspectat de coduri (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Ai deposit limit da conexiuni de pe o adresa IP",
+	UNKNOWN_CLIENT_MSG[] =	"Aceasta versiune de anti-cheat nu este potrivita pentru server.",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC incarcat!",
+	LOADED_MSG_2[] =		" Anticheat versiune: %s",
+	LOADED_MSG_3[] =		" Autor: Nexius",
+
+	STATS_STRING_1[] =		" Statistici anticheat Nex-AC",
+	STATS_STRING_2[] =		" Detectate si prevenite",
+	STATS_STRING_3[] =		"  %d incercari de coduri",
+	STATS_STRING_4[] =		"  %d incercari de hacking",
+	STATS_STRING_5[] =		"  %d incercari de crash",
+	STATS_STRING_6[] =		"  %d incercari de spam",
+	STATS_STRING_7[] =		"  %d atacuri",
+	STATS_STRING_8[] =		" Total detectari si pedepsiti%d codati";
