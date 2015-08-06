@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Gyanúba keveredett a játékos.. (ID %d). Indok kód: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Gyanúba keveredett a játékos.. (IP %s). Indok kód: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Az anticheat verziója nem felel meg a szerver verziójához!",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Hiba a létrehozásban/megnyitásban (%s)!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] A játékos (ID %d) meghaladta az engedélyezett, %d flood limitet.. (ID: %d"),
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Hibás verzió (ID %d). Verzió: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] A játékos (ID %d) IP címéről már, %d csatlakozás történt, ami már tilos.",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Hibás RCON belépés! (IP %s) Beírt jelszó: %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] A játékos (ID %d) '%s' NOP-t használt!",
+#endif
+
+	KICK_MSG[] =			"Sajnálom, de csalás gyanújába keveredtél.. (Indok kód: #%03d)",
+	MAX_CONNECTS_MSG[] =	"Sajnálom, de elérted az 1 IP címről történő csatlakozásoknak a plafonját!",
+	UNKNOWN_CLIENT_MSG[] =	"A kliens verziód nem felel meg a szerver verziójához, így nem csatlakozhatsz!",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC betöltve!",
+	LOADED_MSG_2[] =		" Anticheat verzió: %s",
+	LOADED_MSG_3[] =		" Készítő: Nexius",
+
+	STATS_STRING_1[] =		" Statisztika anticheat Nex-AC",
+	STATS_STRING_2[] =		" Felismert, megakadályozott események:",
+	STATS_STRING_3[] =		"  %d csaló",
+	STATS_STRING_4[] =		"  %d hacker",
+	STATS_STRING_5[] =		"  %d kifagyás",
+	STATS_STRING_6[] =		"  %d floodolás",
+	STATS_STRING_7[] =		"  %d támadás",
+	STATS_STRING_8[] =		" Összesen %d csaló lett eddig 'elintézve'.";
