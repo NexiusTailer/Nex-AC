@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Kompastuminen %d ID. Syykoodi: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Kompastuminen IP %s. Syykoodi: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Tama versio ei sovi anti - cheat palvelimen version",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Luonti epaonnistui / open %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d ylitetty %d yrittavat tulva. Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Vaara versio %d ID. Versio: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d ylitetty %d liitannat alkaen 1 IP-osoite",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Epaonnistunut merkinta RCON alkaen IP %s kayttamallasalasana %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d kaytetty NOP %s",
+#endif
+
+	KICK_MSG[] =			"Sina potkittiin epailtyna kayttaa huijata ohjelmat (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Olet ylittanyt enimmaismaaran liitannat alkaen 1 IP-osoite",
+	UNKNOWN_CLIENT_MSG[] =	"Tama versio asiakkaan ei sovellu pelaa palvelimella",
+
+	LOADED_MSG_1[] =		"Anti - cheat Nex - AC ladattu!",
+	LOADED_MSG_2[] =		"Version anti - cheat: %s",
+	LOADED_MSG_3[] =		"Kirjoittaja: Nexius",
+
+	STATS_STRING_1[] =		"Tilastot anti- cheat Nex-AC",
+	STATS_STRING_2[] =		"Havaitaan ja estetaan:",
+	STATS_STRING_3[] =		"%d yrityksia huijaaminen",
+	STATS_STRING_4[] =		"%d hakkerointiyrityksilta",
+	STATS_STRING_5[] =		"%d yritykset crush",
+	STATS_STRING_6[] =		"%d yrittavat tulva",
+	STATS_STRING_7[] =		"%d iskut",
+	STATS_STRING_8[] =		"Yhteensa loytyi ja rangaista %d huijareita";
