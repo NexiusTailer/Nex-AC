@@ -188,6 +188,7 @@ Currently they were not detected. If you find a bug, please write about it in th
 * zaibaslr2 - Lithuanian translation
 * UnforgiveNNN - Romanian translation
 * Pedro. - Hungarian translation
+* Ben_Lovejoy - Finnish translation
 
 This script also contains materials of third-party projects with open source.
 
