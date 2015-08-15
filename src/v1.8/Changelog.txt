@@ -1,0 +1,9 @@
+Changes:
+Improved Anti-RapidFire: now detects Auto +C
+Minor optimization
+
+Fixes:
+Fixed some anticheats which didn't worked properly
+Increased the maximum allowable onfoot speed
+Fixed a bug in Anti-Invalid seat crasher
+Fixed Anti-Weapon and Ammo hack
