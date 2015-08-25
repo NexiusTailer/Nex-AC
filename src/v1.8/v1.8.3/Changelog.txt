@@ -1,0 +1,2 @@
+Fixed:
+Fixed display messages about kick in some localizations
