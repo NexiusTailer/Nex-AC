@@ -165,6 +165,8 @@ The script can be configured at any of the available languages. To do this, just
 Warning! If you are using a Streamer Plugin by Incognito, include it before nex-ac!
 5. Compile the modified scripts
 
+You gets an error when you compiling this anticheat with YSI? Check out some tips: http://forum.sa-mp.com/showpost.php?p=3556462&postcount=202
+
 #Bugs:
 Currently they were not detected. If you find a bug, please write about it in this thread.
 
