@@ -168,7 +168,7 @@ Warning! If you are using a Streamer Plugin by Incognito, include it before nex-
 You gets an error when you compiling this anticheat with YSI? Check out some tips: http://forum.sa-mp.com/showpost.php?p=3556462&postcount=202
 
 #Bugs:
-Currently they were not detected. If you find a bug, please write about it in this thread.
+Currently they were not detected. If you find a bug, please let me know about it.
 
 ##Thanks:
 * Magic_York, Roberto_York, TheHero, Nike_33, Vitalik_Gonsor, Mix_Rargard, Unisheld - testing
