@@ -1,0 +1,38 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Nostradaja uz %d ID. Koda iemesls: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Nostradaja uz IP %s. Koda iemesls: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Si anticita versija neder prieks sis servera versijas",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Izveidosanas/Atversanas kluda %s!",
+	
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d parsniedza %d flooda meginajumus. Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Nekoretka versija %d ID. Versija: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d parsniedza %d savienojumu no 1 IP-adreses",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Неудачный вход в RCON с IP %s используя пароль %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d izmantoja NOP %s",
+#endif
+
+	KICK_MSG[] =			"Jus esat izkikots par aizdomam uz citu-programmu lietosanu (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Jus parsniedzat maksimalo savienojumu skaitu no 1 IP-adreses",
+	UNKNOWN_CLIENT_MSG[] =	"Si klienta versija neder, lai speletu uz si servera",
+
+	LOADED_MSG_1[] =		" Anticits Nex-AC ieladets!",
+	LOADED_MSG_2[] =		" Anticita versija: %s",
+	LOADED_MSG_3[] =		" Autors: Nexius",
+
+	STATS_STRING_1[] =		" Anticita Nex-AC statistika",
+	STATS_STRING_2[] =		" Atklati un noversti:",
+	STATS_STRING_3[] =		"  %d citosanas meginajumu",
+	STATS_STRING_4[] =		"  %d uzlausanas meginajumu",
+	STATS_STRING_5[] =		"  %d krasa",
+	STATS_STRING_6[] =		"  %d flooda meginajumu",
+	STATS_STRING_7[] =		"  %d uzbrukumu",
+	STATS_STRING_8[] =		" Pavisam atrastu un soditu citeru skaits %d";
