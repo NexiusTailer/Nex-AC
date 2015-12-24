@@ -1,10 +1,7 @@
-# Nex-AC - Anticheat system
-(http://forum.sa-mp.com/showthread.php?t=579963)
+# [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
-Nex Anticheat (Nex-AC) - is a comprehensive protection which combines powerful anti-cheat and protection against various attacks (flood, DoS).
-
-Anti-cheat detects popular cheats instantly punishing cheaters.
-
+Nex Anticheat (Nex-AC) - is a comprehensive protection which combines powerful anti-cheat and protection against various attacks (flood, DoS).  
+Anti-cheat detects popular cheats instantly punishing cheaters.  
 Anti-DoS combines customizable anti-flood, anti-DoS at the network level and a lot of protection tools against hacking, crashers etc.
 
 ##List of basic anti-cheats:
@@ -41,21 +38,21 @@ Anti-DoS combines customizable anti-flood, anti-DoS at the network level and a l
 * Anti-flood change seat
 * Flood protection connects to one slot
 * Anti-Rcon hack (brute/brute-forse)
-* Anti-flood callback functions (complete list below)
-* Anti-crashers (complete list below)
-* Anti-NOP's (complete list below)
+* Anti-flood callback functions *(complete list below)*
+* Anti-crashers *(complete list below)*
+* Anti-NOP's *(complete list below)*
 * Anti-Dos
 
 #Additional features:
 ##### * Setting anti-cheat from file
 The settings is located in a separate file (scriptfiles\nex-ac_settings.cfg)
 ##### * View Statistics
-Ability to view statistics of the anti-cheat while the server working since its launch
+Ability to view statistics of the anti-cheat while the server working since its launch  
 Displayed automatically when server turn off. Stored in a server log (server_log.txt)
 ##### * Logging the most important actions
 Optionally you can enable debug-mode for log all actions
 ##### * Multilingual
-Ability to set any of the available languages.
+Ability to set any of the available languages.  
 It also simplifies the translation of anti-cheat to other languages
 
 ##List of publics which are protected by anti-flood:
@@ -155,17 +152,19 @@ Added in v1.3:
 >  * Return `1 (true)` if enabled or `0 (false)` if disabled
 
 #Multilingual:
-The script can be configured at any of the available languages. To do this, just download the link the desired localization, save it in a directory with the main include (nex_ac.inc) and recompile your script.
+The script can be configured at any of the available languages. To do this, just download the link the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
+
+#####*It is also recommended to check on used any other anti-cheats in order to avoid conflicts with them.*
 
 #Installation:
 1. Download version of the anticheat which compatible with the version of your server
-2. Download the language file (.lang) on your preferred language
-3. Copy both files to the folder "/pawno/include" which is located in the folder with the server
-4. In gamemode and all filterscripts after #include "a_samp" write the following: #include "nex-ac"     
-Warning! If you are using a Streamer Plugin by Incognito, include it before nex-ac!
+2. Download the language file *(.lang)* on your preferred language
+3. Copy both files to the folder *"/pawno/include"* which is located in the folder with the server
+4. In gamemode and all filterscripts after *#include "a_samp"* write the following: *#include "nex-ac"*  
+*Warning! If you are using a Streamer Plugin by Incognito, include it before nex-ac!*
 5. Compile the modified scripts
 
-You gets an error when you compiling this anticheat with YSI? Check out some tips: http://forum.sa-mp.com/showpost.php?p=3556462&postcount=202
+*You gets an error when you compiling this anticheat with YSI? Check out [some tips](http://forum.sa-mp.com/showpost.php?p=3556462&postcount=202)*
 
 #Bugs:
 Currently they were not detected. If you find a bug, please let me know about it.
