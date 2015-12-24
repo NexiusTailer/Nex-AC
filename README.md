@@ -114,7 +114,7 @@ It also simplifies the translation of anti-cheat to other languages
 #Functions:
 #### public OnCheatDetected(playerid, ip_address[], type, code)
 
-  Called when the tripped one of the anti-cheats
+>  Called when the tripped one of the anti-cheats
 >  * `playerid` - ID of the cheater
 >  * `ip_address[]` - IP-address of the cheater
 >  * `type` - Type of offense (when `0` returns the ID, when `1` - IP)
@@ -123,14 +123,14 @@ It also simplifies the translation of anti-cheat to other languages
 
 #### EnableAntiCheat(acid, enable)
 
-  Use to enable/disable one of the anti-cheats
+>  Use to enable/disable one of the anti-cheats
 >  * `acid` - ID of the anti-cheat
 >  * `enable` - `1` to enable/`0` to disable
 
 
 #### EnableAntiCheatForPlayer(playerid, acid, enable)
 
-  Use to enable/disable one of the anti-cheats for a particular player
+>  Use to enable/disable one of the anti-cheats for a particular player
 >  * `playerid` - ID of the player who needs enable/disable the anti-cheat
 >  * `acid` - ID of the anti-cheat
 >  * `enable` - `1` to enable/`0` to disable
@@ -142,14 +142,14 @@ Added in v1.3:
 
 #### IsAntiCheatEnabled(acid)
 
- Use to check enable/disable one of the anti-cheats
+> Use to check enable/disable one of the anti-cheats
 >  * `acid` - ID of the anti-cheat
 >  * Return `1 (true)` if enabled or `0 (false)` if disabled
 
 
 #### IsAntiCheatEnabledForPlayer(acid, playerid)
 
- Use to check enable/disable one of the anti-cheats for a particular player
+> Use to check enable/disable one of the anti-cheats for a particular player
 >  * `acid` - ID of the anti-cheat
 >  * `playerid` - ID of the player who needs for check enable/disable the anti-cheat
 >  * Return `1 (true)` if enabled or `0 (false)` if disabled
