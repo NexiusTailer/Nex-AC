@@ -1157,7 +1157,7 @@ ac_fpublic: ac_SetPlayerSpecialAction(playerid, actionid)
 
 ac_fpublic: ac_SetPlayerInterior(playerid, interiorid)
 {
-	while(interiorid < 0) interiorid += 256;
+	if(interiorid < 0) interiorid %= 256;
 	if(interiorid != GetPlayerInterior(playerid))
 	{
 		AntiCheatInfo[playerid][acNOPCount][2] = 0;
@@ -3113,8 +3113,7 @@ stock acc_RepairVehicle(vehicleid)
 						}
 						static Float:ac_zangle;
 						GetVehicleZAngle(ac_vehid, ac_zangle);
-						while(ac_zangle < 0.0) ac_zangle += 360.0;
-						while(ac_zangle > 360.0) ac_zangle -= 360.0;
+						ac_zangle = floatround(ac_zangle, floatround_floor) % 360 + floatfract(ac_zangle);
 						GetVehicleVelocity(ac_vehid, ac_pvelX, ac_pvelY, ac_pvelZ);
 						if(ac_gtc > AntiCheatInfo[playerid][acGtc][9] + ac_gpp)
 						{
