@@ -1,7 +1,7 @@
-Fixes:
-* Fixed compatibility with the latest versions of Streamer Plugin and YSI
-
 Changes:
 * Improved code readability
 * Minor bug fixes and improvements
 * Added debug functions
+
+Fixes:
+* Fixed compatibility with the latest versions of Streamer Plugin and YSI
