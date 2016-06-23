@@ -1,0 +1,2 @@
+Changes:
+* Removed the check for the distance when leaving the vehicle in the anti-teleport hack (due to false detects)
