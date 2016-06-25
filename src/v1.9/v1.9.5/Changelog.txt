@@ -1,0 +1,3 @@
+Fixes:
+* Fixed a bug in the anti-teleport hack with the setting of the interior before spawn
+* Fixed hook OnPlayerClickPlayerTextDraw
