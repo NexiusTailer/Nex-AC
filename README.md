@@ -423,6 +423,7 @@ Currently they were not detected. If you find a bug, please let me know about it
 * Pedro. - Hungarian translation
 * Ben_Lovejoy - Finnish translation
 * Rengar - Latvian translation
+* bgedition - Bulgarian translation
 
 This script also contains materials of third-party projects with open source.
 
