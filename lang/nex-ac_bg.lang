@@ -1,0 +1,38 @@
+//For Nex-AC v1.9.5 (0.3.7-R2)
+//Bulgarian Transition by Michael Goodman a.k.a bgedition a.k.a bulgedition
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Подозрение за играч с ID %d. Причина: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Подозрение за IP %s. Причина: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Версията на скрипта срещу хакери не е съвместима с версията на сървъра",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Грешка при отварянето на %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d привиши лимита %d за опити за 'наводнение' (flood). ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Играчът с ID %d използва непозната версия. Версия: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d привиши лимита %d за свързване от 1 IP-адрес",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Опит за дистанционно влизане от IP %s с парола %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d използва NOP %s",
+#endif
+
+	KICK_MSG[] =			"Вие бяхте изхвърлен от сървъра поради подозрения за използване на програми за измама (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Вие превишихте лимита за свързване от 1 IP-адрес",
+	UNKNOWN_CLIENT_MSG[] =	"Версията която използвате сега, не е съвместима за играене в сървъра",
+
+	LOADED_MSG_1[] =		" Скриптът срещу хакери 'Nex-AC' е зареден!",
+	LOADED_MSG_2[] =		" Верия на скрипта: %s",
+	LOADED_MSG_3[] =		" Автор: Nexius",
+
+	STATS_STRING_1[] =		" Статистики за скрипта срещу хакери 'Nex-AC'",
+	STATS_STRING_2[] =		" Открити и предотвратени:",
+	STATS_STRING_3[] =		"  %d опита за измама",
+	STATS_STRING_4[] =		"  %d опита за хакване",
+	STATS_STRING_5[] =		"  %d опита за срив",
+	STATS_STRING_6[] =		"  %d опита за 'наводнение'(flood)",
+	STATS_STRING_7[] =		"  %d атаки",
+	STATS_STRING_8[] =		" Общо открити и наказани са %d играча";
