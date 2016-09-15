@@ -1,0 +1,11 @@
+Changes:
+* AntiCheatGet* functions are now can be called from filterscripts
+* Faster call hooked functions from GameMode
+* Rewritten anti-money hack
+
+Fixes:
+* Fixed a bypass in anti-ammo hack for high-rate weapons
+* Fixed a bypass in the anti-teleport with the ability to teleport after changing interior by server
+* Fixed a bug in the anti-weapon hack with a kick when buying weapons in Ammu-Nation for the wrong price
+* Fixed a bug in the protection against NOPs with a kick for take a similar weapons
+* Fixed compilation errors when included in filterscript
