@@ -95,7 +95,6 @@ It also simplifies the translation of anti-cheat to other languages
 * SetPlayerInterior
 * PutPlayerInVehicle
 * ResetPlayerWeapons
-* SetPlayerDrunkLevel
 * SetPlayerArmedWeapon
 * SetPlayerSpecialAction
 * TogglePlayerSpectating
