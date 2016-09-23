@@ -1,0 +1,4 @@
+Fixes:
+* Fixed several bugs in the anti-special actions hack
+* Fixed a bug in the anti-weapon hack with a kick when ResetPlayerWeapons used in OnPlayerDeath
+* Tweaked some values
