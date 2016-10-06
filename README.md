@@ -392,7 +392,7 @@ The script can be configured at any of the available languages. To do this, just
 2. Download the language file *(.lang)* on your preferred language
 3. Copy both files to the folder *"/pawno/include"* which is located in the folder with the server
 4. In gamemode and all filterscripts after *#include "a_samp"* write the following: *#include "nex-ac"*  
-*Warning! If you are using a Streamer Plugin by Incognito, include it before nex-ac!*  
+*Warning! If you are using a Streamer Plugin by Incognito, foreach or y_hooks, include it before nex-ac!*  
 *Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including anticheat*
 5. Compile the modified scripts
 
