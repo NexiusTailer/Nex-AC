@@ -146,8 +146,8 @@ Added in v1.3:
 #### IsAntiCheatEnabledForPlayer(playerid, acid)
 
 > Use to check enable/disable one of the anti-cheats for a particular player
->  * `acid` - ID of the anti-cheat
 >  * `playerid` - ID of the player who needs for check enable/disable the anti-cheat
+>  * `acid` - ID of the anti-cheat
 >  * Return `1 (true)` if enabled or `0 (false)` if disabled
 
 
