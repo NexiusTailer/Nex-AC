@@ -143,7 +143,7 @@ Added in v1.3:
 >  * Return `1 (true)` if enabled or `0 (false)` if disabled
 
 
-#### IsAntiCheatEnabledForPlayer(acid, playerid)
+#### IsAntiCheatEnabledForPlayer(playerid, acid)
 
 > Use to check enable/disable one of the anti-cheats for a particular player
 >  * `acid` - ID of the anti-cheat
