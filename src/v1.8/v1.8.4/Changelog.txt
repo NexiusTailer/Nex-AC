@@ -1,7 +1,7 @@
 Changes:
-Minor optimization
+* Minor optimization
 
 Fixes:
-Increased some values (considering ping)
-Fixed a bug in Anti-RapidFire with a kick for the shooting of the passenger seat
-Fixed a bug in Anti-Ammo hack with a kick for the shooting of the driver's seat
+* Increased some values (considering ping)
+* Fixed a bug in Anti-RapidFire with a kick for the shooting of the passenger seat
+* Fixed a bug in Anti-Ammo hack with a kick for the shooting of the driver's seat

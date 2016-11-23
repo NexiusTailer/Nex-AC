@@ -1,6 +1,6 @@
 Changes:
-Rewrote the Anti-Dialog crasher (%)
+* Rewrote the Anti-Dialog crasher (%)
 
 Fixes:
-Fixed a bug in Anti-Ammo hack with a kick for a detonator
-Fixed debug mode
+* Fixed a bug in Anti-Ammo hack with a kick for a detonator
+* Fixed debug mode

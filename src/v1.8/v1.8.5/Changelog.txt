@@ -1,2 +1,2 @@
 Fixes:
-Fixed some checks for invalid vehicle model
+* Fixed some checks for invalid vehicle model

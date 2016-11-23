@@ -1,2 +1,2 @@
 Fixes:
-Fixed display messages about kick in some localizations
+* Fixed display messages about kick in some localizations
