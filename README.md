@@ -113,7 +113,7 @@ It also simplifies the translation of anti-cheat to other languages
 >  Called when the tripped one of the anti-cheats
 >  * `playerid` - ID of the cheater
 >  * `ip_address[]` - IP-address of the cheater
->  * `type` - Type of offense (when `0` returns the ID, when `1` - IP)
+>  * `type` - Type of cheating (when `0` it returns the ID, when `1` - IP)
 >  * `code` - Code (ID) of the anti-cheat
 
 
@@ -138,15 +138,15 @@ Added in v1.3:
 
 #### IsAntiCheatEnabled(acid)
 
-> Use to check enable/disable one of the anti-cheats
+> Use to check for enable/disable one of the anti-cheats
 >  * `acid` - ID of the anti-cheat
 >  * Return `1 (true)` if enabled or `0 (false)` if disabled
 
 
 #### IsAntiCheatEnabledForPlayer(playerid, acid)
 
-> Use to check enable/disable one of the anti-cheats for a particular player
->  * `playerid` - ID of the player who needs for check enable/disable the anti-cheat
+> Use to check for enable/disable one of the anti-cheats for a particular player
+>  * `playerid` - ID of the player who needs for check for enable/disable the anti-cheat
 >  * `acid` - ID of the anti-cheat
 >  * Return `1 (true)` if enabled or `0 (false)` if disabled
 
@@ -259,7 +259,7 @@ Added in v1.8.8:
 
 #### AntiCheatGetVehicleID(playerid)
 
-> Use to get the ID of the vehicle, in which sits the player
+> Use to get the ID of the vehicle, in which the player sits
 > * `playerid` - The ID of the player
 > * Returns the ID of the vehicle or `0` if the player is not connected
 
@@ -273,7 +273,7 @@ Added in v1.8.8:
 
 #### AntiCheatGetVehicleSeat(playerid)
 
-> Use to get the seat in the vehicle, on which sits the player
+> Use to get the seat in the vehicle, on which the player sits
 > * `playerid` - The ID of the player
 > * Returns the number of the seat or `0` if the player is not connected
 
@@ -343,14 +343,14 @@ Added in v1.8.8:
 
 #### AntiCheatIntEnterExitsIsEnabled(playerid)
 
-> Use to check enable/disable enter/exit markers in interiors for the player
+> Use to check for enable/disable enter/exit markers in interiors for the player
 > * `playerid` - The ID of the player
 > * Returns `1 (true)` if enabled or `0 (false)` if disabled
 
 
 #### AntiCheatStuntBonusIsEnabled(playerid)
 
-> Use to check enable/disable stunt bonus for player
+> Use to check for enable/disable stunt bonus for player
 > * `playerid` - The ID of the player
 > * Returns `1 (true)` if enabled or `0 (false)` if disabled
 
@@ -383,9 +383,9 @@ Added in v1.8.8:
 > * Returns `1 (true)` if it is or `0 (false)` if it is not
 
 #Multilingual:
-The script can be configured at any of the available languages. To do this, just download the link the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
+The script can be configured at any of the available languages. To do it, just download the link of desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
 
-#####*It is also recommended to check on used any other anti-cheats in order to avoid conflicts with them.*
+#####*It is also recommended to check on use any other anti-cheats in order to avoid conflicts with them.*
 
 #Installation:
 1. Download version of the anticheat which compatible with the version of your server
@@ -396,7 +396,7 @@ The script can be configured at any of the available languages. To do this, just
 *Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including anticheat*
 5. Compile the modified scripts
 
-*You gets an error when you compiling this anticheat with YSI? Check out [some tips](http://forum.sa-mp.com/showpost.php?p=3556462&postcount=202)*
+*Do you get an error when you compiling this anticheat with YSI? Check out [some tips](http://forum.sa-mp.com/showpost.php?p=3556462&postcount=202)*
 
 #Bugs:
 Currently they were not detected. If you find a bug, please let me know about it.
@@ -428,6 +428,6 @@ Currently they were not detected. If you find a bug, please let me know about it
 
 This script also contains materials of third-party projects with open source.
 
-P.s. I develop this anticheat about a year and spent on it a lot of effort and time. I very much hope that it will be useful to you.
+P.s. I develop this anticheat about a year and spent on it a lot of effort and time. I hope very much that it will be useful to you.
 
 Enjoy!
