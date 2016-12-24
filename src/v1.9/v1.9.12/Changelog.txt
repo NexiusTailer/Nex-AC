@@ -1,0 +1,9 @@
+Changes:
+* Changed some values in anti-flood
+* Rewrote system of call some hooked functions
+
+Fixes:
+* Fixed a bug when trying to get on the bus on the passenger seat more than 1
+* Fixed a bug in protection against NOPs with the wrong type of health and armor when comparing
+* Fixed anti-infinite ammo hack for sniper rifle
+* Tweaked function PutPlayerInVehicle
