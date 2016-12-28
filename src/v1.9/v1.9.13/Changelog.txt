@@ -1,0 +1,5 @@
+Changes:
+* Changed some values in anti-flood
+
+Fixes:
+* Fixed a bug in the anti-teleport in closed vehicles with a kick while attempting to enter the passenger seat
