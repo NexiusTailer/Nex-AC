@@ -1,0 +1,5 @@
+Changes:
+* Improved anti-GodMode
+* Minor improvements for EnableAntiCheat and EnableAntiCheatForPlayer functions
+* Changed the default punishment for repairing cars by cheats (returns the old health)
+* Removed some anti-weapon crashers

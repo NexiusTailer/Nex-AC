@@ -425,6 +425,7 @@ Currently they were not detected. If you find a bug, please let me know about it
 * Rengar - Latvian translation
 * bgedition - Bulgarian translation
 * Jensenn - Turkish translation
+* Sanady - Slovak translation
 
 This script also contains materials of third-party projects with open source.
 

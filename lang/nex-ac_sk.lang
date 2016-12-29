@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Podozrivý hráč ID %d. Dôvod: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Podozrivý hráč z IP %s. Dôvod: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Táto verzia anti cheata nezotpovedá verzií servera.",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Chyba v tvorbe/otvarenie %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d prekonal %d spam pokusy. Jeho ID je: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Nezodpovedajúca verzia klienta u ID %d. Verzia: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d prekonal %d prípojku s 1 IP-adresy",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Zlé RCON login heslo z IP-adrese %s ktorý použival heslo %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d použival cheat NOP %s",
+#endif
+
+	KICK_MSG[] =			"Bol si kikovaný so servera, preto že mame podozrenie že použivaš nelegálny cheat. (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Prekonal si maksmimalany počet prípojou s 1 Ip-adrese.",
+	UNKNOWN_CLIENT_MSG[] =	"Táto verzia klienta, nezotpovedá verzií servera.",
+
+	LOADED_MSG_1[] =		" Anticheat Nex načítaný!",
+	LOADED_MSG_2[] =		" Anticheat verzia: %s",
+	LOADED_MSG_3[] =		" Author of Nex-AC: Nex, translation to slovak: Sanady",
+
+	STATS_STRING_1[] =		" Štatistika anti-cheata Nex-AC",
+	STATS_STRING_2[] =		" Chytený a odstránený cheatery:",
+	STATS_STRING_3[] =		"  %d pokusov cheatovania",
+	STATS_STRING_4[] =		"  %d pokusov hakovania",
+	STATS_STRING_5[] =		"  %d pokusov crashovania",
+	STATS_STRING_6[] =		"  %d pokusov spamovania",
+	STATS_STRING_7[] =		"  %d DDoS útokov",
+	STATS_STRING_8[] =		" Celkový počet chytených cheaterou %d .";
