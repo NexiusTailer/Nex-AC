@@ -1,0 +1,2 @@
+Fixes:
+* Tweaked SetPlayerPos, SetPlayerPosFindZ and SetVehiclePos functions
