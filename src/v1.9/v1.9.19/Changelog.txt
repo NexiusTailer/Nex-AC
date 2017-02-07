@@ -1,0 +1,3 @@
+Fixes:
+* Fixed a bug in the anti-fakespawn with a kick for exit from spec mode when observed player is leaving
+* Fixed anti-health (onfoot/in vehicle) and armor hack
