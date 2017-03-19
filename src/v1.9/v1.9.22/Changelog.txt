@@ -1,0 +1,6 @@
+Changes:
+* Removed exception for taking golf club when leaving vehicle model 457
+* Removed a check on the distance to the vehicle when player enter it (false positives were observed)
+* Anti-reconnect will now be disabled if the settings are configured to connect more than 1 account from 1 IP
+* When trying to flood OnVehicleMod and OnVehicleRespray, they will be out of sync
+* Changed some values in anti-flood
