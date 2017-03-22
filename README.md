@@ -4,7 +4,7 @@ Nex Anticheat (Nex-AC) - is a comprehensive protection which combines powerful a
 Anti-cheat detects popular cheats instantly punishing cheaters.  
 Anti-DoS combines customizable anti-flood, anti-DoS at the network level and a lot of protection tools against hacking, crashers etc.
 
-##List of basic anti-cheats:
+## List of basic anti-cheats:
 * Anti-AirBreak (onfoot/in vehicle)
 * Anti-teleport hack (onfoot/into/in/between vehicles)
 * Anti-teleport pickups
@@ -43,7 +43,7 @@ Anti-DoS combines customizable anti-flood, anti-DoS at the network level and a l
 * Anti-NOP's *(complete list below)*
 * Anti-Dos
 
-#Additional features:
+# Additional features:
 ##### * Setting anti-cheat from file
 The settings is located in a separate file (scriptfiles\nex-ac_settings.cfg)
 ##### * View Statistics
@@ -55,7 +55,7 @@ Optionally you can enable debug-mode for log all actions
 Ability to set any of the available languages.  
 It also simplifies the translation of anti-cheat to other languages
 
-##List of publics which are protected by anti-flood:
+## List of publics which are protected by anti-flood:
 * OnDialogResponse
 * OnEnterExitModShop
 * OnPlayerClickMap
@@ -83,7 +83,7 @@ It also simplifies the translation of anti-cheat to other languages
 * OnVehicleDamageStatusUpdate
 * OnPlayerSelectObject
 
-##Anti-NOP's:
+## Anti-NOP's:
 * SpawnPlayer
 * SetPlayerPos
 * SetVehiclePos
@@ -100,14 +100,14 @@ It also simplifies the translation of anti-cheat to other languages
 * TogglePlayerSpectating
 * RemovePlayerFromVehicle
 
-##Anti-Crashers:
+## Anti-Crashers:
 * Invalid tuning
 * Invalid vehicle seat
 * Illegal characters in the dialogues (deleting)
 * Invalid attached objects
 * Weapon Crasher
 
-#Functions:
+# Functions:
 #### public OnCheatDetected(playerid, ip_address[], type, code)
 
 >  Called when the tripped one of the anti-cheats
@@ -382,12 +382,12 @@ Added in v1.8.8:
 > * `playerid` - The ID of the player
 > * Returns `1 (true)` if it is or `0 (false)` if it is not
 
-#Multilingual:
+# Multilingual:
 The script can be configured at any of the available languages. To do it, just download the link of desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
 
 #####*It is also recommended to check on use any other anti-cheats in order to avoid conflicts with them.*
 
-#Installation:
+# Installation:
 1. Download version of the anticheat which compatible with the version of your server
 2. Download the language file *(.lang)* on your preferred language
 3. Copy both files to the folder *"/pawno/include"* which is located in the folder with the server
@@ -398,10 +398,10 @@ The script can be configured at any of the available languages. To do it, just d
 
 *Do you get an error when you compiling this anticheat with YSI? Check out [some tips](http://forum.sa-mp.com/showpost.php?p=3556462&postcount=202)*
 
-#Bugs:
+# Bugs:
 Currently they were not detected. If you find a bug, please let me know about it.
 
-##Thanks:
+## Thanks:
 * Magic_York, Roberto_York, TheHero, Nike_33, Vitalik_Gonsor, Mix_Rargard, Unisheld - testing
 * ZiGGi, Urukhay, Yashas, theYiin, RaefaldhiAmartya, PatchwerkQWER, kvann - advices on the code
 * Carper - German translation
