@@ -403,7 +403,7 @@ Currently they were not detected. If you find a bug, please let me know about it
 
 ## Thanks:
 * Magic_York, Roberto_York, TheHero, Nike_33, Vitalik_Gonsor, Mix_Rargard, Unisheld - testing
-* ZiGGi, Urukhay, Yashas, theYiin, RaefaldhiAmartya, PatchwerkQWER, kvann - advices on the code
+* ZiGGi, Urukhay, Yashas, theYiin, RaefaldhiAmartya, PatchwerkQWER, kvann, rt-2 - advices on the code
 * Carper - German translation
 * Jstylezzz - Dutch translation
 * J4Rr3x - Italian translation
