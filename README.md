@@ -385,7 +385,7 @@ Added in v1.8.8:
 # Multilingual:
 The script can be configured at any of the available languages. To do it, just download the link of desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
 
-#####*It is also recommended to check on use any other anti-cheats in order to avoid conflicts with them.*
+##### *It is also recommended to check on use any other anti-cheats in order to avoid conflicts with them.*
 
 # Installation:
 1. Download version of the anticheat which compatible with the version of your server
@@ -399,7 +399,7 @@ The script can be configured at any of the available languages. To do it, just d
 *Do you get an error when you compiling this anticheat with YSI? Check out [some tips](http://forum.sa-mp.com/showpost.php?p=3556462&postcount=202)*
 
 # Bugs:
-See the [Issues](https://github.com/NexiusTailer/Nex-AC/issues section). If you find a bug, please let me know about it.
+See the [Issues](https://github.com/NexiusTailer/Nex-AC/issues) section. If you find a bug, please let me know about it.
 
 ## Thanks:
 * Magic_York, Roberto_York, TheHero, Nike_33, Vitalik_Gonsor, Mix_Rargard, Unisheld - testing
