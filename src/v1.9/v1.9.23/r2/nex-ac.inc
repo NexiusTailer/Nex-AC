@@ -3845,7 +3845,8 @@ static stock fs_AntiCheatSetNextDialog(playerid, dialogid)
 					if(ACInfo[playerid][acVeh] == 0)
 					{
 						if(ACInfo[playerid][acACAllow][4] &&
-						(ACInfo[playerid][acEnterVeh] != ac_vehid || ac_gtc < ACInfo[playerid][acEnterVehTime] + 600))
+						(ACInfo[playerid][acEnterVeh] != ac_vehid || ac_gtc < ACInfo[playerid][acEnterVehTime] + 600) &&
+						GetVehicleModel(ACInfo[playerid][acEnterVeh]) != 570)
 						{
 							#if defined DEBUG
 								printf("[Nex-AC debug] Entered vehicle: %d, vehicleid: %d, Enter time: %d",
