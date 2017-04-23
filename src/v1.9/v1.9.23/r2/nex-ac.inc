@@ -4335,16 +4335,19 @@ static stock fs_AntiCheatSetNextDialog(playerid, dialogid)
 							{
 								if(ac_vX < 3.0 && ac_vctsize > 5.0)
 								{
-									if(ACInfo[playerid][acACAllow][2])
+									if(GetVehicleModel(ACInfo[playerid][acEnterVeh]) != 570 || ac_vctsize > 9.0)
 									{
-										#if defined DEBUG
-											printf("[Nex-AC debug] Speed: %.1f, distance: %f", ac_vX, ac_vctsize);
-										#endif
-										#if defined OnCheatDetected
-											ac_KickWithCode(playerid, "", 0, 2, 3);
-										#else
-											return ac_KickWithCode(playerid, "", 0, 2, 3);
-										#endif
+										if(ACInfo[playerid][acACAllow][2])
+										{
+											#if defined DEBUG
+												printf("[Nex-AC debug] Speed: %.1f, distance: %f", ac_vX, ac_vctsize);
+											#endif
+											#if defined OnCheatDetected
+												ac_KickWithCode(playerid, "", 0, 2, 3);
+											#else
+												return ac_KickWithCode(playerid, "", 0, 2, 3);
+											#endif
+										}
 									}
 								}
 								else if(ACInfo[playerid][acACAllow][0] && ac_vX &&
