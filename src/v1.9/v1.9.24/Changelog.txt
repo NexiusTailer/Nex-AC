@@ -1,0 +1,8 @@
+Changes:
+* Reduced sensitivity of anti-FlyHack in vehicle
+* Reduced sensitivity of anti-AirBreak on short distances
+* If the default enter/exit markers are enabled (ie, gm is not used DisableInteriorEnterExits), then anti-teleport for long distances will automatically disabled (to avoid false detections when entering the roof of a skyscraper in LS)
+
+Fixes:
+* Fixed a bug with a kick for entering bus (id 431 & 437) for more than one passenger
+* Fixed a bug with a kick for quick entering train vagon (id 570)
