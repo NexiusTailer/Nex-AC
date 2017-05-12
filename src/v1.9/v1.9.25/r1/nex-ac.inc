@@ -4278,7 +4278,7 @@ static stock fs_AntiCheatSetNextDialog(playerid, dialogid)
 								{
 									switch(ACInfo[playerid][acSpecAct])
 									{
-										case SPECIAL_ACTION_USEJETPACK, SPECIAL_ACTION_DANCE1..SPECIAL_ACTION_DANCE4, SPECIAL_ACTION_USECELLPHONE, 68:
+										case SPECIAL_ACTION_USEJETPACK, SPECIAL_ACTION_DANCE1, SPECIAL_ACTION_DANCE2, SPECIAL_ACTION_DANCE3, SPECIAL_ACTION_DANCE4, SPECIAL_ACTION_USECELLPHONE, 68:
 										{
 											#if defined OnCheatDetected
 												ac_KickWithCode(playerid, "", 0, 18, 4);
