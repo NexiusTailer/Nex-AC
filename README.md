@@ -405,7 +405,7 @@ The script can be configured at any of the available languages. To do it, just d
 * Jstylezzz - Dutch translation
 * J4Rr3x - Italian translation
 * Alex Westbrook, JustBored - Spanish translation
-* lashona - Georgian translation
+* lashona, ArthourP - Georgian translation
 * wampiros6 - Polish translation
 * DeitY, Dragony92 - Serbian translation
 * NicK_ - PT/BR translation
