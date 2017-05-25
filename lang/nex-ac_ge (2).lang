@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Shesadzlebelia ID %d Cheaterobs. Mizezi: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Shesadzlebelia IP %s Cheaterobs. Mizezi: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Anti-Cheat-is es versia ar ergeba tqvens servers!",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Shecdoma Gaketebisas/Gaxsnisas %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d Cdilobs %d Gafludos. Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug]  ID %d-s Aqvs Araswori Versia. Versia: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d Da ID %d Cdiloben Shemovdidnen 1 IP-it!,
+	DEBUG_CODE_4[] =		"[Nex-AC debug] IP %s-ma Chawera Rcon-is Araswori Paroli. Paroli: %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d-ma Gamoiyena NOP %s",
+#endif
+
+	KICK_MSG[] =			"Gaikika, Cheateruli Programebis Gamoyenebis Gamo (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Tqven Gadaacharbet Maqsimalur Raodenobas 1 IP-idan Shemosvlis!",
+	UNKNOWN_CLIENT_MSG[] =	"Tqveni SA-MP-is Versia Ar Emtxveva Serveris Versias!",
+
+	LOADED_MSG_1[] =		" Anticheat- Nex-AC Chaitvirta!",
+	LOADED_MSG_2[] =		" Anti-Cheat-is Versia: %s",
+	LOADED_MSG_3[] =		" Avtori: Nexius",
+
+	STATS_STRING_1[] =		" Anticheat-is Statistika",
+	STATS_STRING_2[] =		" Shemchneuli Da Sheumchneveli:",
+	STATS_STRING_3[] =		"  %d Cheaterobis Mcdeloba",
+	STATS_STRING_4[] =		"  %d Hakerobis Mcdeloba",
+	STATS_STRING_5[] =		"  %d Crasherobis Mcdeloba",
+	STATS_STRING_6[] =		"  %d Gafludvis Mcdeloba",
+	STATS_STRING_7[] =		"  %d Shetevis Mcdeloba",
+	STATS_STRING_8[] =		" Jamshi %d Cheateria Shemchneuli!";
