@@ -6604,7 +6604,7 @@ ac_fpublic ac_Timer(playerid)
 	}
 	ACInfo[playerid][acCheatCount][1] = ACInfo[playerid][acCheatCount][2] = 0;
 	if(ac_ur) ACInfo[playerid][acGtc][15] = ac_gtc + 1030;
-	ACInfo[playerid][acTimerID] = SetTimerEx("ac_Timer", 1000, false, "i", playerid);
+	ACInfo[playerid][acTimerID] = SetTimerEx("ac_Timer", 1000, true, "i", playerid);
 	return 1;
 }
 
