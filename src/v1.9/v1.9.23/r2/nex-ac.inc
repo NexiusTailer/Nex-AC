@@ -3845,7 +3845,8 @@ static stock fs_AntiCheatSetNextDialog(playerid, dialogid)
 					if(ACInfo[playerid][acVeh] == 0)
 					{
 						if(ACInfo[playerid][acACAllow][4] &&
-						(ACInfo[playerid][acEnterVeh] != ac_vehid || ac_gtc < ACInfo[playerid][acEnterVehTime] + 600))
+						(ACInfo[playerid][acEnterVeh] != ac_vehid || ac_gtc < ACInfo[playerid][acEnterVehTime] + 600) &&
+						GetVehicleModel(ACInfo[playerid][acEnterVeh]) != 570)
 						{
 							#if defined DEBUG
 								printf("[Nex-AC debug] Entered vehicle: %d, vehicleid: %d, Enter time: %d",
@@ -4336,14 +4337,17 @@ static stock fs_AntiCheatSetNextDialog(playerid, dialogid)
 								{
 									if(ACInfo[playerid][acACAllow][2])
 									{
-										#if defined DEBUG
-											printf("[Nex-AC debug] Speed: %.1f, distance: %f", ac_vX, ac_vctsize);
-										#endif
-										#if defined OnCheatDetected
-											ac_KickWithCode(playerid, "", 0, 2, 3);
-										#else
-											return ac_KickWithCode(playerid, "", 0, 2, 3);
-										#endif
+										if(GetVehicleModel(ACInfo[playerid][acEnterVeh]) != 570 || ac_vctsize > 9.0)
+										{
+											#if defined DEBUG
+												printf("[Nex-AC debug] Speed: %.1f, distance: %f", ac_vX, ac_vctsize);
+											#endif
+											#if defined OnCheatDetected
+												ac_KickWithCode(playerid, "", 0, 2, 3);
+											#else
+												return ac_KickWithCode(playerid, "", 0, 2, 3);
+											#endif
+										}
 									}
 								}
 								else if(ACInfo[playerid][acACAllow][0] && ac_vX &&
