@@ -1010,12 +1010,18 @@ fpublic: ac_EnableVehicleFriendlyFire()
 fpublic: ac_EnableStuntBonusForAll(enable)
 {
 	StuntBonus = !!enable;
-	#if defined foreach
-		foreach(Player, i) AntiCheatInfo[i][acStuntBonus] = StuntBonus;
+	#if defined _inc_foreach || defined _inc_y_iterate
+		foreach(new i : Player)
+		{
+			AntiCheatInfo[i][acStuntBonus] = StuntBonus;
+		}
 	#else
 		for(new i = GetPlayerPoolSize(); i != -1; --i)
 		{
-			if(IsPlayerConnected(i)) AntiCheatInfo[i][acStuntBonus] = StuntBonus;
+			if(IsPlayerConnected(i))
+			{
+				AntiCheatInfo[i][acStuntBonus] = StuntBonus;
+			}
 		}
 	#endif
 	return EnableStuntBonusForAll(enable);
