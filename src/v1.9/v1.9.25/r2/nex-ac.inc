@@ -3418,7 +3418,7 @@ static stock fs_AntiCheatSetNextDialog(playerid, dialogid)
 			{
 				if(ac_m < ACInfo[playerid][acMoney] &&
 				ACInfo[playerid][acSet][10] <= (ACInfo[playerid][acMoney] - ac_m)) ACInfo[playerid][acSet][10] = -1;
-				else if(ACInfo[playerid][acACAllow][15] && ac_gtc > ACInfo[playerid][acGtc][15] + ac_gpp &&
+				else if(ACInfo[playerid][acACAllow][14] && ac_gtc > ACInfo[playerid][acGtc][15] + ac_gpp &&
 				++ACInfo[playerid][acCheatCount][10] > AC_MAX_NOP_WARNINGS)
 				{
 					#if defined DEBUG
