@@ -6913,7 +6913,7 @@ static ac_KickWithCode(playerid, ip_address[], type, code, code2 = 0)
 {
 	if(type == 0 && (!IsPlayerConnected(playerid) || ACInfo[playerid][acKicked]) ||
 	!(0 <= code < sizeof ac_ACAllow)) return 0;
-	if(GetTickCount() - ACInfo[MAX_PLAYERS][acTimer_ltc] > 1035) return 0;
+	if(GetTickCount() - ACInfo[MAX_PLAYERS][acTimer_ltc] > 1030) return 0;
 	ac_sInfo[5]++;
 	switch(code)
 	{
