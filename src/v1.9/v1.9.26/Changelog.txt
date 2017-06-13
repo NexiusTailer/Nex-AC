@@ -1,0 +1,10 @@
+Changes:
+* Rewrote anti-teleport to interiors hack
+* Added additional protection from Damage Helper
+* Added protection against explosion of vehicles after teleporting in them with cheats
+* Minor fixes and improvements
+
+Fixes:
+* Fixed some bugs in anti-special actions hack
+* Tweaked the minimum price of weapons in ammu-nation for anticheat
+* Fixed SpawnPlayer function
