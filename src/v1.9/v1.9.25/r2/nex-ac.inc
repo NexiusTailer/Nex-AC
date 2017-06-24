@@ -3233,6 +3233,7 @@ static stock fs_AntiCheatSetNextDialog(playerid, dialogid)
 	new ac_vehid = GetPlayerVehicleID(playerid);
 	if
 	(
+		ACInfo[playerid][acSet][12] != -1 &&
 		ACInfo[playerid][acSet][0] != -1 &&
 		ACInfo[playerid][acSet][0] != newinteriorid
 	)
