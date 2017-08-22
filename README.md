@@ -245,13 +245,6 @@ Added in v1.8.8:
 > * Returns the amount of money or `0` if the player is not connected
 
 
-#### AntiCheatGetClass(playerid)
-
-> Use to get ID of the class of the player
-> * `playerid` - The ID of the player
-> * Returns the class ID or `0` if the player is not connected
-
-
 #### AntiCheatGetEnterVehicle(playerid)
 
 > Use to get the ID of the vehicle, which player try to enter
