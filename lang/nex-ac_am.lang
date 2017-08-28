@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] ID %d patjvace. Patchari KOD-y: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] IP %s patjvace. Patchari KOD-y: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Anticheat-i ays tarberaky hamapatasxan che Dzer serveri tarberakin!",
+	CFG_OPENING_ERROR[] =		"[Nex-AC] Chhajoxvec stexcel/bacel %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d gerazncele %d FLOOD-i porc. Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Anvaver tarberake ID %d-i mot. Tarberak: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d gerazancele mutqi qanaky (%d) 1 IP-hasceov.",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Anhajox mutq depi RCON \"%s\" IP-ic. Ogtagorcvac gaxtnabary \"%s\"",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d ogtagorcele NOP %s",
+#endif
+
+	KICK_MSG[] =			"Duq heracvaceq cheat-cragir ogtagorcelu kaskacanqov (#%03d)",
+	MAX_CONNECTS_MSG[] =		"Duq gerazanceleq tuylaterli 1 IP-hasceov mutq gorcelu tivy",
+	UNKNOWN_CLIENT_MSG[] =		"Dzer \"Client\" tarberaky hamapatasxan che serveri tarberakin!",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC Miacvace!",
+	LOADED_MSG_2[] =		" Anticheat-i tarberaky: %s",
+	LOADED_MSG_3[] =		" Anticheat-i Hexinak: Nexius",
+
+	STATS_STRING_1[] =		" Nex-AC Vichakagrutyunnery",
+	STATS_STRING_2[] =		" Gtnvel ev kanxvele:",
+	STATS_STRING_3[] =		"  %d CHEAT-i porc",
+	STATS_STRING_4[] =		"  %d Kotrelu porc",
+	STATS_STRING_5[] =		"  %d CRASH-i porc",
+	STATS_STRING_6[] =		"  %d FLOOD-i porc",
+	STATS_STRING_7[] =		"  %d Harcakum",
+	STATS_STRING_8[] =		" Amboxjutyamb gtnvel ev patjvele %d cheater.";

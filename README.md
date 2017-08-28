@@ -418,6 +418,7 @@ The script can be configured at any of the available languages. To do it, just d
 * bgedition - Bulgarian translation
 * Jensenn - Turkish translation
 * Sanady - Slovak translation
+* Grig - Armenian translation
 
 This script also contains materials of third-party projects with open source.
 
