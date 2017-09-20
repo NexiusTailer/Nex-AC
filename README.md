@@ -2,8 +2,8 @@
 
 # [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
-Nex Anticheat (Nex-AC) - is a comprehensive protection which combines powerful anti-cheat and protection against various attacks (flood, DoS).  
-Anti-cheat detects popular cheats instantly punishing cheaters.  
+Nex Anticheat (Nex-AC) - is a comprehensive protection which combines powerful anticheat and protection against various attacks (flood, DoS).  
+Anticheat detects popular cheats instantly punishing cheaters.  
 Anti-DoS combines customizable anti-flood, anti-DoS at the network level and a lot of protection tools against hacking, crashers etc.
 
 ## List of basic anti-cheats:
@@ -46,16 +46,16 @@ Anti-DoS combines customizable anti-flood, anti-DoS at the network level and a l
 * Anti-Dos
 
 # Additional features:
-##### * Setting anti-cheat from file
+##### * Setting anticheat from file
 The settings is located in a separate file (scriptfiles\nex-ac_settings.cfg)
-##### * View Statistics
-Ability to view statistics of the anti-cheat while the server working since its launch  
+##### * View statistics
+Ability to view statistics of the anticheat while the server working since its launch  
 Displayed automatically when server turn off. Stored in a server log (server_log.txt)
 ##### * Logging the most important actions
 Optionally you can enable debug-mode for log all actions
 ##### * Multilingual
 Ability to set any of the available languages.  
-It also simplifies the translation of anti-cheat to other languages
+It also simplifies the translation of anticheat to other languages
 
 ## List of publics which are protected by anti-flood:
 * OnDialogResponse
@@ -112,7 +112,7 @@ It also simplifies the translation of anti-cheat to other languages
 # Functions:
 #### public OnCheatDetected(playerid, ip_address[], type, code)
 
->  Called when the tripped one of the anti-cheats
+>  Called when tripped one of the anti-cheats
 >  * `playerid` - ID of the cheater
 >  * `ip_address[]` - IP-address of the cheater
 >  * `type` - Type of cheating (when `0` it returns the ID, when `1` - IP)
@@ -378,7 +378,7 @@ Added in v1.8.8:
 > * Returns `1 (true)` if it is or `0 (false)` if it is not
 
 # Multilingual:
-The script can be configured at any of the available languages. To do it, just download the link of desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
+The script can be configured at any of the available languages. To do it, just download the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
 
 ##### *It is also recommended to check on use any other anti-cheats in order to avoid conflicts with them.*
 
