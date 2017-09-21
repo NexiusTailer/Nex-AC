@@ -685,6 +685,7 @@ enum acInfo
 	acSpawnAmmo3,
 	acSpawnRes,
 	acTimerID,
+	acTimer_ltc,
 	acKicked,
 	acIp[16],
 	acSet[15],
@@ -6611,6 +6612,7 @@ ac_fpublic ac_Timer(playerid)
 	ACInfo[playerid][acCheatCount][1] = ACInfo[playerid][acCheatCount][2] = 0;
 	if(ACInfo[playerid][acCheatCount][16] > 0) ACInfo[playerid][acCheatCount][16]--;
 	if(ac_ur) ACInfo[playerid][acGtc][15] = ac_gtc + 1030;
+	ACInfo[playerid][acTimer_ltc] = GetTickCount();
 	ACInfo[playerid][acTimerID] = SetTimerEx("ac_Timer", 1000, false, "i", playerid);
 	return 1;
 }
@@ -6911,6 +6913,7 @@ static ac_KickWithCode(playerid, ip_address[], type, code, code2 = 0)
 {
 	if(type == 0 && (!IsPlayerConnected(playerid) || ACInfo[playerid][acKicked]) ||
 	!(0 <= code < sizeof ac_ACAllow)) return 0;
+	if(GetTickCount() - ACInfo[playerid][acTimer_ltc] > 1030) return 0;
 	ac_sInfo[5]++;
 	switch(code)
 	{
