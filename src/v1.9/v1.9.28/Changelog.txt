@@ -1,0 +1,13 @@
+Changes:
+* Added support for Streamer_UpdateEx function
+* Added compatibility with the Timerfix plugin by Dan
+* The minimum detection distance for anti-teleport hack in vehicle is changed from 15 to 25 meters
+* Reduced sensitivity of anti-AirBreak onfoot at short distances
+* Increased the number of warnings for anti-money hack
+
+Fixes:
+* Fixed bypass with instant teleport after leaving the vehicle
+* Fixed a bug in anti-health hack with a kick if player fell from bike (at low health values it is restored to 5 by the game)
+* Fixed a bug in anti-teleport hack in vehicle with a kick when player teleports to the modshop with passengers in the vehicle
+* Fixed anti-infinite ammo hack for Country Rifle
+* Minor bug fixes
