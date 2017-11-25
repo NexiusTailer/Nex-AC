@@ -1,4 +1,4 @@
-[Download latest release (v1.9.28)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9/v1.9.28)
+[Download latest release (v1.9.29)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9/v1.9.29)
 
 # [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
