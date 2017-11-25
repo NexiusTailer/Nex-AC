@@ -1,0 +1,6 @@
+Fixes:
+* Fixed a bug in anti-GodMode with a kick of the victim when shooting him from a long distance
+* Fixed a bug in anti-teleport hack with a kick after a teleport to the surface by the game when the player fell under the map in the vehicle
+* Fixed bypass in anti-ammo hack, when the cheater gave himself a negative value of ammo, thereby making them endless
+* Fixed bypass in anti-teleport hack in vehicle, when the cheater teleported at the time of entering the vehicle
+* Minor fixes and improvements
