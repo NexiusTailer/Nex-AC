@@ -1,0 +1,8 @@
+Changes:
+* Increased the number of warnings for high ping before kick
+* Increased the minimum teleport distance for detect from 5 to 8 meters
+* Added a check in OnPlayerWeaponShot on the validity of the hitid
+
+Fixes:
+* Fixed a bypass in anti-teleport hack into vehicle passenger seat
+* Some fixes for anti-flood
