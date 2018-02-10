@@ -209,13 +209,6 @@ Added in v1.8.8:
 > * `&Float:z` - The variable for storage the z coordinate, passed by reference
 
 
-#### AntiCheatGetSpeed(playerid, &Float:speed)
-
-> Use to get a player's speed
-> * `playerid` - The ID of the player
-> * `&Float:speed` - Variable for storage the speed, passed by reference
-
-
 #### AntiCheatGetVehicleVelocity(vehicleid, &Float:x, &Float:y, &Float:z)
 
 > Use to get a vehicle speed
@@ -223,6 +216,13 @@ Added in v1.8.8:
 > * `&Float:x` - The variable for storage the x speed, passed by reference
 > * `&Float:y` - The variable for storage the y speed, passed by reference
 > * `&Float:z` - The variable for storage the z speed, passed by reference
+
+
+#### AntiCheatGetSpeed(playerid)
+
+> Use to get a player's speed
+> * `playerid` - The ID of the player
+> * Returns a player's speed or `0` if the player is not connected
 
 
 #### AntiCheatGetAnimationIndex(playerid)
@@ -271,7 +271,7 @@ Added in v1.8.8:
 
 > Use to get the seat in the vehicle on which the player is in
 > * `playerid` - The ID of the player
-> * Returns the number of the seat or `0` if the player is not connected
+> * Returns a number of the seat or `0` if the player is not connected
 
 
 #### AntiCheatGetSpecialAction(playerid)
@@ -306,35 +306,35 @@ Added in v1.8.8:
 
 > Use to get a player's last update timestamp
 > * `playerid` - The ID of the player
-> * Returns the timestamp of the last update or `0` if the player is not connected
+> * Returns a timestamp of the last update or `0` if the player is not connected
 
 
 #### AntiCheatGetLastReloadTime(playerid)
 
 > Use to get a player's last (weapon) reload timestamp
 > * `playerid` - The ID of the player
-> * Returns the timestamp of the last reload or `0` if the player is not connected
+> * Returns a timestamp of the last reload or `0` if the player is not connected
 
 
 #### AntiCheatGetLastEnteredVehTime(playerid)
 
 > Use to get a player's last entering vehicle attempt timestamp
 > * `playerid` - The ID of the player
-> * Returns timestamp of the last entering attempt or `0` if the player is not connected
+> * Returns a timestamp of the last entering attempt or `0` if the player is not connected
 
 
 #### AntiCheatGetLastShotTime(playerid)
 
 > Use to get a player's last shot timestamp
 > * `playerid` - The ID of the player
-> * Returns the timestamp of the last shot or `0` if the player is not connected
+> * Returns a timestamp of the last shot or `0` if the player is not connected
 
 
 #### AntiCheatGetLastSpawnTime(playerid)
 
 > Use to get a player's last spawn timestamp
 > * `playerid` - The ID of the player
-> * Returns timestamp of the last spawn or `0` if the player is not connected
+> * Returns a timestamp of the last spawn or `0` if the player is not connected
 
 
 #### AntiCheatIntEnterExitsIsEnabled(playerid)
