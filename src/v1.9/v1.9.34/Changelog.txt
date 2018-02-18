@@ -1,0 +1,10 @@
+Changes:
+* Improved protection from slappers in vehicle
+* AntiCheatGetSpeed function now returns the speed as an integer and can be used in fs
+* Minor optimization
+
+Fixes:
+* Fixed a check for shooting on the wheels of vehicle in anti-GodMode in vehicle
+* Fixed a bypass in anti-teleport hack, when the cheater could teleport to the coordinates he needed immediately after applying SetPlayerPos
+* Fixed a bug in anti-special actions hack with kick when player didn't apply some special actions in vehicle
+* Fixed the behavior of anti-weapon hack when player takes some weapons with 0 ammo
