@@ -1,0 +1,9 @@
+Changes:
+* Added protection against passenger seat spoofing when manipulating unoccupied vehicle
+* Minor optimization
+
+Fixes:
+* Fixed bug in anti-tuning crasher with kick when viewing paintjobs in default modshops
+* Fixed a bug in anti-FlyHack with kick during parachute flying while performing some special actions
+* Fixed a bypass in anti-teleport hack in vehicle, when the cheater could teleport to the coordinates he needed immediately after applying SetVehiclePos
+* Fixed a bug in anti-teleport hack with kick when exiting the train from the passenger seat
