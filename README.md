@@ -421,6 +421,7 @@ The script can be configured at any of the available languages. To do it, just d
 * Sanady - Slovak translation
 * Grig - Armenian translation
 * SooBad - Czech translation
+* OldPawn - Estonian translation
 
 This script also contains materials of third-party projects with open source.
 

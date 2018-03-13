@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Töötas %d mängija IDel. Põhjuse kood: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Töötas IPiga %s. Põhjuse kood: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Selline AC versioon ei sobi sellise serveri versiooni",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] On viga avamisega või loomisega %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] Mängija ID %d ületas %d korda floodi. Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Ebaõige veersion %d mängija IDel. Versioon: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] Mängija ID %d ületas %d ühendust 1 IP-adressist",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Ebaedukas RCON IPist %s parooliga %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] Mängija ID %d kasutas NOP %s",
+#endif
+
+	KICK_MSG[] =			"Te olite lööginud sellepärast et me mõtleme, et te olite kasutanud paha programmid (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Te olite ületanud maksimaalne ühendamiste arv 1 IP-adressist",
+	UNKNOWN_CLIENT_MSG[] =	"Selline kliente versioon ei sobi, et mängida serveris",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC töötab!",
+	LOADED_MSG_2[] =		" Anticheat versioon: %s",
+	LOADED_MSG_3[] =		" Autor: Nexius",
+
+	STATS_STRING_1[] =		" Anticheat statistika Nex-AC",
+	STATS_STRING_2[] =		" Leitud ja ennetatud :",
+	STATS_STRING_3[] =		"  %d korda paha programmi kasutamist",
+	STATS_STRING_4[] =		"  %d korda hakkimist",
+	STATS_STRING_5[] =		"  %d korda crash",
+	STATS_STRING_6[] =		"  %d korda flood",
+	STATS_STRING_7[] =		"  %d rünnad",
+	STATS_STRING_8[] =		" Leitud ja karistatud %d paha mängijad";
