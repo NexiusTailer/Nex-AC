@@ -3231,7 +3231,12 @@ static stock fs_AntiCheatSetNextDialog(playerid, dialogid)
 {
 	if(!IsPlayerConnected(playerid) || ACInfo[playerid][acKicked]) return 0;
 	new ac_vehid = GetPlayerVehicleID(playerid);
-	if(newinteriorid != ACInfo[playerid][acSet][0])
+	if
+	(
+		ACInfo[playerid][acSet][12] != -1 &&
+		ACInfo[playerid][acSet][0] != -1 &&
+		ACInfo[playerid][acSet][0] != newinteriorid
+	)
 	{
 		if(ac_vehid > 0)
 		{
