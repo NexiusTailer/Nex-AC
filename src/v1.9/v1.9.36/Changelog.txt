@@ -1,0 +1,4 @@
+Fixes:
+* Tweaked anti-teleport hack (unoccupied vehicle to yourself)
+* Fixed a bug in anti-CJ run with a kick if invalid skins sets to a player
+* Minor fixes and improvements
