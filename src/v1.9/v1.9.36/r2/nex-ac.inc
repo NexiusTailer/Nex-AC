@@ -148,7 +148,7 @@
 	#define AC_MAX_MONEY_WARNINGS		2
 #endif
 
-#define ac_fpublic%0(%1) forward %0(%1); public %0(%1)
+#define ac_fpublic%0(%1) forward%0(%1); public%0(%1)
 #define ac_AbsoluteAngle(%0) floatadd(floatround(%0, floatround_floor) % 360, floatfract(%0))
 #define ac_abs(%0) (((%0) < 0) ? (-(%0)) : ((%0)))
 
