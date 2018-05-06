@@ -1,5 +1,7 @@
 # Nex-AC (version 1.9.36)
 
+## If you do not use **sampctl** see this [link](https://www.github.com/NexiusTailer/Nex-AC)
+
 [![sampctl](https://shields.southcla.ws/badge/sampctl-Nex--AC-2f2f2f.svg?style=for-the-badge)](https://github.com/LashaKanteladze/Nex-AC)
 
 ## Installation
