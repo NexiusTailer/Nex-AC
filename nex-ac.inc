@@ -1,5 +1,7 @@
 //Nex-AC by Nexius v1.9.36 (0.3.7-R2)
 
+#include 	"YSI\y_hooks"
+
 #if defined _nex_ac_included
 	#endinput
 #endif
@@ -18,7 +20,7 @@
 #endif
 
 #if !defined _nex_ac_lang_included
-	#include <nex-ac_en.lang>	//Localization
+	#include "lang\nex-ac_en.lang"	//Localization
 #endif
 
 #define	NEX_AC_VERSION				"1.9.36"

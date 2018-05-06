@@ -10,7 +10,7 @@ Simply install to your project:
 sampctl package install LashaKanteladze/Nex-AC
 ```
 
-Now you have to open **nex-ac.inc** from *dependencies/Nex-AC* directory and include which language you want under the line 18.
+Now you have to open **nex-ac.inc** from *dependencies/Nex-AC* directory and include which language you want under the line 19.
 For instance 
 ```pawn
 #include 	<nex-ac_ge.lang>
