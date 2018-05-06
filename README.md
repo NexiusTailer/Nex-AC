@@ -1,4 +1,4 @@
-# Nex-AC
+# Nex-AC (version 1.9.36)
 
 [![sampctl](https://shields.southcla.ws/badge/sampctl-Nex--AC-2f2f2f.svg?style=for-the-badge)](https://github.com/LashaKanteladze/Nex-AC)
 
@@ -11,6 +11,7 @@ sampctl package install LashaKanteladze/Nex-AC
 ```
 
 Now you have to open **nex-ac.inc** from *dependencies/Nex-AC* directory and include which language you want under the line 19.
+
 For instance 
 ```pawn
 #include 	<nex-ac_ge.lang>
