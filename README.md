@@ -1,4 +1,4 @@
-# Nex-AC (version 1.9.36)
+# Nex-AC
 
 ## If you do not use **sampctl** see this [link](https://www.github.com/NexiusTailer/Nex-AC)
 
