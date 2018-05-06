@@ -1,0 +1,35 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "build_systems": [
+        {
+            "name": "sampctl",
+            "cmd": ["sampctl", "package", "build"],
+            "file_regex": "^(.+):([0-9]+) \\((\\w+)\\) (.+)$",
+            "working_dir": "$project_path",
+            "variants": [
+                {
+                    "name": "run",
+                    "cmd": ["sampctl", "package", "run"],
+                    "file_regex": "^(.+):([0-9]+) \\((\\w+)\\) (.+)$",
+                    "working_dir": "$project_path"
+                },
+                {
+                    "name": "build watcher",
+                    "cmd": ["sampctl", "package", "build", "--watch"],
+                    "file_regex": "^(.+):([0-9]+) \\((\\w+)\\) (.+)$",
+                    "working_dir": "$project_path"
+                },
+                {
+                    "name": "run watcher",
+                    "cmd": ["sampctl", "package", "run", "--watch"],
+                    "file_regex": "^(.+):([0-9]+) \\((\\w+)\\) (.+)$",
+                    "working_dir": "$project_path"
+                }
+            ]
+        }
+    ]
+}

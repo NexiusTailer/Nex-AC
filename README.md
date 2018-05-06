@@ -1,6 +1,61 @@
-[Download latest release (v1.9.36)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9/v1.9.36)
+# Nex-AC
 
-# [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
+[![sampctl](https://shields.southcla.ws/badge/sampctl-Nex--AC-2f2f2f.svg?style=for-the-badge)](https://github.com/LashaKanteladze/Nex-AC)
+
+## Installation
+
+Simply install to your project:
+
+```bash
+sampctl package install LashaKanteladze/Nex-AC
+```
+
+Include in your code and begin using the library:
+
+```pawn
+#include <Nex-AC>
+```
+
+## Installation
+
+Simply install to your project:
+
+```bash
+sampctl package install LashaKanteladze/Nex-AC
+```
+
+Now you have to open **nex-ac.inc** from *dependencies/Nex-AC* directory and include which language you want under the line 18.
+For instance 
+```pawn
+#include 	<nex-ac_ge.lang>
+```
+It would look like this
+```pawn
+#if !defined DEBUG
+	#define DEBUG
+	#include 	<nex-ac_ge.lang>
+#endif
+```
+
+Otherwise Nex-AC will use its default language (English).
+
+
+Then you have to include Nex-AC like this
+```pawn
+#include <nex-ac>
+```
+
+## Testing
+
+To test, simply run the package:
+
+```bash
+sampctl package run
+```
+
+# Default information by **Nexius** about Nex-AC
+
+## [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
 Nex Anticheat (Nex-AC) - is a comprehensive protection which combines powerful anticheat and protection against various attacks (flood, DoS).  
 Anticheat detects popular cheats instantly punishing cheaters.  
