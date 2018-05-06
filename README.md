@@ -14,7 +14,7 @@ Now you have to open **nex-ac.inc** from *dependencies/Nex-AC* directory and inc
 
 For instance 
 ```pawn
-#include 	<nex-ac_ge.lang>
+#include 	<lang\nex-ac_ge.lang>
 ```
 It would look like this
 ```pawn
