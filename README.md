@@ -10,20 +10,6 @@ Simply install to your project:
 sampctl package install LashaKanteladze/Nex-AC
 ```
 
-Include in your code and begin using the library:
-
-```pawn
-#include <Nex-AC>
-```
-
-## Installation
-
-Simply install to your project:
-
-```bash
-sampctl package install LashaKanteladze/Nex-AC
-```
-
 Now you have to open **nex-ac.inc** from *dependencies/Nex-AC* directory and include which language you want under the line 18.
 For instance 
 ```pawn
