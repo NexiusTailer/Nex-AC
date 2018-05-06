@@ -1,4 +1,0 @@
-Fixes:
-* Fixed SetPlayerArmedWeapon function
-* Fixed PutPlayerInVehicle function
-* Minor fixes

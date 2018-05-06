@@ -1,5 +1,0 @@
-Changes:
-* Improved FlyHack detection (onfoot) with different animations
-* Ability to include localization by yourself before including anticheat
-* Reduced the sensitivity of anti-SpeedHack for tank (modelid 432)
-* Changed anti-flood settings for public OnPlayerExitVehicle

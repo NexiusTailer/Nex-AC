@@ -1,6 +1,0 @@
-Changes:
-* Minor improvements
-* Changed some values in anti-flood
-
-Fixes:
-* Fixed a bug with a kick the player for the setting him interior in which he already is

@@ -1,9 +1,0 @@
-Changes:
-* Updated Anti-Tuning crasher
-* Additional compatibility with sscanf
-* Improved compatibility with other scripts
-
-Fixes:
-* Fixed compatibility with Streamer Plugin
-* Fixed Anti-SpeedHack, Anti-Flood and Anti-Invisible hack
-* Fixed a bug in Anti-Ammo hack with ResetPlayerWeapons function

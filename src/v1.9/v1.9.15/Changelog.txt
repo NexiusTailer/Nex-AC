@@ -1,5 +1,0 @@
-Changes:
-* Anti-parkour mod and anti-fake NPC is now disabled by default
-
-Fixes:
-* Fixed a bug in the protection against NOP RemovePlayerFromVehicle

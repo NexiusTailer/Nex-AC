@@ -1,8 +1,0 @@
-Changes:
-* Debug mode is now enabled by default
-
-Fixes:
-* Fixed false detection in anti-flood with fast entering and exit from boats
-* Tweaked minimum values of 'fire rate' in anti-rapid fire for desert eagle
-* Fixed false kick for NOPs if the server gave health/armor to player or his transport while he/it burned
-* Fixed anti-infinite ammo hack for m4, mp5 and silenced pistol

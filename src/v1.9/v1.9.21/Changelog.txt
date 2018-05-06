@@ -1,4 +1,0 @@
-Fixes:
-* Tweaked SetPlayerAmmo function
-* Fixed a bug in anti-GodMode in vehicle with a kick when shooting vehicle wheels
-* Fixed anti-infinite ammo for AK-47 and m4

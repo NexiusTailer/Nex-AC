@@ -1,2 +1,0 @@
-Fixes:
-* Fixed a bug in Anti-FlyHack (onfoot) with a kick for a jump to the water

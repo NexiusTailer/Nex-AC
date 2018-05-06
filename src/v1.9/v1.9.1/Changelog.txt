@@ -1,2 +1,0 @@
-Changes:
-* Added compatibility with Nexius's Update Checker

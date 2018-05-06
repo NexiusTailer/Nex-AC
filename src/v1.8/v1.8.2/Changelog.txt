@@ -1,3 +1,0 @@
-Fixes:
-* Fixed EnableAntiCheatForPlayer function
-* Fixed bugs with "#define AC_USE_<...>"

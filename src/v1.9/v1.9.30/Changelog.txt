@@ -1,7 +1,0 @@
-Changes:
-* Increased minimum speed for FlyHack detection
-* Increased waiting time for applying server functions in NOPs protection
-
-Fixes:
-* Tweaked anti-vehicle health hack and anti-GodMode in vehicle
-* Fixed bugs in anti-teleport when player exit the vehicle

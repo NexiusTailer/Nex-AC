@@ -1,2 +1,0 @@
-Changes:
-* Returned some anti-crashers (which are "fixed" in version r2)
