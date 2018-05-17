@@ -1,4 +1,5 @@
 //Nex-AC by Nexius v1.9.9 (0.3.7-R2)
+//sampctl support by Kantel
 
 #if defined _nex_ac_included
 	#endinput
