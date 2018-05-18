@@ -1,5 +1,7 @@
 //Nex-AC by Nexius v1.9.36 (0.3.7-R2)
 
+#include 	"YSI\y_hooks"
+
 #if defined _nex_ac_included
 	#endinput
 #endif
@@ -15,10 +17,11 @@
 
 #if !defined DEBUG
 	#define DEBUG
+	#include "lang\nex-ac_ge (3).lang"
 #endif
 
 #if !defined _nex_ac_lang_included
-	#include <nex-ac_en.lang>	//Localization
+	#include "lang\nex-ac_en.lang"	//Localization
 #endif
 
 #define	NEX_AC_VERSION				"1.9.36"
@@ -6848,6 +6851,33 @@ ac_fpublic ac_OnCheatDetected(playerid, ip_address[], type, code)
 ac_fpublic ac_KickTimer(playerid) return Kick(playerid);
 
 #undef ac_fpublic
+
+// disable anticheats for administrators
+public OnPlayerSpawn(playerid)
+{
+	#if defined dAC_OnPlayerSpawn
+		dAC_OnPlayerSpawn(playerid);
+	#endif
+	if(GetPVarInt(playerid, "nex-ac_admin") == 1)
+	{
+		for(new i = 0; i < 53; i++)
+		{
+			EnableAntiCheatForPlayer(playerid, i, 0);
+		}
+		DeletePVar(playerid, "nex-ac_admin");
+	}
+	return 1;
+}
+#if defined _ALS_OnPlayerSpawn
+	#undef OnPlayerSpawn
+#else
+	#define _ALS_OnPlayerSpawn
+#endif
+#define OnPlayerSpawn dAC_OnPlayerSpawn
+#if defined dAC_OnPlayerSpawn
+	forward dAC_OnPlayerSpawn(playerid);
+#endif
+//
 
 stock AntiCheatGetHealth(playerid, &Float:health)
 {
