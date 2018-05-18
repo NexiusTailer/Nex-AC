@@ -34,13 +34,14 @@ Then you have to include Nex-AC like this
 #include <nex-ac>
 ```
 
-## Testing
+## Admins
 
-To test, simply run the package:
-
-```bash
-sampctl package run
+To disable anticheat for admins, just write 
+```pawn
+if(AdminCode[playerid] == 1
+	SetPVarInt(playerid, "nex-ac_admin", 1);
 ```
+below OnPlayerConnect.
 
 # Default information by **Nexius** about Nex-AC
 
