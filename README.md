@@ -45,7 +45,7 @@ below OnPlayerConnect.
 
 # Default information by **Nexius** about Nex-AC
 
-## [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
+# [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
 Nex Anticheat (Nex-AC) - is a comprehensive protection which combines powerful anticheat and protection against various attacks (flood, DoS).  
 Anticheat detects popular cheats instantly punishing cheaters.  
@@ -446,7 +446,7 @@ The script can be configured at any of the available languages. To do it, just d
 * Jstylezzz - Dutch translation
 * J4Rr3x - Italian translation
 * Alex Westbrook, JustBored - Spanish translation
-* lashona, ArthourP - Georgian translation
+* lashona, ArthourP, LashaKanteladze - Georgian translation
 * wampiros6 - Polish translation
 * DeitY, Dragony92 - Serbian translation
 * NicK_ - PT/BR translation
