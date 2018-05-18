@@ -17,7 +17,6 @@
 
 #if !defined DEBUG
 	#define DEBUG
-	#include "lang\nex-ac_ge (3).lang"
 #endif
 
 #if !defined _nex_ac_lang_included
