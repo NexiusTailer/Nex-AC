@@ -6852,34 +6852,6 @@ ac_fpublic ac_KickTimer(playerid) return Kick(playerid);
 
 #undef ac_fpublic
 
-// disable anticheats for administrators
-public OnPlayerSpawn(playerid)
-{
-	if(GetPVarInt(playerid, "nex-ac_admin") == 1)
-	{
-		for(new i = 0; i < 53; i++)
-		{
-			EnableAntiCheatForPlayer(playerid, i, 0);
-		}
-		DeletePVar(playerid, "nex-ac_admin");
-	}
-	#if defined dAC_OnPlayerSpawn
-		dAC_OnPlayerSpawn(playerid);
-	#else
-		return 1;
-	#endif
-}
-#if defined _ALS_OnPlayerSpawn
-	#undef OnPlayerSpawn
-#else
-	#define _ALS_OnPlayerSpawn
-#endif
-#define OnPlayerSpawn dAC_OnPlayerSpawn
-#if defined dAC_OnPlayerSpawn
-	forward dAC_OnPlayerSpawn(playerid);
-#endif
-//
-
 stock AntiCheatGetHealth(playerid, &Float:health)
 {
 	if(!IsPlayerConnected(playerid)) return 0;
