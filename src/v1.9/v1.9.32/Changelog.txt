@@ -1,6 +1,0 @@
-Changes:
-* Added OnTrailerUpdate desync after the kick of cheater for the delay time (for r2 server version)
-* Added exclusion checks for NPCs in some publics
-
-Fixes:
-* Fixed prices for some tuning components in default modshops

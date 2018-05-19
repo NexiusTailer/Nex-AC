@@ -1,9 +1,0 @@
-Changes:
-* Reduced sensitivity of anti-Speedhack
-* Minor improvements
-
-Fixes:
-* Fixed a bug in anti-teleport hack at death in the interior
-* Fixed a bug in anti-fast spawn using ForceClassSelection
-* Fixed a bug in anti-GodMode onfoot with a kick when player exiting from vehicle, if someone is shooted in he at this moment
-* Fixed ResetPlayerWeapons function

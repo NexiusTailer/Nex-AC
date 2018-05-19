@@ -1,6 +1,0 @@
-Changes:
-* Minor improvements in code
-
-Fixes:
-* Fixed a bug in the anti-pickup hack with a kick for a teleport on the pickup position
-* Fixed RemovePlayerFromVehicle function

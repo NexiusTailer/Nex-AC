@@ -1,7 +1,0 @@
-Changes:
-* Added check for the validity of the pickup when a player picks it up
-* Increased the minimum distance of detection AirBreak onfoot
-
-Fixes:
-* Fixed anti-CJ run with a kick for landing on parachute (holding 'S' key)
-* Fixed anti-FlyHack with parachutist animation

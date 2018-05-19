@@ -1,9 +1,0 @@
-Changes:
-* Changed some values in anti-flood
-* EnableAntiCheat(ForPlayer) and IsAntiCheatEnabled(ForPlayer) functions can be called from filterscript
-* Added protection against registration bypass (an idea by f0Re3t)
-* Rewritten the protection against high ping
-
-Fixes:
-* Fixed a bug in the Anti-SpeedHack with a kick for a fast ride on the train
-* Fully fixed a bug with a kick for a change of interior

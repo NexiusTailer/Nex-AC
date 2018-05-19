@@ -1,8 +1,0 @@
-Changes:
-* Changed some values in the anti-flood
-
-Fixes:
-* Fixed a bug in the anti-invisibility hack with spawn during spectating
-* Fixed a bug in the anti-speedhack with SetVehicleToRespawn function
-* Fixed compatibility with streamer checkpoints
-* Fixed minor bugs

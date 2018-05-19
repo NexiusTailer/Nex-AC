@@ -1,7 +1,0 @@
-Changes:
-* Changed the punishment for teleport unoccupied vehicles
-
-Fixes:
-* Fixed a bug in anti-teleport hack
-* Fixed a bug in the protection on NOP RemovePlayerFromVehicle
-* Fixed anti-money hack

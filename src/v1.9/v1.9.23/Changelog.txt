@@ -1,4 +1,0 @@
-Fixes:
-* Fixed incorrect values return in some publics
-* Fixed bug when vehicle didn't reset the value of its driver after the player disconnect
-* Fixed bug with ping check when connecting

@@ -1,5 +1,0 @@
-Fixes:
-* Tweaked some settings
-* Fixed GivePlayerWeapon and SetPlayerAmmo functions (NOP protection)
-* Fixed SetVehicleHealth function
-* Fixed SetPlayerInterior function
