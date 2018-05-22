@@ -22,7 +22,7 @@ It would look like this
 ```pawn
 #if !defined DEBUG
 	#define DEBUG
-	#include 	<nex-ac_ge.lang>
+	#include 	<lang\nex-ac_ge.lang>
 #endif
 ```
 
