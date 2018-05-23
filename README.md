@@ -264,14 +264,14 @@ Added in v1.8.8:
 
 > Use to get a player's current weapon ID
 > * `playerid` - The ID of the player
-> * Returns the ID of weapon or `0` if the player is not connected
+> * Returns the ID of weapon or `-1` if the player is not connected
 
 
 #### AntiCheatGetVehicleSeat(playerid)
 
 > Use to get the seat in the vehicle on which the player is in
 > * `playerid` - The ID of the player
-> * Returns a number of the seat or `0` if the player is not connected
+> * Returns a number of the seat or `-1` if the player is not connected
 
 
 #### AntiCheatGetSpecialAction(playerid)
@@ -292,14 +292,14 @@ Added in v1.8.8:
 
 > Use to get the ID of the last weapon from which a player shot
 > * `playerid` - The ID of the player
-> * Returns the ID of the last weapon or `0` if the player is not connected
+> * Returns the ID of the last weapon or `-1` if the player is not connected
 
 
 #### AntiCheatGetLastPickup(playerid)
 
 > Use to get the ID of the last pickup which a player picked
 > * `playerid` - The ID of the player
-> * Returns the ID of the last picked up pickup or `0` if the player is not connected
+> * Returns the ID of the last picked up pickup or `-1` if the player is not connected
 
 
 #### AntiCheatGetLastUpdateTime(playerid)
