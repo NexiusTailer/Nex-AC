@@ -1,0 +1,38 @@
+// For Nex-AC v1.0 (0.3.7-R1)
+// translated by SaSiNO97
+ 
+#if defined _nex_ac_lang_included
+        #endinput
+#endif
+#define _nex_ac_lang_included
+ 
+new
+        SUSPICION_1[] =                 "[Nex-AC] Giocatore sospetto, ID %d. Codice motivo: %03d%s",
+        SUSPICION_2[] =                 "[Nex-AC] Giocatore sospetto, IP %s. Codice motivo: %03d%s",
+        VERSION_WARNING[] =             "[Nex-AC] La versione dell'anticheat non è compatibile con il Server SA-MP attuale.",
+        CFG_OPENING_ERROR[] =   "[Nex-AC] Errore durante la creazione o l'apertura di %s!",
+ 
+#if defined DEBUG
+        DEBUG_CODE_1[] =                "[Nex-AC debug] ID %d ha superato %d tentativi di flood. ID pubblico: %d",
+        DEBUG_CODE_2[] =                "[Nex-AC debug] Versione invalida di ID %d. Versione: %s",
+        DEBUG_CODE_3[] =                "[Nex-AC debug] ID %d ha superato il limite di %d connessioni da un indirizzo IP",
+        DEBUG_CODE_4[] =                "[Nex-AC debug] Login RCON fallito da %s usando la password %s",
+        DEBUG_CODE_5[] =                "[Nex-AC debug] ID %d ha usato il NOP %s",
+#endif
+ 
+        KICK_MSG[] =                    "Sei stato disconnesso per il sospetto di uso di trucchi (#%03d)",
+        MAX_CONNECTS_MSG[] =    "Hai superato il numero massimo di connessioni da un indirizzo IP.",
+        UNKNOWN_CLIENT_MSG[] =  "La versione del client non è compatibile con la versione del server.",
+ 
+        LOADED_MSG_1[] =                " Anticheat Nex-AC caricato!",
+        LOADED_MSG_2[] =                " Versione anticheat: %s",
+        LOADED_MSG_3[] =                " Autore: Nexius",
+ 
+        STATS_STRING_1[] =              " Statistiche anticheat Nex-AC",
+        STATS_STRING_2[] =              " Rilevato e impedito:",
+        STATS_STRING_3[] =              "  %d sospetti di uso trucchi",
+        STATS_STRING_4[] =              "  %d sospetti di hack",
+        STATS_STRING_5[] =              "  %d sospetti di crash",
+        STATS_STRING_6[] =              "  %d sospetti di flood",
+        STATS_STRING_7[] =              "  %d attacchi",
+        STATS_STRING_8[] =              " Rilevati e puniti %d imbroglioni";

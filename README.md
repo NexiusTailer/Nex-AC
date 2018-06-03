@@ -399,7 +399,7 @@ The script can be configured at any of the available languages. To do it, just d
 * ZiGGi, Urukhay, Yashas, theYiin, RaefaldhiAmartya, PatchwerkQWER, kvann, rt-2 - advices on the code
 * Carper - German translation
 * Jstylezzz - Dutch translation
-* J4Rr3x - Italian translation
+* J4Rr3x, Sasino97 - Italian translation
 * Alex Westbrook, JustBored - Spanish translation
 * lashona, ArthourP, LashaKanteladze - Georgian translation
 * wampiros6 - Polish translation
