@@ -1,0 +1,19 @@
+Changes:
+* Improved anti-Pro Aim and AFK Ghost
+* Increased anti-rapid fire warnings for quick-fire weapons
+* Changed default punishes for anti-pickups teleport and anti-lagcomp spoof
+* Improved the mechanism for waiting for server functions to be applied when anti-NOPs is disabled
+* The minimum distance for anti-teleport onfoot is increased from 30 to 40, and from 30 to 80 in vehicle
+* Added warnings for protect against weapon mismatch in the hands and the one from which the player shot
+* Reduced the maximum distance for anti-GodMode after which the protection ignores the player
+* Increased some distances and delays because of players with high ping
+* Improved protection from sending invalid data for unoccupied vehicles
+* Added check for invalid damagedid in OnPlayerGiveDamage
+
+Fixes:
+* Tweaked anti-flood settings
+* Fixed several bugs and anti-special actions hack
+* Fixed an anti-teleport bypass when the cheater teleport to another place and back without kick while the server setting him a position
+* Fixed a bug with installing an incorrect vehicle's interior when the server installed the player's interior
+* Fixed a bug in the anti-teleport hack with kicks of passengers when the vehicle spawns
+* Minor fixes and improvements
