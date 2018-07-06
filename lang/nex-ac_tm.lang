@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Ishlendi %d ID. Shu koda: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Ishledi shu IP %s.Shu koda: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Sizin oyun wersiyany dogry gelemok",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Yalnyslyk  acyk/yapyk %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d gecdi %d kop gaytalama. Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Yalnys wersiya  %d ID. Wersiya: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d gecdi %d oyuna girmani  bir 1 IP-adres",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Yalnys gime admin RCON IP %s su paroly yazyp %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d ulandy NOP %s",
+#endif
+
+	KICK_MSG[] =			"Siz oyunan kowuldunu sebabi siz yaman programa ulandynyz (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Siz kop spar bir adresda oyuna girdiniz ",
+	UNKNOWN_CLIENT_MSG[] =	"Sizin oyun wersiyany dogry gelemok ",
+
+	LOADED_MSG_1[] =		" Античит Nex-AC загружен!",
+	LOADED_MSG_2[] =		" Версия античита: %s",
+	LOADED_MSG_3[] =		" Автор: Nexius",
+
+	STATS_STRING_1[] =		" Statistika gorayjy Nex-AC",
+	STATS_STRING_2[] =		" Tapyldy we yogadyldy:",
+	STATS_STRING_3[] =		"  %d Yaman programa ulandy",
+	STATS_STRING_4[] =		"  %d Duydurus wzlom",
+	STATS_STRING_5[] =		"  %d Duydurus dowim",
+	STATS_STRING_6[] =		"  %d Duydurus gaytalanma",
+	STATS_STRING_7[] =		"  %d hujim",
+	STATS_STRING_8[] =		" umuman tapyldy we duyduruldy %d pasgel beren oyuncy";
