@@ -1,4 +1,4 @@
-//Nex-AC by Nexius v1.9.38 (0.3.7-R1)
+//Nex-AC by Nexius v1.9.39 (0.3.7-R2)
 
 #if defined _nex_ac_included
 	#endinput
@@ -7,8 +7,8 @@
 
 #include <a_samp>
 
-#if !defined OnVehicleSirenStateChange
-	#error Please download SA-MP 0.3.7 server package!
+#if !defined OnTrailerUpdate
+	#error Please download SA-MP 0.3.7 R2 server package!
 #endif
 
 #if !defined FILTERSCRIPT
@@ -30,8 +30,8 @@
 	#include <nex-ac_en.lang>	//Localization
 #endif
 
-#define	NEX_AC_VERSION				"1.9.38"
-#define AC_SERVER_VERSION			"0.3.7"
+#define	NEX_AC_VERSION				"1.9.39"
+#define AC_SERVER_VERSION			"0.3.7-R2"
 
 #if !defined AC_CONFIG_FILE
 	#define AC_CONFIG_FILE				"nex-ac_settings.cfg"
@@ -125,8 +125,8 @@
 	#define AC_MAX_FLYHACK_VEH_WARNINGS		3
 #endif
 
-#if !defined AC_MAX_FLYHACK_B_WARNINGS
-	#define AC_MAX_FLYHACK_B_WARNINGS		5
+#if !defined AC_MAX_FLYHACK_BIKE_WARNINGS
+	#define AC_MAX_FLYHACK_BIKE_WARNINGS	5
 #endif
 
 #if !defined AC_MAX_CARSHOT_WARNINGS
@@ -728,7 +728,7 @@ enum acInfo
 	acLastShot,
 	acLastWeapon,
 	acEnterVeh,
-	acLastVeh,
+	acKickVeh,
 	acVeh,
 	acSeat,
 	acDialog,
@@ -755,7 +755,9 @@ enum acInfo
 	acSpawnRes,
 	acTimerID,
 	acKickTimerID,
+	acParachute,
 	acLogged,
+	acIntRet,
 	acKicked,
 	acIp[16],
 	acSet[13],
@@ -779,7 +781,6 @@ enum acInfo
 	bool:acVehDmgRes,
 	bool:acDead,
 	bool:acTpToZ,
-	bool:acParachute,
 	bool:acIntEnterExits,
 	bool:acSpec
 }
@@ -1019,6 +1020,7 @@ stock ac_GetPlayerFacingAngle(playerid, &Float:ang)
 {
 	if(!GetPlayerFacingAngle(playerid, ang)) return 0;
 	if(floatcmp(ang, ang) != 0) ang = 0.0;
+	ang = ac_AbsoluteAngle(ang);
 	return 1;
 }
 
@@ -1033,6 +1035,8 @@ stock ac_GetVehicleZAngle(vehicleid, &Float:z_angle)
 {
 	if(!GetVehicleZAngle(vehicleid, z_angle)) return 0;
 	if(floatcmp(z_angle, z_angle) != 0) z_angle = 0.0;
+	z_angle = ac_AbsoluteAngle(z_angle);
+	#undef ac_AbsoluteAngle
 	return 1;
 }
 
@@ -1502,9 +1506,9 @@ ac_fpublic ac_EnableAntiCheat(code, enable)
 			if(!ac_ACAllow[code])
 			{
 				#if !AC_USE_QUERY
-					ac_QueryEnable = !!GetServerVarAsBool("query");
+					ac_QueryEnable = !!GetConsoleVarAsBool("query");
 				#endif
-				ac_RconEnable = !!GetServerVarAsBool("rcon");
+				ac_RconEnable = !!GetConsoleVarAsBool("rcon");
 			}
 			#if !AC_USE_QUERY
 				SendRconCommand("query 0");
@@ -1659,7 +1663,7 @@ ac_fpublic ac_AntiCheatIsConnected(playerid) return ACInfo[playerid][acOnline];
 
 ac_fpublic ac_AntiCheatKickWithDesync(playerid, code)
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	new ac_vehid = GetPlayerVehicleID(playerid), ac_gpp = GetPlayerPing(playerid) + 150;
 	#if defined SetPlayerTimerEx_
 		ACInfo[playerid][acKickTimerID] = SetPlayerTimerEx_(playerid, "ac_KickTimer", 0, (ac_gpp > AC_MAX_PING ? AC_MAX_PING : ac_gpp), 1, "i", playerid);
@@ -1668,7 +1672,7 @@ ac_fpublic ac_AntiCheatKickWithDesync(playerid, code)
 	#endif
 	if(ac_vehid > 0)
 	{
-		if(code == 4) ACInfo[playerid][acLastVeh] = ac_vehid;
+		if(code == 4) ACInfo[playerid][acKickVeh] = ac_vehid;
 		ACInfo[playerid][acKicked] = 2;
 	}
 	else ACInfo[playerid][acKicked] = 1;
@@ -2831,17 +2835,17 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	if(ac_ACAllow[42])
 	{
 		#if !AC_USE_QUERY
-			ac_QueryEnable = !!GetServerVarAsBool("query");
+			ac_QueryEnable = !!GetConsoleVarAsBool("query");
 			SendRconCommand("query 0");
 		#endif
 		#undef AC_USE_QUERY
-		ac_RconEnable = !!GetServerVarAsBool("rcon");
+		ac_RconEnable = !!GetConsoleVarAsBool("rcon");
 		SendRconCommand("rcon 0");
 	}
 	#if AC_MAX_CONNECTS_FROM_IP > 1
 		ac_ACAllow[37] = false;
 	#endif
-	ac_LagCompMode = !!GetServerVarAsInt("lagcompmode");
+	ac_LagCompMode = !!GetConsoleVarAsInt("lagcompmode");
 	print(" ");
 	print("--------------------------------------");
 	print(LOADED_MSG_1);
@@ -2854,7 +2858,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 		ac_a = ac_OnGameModeInit();
 	#endif
 	static ac_strtmp[10];
-	GetServerVarAsString("version", ac_strtmp, sizeof ac_strtmp);
+	GetConsoleVarAsString("version", ac_strtmp, sizeof ac_strtmp);
 	if(strcmp(ac_strtmp, AC_SERVER_VERSION)) print(VERSION_WARNING);
 	#undef AC_SERVER_VERSION
 	return ac_a;
@@ -2915,6 +2919,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerConnect(playerid)
 #endif
 {
+	ACInfo[playerid][acKicked] = 0;
 	GetPlayerIp(playerid, ACInfo[playerid][acIp], 16);
 	if(IsPlayerNPC(playerid))
 	{
@@ -2994,7 +2999,6 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 			ACInfo[playerid][acTimerID] = SetTimerEx("ac_Timer", 1000, false, "i", playerid);
 		#endif
 	}
-	ACInfo[playerid][acKicked] = 0;
 	ACInfo[playerid][acOnline] = true;
 	#if !defined _inc_y_hooks && !defined _INC_y_hooks\
 		&& defined ac_OnPlayerConnect
@@ -3031,7 +3035,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 			KillTimer(ACInfo[playerid][acTimerID]);
 		#endif
 		if(ACInfo[playerid][acACAllow][37]) BlockIpAddress(ACInfo[playerid][acIp],
-		(AC_MIN_TIME_RECONNECT * 1000) - (reason > 0 ? 0 : GetServerVarAsInt("playertimeout")));
+		(AC_MIN_TIME_RECONNECT * 1000) - (reason > 0 ? 0 : GetConsoleVarAsInt("playertimeout")));
 		#undef AC_MIN_TIME_RECONNECT
 	}
 	#if defined KillPlayerTimer
@@ -3039,7 +3043,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	#else
 		KillTimer(ACInfo[playerid][acKickTimerID]);
 	#endif
-	new ac_vehid = ACInfo[playerid][acLastVeh];
+	new ac_vehid = ACInfo[playerid][acKickVeh];
 	if(ac_vehid > 0 && ACVehInfo[ac_vehid][acDriver] == playerid)
 	{
 		ACVehInfo[ac_vehid][acDriver] = INVALID_PLAYER_ID;
@@ -3090,7 +3094,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerSpawn(playerid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	if(!IsPlayerNPC(playerid))
 	{
 		new ac_i, ac_gtc = GetTickCount();
@@ -3116,7 +3120,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 					ACInfo[playerid][acSpawnRes] = 1;
 				#endif
 			}
-			ACInfo[playerid][acSpawnRes]--;
+			if(ACInfo[playerid][acSpawnRes] > 0) ACInfo[playerid][acSpawnRes]--;
 			if(!(1 <= ACInfo[playerid][acSet][7] <= 2))
 			{
 				for(ac_i = 11; ac_i >= 0; --ac_i) ACInfo[playerid][acSet][ac_i] = -1;
@@ -3140,7 +3144,6 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 			ACInfo[playerid][acTpToZ] = false;
 		}
 		for(ac_i = 12; ac_i >= 0; --ac_i) ACInfo[playerid][acWeapon][ac_i] = ACInfo[playerid][acAmmo][ac_i] = 0;
-		ACInfo[playerid][acParachute] =
 		ACInfo[playerid][acModShop] =
 		ACInfo[playerid][acDead] = false;
 		ACInfo[playerid][acLastPickup] =
@@ -3156,11 +3159,13 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 		ACInfo[playerid][acCheatCount][16] =
 		ACInfo[playerid][acCheatCount][18] =
 		ACInfo[playerid][acLastSpecAct] =
+		ACInfo[playerid][acParachute] =
 		ACInfo[playerid][acEnterVeh] =
 		ACInfo[playerid][acLastShot] =
-		ACInfo[playerid][acLastVeh] =
+		ACInfo[playerid][acKickVeh] =
 		ACInfo[playerid][acSpecAct] =
 		ACInfo[playerid][acDmgRes] =
+		ACInfo[playerid][acIntRet] =
 		ACInfo[playerid][acSpeed] =
 		ACInfo[playerid][acVeh] = 0;
 		ACInfo[playerid][acLogged] = 2;
@@ -3210,7 +3215,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerDeath(playerid, killerid, reason)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	if(ACInfo[playerid][acACAllow][28] &&
 	(ACInfo[playerid][acDead] || !ACInfo[playerid][acDeathRes] &&
 	reason != 255 && (reason != WEAPON_COLLISION || killerid != INVALID_PLAYER_ID)))
@@ -3251,8 +3256,16 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 1;
-	ACInfo[playerid][acDeathRes] = true;
+	if(ACInfo[playerid][acKicked] > 0) return 1;
+	if(ACInfo[playerid][acACAllow][47] && !(3 <= bodypart <= 9))
+	{
+		#if defined DEBUG
+			printf("[Nex-AC debug] Issuerid: %d, amount: %f, weaponid: %d, bodypart: %d", issuerid, amount, weaponid, bodypart);
+		#endif
+		ac_KickWithCode(playerid, "", 0, 47, 4);
+		return 1;
+	}
+	if(!ACInfo[playerid][acDead]) ACInfo[playerid][acDeathRes] = true;
 	#if !defined _inc_y_hooks && !defined _INC_y_hooks\
 		&& defined ac_OnPlayerTakeDamage
 		return ac_OnPlayerTakeDamage(playerid, issuerid, amount, weaponid, bodypart);
@@ -3279,7 +3292,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 1;
+	if(ACInfo[playerid][acKicked] > 0) return 1;
 	if(ACInfo[playerid][acACAllow][47] && (!(0 <= damagedid < MAX_PLAYERS) || !(3 <= bodypart <= 9)))
 	{
 		#if defined DEBUG
@@ -3352,7 +3365,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 1;
+	if(ACInfo[playerid][acKicked] > 0) return 1;
 	new ac_i = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
@@ -3404,48 +3417,67 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnEnterExitModShop(playerid, enterexit, interiorid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
-	#if !AC_USE_TUNING_GARAGES && !defined OnCheatDetected
-		if(ACInfo[playerid][acACAllow][23]) return ac_KickWithCode(playerid, "", 0, 23, 1);
-		#if !defined _inc_y_hooks && !defined _INC_y_hooks\
-			&& defined ac_OnEnterExitModShop
-			return ac_OnEnterExitModShop(playerid, enterexit, interiorid);
-		#else
-			return 1;
-		#endif
+	if(ACInfo[playerid][acKicked] > 0) return 0;
+	#if !AC_USE_TUNING_GARAGES
+		if(ACInfo[playerid][acACAllow][23]) ac_KickWithCode(playerid, "", 0, 23, 1);
 	#else
-		#if !AC_USE_TUNING_GARAGES
-			if(ACInfo[playerid][acACAllow][23]) ac_KickWithCode(playerid, "", 0, 23, 1);
-		#endif
-		new ac_i = GetTickCount();
-		if(ACInfo[playerid][acACAllow][49])
-		{
-			if(ac_i < ACInfo[playerid][acCall][1] + ac_Mtfc[1][0]) ac_FloodDetect(playerid, 1);
-			else if(ac_i < ACInfo[playerid][acCall][27] + ac_Mtfc[27][0]) ac_FloodDetect(playerid, 27);
-			else ACInfo[playerid][acFloodCount][1] = ACInfo[playerid][acFloodCount][27] = 0;
-		}
-		ACInfo[playerid][acModShop] = !!enterexit;
-		ACInfo[playerid][acCall][27] = ACInfo[playerid][acCall][1] = ac_i;
-		ACInfo[playerid][acSetPosTime] = ACInfo[playerid][acGtc][11] = ac_i + 3250;
-		ac_i = ACInfo[playerid][acVeh];
-		ACVehInfo[ac_i][acInt] = interiorid;
+		if(ACInfo[playerid][acACAllow][23] &&
+		(!(0 <= enterexit <= 1) || !(0 <= interiorid <= 3))) ac_KickWithCode(playerid, "", 0, 23, 7);
+	#endif
+	new ac_i = GetTickCount();
+	if(ACInfo[playerid][acACAllow][49])
+	{
+		if(ac_i < ACInfo[playerid][acCall][1] + ac_Mtfc[1][0]) ac_FloodDetect(playerid, 1);
+		else if(ac_i < ACInfo[playerid][acCall][27] + ac_Mtfc[27][0]) ac_FloodDetect(playerid, 27);
+		else ACInfo[playerid][acFloodCount][1] = ACInfo[playerid][acFloodCount][27] = 0;
+	}
+	ACInfo[playerid][acModShop] = !!enterexit;
+	ACInfo[playerid][acCall][27] = ACInfo[playerid][acCall][1] = ac_i;
+	ACInfo[playerid][acSetPosTime] = ACInfo[playerid][acGtc][11] = ac_i + 3250;
+	new ac_veh = ACInfo[playerid][acVeh];
+	if(ACInfo[playerid][acKicked] < 1)
+	{
+		ac_i = interiorid % 256;
+		ACVehInfo[ac_veh][acInt] = ac_i;
 		#if defined foreach
 			foreach(new ac_j : Player)
 			{
-				if(ACInfo[ac_j][acVeh] == ac_i) ACInfo[ac_j][acInt] = interiorid;
+				if(ACInfo[ac_j][acVeh] == ac_veh) ACInfo[ac_j][acInt] = ac_i;
 			}
 		#else
 			for(new ac_j = GetPlayerPoolSize(); ac_j >= 0; --ac_j)
 			{
-				if(IsPlayerInVehicle(ac_j, ac_i)) ACInfo[ac_j][acInt] = interiorid;
+				if(IsPlayerInVehicle(ac_j, ac_veh)) ACInfo[ac_j][acInt] = ac_i;
 			}
 		#endif
-		#if !defined _inc_y_hooks && !defined _INC_y_hooks\
-			&& defined ac_OnEnterExitModShop
-			return ac_OnEnterExitModShop(playerid, enterexit, interiorid);
+	}
+	else
+	{
+		#if defined foreach
+			foreach(new ac_j : Player)
+			{
+				if(ACInfo[ac_j][acVeh] == ac_veh)
+				{
+					if(ACInfo[ac_j][acUnFrozen]) ACInfo[ac_j][acIntRet] = 2;
+					else ACInfo[ac_j][acIntRet] = 1;
+				}
+			}
 		#else
-			return 1;
+			for(new ac_j = GetPlayerPoolSize(); ac_j >= 0; --ac_j)
+			{
+				if(IsPlayerInVehicle(ac_j, ac_veh))
+				{
+					if(ACInfo[ac_j][acUnFrozen]) ACInfo[ac_j][acIntRet] = 2;
+					else ACInfo[ac_j][acIntRet] = 1;
+				}
+			}
 		#endif
+	}
+	#if !defined _inc_y_hooks && !defined _INC_y_hooks\
+		&& defined ac_OnEnterExitModShop
+		return ac_OnEnterExitModShop(playerid, enterexit, interiorid);
+	#else
+		return 1;
 	#endif
 }
 
@@ -3467,8 +3499,14 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 #endif
 {
-	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked]) return 0;
-	if(newinteriorid != ACInfo[playerid][acSet][0])
+	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked] > 0) return 0;
+	if(ACInfo[playerid][acIntRet] > 0)
+	{
+		SetPlayerInterior(playerid, ACInfo[playerid][acInt]);
+		if(ACInfo[playerid][acIntRet] == 2) TogglePlayerControllable(playerid, 1);
+		ACInfo[playerid][acIntRet] = 0;
+	}
+	else if(newinteriorid != ACInfo[playerid][acSet][0])
 	{
 		if(ACInfo[playerid][acSet][0] == -1)
 		{
@@ -3500,7 +3538,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 		}
 	}
 	else ACInfo[playerid][acSet][0] = -1;
-	ACInfo[playerid][acInt] = newinteriorid;
+	if(ACInfo[playerid][acKicked] < 1) ACInfo[playerid][acInt] = newinteriorid % 256;
 	#if !defined _inc_y_hooks && !defined _INC_y_hooks\
 		&& defined ac_OnPlayerInteriorChange
 		return ac_OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid);
@@ -3596,7 +3634,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerUpdate(playerid)
 #endif
 {
-	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked]) return 0;
+	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked] > 0) return 0;
 	new ac_gtc = GetTickCount(), ac_gpp;
 	if(!IsPlayerNPC(playerid))
 	{
@@ -3627,6 +3665,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 52, 1);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 								ACInfo[playerid][acSetWeapon][ac_s] = ACInfo[playerid][acSet][3] = -1;
 							#else
 								return ac_KickWithCode(playerid, "", 0, 52, 1);
@@ -3664,6 +3703,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 52, 2);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 								ACInfo[playerid][acGiveAmmo][ac_s] = -65535;
 							#else
 								return ac_KickWithCode(playerid, "", 0, 52, 2);
@@ -3696,6 +3736,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 								#endif
 								#if defined OnCheatDetected
 									ac_KickWithCode(playerid, "", 0, 15, 3);
+									if(ACInfo[playerid][acKicked] > 0) return 0;
 									ACInfo[playerid][acSet][10] = -1;
 								#else
 									return ac_KickWithCode(playerid, "", 0, 15, 3);
@@ -3757,10 +3798,11 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							else
 							{
 						#endif
-							if(ac_w == 40 || ac_w == 46 && ACInfo[playerid][acVeh] > 0 && ACInfo[playerid][acParachute])
+							if(ac_w == 40 || ac_w == 46 && ACInfo[playerid][acVeh] > 0 && ACInfo[playerid][acParachute] > 0)
 							{
 								ACInfo[playerid][acWeapon][ac_s] = ac_w;
 								ACInfo[playerid][acAmmo][ac_s] = ac_a;
+								ACInfo[playerid][acParachute] = 0;
 							}
 							else if(ACInfo[playerid][acACAllow][15] && ACInfo[playerid][acSetWeapon][ac_s] == -1)
 							{
@@ -3770,6 +3812,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 								#endif
 								#if defined OnCheatDetected
 									ac_KickWithCode(playerid, "", 0, 15, 1);
+									if(ACInfo[playerid][acKicked] > 0) return 0;
 									ACInfo[playerid][acWeapon][ac_s] = ac_w;
 									ACInfo[playerid][acAmmo][ac_s] = ac_a;
 								#else
@@ -3802,6 +3845,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 								#endif
 								#if defined OnCheatDetected
 									ac_KickWithCode(playerid, "", 0, 16, 1);
+									if(ACInfo[playerid][acKicked] > 0) return 0;
 								#else
 									return ac_KickWithCode(playerid, "", 0, 16, 1);
 								#endif
@@ -3837,6 +3881,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 52, 3);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 								ACInfo[playerid][acSet][1] = -1;
 							#else
 								return ac_KickWithCode(playerid, "", 0, 52, 3);
@@ -3867,6 +3912,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 12);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 							#else
 								return ac_KickWithCode(playerid, "", 0, 12);
 							#endif
@@ -3904,6 +3950,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 52, 4);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 								ACInfo[playerid][acSet][2] = -1;
 							#else
 								return ac_KickWithCode(playerid, "", 0, 52, 4);
@@ -3937,6 +3984,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 						#endif
 						#if defined OnCheatDetected
 							ac_KickWithCode(playerid, "", 0, 13);
+							if(ACInfo[playerid][acKicked] > 0) return 0;
 						#else
 							return ac_KickWithCode(playerid, "", 0, 13);
 						#endif
@@ -3964,6 +4012,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 					#endif
 					#if defined OnCheatDetected
 						ac_KickWithCode(playerid, "", 0, 19);
+						if(ACInfo[playerid][acKicked] > 0) return 0;
 						ACInfo[playerid][acCheatCount][9] = 0;
 					#else
 						return ac_KickWithCode(playerid, "", 0, 19);
@@ -3990,6 +4039,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 23, 3);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 								ACInfo[playerid][acSet][12] = -1;
 							#else
 								return ac_KickWithCode(playerid, "", 0, 23, 3);
@@ -4015,6 +4065,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 						#endif
 						#if defined OnCheatDetected
 							ac_KickWithCode(playerid, "", 0, 52, 5);
+							if(ACInfo[playerid][acKicked] > 0) return 0;
 							ACInfo[playerid][acSet][0] = -1;
 						#else
 							return ac_KickWithCode(playerid, "", 0, 52, 5);
@@ -4037,6 +4088,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 						#endif
 						#if defined OnCheatDetected
 							ac_KickWithCode(playerid, "", 0, 52, 6);
+							if(ACInfo[playerid][acKicked] > 0) return 0;
 							ACInfo[playerid][acSet][6] = -1;
 						#else
 							return ac_KickWithCode(playerid, "", 0, 52, 6);
@@ -4060,6 +4112,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 						#endif
 						#if defined OnCheatDetected
 							ac_KickWithCode(playerid, "", 0, 52, 7);
+							if(ACInfo[playerid][acKicked] > 0) return 0;
 							ACInfo[playerid][acSet][7] = -1;
 						#else
 							return ac_KickWithCode(playerid, "", 0, 52, 7);
@@ -4076,16 +4129,22 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 			{
 				if(ACInfo[playerid][acACAllow][52])
 				{
-					#if defined DEBUG
-						printf(DEBUG_CODE_5, playerid, "RemovePlayerFromVehicle");
-						printf("[Nex-AC debug] Veh model: %d", GetVehicleModel(ac_vehid));
-					#endif
-					#if defined OnCheatDetected
-						ac_KickWithCode(playerid, "", 0, 52, 8);
-						ACInfo[playerid][acSet][11] = -1;
-					#else
-						return ac_KickWithCode(playerid, "", 0, 52, 8);
-					#endif
+					new Float:ac_vX, Float:ac_vY, Float:ac_vZ;
+					GetVehicleVelocity(ac_vehid, ac_vX, ac_vY, ac_vZ);
+					if(ac_GetSpeed3D(ac_vX, ac_vY, ac_vZ) <= 30)
+					{
+						#if defined DEBUG
+							printf(DEBUG_CODE_5, playerid, "RemovePlayerFromVehicle");
+							printf("[Nex-AC debug] Veh model: %d", GetVehicleModel(ac_vehid));
+						#endif
+						#if defined OnCheatDetected
+							ac_KickWithCode(playerid, "", 0, 52, 8);
+							if(ACInfo[playerid][acKicked] > 0) return 0;
+							ACInfo[playerid][acSet][11] = -1;
+						#else
+							return ac_KickWithCode(playerid, "", 0, 52, 8);
+						#endif
+					}
 				}
 				else ACInfo[playerid][acSet][11] = -1;
 			}
@@ -4095,8 +4154,12 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 				if(ACInfo[playerid][acSet][9] == ac_vehid &&
 				(ACInfo[playerid][acSet][5] == ac_s || ACInfo[playerid][acSet][5] == -1))
 				{
-					if(ACInfo[playerid][acVeh] > 0 &&
-					ACVehInfo[ACInfo[playerid][acVeh]][acDriver] == playerid) ACVehInfo[ACInfo[playerid][acVeh]][acDriver] = INVALID_PLAYER_ID;
+					if(ACInfo[playerid][acVeh] > 0)
+					{
+						ac_a = GetVehicleModel(ACInfo[playerid][acVeh]) - 400;
+						if(17 <= ac_a <= 193 && 1 <= ac_vType[ac_a] <= 2) ACInfo[playerid][acParachute] = 2;
+						if(ACVehInfo[ACInfo[playerid][acVeh]][acDriver] == playerid) ACVehInfo[ACInfo[playerid][acVeh]][acDriver] = INVALID_PLAYER_ID;
+					}
 					if(ac_s == 0)
 					{
 						ACVehInfo[ac_vehid][acDriver] = playerid;
@@ -4126,6 +4189,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 52, 9);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 								ACInfo[playerid][acSet][9] = -1;
 							#else
 								return ac_KickWithCode(playerid, "", 0, 52, 9);
@@ -4140,9 +4204,10 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 			}
 			else
 			{
-				new Float:ac_dist_set = GetPlayerDistanceFromPoint(playerid, ACInfo[playerid][acSetPosX], ACInfo[playerid][acSetPosY], (ACInfo[playerid][acTpToZ] ? ac_Z : ACInfo[playerid][acSetPosZ]));
+				new Float:ac_dist_set = 25000.0;
 				if(ACInfo[playerid][acSet][8] != -1)
 				{
+					ac_dist_set = GetPlayerDistanceFromPoint(playerid, ACInfo[playerid][acSetPosX], ACInfo[playerid][acSetPosY], (ACInfo[playerid][acTpToZ] ? ac_Z : ACInfo[playerid][acSetPosZ]));
 					if(floatcmp(ac_dist_set, 15.0) == -1)
 					{
 						ACInfo[playerid][acSet][8] = -1;
@@ -4164,6 +4229,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 								#endif
 								#if defined OnCheatDetected
 									ac_KickWithCode(playerid, "", 0, 52, 10);
+									if(ACInfo[playerid][acKicked] > 0) return 0;
 									ACInfo[playerid][acTpToZ] = false;
 									ACInfo[playerid][acSet][8] = -1;
 								#else
@@ -4196,6 +4262,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 4, 1);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 							#else
 								return ac_KickWithCode(playerid, "", 0, 4, 1);
 							#endif
@@ -4211,6 +4278,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 4, 2);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 							#else
 								return ac_KickWithCode(playerid, "", 0, 4, 2);
 							#endif
@@ -4223,6 +4291,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 						#endif
 						#if defined OnCheatDetected
 							ac_KickWithCode(playerid, "", 0, 50);
+							if(ACInfo[playerid][acKicked] > 0) return 0;
 						#else
 							return ac_KickWithCode(playerid, "", 0, 50);
 						#endif
@@ -4238,6 +4307,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 32);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 							#else
 								return SetPlayerPos(playerid, ACInfo[playerid][acPosX], ACInfo[playerid][acPosY], ACInfo[playerid][acPosZ]);
 							#endif
@@ -4246,6 +4316,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 						{
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 35);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 							#else
 								return ac_KickWithCode(playerid, "", 0, 35);
 							#endif
@@ -4274,6 +4345,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 										#endif
 										#if defined OnCheatDetected
 											ac_KickWithCode(playerid, "", 0, 52, 11);
+											if(ACInfo[playerid][acKicked] > 0) return 0;
 											ACInfo[playerid][acSetVehHealth] = -1.0;
 										#else
 											return ac_KickWithCode(playerid, "", 0, 52, 11);
@@ -4300,6 +4372,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 								#endif
 								#if defined OnCheatDetected
 									ac_KickWithCode(playerid, "", 0, 11);
+									if(ACInfo[playerid][acKicked] > 0) return 0;
 								#endif
 								SetVehicleHealth(ac_vehid, ACVehInfo[ac_vehid][acHealth]);
 							#if AC_USE_PAYNSPRAY
@@ -4326,6 +4399,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 									#endif
 									#if defined OnCheatDetected
 										ac_KickWithCode(playerid, "", 0, 20);
+										if(ACInfo[playerid][acKicked] > 0) return 0;
 										ACInfo[playerid][acCheatCount][11] = 0;
 									#else
 										return ac_KickWithCode(playerid, "", 0, 20);
@@ -4339,14 +4413,13 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 						GetVehicleVelocity(ac_vehid, ac_vX, ac_vY, ac_vZ);
 						new Float:ac_zAngle, ac_vsp = ac_GetSpeed3D(ac_vX, ac_vY, ac_vZ);
 						GetVehicleZAngle(ac_vehid, ac_zAngle);
-						ac_zAngle = ac_AbsoluteAngle(ac_zAngle);
-						#undef ac_AbsoluteAngle
-						if(floatcmp(ac_dist, 0.8) == 1 && (ACInfo[playerid][acSet][8] == -1 || floatcmp(ac_dist_set, 0.8) == 1))
+						if(floatcmp(ac_dist, 0.8) == 1 && floatcmp(ac_dist_set, 0.8) == 1 &&
+						ac_gtc > ACInfo[playerid][acGtc][11] + ac_gpp)
 						{
 							if(floatcmp(ac_dist, 80.0) >= 0 &&
 							floatcmp(ac_dist, floatadd(ACVehInfo[ac_vehid][acPosDiff], floatmul(floatdiv(ac_dist, 2.6), 1.8))) == 1 &&
-							(ACInfo[playerid][acSet][8] == -1 || floatcmp(ac_dist_set, 80.0) >= 0 &&
-							floatcmp(ac_dist_set, floatadd(ACVehInfo[ac_vehid][acPosDiff], floatmul(floatdiv(ac_dist_set, 2.6), 1.8))) == 1))
+							floatcmp(ac_dist_set, 80.0) >= 0 &&
+							floatcmp(ac_dist_set, floatadd(ACVehInfo[ac_vehid][acPosDiff], floatmul(floatdiv(ac_dist_set, 2.6), 1.8))) == 1)
 							{
 								if(ACInfo[playerid][acACAllow][3] && floatcmp(ACInfo[playerid][acPosZ], -95.0) == 1)
 								{
@@ -4356,12 +4429,13 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 									#endif
 									#if defined OnCheatDetected
 										ac_KickWithCode(playerid, "", 0, 3, 2);
+										if(ACInfo[playerid][acKicked] > 0) return 0;
 									#else
 										return ac_KickWithCode(playerid, "", 0, 3, 2);
 									#endif
 								}
 							}
-							else if(ACInfo[playerid][acACAllow][1] && ac_vsp < 12 && ac_gtc > ACInfo[playerid][acGtc][11] + ac_gpp)
+							else if(ACInfo[playerid][acACAllow][1] && ac_vsp < 12)
 							{
 								if(++ACInfo[playerid][acCheatCount][2] > AC_MAX_AIR_VEH_WARNINGS)
 								{
@@ -4372,6 +4446,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 									#endif
 									#if defined OnCheatDetected
 										ac_KickWithCode(playerid, "", 0, 1);
+										if(ACInfo[playerid][acKicked] > 0) return 0;
 										ACInfo[playerid][acCheatCount][2] = 0;
 									#else
 										return ac_KickWithCode(playerid, "", 0, 1);
@@ -4396,6 +4471,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 									#endif
 									#if defined OnCheatDetected
 										ac_KickWithCode(playerid, "", 0, 10, 3);
+										if(ACInfo[playerid][acKicked] > 0) return 0;
 									#else
 										return ac_KickWithCode(playerid, "", 0, 10, 3);
 									#endif
@@ -4417,6 +4493,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 										#endif
 										#if defined OnCheatDetected
 											ac_KickWithCode(playerid, "", 0, 10, 1);
+											if(ACInfo[playerid][acKicked] > 0) return 0;
 											ACInfo[playerid][acCheatCount][16] = 0;
 										#else
 											return ac_KickWithCode(playerid, "", 0, 10, 1);
@@ -4440,6 +4517,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 								#endif
 								#if defined OnCheatDetected
 									ac_KickWithCode(playerid, "", 0, 25);
+									if(ACInfo[playerid][acKicked] > 0) return 0;
 								#else
 									return ac_KickWithCode(playerid, "", 0, 25);
 								#endif
@@ -4453,6 +4531,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 									#endif
 									#if defined OnCheatDetected
 										ac_KickWithCode(playerid, "", 0, 10, 2);
+										if(ACInfo[playerid][acKicked] > 0) return 0;
 									#else
 										return ac_KickWithCode(playerid, "", 0, 10, 2);
 									#endif
@@ -4466,15 +4545,16 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 								floatcmp(floatabs(floatsub(ACInfo[playerid][acPosY], ac_Y)), floatdiv(ac_zDiff, 2.0)) == -1)
 								{
 									if(++ACInfo[playerid][acCheatCount][3] > (81 <= ac_i <= 110 &&
-									ac_vType[ac_i] == 4 ? AC_MAX_FLYHACK_B_WARNINGS : AC_MAX_FLYHACK_VEH_WARNINGS))
+									ac_vType[ac_i] == 4 ? AC_MAX_FLYHACK_BIKE_WARNINGS : AC_MAX_FLYHACK_VEH_WARNINGS))
 									{
-										#undef AC_MAX_FLYHACK_B_WARNINGS
+										#undef AC_MAX_FLYHACK_BIKE_WARNINGS
 										#if defined DEBUG
 											printf("[Nex-AC debug] Vel z: %f, old vel z: %f, pos diff x, y, z: %f, %f, %f, veh: %d",
 											ac_vZ, ACVehInfo[ac_vehid][acVelZ], floatsub(ACInfo[playerid][acPosX], ac_X), floatsub(ACInfo[playerid][acPosY], ac_Y), ac_zDiff, ac_vehid);
 										#endif
 										#if defined OnCheatDetected
 											ac_KickWithCode(playerid, "", 0, 8, 1);
+											if(ACInfo[playerid][acKicked] > 0) return 0;
 											ACInfo[playerid][acCheatCount][3] = 0;
 										#else
 											return ac_KickWithCode(playerid, "", 0, 8, 1);
@@ -4503,58 +4583,59 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 					ac_s = ac_GetSpeed3D(ac_vX, ac_vY, ac_vZ);
 					if(ACInfo[playerid][acAnim] != (ac_sa = GetPlayerAnimationIndex(playerid)))
 					{
-						switch(ac_sa)
+						if(ac_sa == -1)
 						{
-							case -1:
+							if(ACInfo[playerid][acACAllow][24])
 							{
-								if(ACInfo[playerid][acACAllow][24])
-								{
-									#if defined OnCheatDetected
-										ac_KickWithCode(playerid, "", 0, 24);
-									#else
-										return ac_KickWithCode(playerid, "", 0, 24);
-									#endif
-								}
+								#if defined OnCheatDetected
+									ac_KickWithCode(playerid, "", 0, 24);
+									if(ACInfo[playerid][acKicked] > 0) return 0;
+								#else
+									return ac_KickWithCode(playerid, "", 0, 24);
+								#endif
 							}
-							case 157, 159, 161, 1058:
+						}
+						else if(ACInfo[playerid][acACAllow][30] && !ac_PedAnims && ac_sa == 1231 && ac_w != 46)
+						{
+							ac_i = GetPlayerSkin(playerid);
+							if(1 <= ac_i <= 73 || 75 <= ac_i <= 311)
 							{
-								if(ACInfo[playerid][acACAllow][7])
-								{
-									#if defined DEBUG
-										printf("[Nex-AC debug] Anim: %d, old anim: %d, old veh: %d",
-										ac_sa, ACInfo[playerid][acAnim], ACInfo[playerid][acVeh]);
-									#endif
-									#if defined OnCheatDetected
-										ac_KickWithCode(playerid, "", 0, 7, 2);
-									#else
-										return ac_KickWithCode(playerid, "", 0, 7, 2);
-									#endif
-								}
-							}
-							case 1231:
-							{
-								if(ACInfo[playerid][acACAllow][30])
-								{
-									ac_i = GetPlayerSkin(playerid);
-									if(!ac_PedAnims && (1 <= ac_i <= 73 || 75 <= ac_i <= 311) && ac_w != 46)
-									{
-										#if defined DEBUG
-											printf("[Nex-AC debug] Skin: %d, old anim: %d, weaponid: %d",
-											ac_i, ACInfo[playerid][acAnim], ac_w);
-										#endif
-										#if defined OnCheatDetected
-											ac_KickWithCode(playerid, "", 0, 30);
-										#else
-											return ac_KickWithCode(playerid, "", 0, 30);
-										#endif
-									}
-								}
+								#if defined DEBUG
+									printf("[Nex-AC debug] Skin: %d, old anim: %d, weaponid: %d",
+									ac_i, ACInfo[playerid][acAnim], ac_w);
+								#endif
+								#if defined OnCheatDetected
+									ac_KickWithCode(playerid, "", 0, 30);
+									if(ACInfo[playerid][acKicked] > 0) return 0;
+								#else
+									return ac_KickWithCode(playerid, "", 0, 30);
+								#endif
 							}
 						}
 					}
 					else if(ACInfo[playerid][acACAllow][7])
 					{
-						if(1538 <= ac_sa <= 1544 && ac_s > 36 && ACInfo[playerid][acSpeed] < ac_s)
+						if(ac_sa == 157 || ac_sa == 159 || ac_sa == 161 || ac_sa == 1058)
+						{
+							if(++ACInfo[playerid][acCheatCount][15] > AC_MAX_FLYHACK_WARNINGS)
+							{
+								#if defined DEBUG
+									printf("[Nex-AC debug] Anim: %d, old anim: %d, old veh: %d",
+									ac_sa, ACInfo[playerid][acAnim], ACInfo[playerid][acVeh]);
+								#endif
+								#if defined OnCheatDetected
+									ac_KickWithCode(playerid, "", 0, 7, 2);
+									if(ACInfo[playerid][acKicked] > 0) return 0;
+									ACInfo[playerid][acCheatCount][15] = 0;
+								#else
+									return ac_KickWithCode(playerid, "", 0, 7, 2);
+								#endif
+							}
+							#if defined OnCheatWarning
+								else OnCheatWarning(playerid, "", 0, 7, 2, ACInfo[playerid][acCheatCount][15]);
+							#endif
+						}
+						else if(1538 <= ac_sa <= 1544 && ac_s > 36 && ACInfo[playerid][acSpeed] < ac_s)
 						{
 							if(++ACInfo[playerid][acCheatCount][15] > AC_MAX_FLYHACK_WARNINGS)
 							{
@@ -4564,6 +4645,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 								#endif
 								#if defined OnCheatDetected
 									ac_KickWithCode(playerid, "", 0, 7, 3);
+									if(ACInfo[playerid][acKicked] > 0) return 0;
 									ACInfo[playerid][acCheatCount][15] = 0;
 								#else
 									return ac_KickWithCode(playerid, "", 0, 7, 3);
@@ -4585,6 +4667,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 								#endif
 								#if defined OnCheatDetected
 									ac_KickWithCode(playerid, "", 0, 7, 1);
+									if(ACInfo[playerid][acKicked] > 0) return 0;
 									ACInfo[playerid][acCheatCount][15] = 0;
 								#else
 									return ac_KickWithCode(playerid, "", 0, 7, 1);
@@ -4612,6 +4695,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 									#endif
 									#if defined OnCheatDetected
 										ac_KickWithCode(playerid, "", 0, 52, 12);
+										if(ACInfo[playerid][acKicked] > 0) return 0;
 										ACInfo[playerid][acSet][4] = -1;
 									#else
 										return ac_KickWithCode(playerid, "", 0, 52, 12);
@@ -4640,6 +4724,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 										{
 											#if defined OnCheatDetected
 												ac_KickWithCode(playerid, "", 0, 18, 1);
+												if(ACInfo[playerid][acKicked] > 0) return 0;
 											#else
 												return ac_KickWithCode(playerid, "", 0, 18, 1);
 											#endif
@@ -4656,6 +4741,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 										#endif
 										#if defined OnCheatDetected
 											ac_KickWithCode(playerid, "", 0, 18, 2);
+											if(ACInfo[playerid][acKicked] > 0) return 0;
 										#else
 											return ac_KickWithCode(playerid, "", 0, 18, 2);
 										#endif
@@ -4671,10 +4757,12 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 										#endif
 										#if defined OnCheatDetected
 											ac_KickWithCode(playerid, "", 0, 18, 3);
+											if(ACInfo[playerid][acKicked] > 0) return 0;
 										#else
 											return ac_KickWithCode(playerid, "", 0, 18, 3);
 										#endif
 									}
+									else ACInfo[playerid][acNextSpecAct] = ACInfo[playerid][acSpecAct];
 									ACInfo[playerid][acDropJpX] = ACInfo[playerid][acDropJpY] =
 									ACInfo[playerid][acDropJpZ] = 25000.0;
 								}
@@ -4686,6 +4774,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 										{
 											#if defined OnCheatDetected
 												ac_KickWithCode(playerid, "", 0, 18, 4);
+												if(ACInfo[playerid][acKicked] > 0) return 0;
 											#else
 												return ac_KickWithCode(playerid, "", 0, 18, 4);
 											#endif
@@ -4708,6 +4797,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 										#endif
 										#if defined OnCheatDetected
 											ac_KickWithCode(playerid, "", 0, 18, 5);
+											if(ACInfo[playerid][acKicked] > 0) return 0;
 										#else
 											return ac_KickWithCode(playerid, "", 0, 18, 5);
 										#endif
@@ -4717,13 +4807,12 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 						}
 						ACInfo[playerid][acLastSpecAct] = ACInfo[playerid][acSpecAct];
 					}
-					if(GetPlayerSurfingVehicleID(playerid) == INVALID_VEHICLE_ID &&
+					if(!IsVehicleStreamedIn(GetPlayerSurfingVehicleID(playerid), playerid) &&
 					GetPlayerSurfingObjectID(playerid) == INVALID_OBJECT_ID)
 					{
-						if(floatcmp(ac_dist, 0.7) == 1 && (ACInfo[playerid][acSet][8] == -1 || floatcmp(ac_dist_set, 0.7) == 1))
+						if(floatcmp(ac_dist, 0.7) == 1 && floatcmp(ac_dist_set, 0.7) == 1)
 						{
-							if(floatcmp(ac_dist, 40.0) >= 0 &&
-							(ACInfo[playerid][acSet][8] == -1 || floatcmp(ac_dist_set, 40.0) >= 0))
+							if(floatcmp(ac_dist, 40.0) >= 0 && floatcmp(ac_dist_set, 40.0) >= 0)
 							{
 								if(ACInfo[playerid][acACAllow][2] &&
 								!ACInfo[playerid][acIntEnterExits] && floatcmp(ACInfo[playerid][acPosZ], -95.0) == 1)
@@ -4734,17 +4823,17 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 									#endif
 									#if defined OnCheatDetected
 										ac_KickWithCode(playerid, "", 0, 2, 2);
+										if(ACInfo[playerid][acKicked] > 0) return 0;
 									#else
 										return ac_KickWithCode(playerid, "", 0, 2, 2);
 									#endif
 								}
 							}
 							else if(floatcmp(ac_s, floatmul(ac_dist, (floatcmp(ac_dist, 1.0) == -1 ? 14.0 : 5.0))) <= 0 &&
-							(ACInfo[playerid][acSet][8] == -1 || floatcmp(ac_s, floatmul(ac_dist_set, (floatcmp(ac_dist_set, 1.0) == -1 ? 14.0 : 5.0))) <= 0) &&
+							floatcmp(ac_s, floatmul(ac_dist_set, (floatcmp(ac_dist_set, 1.0) == -1 ? 14.0 : 5.0))) <= 0 &&
 							ac_gtc > ACInfo[playerid][acGtc][11] + ac_gpp)
 							{
-								if(ac_s < 3 && floatcmp(ac_dist, 15.0) >= 0 &&
-								(ACInfo[playerid][acSet][8] == -1 || floatcmp(ac_dist_set, 15.0) >= 0))
+								if(ac_s < 3 && floatcmp(ac_dist, 15.0) >= 0 && floatcmp(ac_dist_set, 15.0) >= 0)
 								{
 									if(ACInfo[playerid][acACAllow][2])
 									{
@@ -4753,12 +4842,14 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 										#endif
 										#if defined OnCheatDetected
 											ac_KickWithCode(playerid, "", 0, 2, 3);
+											if(ACInfo[playerid][acKicked] > 0) return 0;
 										#else
 											return ac_KickWithCode(playerid, "", 0, 2, 3);
 										#endif
 									}
 								}
-								else if(ACInfo[playerid][acACAllow][0] && ac_s)
+								else if(ACInfo[playerid][acACAllow][0] &&
+								(ac_s || floatcmp(ac_dist, 3.0) >= 0 && floatcmp(ac_dist_set, 3.0) >= 0))
 								{
 									if(++ACInfo[playerid][acCheatCount][1] > AC_MAX_AIR_WARNINGS)
 									{
@@ -4768,6 +4859,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 										#endif
 										#if defined OnCheatDetected
 											ac_KickWithCode(playerid, "", 0, 0);
+											if(ACInfo[playerid][acKicked] > 0) return 0;
 											ACInfo[playerid][acCheatCount][1] = 0;
 										#else
 											return ac_KickWithCode(playerid, "", 0, 0);
@@ -4790,6 +4882,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 									#endif
 									#if defined OnCheatDetected
 										ac_KickWithCode(playerid, "", 0, 9, 1);
+										if(ACInfo[playerid][acKicked] > 0) return 0;
 									#else
 										return ac_KickWithCode(playerid, "", 0, 9, 1);
 									#endif
@@ -4804,6 +4897,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 										#endif
 										#if defined OnCheatDetected
 											ac_KickWithCode(playerid, "", 0, 9, 2);
+											if(ACInfo[playerid][acKicked] > 0) return 0;
 											ACInfo[playerid][acCheatCount][17] = 0;
 										#else
 											return ac_KickWithCode(playerid, "", 0, 9, 2);
@@ -4860,7 +4954,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 #endif
 {
-	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked]) return 0;
+	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked] > 0) return 0;
 	if(!IsPlayerNPC(playerid))
 	{
 		if((newkeys & KEY_SECONDARY_ATTACK) && ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_USEJETPACK &&
@@ -4899,16 +4993,12 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 1;
+	if(ACInfo[playerid][acKicked] > 0) return 1;
 	new ac_gtc = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
-		if(ac_gtc < ACInfo[playerid][acCall][2] + ac_Mtfc[2][0])
-		{
-			ac_FloodDetect(playerid, 2);
-			return 1;
-		}
-		if(ac_gtc < ACInfo[playerid][acCall][27] + ac_Mtfc[27][0]) ac_FloodDetect(playerid, 27);
+		if(ac_gtc < ACInfo[playerid][acCall][2] + ac_Mtfc[2][0]) ac_FloodDetect(playerid, 2);
+		else if(ac_gtc < ACInfo[playerid][acCall][27] + ac_Mtfc[27][0]) ac_FloodDetect(playerid, 27);
 		else ACInfo[playerid][acFloodCount][2] = ACInfo[playerid][acFloodCount][27] = 0;
 	}
 	ACInfo[playerid][acCall][27] = ACInfo[playerid][acCall][2] = ac_gtc;
@@ -4938,7 +5028,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 1;
+	if(ACInfo[playerid][acKicked] > 0) return 1;
 	new ac_gtc = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
@@ -4977,7 +5067,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerClickTextDraw(playerid, Text:clickedid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 1;
+	if(ACInfo[playerid][acKicked] > 0) return 1;
 	new ac_gtc = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
@@ -5016,7 +5106,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerCommandText(playerid, cmdtext[])
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 1;
+	if(ACInfo[playerid][acKicked] > 0) return 1;
 	if(!IsPlayerNPC(playerid))
 	{
 		new ac_gtc = GetTickCount();
@@ -5058,7 +5148,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 #endif
 {
-	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked]) return 0;
+	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked] > 0) return 0;
 	new ac_gtc = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
@@ -5067,8 +5157,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 		else ACInfo[playerid][acFloodCount][6] = ACInfo[playerid][acFloodCount][27] = 0;
 	}
 	ACInfo[playerid][acCall][27] = ACInfo[playerid][acCall][6] = ac_gtc;
-	new ac_model = GetVehicleModel(vehicleid) - 400;
-	if(ACInfo[playerid][acACAllow][44] && ac_model < 0) return ac_KickWithCode(playerid, "", 0, 44, 1);
+	if(ACInfo[playerid][acACAllow][44] && !IsVehicleStreamedIn(vehicleid, playerid)) return ac_KickWithCode(playerid, "", 0, 44, 1);
 	if(ACInfo[playerid][acEnterVeh] != vehicleid)
 	{
 		new ac_tmp, ac_tmp2;
@@ -5076,6 +5165,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 		if(ispassenger || ac_tmp != VEHICLE_PARAMS_ON)
 		{
 			ACInfo[playerid][acEnterVeh] = vehicleid;
+			new ac_model = GetVehicleModel(vehicleid) - 400;
 			if(ac_model == 170 || 30 <= ac_model <= 195 && ac_vType[ac_model] == 3) ACInfo[playerid][acEnterVehTime] = 0;
 			else ACInfo[playerid][acEnterVehTime] = ac_gtc;
 		}
@@ -5106,7 +5196,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerExitVehicle(playerid, vehicleid)
 #endif
 {
-	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked]) return 0;
+	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked] > 0) return 0;
 	new ac_i = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
@@ -5115,9 +5205,10 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 		else ACInfo[playerid][acFloodCount][7] = ACInfo[playerid][acFloodCount][27] = 0;
 	}
 	ACInfo[playerid][acCall][27] = ACInfo[playerid][acCall][7] = ac_i;
+	if(ACInfo[playerid][acACAllow][44] && !IsVehicleStreamedIn(vehicleid, playerid)) return ac_KickWithCode(playerid, "", 0, 44, 5);
 	ac_i = GetVehicleModel(ACInfo[playerid][acVeh]) - 400;
-	if(17 <= ac_i <= 193 && 1 <= ac_vType[ac_i] <= 2) ACInfo[playerid][acParachute] = true;
-	else ACInfo[playerid][acParachute] = false;
+	if(17 <= ac_i <= 193 && 1 <= ac_vType[ac_i] <= 2) ACInfo[playerid][acParachute] = 1;
+	else if(ACInfo[playerid][acParachute] != 2) ACInfo[playerid][acParachute] = 0;
 	#if !defined _inc_y_hooks && !defined _INC_y_hooks\
 		&& defined ac_OnPlayerExitVehicle
 		return ac_OnPlayerExitVehicle(playerid, vehicleid);
@@ -5155,7 +5246,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 		#endif
 	#endif
 	{
-		if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked]) return 0;
+		if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked] > 0) return 0;
 		new ac_i = GetTickCount();
 		if(ACInfo[playerid][acACAllow][49])
 		{
@@ -5234,7 +5325,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerPickUpPickup(playerid, pickupid)
 #endif
 {
-	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked] || !(0 <= pickupid < MAX_PICKUPS)) return 0;
+	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked] > 0 || !(0 <= pickupid < MAX_PICKUPS)) return 0;
 	#if defined Streamer_GetItemStreamerID\
 		&& defined IsValidDynamicPickup
 		#if defined STREAMER_ENABLE_TAGS
@@ -5321,14 +5412,14 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerRequestClass(playerid, classid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	if(!IsPlayerNPC(playerid))
 	{
 		new ac_gtc = GetTickCount();
 		if(ACInfo[playerid][acACAllow][49])
 		{
-			if(ac_gtc < ACInfo[playerid][acCall][9] + ac_Mtfc[9][0]) return ac_FloodDetect(playerid, 9);
-			if(ac_gtc < ACInfo[playerid][acCall][27] + ac_Mtfc[27][0]) ac_FloodDetect(playerid, 27);
+			if(ac_gtc < ACInfo[playerid][acCall][9] + ac_Mtfc[9][0]) ac_FloodDetect(playerid, 9);
+			else if(ac_gtc < ACInfo[playerid][acCall][27] + ac_Mtfc[27][0]) ac_FloodDetect(playerid, 27);
 			else ACInfo[playerid][acFloodCount][9] = ACInfo[playerid][acFloodCount][27] = 0;
 		}
 		ACInfo[playerid][acLogged] = 1;
@@ -5366,7 +5457,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerSelectedMenuRow(playerid, row)
 #endif
 {
-	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked]) return 0;
+	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked] > 0) return 0;
 	new ac_gtc = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
@@ -5401,7 +5492,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerStateChange(playerid, newstate, oldstate)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	if(!IsPlayerNPC(playerid))
 	{
 		new ac_i = GetTickCount(), ac_s = GetPlayerPing(playerid);
@@ -5515,23 +5606,26 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 				}
 				if(ACInfo[playerid][acSet][9] == -1)
 				{
-					ACVehInfo[ac_i][acDriver] = playerid;
 					if(ACInfo[playerid][acACAllow][4])
 					{
-						ac_i = GetVehicleModel(ac_i);
+						ac_s = GetVehicleModel(ac_i);
 						new Float:ac_dist = GetPlayerDistanceFromPoint(playerid, ACInfo[playerid][acPosX], ACInfo[playerid][acPosY], ACInfo[playerid][acPosZ]);
-						if(floatcmp(ac_dist, 25.0) == 1 || ac_i != 577 && ac_i != 592 && floatcmp(ac_dist, 15.0) == 1)
+						if(floatcmp(ac_dist, 25.0) == 1 || ac_s != 577 && ac_s != 592 && floatcmp(ac_dist, 15.0) == 1)
 						{
 							#if defined DEBUG
-								printf("[Nex-AC debug] Veh model: %d, dist: %f", ac_i, ac_dist);
+								printf("[Nex-AC debug] Veh model: %d, dist: %f", ac_s, ac_dist);
 							#endif
 							ac_KickWithCode(playerid, "", 0, 4, 3);
 						}
 					}
-					GetPlayerPos(playerid, ACInfo[playerid][acPosX], ACInfo[playerid][acPosY], ACInfo[playerid][acPosZ]);
-					ACInfo[playerid][acCheatCount][11] = 0;
-					ACInfo[playerid][acVehDmgRes] = false;
-					ACInfo[playerid][acSetVehHealth] = -1.0;
+					if(ACInfo[playerid][acKicked] < 1)
+					{
+						ACVehInfo[ac_i][acDriver] = playerid;
+						GetPlayerPos(playerid, ACInfo[playerid][acPosX], ACInfo[playerid][acPosY], ACInfo[playerid][acPosZ]);
+						ACInfo[playerid][acSetVehHealth] = -1.0;
+						ACInfo[playerid][acCheatCount][11] = 0;
+						ACInfo[playerid][acVehDmgRes] = false;
+					}
 				}
 			}
 			case PLAYER_STATE_PASSENGER:
@@ -5581,9 +5675,12 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 			{
 				if(ACInfo[playerid][acACAllow][21] && !ACInfo[playerid][acSpec] &&
 				ACInfo[playerid][acSet][6] == -1) ac_KickWithCode(playerid, "", 0, 21);
-				ACInfo[playerid][acHealth] = 100;
-				ACInfo[playerid][acSet][6] = -1;
-				ACInfo[playerid][acSpec] = true;
+				if(ACInfo[playerid][acKicked] < 1)
+				{
+					ACInfo[playerid][acHealth] = 100;
+					ACInfo[playerid][acSet][6] = -1;
+					ACInfo[playerid][acSpec] = true;
+				}
 			}
 		}
 	}
@@ -5613,7 +5710,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 #endif
 {
-	if(ACInfo[playerid][acKicked] || ACInfo[playerid][acDead]) return 0;
+	if(ACInfo[playerid][acKicked] > 0 || ACInfo[playerid][acDead]) return 0;
 	if(ACInfo[playerid][acACAllow][22] && !ac_LagCompMode)
 	{
 		#if defined OnCheatDetected
@@ -5650,6 +5747,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 				#endif
 				#if defined OnCheatDetected
 					ac_KickWithCode(playerid, "", 0, 34);
+					if(ACInfo[playerid][acKicked] > 0) return 0;
 					ACInfo[playerid][acCheatCount][5] = 0;
 				#else
 					return ac_KickWithCode(playerid, "", 0, 34);
@@ -5674,6 +5772,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 				#endif
 				#if defined OnCheatDetected
 					ac_KickWithCode(playerid, "", 0, 29, 1);
+					if(ACInfo[playerid][acKicked] > 0) return 0;
 					ACInfo[playerid][acCheatCount][13] = 0;
 				#else
 					return ac_KickWithCode(playerid, "", 0, 29, 1);
@@ -5702,6 +5801,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 						#endif
 						#if defined OnCheatDetected
 							ac_KickWithCode(playerid, "", 0, 29, 2);
+							if(ACInfo[playerid][acKicked] > 0) return 0;
 							ACInfo[playerid][acCheatCount][6] = 0;
 						#else
 							return ac_KickWithCode(playerid, "", 0, 29, 2);
@@ -5824,6 +5924,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 						#endif
 						#if defined OnCheatDetected
 							ac_KickWithCode(playerid, "", 0, 26, 4);
+							if(ACInfo[playerid][acKicked] > 0) return 0;
 							ACInfo[playerid][acReloadTime] = 0;
 						#else
 							return ac_KickWithCode(playerid, "", 0, 26, 4);
@@ -5839,6 +5940,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 26, 1);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 								ACInfo[playerid][acCheatCount][8] = 0;
 							#else
 								return ac_KickWithCode(playerid, "", 0, 26, 1);
@@ -5849,7 +5951,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 						#endif
 					}
 					else ACInfo[playerid][acCheatCount][8] = 0;
-					if(weaponid == 24 && ac_i < 280 || weaponid == 25 && ac_i < 600 || 33 <= weaponid <= 34 && ac_i < 380)
+					if(weaponid == 25 && ac_i < 600 || (weaponid == 24 || 33 <= weaponid <= 34) && ac_i < 380)
 					{
 						if(++ACInfo[playerid][acCheatCount][14] > AC_MAX_AUTO_C_WARNINGS)
 						{
@@ -5859,6 +5961,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 26, 2);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 								ACInfo[playerid][acCheatCount][14] = 0;
 							#else
 								return ac_KickWithCode(playerid, "", 0, 26, 2);
@@ -5878,6 +5981,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 				#endif
 				#if defined OnCheatDetected
 					ac_KickWithCode(playerid, "", 0, 26, 3);
+					if(ACInfo[playerid][acKicked] > 0) return 0;
 				#else
 					return ac_KickWithCode(playerid, "", 0, 26, 3);
 				#endif
@@ -5895,6 +5999,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 				#endif
 				#if defined OnCheatDetected
 					ac_KickWithCode(playerid, "", 0, 17, 1);
+					if(ACInfo[playerid][acKicked] > 0) return 0;
 					ACInfo[playerid][acAmmo][ac_s] = ac_t;
 				#else
 					return ac_KickWithCode(playerid, "", 0, 17, 1);
@@ -5906,7 +6011,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 				{
 					case 23, 24, 25, 27:
 					{
-						if(ac_i > 2)
+						if(ac_i > 3)
 						{
 							#if defined DEBUG
 								printf("[Nex-AC debug] Weaponid: %d, AC ammo: %d, ammo: %d",
@@ -5914,6 +6019,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 17, 2);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 								ACInfo[playerid][acCheatCount][7] = 0;
 								ACInfo[playerid][acAmmo][ac_s] = ac_t;
 							#else
@@ -5933,6 +6039,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 								#endif
 								#if defined OnCheatDetected
 									ac_KickWithCode(playerid, "", 0, 17, 3);
+									if(ACInfo[playerid][acKicked] > 0) return 0;
 									ACInfo[playerid][acCheatCount][7] = 0;
 									ACInfo[playerid][acAmmo][ac_s] = ac_t;
 								#else
@@ -5954,6 +6061,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 							#endif
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 17, 4);
+								if(ACInfo[playerid][acKicked] > 0) return 0;
 								ACInfo[playerid][acCheatCount][7] = 0;
 								ACInfo[playerid][acAmmo][ac_s] = ac_t;
 							#else
@@ -6015,7 +6123,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnVehicleMod(playerid, vehicleid, componentid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	new ac_i = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
@@ -6027,6 +6135,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	{
 		#if defined OnCheatDetected
 			ac_KickWithCode(playerid, "", 0, 23, 2);
+			if(ACInfo[playerid][acKicked] > 0) return 0;
 		#else
 			return ac_KickWithCode(playerid, "", 0, 23, 2);
 		#endif
@@ -6072,7 +6181,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	new ac_gtc = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
@@ -6088,8 +6197,11 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 		ac_KickWithCode(playerid, "", 0, 43, 2);
 	}
 	else if(ACInfo[playerid][acACAllow][23] && !ACInfo[playerid][acModShop]) ac_KickWithCode(playerid, "", 0, 23, 4);
-	else if(paintjobid == 255) ACVehInfo[vehicleid][acPaintJob] = 3;
-	else ACVehInfo[vehicleid][acPaintJob] = paintjobid;
+	if(ACInfo[playerid][acKicked] < 1)
+	{
+		if(paintjobid == 255) ACVehInfo[vehicleid][acPaintJob] = 3;
+		else ACVehInfo[vehicleid][acPaintJob] = paintjobid;
+	}
 	ACInfo[playerid][acCall][27] = ACInfo[playerid][acCall][13] = ac_gtc;
 	#if !defined _inc_y_hooks && !defined _INC_y_hooks\
 		&& defined ac_OnVehiclePaintjob
@@ -6117,7 +6229,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnVehicleRespray(playerid, vehicleid, color1, color2)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	new ac_gtc = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
@@ -6133,6 +6245,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 			#endif
 			#if defined OnCheatDetected
 				ac_KickWithCode(playerid, "", 0, 23, 5);
+				if(ACInfo[playerid][acKicked] > 0) return 0;
 			#else
 				return ac_KickWithCode(playerid, "", 0, 23, 5);
 			#endif
@@ -6260,7 +6373,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerText(playerid, text[])
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	if(!IsPlayerNPC(playerid))
 	{
 		new ac_gtc = GetTickCount();
@@ -6298,7 +6411,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerEnterCheckpoint(playerid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	if(!IsPlayerNPC(playerid))
 	{
 		new ac_gtc = GetTickCount();
@@ -6336,7 +6449,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerLeaveCheckpoint(playerid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	if(!IsPlayerNPC(playerid))
 	{
 		new ac_gtc = GetTickCount();
@@ -6374,7 +6487,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerRequestSpawn(playerid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	new ac_i;
 	if(!IsPlayerNPC(playerid))
 	{
@@ -6420,7 +6533,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerExitedMenu(playerid)
 #endif
 {
-	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked]) return 0;
+	if(!(0 <= playerid < MAX_PLAYERS) || ACInfo[playerid][acKicked] > 0) return 0;
 	new ac_gtc = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
@@ -6455,7 +6568,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerEnterRaceCheckpoint(playerid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	if(!IsPlayerNPC(playerid))
 	{
 		new ac_gtc = GetTickCount();
@@ -6494,7 +6607,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerLeaveRaceCheckpoint(playerid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	if(!IsPlayerNPC(playerid))
 	{
 		new ac_gtc = GetTickCount();
@@ -6533,7 +6646,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 1;
+	if(ACInfo[playerid][acKicked] > 0) return 1;
 	new ac_gtc = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
@@ -6573,16 +6686,12 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 1;
+	if(ACInfo[playerid][acKicked] > 0) return 1;
 	new ac_gtc = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
-		if(ac_gtc < ACInfo[playerid][acCall][24] + ac_Mtfc[24][0])
-		{
-			ac_FloodDetect(playerid, 24);
-			return 1;
-		}
-		if(ac_gtc < ACInfo[playerid][acCall][27] + ac_Mtfc[27][0]) ac_FloodDetect(playerid, 27);
+		if(ac_gtc < ACInfo[playerid][acCall][24] + ac_Mtfc[24][0]) ac_FloodDetect(playerid, 24);
+		else if(ac_gtc < ACInfo[playerid][acCall][27] + ac_Mtfc[27][0]) ac_FloodDetect(playerid, 27);
 		else ACInfo[playerid][acFloodCount][24] = ACInfo[playerid][acFloodCount][27] = 0;
 	}
 	ACInfo[playerid][acCall][27] = ACInfo[playerid][acCall][24] = ac_gtc;
@@ -6613,18 +6722,14 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnVehicleSirenStateChange(playerid, vehicleid, newstate)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 1;
+	if(ACInfo[playerid][acKicked] > 0) return 1;
 	if(!IsPlayerNPC(playerid))
 	{
 		new ac_gtc = GetTickCount();
 		if(ACInfo[playerid][acACAllow][49])
 		{
-			if(ac_gtc < ACInfo[playerid][acCall][25] + ac_Mtfc[25][0])
-			{
-				ac_FloodDetect(playerid, 25);
-				return 1;
-			}
-			if(ac_gtc < ACInfo[playerid][acCall][27] + ac_Mtfc[27][0]) ac_FloodDetect(playerid, 27);
+			if(ac_gtc < ACInfo[playerid][acCall][25] + ac_Mtfc[25][0]) ac_FloodDetect(playerid, 25);
+			else if(ac_gtc < ACInfo[playerid][acCall][27] + ac_Mtfc[27][0]) ac_FloodDetect(playerid, 27);
 			else ACInfo[playerid][acFloodCount][25] = ACInfo[playerid][acFloodCount][27] = 0;
 		}
 		ACInfo[playerid][acCall][27] = ACInfo[playerid][acCall][25] = ac_gtc;
@@ -6664,7 +6769,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 		#endif
 	#endif
 	{
-		if(ACInfo[playerid][acKicked]) return 0;
+		if(ACInfo[playerid][acKicked] > 0) return 0;
 		new ac_gtc = GetTickCount();
 		if(ACInfo[playerid][acACAllow][49])
 		{
@@ -6705,7 +6810,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 1;
+	if(ACInfo[playerid][acKicked] > 0) return 1;
 	new ac_gtc = GetTickCount();
 	if(ACInfo[playerid][acACAllow][49])
 	{
@@ -6744,7 +6849,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 	public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 0;
+	if(ACInfo[playerid][acKicked] > 0) return 0;
 	if(ACInfo[playerid][acACAllow][31] &&
 	(floatcmp(new_x, new_x) != 0 || floatcmp(new_y, new_y) != 0 || floatcmp(new_z, new_z) != 0 ||
 	floatcmp(vel_x, vel_x) != 0 || floatcmp(vel_y, vel_y) != 0 || floatcmp(vel_z, vel_z) != 0 ||
@@ -6754,22 +6859,19 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 		#if defined DEBUG
 			printf("[Nex-AC debug] Pos x, y, z: %f, %f, %f, vel x, y, z: %f, %f, %f", new_x, new_y, new_z, vel_x, vel_y, vel_z);
 		#endif
-		#if defined OnCheatDetected
-			ac_KickWithCode(playerid, "", 0, 31, 2);
-		#else
-			return ac_KickWithCode(playerid, "", 0, 31, 2);
-		#endif
+		return ac_KickWithCode(playerid, "", 0, 31, 2);
 	}
 	new Float:ac_X, Float:ac_Y, Float:ac_Z, Float:ac_D = GetVehicleDistanceFromPoint(vehicleid, new_x, new_y, new_z);
 	GetVehiclePos(vehicleid, ac_X, ac_Y, ac_Z);
 	if(passenger_seat > 0)
 	{
 		new Float:ac_zDiff = floatsub(new_z, ac_Z);
-		if(ACInfo[playerid][acACAllow][31] && floatcmp(ac_zDiff, -5.0) == 1 &&
-		(floatcmp(floatabs(vel_x), floatabs(ACVehInfo[vehicleid][acVelX])) >= 0 && floatcmp(floatabs(ACVehInfo[vehicleid][acVelX]), 0.3) == 1 ||
-		floatcmp(floatabs(vel_y), floatabs(ACVehInfo[vehicleid][acVelY])) >= 0 && floatcmp(floatabs(ACVehInfo[vehicleid][acVelY]), 0.3) == 1 ||
-		floatcmp(floatabs(floatsub(vel_x, ACVehInfo[vehicleid][acVelX])), 25.0) == 1 ||
-		floatcmp(floatabs(floatsub(vel_y, ACVehInfo[vehicleid][acVelY])), 25.0) == 1))
+		if(ACInfo[playerid][acACAllow][31] &&
+		((floatcmp(vel_z, ACVehInfo[vehicleid][acVelZ]) == 1 || floatcmp(vel_z, -0.3) == 1) &&
+		(floatcmp(floatabs(vel_x), floatabs(ACVehInfo[vehicleid][acVelX])) >= 0 && floatcmp(floatabs(ACVehInfo[vehicleid][acVelX]), 0.3) >= 0 ||
+		floatcmp(floatabs(vel_y), floatabs(ACVehInfo[vehicleid][acVelY])) >= 0 && floatcmp(floatabs(ACVehInfo[vehicleid][acVelY]), 0.3) >= 0) ||
+		floatcmp(ac_zDiff, -5.0) == 1 && (floatcmp(floatabs(floatsub(vel_x, ACVehInfo[vehicleid][acVelX])), 25.0) >= 0 ||
+		floatcmp(floatabs(floatsub(vel_y, ACVehInfo[vehicleid][acVelY])), 25.0) >= 0)))
 		{
 			if(++ACInfo[playerid][acCheatCount][4] > AC_MAX_CARSHOT_WARNINGS)
 			{
@@ -6780,6 +6882,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 				#endif
 				#if defined OnCheatDetected
 					ac_KickWithCode(playerid, "", 0, 31, 1);
+					if(ACInfo[playerid][acKicked] > 0) return 0;
 					ACInfo[playerid][acCheatCount][4] = 0;
 				#else
 					return ac_KickWithCode(playerid, "", 0, 31, 1);
@@ -6802,6 +6905,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 				#endif
 				#if defined OnCheatDetected
 					ac_KickWithCode(playerid, "", 0, 8, 2);
+					if(ACInfo[playerid][acKicked] > 0) return 0;
 					ACInfo[playerid][acCheatCount][3] = 0;
 				#else
 					return ac_KickWithCode(playerid, "", 0, 8, 2);
@@ -6811,8 +6915,11 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 				else OnCheatWarning(playerid, "", 0, 8, 2, ACInfo[playerid][acCheatCount][3]);
 			#endif
 		}
-		else ACInfo[playerid][acCheatCount][4] =
-		ACInfo[playerid][acCheatCount][3] = 0;
+		else
+		{
+			if(ACInfo[playerid][acCheatCount][4] > 0) ACInfo[playerid][acCheatCount][4]--;
+			ACInfo[playerid][acCheatCount][3] = 0;
+		}
 	}
 	if(ACInfo[playerid][acACAllow][5] &&
 	floatcmp(ac_D, 15.0) >= 0 && floatcmp(ac_Z, -45.0) == 1 &&
@@ -6859,12 +6966,39 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 #endif
 
 #if defined _inc_y_hooks || defined _INC_y_hooks
+	hook OnTrailerUpdate(playerid, vehicleid)
+#else
+	public OnTrailerUpdate(playerid, vehicleid)
+#endif
+{
+	if(ACInfo[playerid][acKicked] > 0) return 0;
+	#if !defined _inc_y_hooks && !defined _INC_y_hooks\
+		&& defined ac_OnTrailerUpdate
+		return ac_OnTrailerUpdate(playerid, vehicleid);
+	#else
+		return 1;
+	#endif
+}
+
+#if !defined _inc_y_hooks && !defined _INC_y_hooks
+	#if defined _ALS_OnTrailerUpdate
+		#undef OnTrailerUpdate
+	#else
+		#define _ALS_OnTrailerUpdate
+	#endif
+	#define OnTrailerUpdate ac_OnTrailerUpdate
+	#if defined ac_OnTrailerUpdate
+		forward ac_OnTrailerUpdate(playerid, vehicleid);
+	#endif
+#endif
+
+#if defined _inc_y_hooks || defined _INC_y_hooks
 	hook OnPlayerEditAttachedObj(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
 #else
 	public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
 #endif
 {
-	if(ACInfo[playerid][acKicked]) return 1;
+	if(ACInfo[playerid][acKicked] > 0) return 1;
 	if(ACInfo[playerid][acACAllow][46] && 384 <= modelid <= 393)
 	{
 		#if defined DEBUG
@@ -6895,7 +7029,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 
 ac_fpublic ac_Timer(playerid)
 {
-	if(!IsPlayerConnected(playerid) || ACInfo[playerid][acKicked]) return 0;
+	if(!IsPlayerConnected(playerid) || ACInfo[playerid][acKicked] > 0) return 0;
 	new ac_gpp;
 	if(ACInfo[playerid][acACAllow][51] && (ac_gpp = NetStats_MessagesRecvPerSecond(playerid)) > AC_MAX_MSGS_REC_DIFF)
 	{
@@ -7019,10 +7153,11 @@ ac_fpublic ac_Timer(playerid)
 								{
 							#endif
 								if(ac_w == 0 || ac_w == 40 && ac_cw ||
-								ac_w == 46 && ACInfo[playerid][acVeh] > 0 && ACInfo[playerid][acParachute])
+								ac_w == 46 && ACInfo[playerid][acVeh] > 0 && ACInfo[playerid][acParachute] > 0)
 								{
 									ACInfo[playerid][acWeapon][ac_i] = ac_w;
 									ACInfo[playerid][acAmmo][ac_i] = ac_a;
+									ACInfo[playerid][acParachute] = 0;
 								}
 								else if(ACInfo[playerid][acACAllow][15] && !(16 <= ac_w <= 43 && ac_a == 0))
 								{
@@ -7032,8 +7167,11 @@ ac_fpublic ac_Timer(playerid)
 									#endif
 									ac_KickWithCode(playerid, "", 0, 15, 2);
 									#if defined OnCheatDetected
-										ACInfo[playerid][acWeapon][ac_i] = ac_w;
-										ACInfo[playerid][acAmmo][ac_i] = ac_a;
+										if(ACInfo[playerid][acKicked] < 1)
+										{
+											ACInfo[playerid][acWeapon][ac_i] = ac_w;
+											ACInfo[playerid][acAmmo][ac_i] = ac_a;
+										}
 									#endif
 								}
 							#if AC_USE_PICKUP_WEAPONS
@@ -7084,13 +7222,13 @@ ac_fpublic ac_Timer(playerid)
 								#endif
 								ac_KickWithCode(playerid, "", 0, 16, 2);
 								#if defined OnCheatDetected
-									ACInfo[playerid][acAmmo][ac_i] = ac_a;
+									if(ACInfo[playerid][acKicked] < 1) ACInfo[playerid][acAmmo][ac_i] = ac_a;
 								#endif
 							}
 						}
 					}
 				}
-				else if(22 <= ac_w <= 32 || 41 <= ac_w <= 42 || !ac_LagCompMode && (ac_w == 43 || 16 <= ac_w <= 39))
+				else if(16 <= ac_w <= 43 && ac_w != 40)
 				{
 					if((ac_a > ACInfo[playerid][acAmmo][ac_i] || ac_a < 0 <= ACInfo[playerid][acAmmo][ac_i]) &&
 					ACInfo[playerid][acGiveAmmo][ac_i] == -65535)
@@ -7116,7 +7254,7 @@ ac_fpublic ac_Timer(playerid)
 								#endif
 								ac_KickWithCode(playerid, "", 0, 16, 3);
 								#if defined OnCheatDetected
-									ACInfo[playerid][acAmmo][ac_i] = ac_a;
+									if(ACInfo[playerid][acKicked] < 1) ACInfo[playerid][acAmmo][ac_i] = ac_a;
 								#endif
 							}
 						#if AC_USE_AMMUNATIONS
@@ -7203,12 +7341,10 @@ ac_fpublic ac_Timer(playerid)
 					#endif
 					#if defined OnCheatDetected
 						ac_KickWithCode(playerid, "", 0, 14);
-						ACInfo[playerid][acMoney] = ac_t;
-					#else
-						ac_t = ACInfo[playerid][acMoney];
-						ResetPlayerMoney(playerid);
-						GivePlayerMoney(playerid, ac_t);
 					#endif
+					ac_t = ACInfo[playerid][acMoney];
+					ResetPlayerMoney(playerid);
+					GivePlayerMoney(playerid, ac_t);
 				#if AC_USE_CASINOS
 					}
 				#endif
@@ -7468,12 +7604,15 @@ static ac_IpToInt(const s_szIP[])
 
 static ac_FloodDetect(playerid, publicid)
 {
-	if(!ACInfo[playerid][acKicked])
+	if(ACInfo[playerid][acKicked] < 1)
 	{
 		if(++ACInfo[playerid][acFloodCount][publicid] > ac_Mtfc[publicid][1])
 		{
 			#if defined DEBUG
 				printf(DEBUG_CODE_1, playerid, ac_Mtfc[publicid][1], publicid);
+				#if !defined mysql_included
+					#undef DEBUG
+				#endif
 			#endif
 			#if defined OnCheatDetected
 				ac_KickWithCode(playerid, "", 0, 49, publicid);
@@ -7492,7 +7631,7 @@ static ac_FloodDetect(playerid, publicid)
 
 static ac_KickWithCode(playerid, ip_address[], type, code, code2 = 0)
 {
-	if(type == 0 && (!IsPlayerConnected(playerid) || ACInfo[playerid][acKicked])) return 0;
+	if(type == 0 && (!IsPlayerConnected(playerid) || ACInfo[playerid][acKicked] > 0)) return 0;
 	ac_sInfo[5]++;
 	switch(code)
 	{
