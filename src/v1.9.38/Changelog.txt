@@ -1,7 +1,7 @@
 Changes:
 * Improved anti-Pro Aim and AFK Ghost
 * Increased anti-rapid fire warnings for quick-fire weapons
-* Changed default punishes for anti-pickups teleport and anti-lagcomp spoof
+* Changed default punishments for anti-pickups teleport and anti-lagcomp spoof
 * Improved the mechanism for waiting for server functions to be applied when anti-NOPs is disabled
 * The minimum distance for anti-teleport onfoot is increased from 30 to 40, and from 30 to 80 in vehicle
 * Added warnings for protect against weapon mismatch in the hands and the one from which the player shot
