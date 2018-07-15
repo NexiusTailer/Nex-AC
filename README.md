@@ -149,45 +149,45 @@ It also simplifies the translation of anticheat to other languages
 # Functions:
 #### public OnCheatDetected(playerid, ip_address[], type, code)
 
->  Called when triggered one of the anti-cheats
->  * `playerid` - ID of the cheater
->  * `ip_address[]` - IP-address of the cheater
->  * `type` - Type of cheating (when `0` it returns the ID, when `1` - IP)
->  * `code` - Code (ID) of the anti-cheat
+> Called when triggered one of the anti-cheats
+> * `playerid` - ID of the cheater
+> * `ip_address[]` - IP-address of the cheater
+> * `type` - Type of cheating (when `0` it returns the ID, when `1` - IP)
+> * `code` - Code (ID) of the anti-cheat
 
 
-#### EnableAntiCheat(acid, enable)
+#### EnableAntiCheat(code, enable)
 
->  Use to enable/disable one of the anti-cheats
->  * `acid` - ID of the anti-cheat
->  * `enable` - `1` to enable/`0` to disable
+> Use to enable/disable one of the anti-cheats
+> * `code` - ID of the anti-cheat
+> * `enable` - `1` to enable/`0` to disable
 
 
-#### EnableAntiCheatForPlayer(playerid, acid, enable)
+#### EnableAntiCheatForPlayer(playerid, code, enable)
 
->  Use to enable/disable one of the anti-cheats for a particular player
->  * `playerid` - ID of the player who needs to enable/disable the anti-cheat
->  * `acid` - ID of the anti-cheat
->  * `enable` - `1` to enable/`0` to disable
+> Use to enable/disable one of the anti-cheats for a particular player
+> * `playerid` - ID of the player who needs to enable/disable the anti-cheat
+> * `code` - ID of the anti-cheat
+> * `enable` - `1` to enable/`0` to disable
 
 
 
 Added in v1.3:
 
 
-#### IsAntiCheatEnabled(acid)
+#### IsAntiCheatEnabled(code)
 
 > Use to check whether one of the anti-cheats is enabled/disabled
->  * `acid` - ID of the anti-cheat
->  * Return `1 (true)` if enabled or `0 (false)` if disabled
+> * `code` - ID of the anti-cheat
+> * Return `1 (true)` if enabled or `0 (false)` if disabled
 
 
-#### IsAntiCheatEnabledForPlayer(playerid, acid)
+#### IsAntiCheatEnabledForPlayer(playerid, code)
 
 > Use to check whether one of the anti-cheats is enabled/disabled for a particular player
->  * `playerid` - ID of the player to be checked whether the anti-cheat enabled/disabled for him
->  * `acid` - ID of the anti-cheat
->  * Return `1 (true)` if enabled or `0 (false)` if disabled
+> * `playerid` - ID of the player to be checked whether the anti-cheat enabled/disabled for him
+> * `code` - ID of the anti-cheat
+> * Return `1 (true)` if enabled or `0 (false)` if disabled
 
 
 
@@ -272,7 +272,7 @@ Added in v1.8.8:
 
 > Use to get the ID of the opened dialog of a player
 > * `playerid` - The ID of the player
-> * Returns the ID of the dialog or `0` if the player is not connected
+> * Returns the ID of the dialog or `-1` if the player is not connected
 
 
 #### AntiCheatGetMoney(playerid)
@@ -300,14 +300,14 @@ Added in v1.8.8:
 
 > Use to get a player's current weapon ID
 > * `playerid` - The ID of the player
-> * Returns the ID of weapon or `0` if the player is not connected
+> * Returns the ID of weapon or `-1` if the player is not connected
 
 
 #### AntiCheatGetVehicleSeat(playerid)
 
 > Use to get the seat in the vehicle on which the player is in
 > * `playerid` - The ID of the player
-> * Returns a number of the seat or `0` if the player is not connected
+> * Returns a number of the seat or `-1` if the player is not connected
 
 
 #### AntiCheatGetSpecialAction(playerid)
@@ -328,14 +328,14 @@ Added in v1.8.8:
 
 > Use to get the ID of the last weapon from which a player shot
 > * `playerid` - The ID of the player
-> * Returns the ID of the last weapon or `0` if the player is not connected
+> * Returns the ID of the last weapon or `-1` if the player is not connected
 
 
 #### AntiCheatGetLastPickup(playerid)
 
 > Use to get the ID of the last pickup which a player picked
 > * `playerid` - The ID of the player
-> * Returns the ID of the last picked up pickup or `0` if the player is not connected
+> * Returns the ID of the last picked up pickup or `-1` if the player is not connected
 
 
 #### AntiCheatGetLastUpdateTime(playerid)
@@ -414,6 +414,51 @@ Added in v1.8.8:
 > * `playerid` - The ID of the player
 > * Returns `1 (true)` if it is or `0 (false)` if it is not
 
+
+
+Added in v1.9.37:
+
+
+#### public OnCheatWarning(playerid, ip_address[], type, code, code2, count)
+
+> Called when triggered any warnings of one of the anti-cheats
+> * `playerid` - ID of the suspected cheater
+> * `ip_address[]` - IP-address of the suspected cheater
+> * `type` - Type of cheating (when `0` it returns the ID, when `1` - IP)
+> * `code` - Code (ID) of the anti-cheat
+> * `code2` - Sub-code (ID) of the anti-cheat check
+> * `count` - Count of warnings triggered on suspected cheater
+
+
+#### public OnFloodWarning(playerid, publicid, count)
+
+> Called when triggered any anti-flood warnings on one of the protected publics
+> * `playerid` - ID of the suspected flooder
+> * `publicid` - ID of the public that was called too quickly
+> * `count` - Count of warnings triggered on suspected flooder
+
+
+#### public OnNOPWarning(playerid, nopid, count)
+
+> Called when triggered any NOP warnings on one of the protected functions
+> * `playerid` - ID of the suspected cheater
+> * `nopid` - ID of the NOP check
+> * `count` - Count of warnings triggered on suspected cheater
+
+
+#### AntiCheatKickWithDesync(playerid, code)
+
+> Use to kick with desync a particular player by the anticheat
+> * `playerid` - ID of the player who will be kicked with desync for the delay time
+> * `code` - ID of the anti-cheat (with some codes the player's vehicle will be resynced after his disconnection)
+
+
+#### AntiCheatIsKickedWithDecync(playerid)
+
+> Use to check whether a player is kicked or not
+> * `playerid` - The ID of the player
+> * Returns `1` for kick onfoot, `2` for kick in a vehicle, `3` if player is already disconnected or `0` if he isn't kicked
+
 # Multilingual:
 The script can be configured at any of the available languages. To do it, just download the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
 
@@ -435,7 +480,7 @@ The script can be configured at any of the available languages. To do it, just d
 * ZiGGi, Urukhay, Yashas, theYiin, RaefaldhiAmartya, PatchwerkQWER, kvann, rt-2 - advices on the code
 * Carper - German translation
 * Jstylezzz - Dutch translation
-* J4Rr3x - Italian translation
+* J4Rr3x, Sasino97 - Italian translation
 * Alex Westbrook, JustBored - Spanish translation
 * lashona, ArthourP, LashaKanteladze - Georgian translation
 * wampiros6 - Polish translation
@@ -458,6 +503,7 @@ The script can be configured at any of the available languages. To do it, just d
 * Grig - Armenian translation
 * SooBad - Czech translation
 * OldPawn - Estonian translation
+* Negativ_Tm - Turkmen translation
 
 This script also contains materials of third-party projects with open source.
 
