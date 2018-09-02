@@ -1,10 +1,10 @@
-[Download latest release (v1.9.39)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.39)
+[Download latest release (v1.9.40)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.40)
 
 # [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
 Nex Anticheat (Nex-AC) - is a comprehensive protection which combines powerful anticheat and protection against various attacks (flood, DoS).  
 Anticheat detects popular cheats instantly punishing cheaters.  
-Anti-DoS combines customizable anti-flood, anti-DoS at the network level and a lot of protection tools against hacking, crashers etc.
+Anti-DoS combines customizable anti-flood, anti-DoS at network level and a lot of protection tools against hacking, crashers etc.
 
 ## List of basic anti-cheats:
 * Anti-AirBreak (onfoot/in vehicle)
@@ -421,7 +421,20 @@ Added in v1.9.37:
 
 > Use to check whether a player is kicked or not
 > * `playerid` - The ID of the player
-> * Returns `1` for kick onfoot, `2` for kick in a vehicle, `3` if player is already disconnected or `0` if he isn't kicked
+> * Returns `1` for kick onfoot, `2` for kick in a vehicle (driver), `3` if player is already disconnected or `0` if he isn't kicked
+
+
+
+Added in v1.9.40:
+
+
+#### AntiCheatGetSpawnPos(playerid, &Float:x, &Float:y, &Float:z)
+
+> Use to get a player's spawn position
+> * `playerid` - The ID of the player
+> * `&Float:x` - The variable for storage the x coordinate, passed by reference
+> * `&Float:y` - The variable for storage the y coordinate, passed by reference
+> * `&Float:z` - The variable for storage the z coordinate, passed by reference
 
 # Multilingual:
 The script can be configured at any of the available languages. To do it, just download the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
@@ -433,7 +446,7 @@ The script can be configured at any of the available languages. To do it, just d
 2. Download the language file *(.lang)* in your preferred language
 3. Copy both files to a folder *"/pawno/include"* which is located in the folder with the server
 4. In gamemode and all filterscripts after *#include "a_samp"* write the following: *#include "nex-ac"*  
-***Warning! If you use Streamer Plugin by Incognito, Timerfix plugin by Dan, foreach, sscanf or y_hooks, include it before nex-ac!***  
+***Warning! If you use Streamer Plugin by Incognito, Timerfix plugin by Dan, foreach, sscanf, Pawn.RakNet or y_hooks, include it before nex-ac!***  
 *Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including anticheat*
 5. Compile the modified scripts
 
