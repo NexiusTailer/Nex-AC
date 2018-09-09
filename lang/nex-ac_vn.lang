@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[NEX-AC] Phat hien ID %d. Reason code: %03d%s",
+	SUSPICION_2[] =			"[NEX-AC] Phat hien IP %s. Reason code: %03d%s",
+	VERSION_WARNING[] =		"[NEX-AC] Phien ban hien tai cua anticheat khong tuong thich voi phien ban hien tai cua server",
+	CFG_OPENING_ERROR[] =	"[NEX-AC] Loi tao/mo %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[NEX-AC debug] ID %d da vuot qua %d flood attempts. Public ID: %d",
+	DEBUG_CODE_2[] =		"[NEX-AC debug] ID %d su dung phien ban khong hop le. Phien ban: %s",
+	DEBUG_CODE_3[] =		"[NEX-AC debug] ID %d vuot qua %d lan ket noi tren 1 IP-address",
+	DEBUG_CODE_4[] =		"[NEX-AC debug] Bad RCON login tren IP %s su dung mat khau %s",
+	DEBUG_CODE_5[] =		"[NEX-AC debug] ID %d su dung NOPP %s",
+#endif
+
+	KICK_MSG[] =			"Ban da bi banned vinh vien boi vi HACK/BUG khong duoc phep (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Ban da vuot qua so ket noi tren 1 IP-address",
+	UNKNOWN_CLIENT_MSG[] =	"Phien ban hien tai cua client khong tuong thich voi server",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC da duoc tai!",
+	LOADED_MSG_2[] =		" Phien ban Anticheat: %s",
+	LOADED_MSG_3[] =		" Tac gia: Nexius",
+
+	STATS_STRING_1[] =		" Thong ke Nex-AC Anticheat",
+	STATS_STRING_2[] =		" Da phat hien va ngan chan:",
+	STATS_STRING_3[] =		"  %d cheating attempts",
+	STATS_STRING_4[] =		"  %d hacking attempts",
+	STATS_STRING_5[] =		"  %d crashing attempts",
+	STATS_STRING_6[] =		"  %d flooding attempts",
+	STATS_STRING_7[] =		"  %d attacks",
+	STATS_STRING_8[] =		" Tong so da phat hien va trung phat %d cheaters";
