@@ -1,0 +1,38 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+// Translated in Albanian by willbedie
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Dyshohet ID %d. Kodi i arsyes: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Dyshohet IP adresa %s. Kodi i arsyes: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Ky version i anticheat nuk eshte i pershtatshem per versionin e serverit.",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Gabim per te krijuar/hapur %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d ka tejkaluar %d perpjeke flood. ID publike: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Verzion invalid nga ID %d. Verzioni: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d ka tejkaluar %d konektime nga 1 IP adrese",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Kyqje e gabuar e RCON nga IP %s duke perdorur fjalekalimin %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d ka perdorur NOP %s",
+#endif
+	
+	KICK_MSG[] =			"Ju u perjashtuat nga dyshimi per perdorimin e programeve per hacks (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Ju keni kaluar kufirin e konektimeve prej 1 IP adrese",
+	UNKNOWN_CLIENT_MSG[] =	"Ky version i klientit nuk pershtatet per te luajtur ne server",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC u ngarkua!",
+	LOADED_MSG_2[] =		" Anticheat verzion: %s",
+	LOADED_MSG_3[] =		" Autori: Nexius",
+
+	STATS_STRING_1[] =		" Statistikat anticheat Nex-AC",
+	STATS_STRING_2[] =		" Zbuluar dhe ndaluar:",
+	STATS_STRING_3[] =		"  %d perpjekje per cheats",
+	STATS_STRING_4[] =		"  %d perpjekje per hacking",
+	STATS_STRING_5[] =		"  %d perpjekje per crashing",
+	STATS_STRING_6[] =		"  %d perpjekje per permbytje",
+	STATS_STRING_7[] =		"  %d sulme",
+	STATS_STRING_8[] =		" Totali i zbuluar dhe ndeshkuar %d cheaters";

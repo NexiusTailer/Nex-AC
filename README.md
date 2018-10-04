@@ -482,6 +482,7 @@ The script can be configured at any of the available languages. To do it, just d
 * OldPawn - Estonian translation
 * Negativ_Tm - Turkmen translation
 * Trung.Tin - Vietnamese translation
+* willbedie - Albanian translation
 
 This script also contains materials of third-party projects with open source.
 
