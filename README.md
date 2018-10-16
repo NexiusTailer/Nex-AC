@@ -483,6 +483,7 @@ The script can be configured at any of the available languages. To do it, just d
 * Negativ_Tm - Turkmen translation
 * Trung.Tin - Vietnamese translation
 * willbedie - Albanian translation
+* aktah - Thai translation
 
 This script also contains materials of third-party projects with open source.
 
