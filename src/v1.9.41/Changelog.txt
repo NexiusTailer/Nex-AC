@@ -1,0 +1,8 @@
+Changes:
+* Added EnableAntiNOP, EnableAntiNOPForPlayer, IsAntiNOPEnabled and IsAntiNOPEnabledForPlayer functions
+* Changed the default punishment for sending invalid data for unoccupied vehicles (now desync instead of kick)
+* Minor improvements and fixes
+
+Fixes:
+* Fixed bypass of anti-teleport into locked vehicles
+* Tweaked some anti-flood settings

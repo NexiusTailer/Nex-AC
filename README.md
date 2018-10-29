@@ -436,6 +436,40 @@ Added in v1.9.40:
 > * `&Float:y` - The variable for storage the y coordinate, passed by reference
 > * `&Float:z` - The variable for storage the z coordinate, passed by reference
 
+
+
+Added in v1.9.41:
+
+
+#### EnableAntiNOP(nopcode, enable)
+
+> Use to enable/disable one of the anti-NOPs
+> * `nopcode` - ID of the anti-NOP
+> * `enable` - `1` to enable/`0` to disable
+
+
+#### EnableAntiNOPForPlayer(playerid, nopcode, enable)
+
+> Use to enable/disable one of the anti-NOPs for a particular player
+> * `playerid` - ID of the player who needs to enable/disable the anti-NOP
+> * `nopcode` - ID of the anti-NOP
+> * `enable` - `1` to enable/`0` to disable
+
+
+#### IsAntiNOPEnabled(nopcode)
+
+> Use to check whether one of the anti-NOPs is enabled/disabled
+> * `nopcode` - ID of the anti-NOP
+> * Return `1 (true)` if enabled or `0 (false)` if disabled
+
+
+#### IsAntiNOPEnabledForPlayer(playerid, nopcode)
+
+> Use to check whether one of the anti-NOPs is enabled/disabled for a particular player
+> * `playerid` - ID of the player to be checked whether the anti-NOP enabled/disabled for him
+> * `nopcode` - ID of the anti-NOP
+> * Return `1 (true)` if enabled or `0 (false)` if disabled
+
 # Multilingual:
 The script can be configured at any of the available languages. To do it, just download the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
 
