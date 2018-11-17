@@ -48,14 +48,14 @@ Anti-DoS combines customizable anti-flood, anti-DoS at network level and a lot o
 # Additional features:
 ##### * Setting anticheat from file
 The settings is located in a separate file (scriptfiles\nex-ac_settings.cfg)
-##### * View statistics
-Ability to view statistics of the anticheat while the server working since its launch  
-Displayed automatically when server turn off. Stored in a server log (server_log.txt)
+##### * Statistics viewing
+Ability to view statistics of the anticheat for all the time of server work since its launch
+Displayed automatically when the server turns off. Stored in a server log (server_log.txt)
 ##### * Logging the most important actions
-Optionally you can enable debug-mode for log all actions
+Optionally, you can enable debug-mode for logging all actions
 ##### * Multilingual
 Ability to set any of the available languages.  
-It also simplifies the translation of anticheat to other languages
+It also simplifies the process of translation of anticheat into other languages
 
 ## List of publics which are protected by anti-flood:
 * OnDialogResponse
@@ -113,7 +113,7 @@ It also simplifies the translation of anticheat to other languages
 # Functions:
 #### public OnCheatDetected(playerid, ip_address[], type, code)
 
-> Called when triggered one of the anti-cheats
+> Called when triggers one of the anti-cheats
 > * `playerid` - ID of the cheater
 > * `ip_address[]` - IP-address of the cheater
 > * `type` - Type of cheating (when `0` it returns the ID, when `1` - IP)
@@ -385,7 +385,7 @@ Added in v1.9.37:
 
 #### public OnCheatWarning(playerid, ip_address[], type, code, code2, count)
 
-> Called when triggered any warnings of one of the anti-cheats
+> Called when triggers any warnings of one of the anti-cheats
 > * `playerid` - ID of the suspected cheater
 > * `ip_address[]` - IP-address of the suspected cheater
 > * `type` - Type of cheating (when `0` it returns the ID, when `1` - IP)
@@ -396,7 +396,7 @@ Added in v1.9.37:
 
 #### public OnFloodWarning(playerid, publicid, count)
 
-> Called when triggered any anti-flood warnings on one of the protected publics
+> Called when triggers any anti-flood warnings on one of the protected publics
 > * `playerid` - ID of the suspected flooder
 > * `publicid` - ID of the public that was called too quickly
 > * `count` - Count of warnings triggered on suspected flooder
@@ -404,7 +404,7 @@ Added in v1.9.37:
 
 #### public OnNOPWarning(playerid, nopid, count)
 
-> Called when triggered any NOP warnings on one of the protected functions
+> Called when triggers any NOP warnings on one of the protected functions
 > * `playerid` - ID of the suspected cheater
 > * `nopid` - ID of the NOP check
 > * `count` - Count of warnings triggered on suspected cheater
@@ -419,7 +419,7 @@ Added in v1.9.37:
 
 #### AntiCheatIsKickedWithDecync(playerid)
 
-> Use to check whether a player is kicked or not
+> Use to check whether a player is (being) kicked or not
 > * `playerid` - The ID of the player
 > * Returns `1` for kick onfoot, `2` for kick in a vehicle (driver), `3` if player is already disconnected or `0` if he isn't kicked
 
@@ -471,17 +471,17 @@ Added in v1.9.41:
 > * Return `1 (true)` if enabled or `0 (false)` if disabled
 
 # Multilingual:
-The script can be configured at any of the available languages. To do it, just download the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
+The script can be configured in any of the available languages. To do it, just download the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
 
-##### *It is also recommended to check on use any other anti-cheats in order to avoid conflicts with them.*
+##### *It is also recommended to check for using any other anticheats in order to avoid conflicts with them.*
 
 # Installation:
 1. Download version of the anticheat which compatible with the version of your server
 2. Download the language file *(.lang)* in your preferred language
 3. Copy both files to a folder *"/pawno/include"* which is located in the folder with the server
-4. In gamemode and all filterscripts after *#include "a_samp"* write the following: *#include "nex-ac"*  
+4. In gamemode and all filterscripts, after *#include "a_samp"* write the following: *#include "nex-ac"*  
 ***Warning! If you use Streamer Plugin by Incognito, Timerfix plugin by Dan, foreach, sscanf, Pawn.RakNet or y_hooks, include it before nex-ac!***  
-*Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including anticheat*
+*Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including the anticheat*
 5. Compile the modified scripts
 
 *Do you get an error when you compiling this anticheat with YSI? Check out [some tips](http://forum.sa-mp.com/showpost.php?p=3556462&postcount=202)*
@@ -519,8 +519,8 @@ The script can be configured at any of the available languages. To do it, just d
 * willbedie - Albanian translation
 * aktah - Thai translation
 
-This script also contains materials of third-party projects with open source.
+This script also contains materials from third-party open source projects.
 
-P.s. I develop this anticheat about a year and spent on it a lot of effort and time. I hope very much that it will be useful to you.
+P.s. I developed this anticheat for about a year and spent on it a lot of effort and time. I really hope that it will be useful to you.
 
 Enjoy!
