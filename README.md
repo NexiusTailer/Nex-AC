@@ -1,4 +1,4 @@
-[Download latest release (v1.9.41)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.41)
+[Download latest release (v1.9.42)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.42)
 
 # [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
@@ -174,7 +174,7 @@ Added in v1.8.8:
 
 #### AntiCheatGetVehicleHealth(vehicleid, &Float:health)
 
-> Use to get the amount of a vehicle health
+> Use to get the amount of the vehicle health
 > * `vehicleid` - The ID of the vehicle
 > * `&Float:health` - Variable for storage health, passed by reference
 
@@ -211,7 +211,7 @@ Added in v1.8.8:
 
 #### AntiCheatGetVehicleVelocity(vehicleid, &Float:x, &Float:y, &Float:z)
 
-> Use to get a vehicle speed
+> Use to get the vehicle speed
 > * `vehicleid` - The ID of the vehicle
 > * `&Float:x` - The variable for storage the x speed, passed by reference
 > * `&Float:y` - The variable for storage the y speed, passed by reference
@@ -222,7 +222,7 @@ Added in v1.8.8:
 
 > Use to get a player's speed
 > * `playerid` - The ID of the player
-> * Returns a player's speed or `0` if the player is not connected
+> * Returns the player's speed or `0` if the player is not connected
 
 
 #### AntiCheatGetAnimationIndex(playerid)
@@ -271,7 +271,7 @@ Added in v1.8.8:
 
 > Use to get the seat in the vehicle on which the player is in
 > * `playerid` - The ID of the player
-> * Returns a number of the seat or `-1` if the player is not connected
+> * Returns the ID of the seat or `-1` if the player is not connected
 
 
 #### AntiCheatGetSpecialAction(playerid)
@@ -306,35 +306,35 @@ Added in v1.8.8:
 
 > Use to get a player's last update timestamp
 > * `playerid` - The ID of the player
-> * Returns a timestamp of the last update or `0` if the player is not connected
+> * Returns the timestamp of the last update or `0` if the player is not connected
 
 
 #### AntiCheatGetLastReloadTime(playerid)
 
 > Use to get a player's last (weapon) reload timestamp
 > * `playerid` - The ID of the player
-> * Returns a timestamp of the last reload or `0` if the player is not connected
+> * Returns the timestamp of the last reload or `0` if the player is not connected
 
 
 #### AntiCheatGetLastEnteredVehTime(playerid)
 
 > Use to get a player's last entering vehicle attempt timestamp
 > * `playerid` - The ID of the player
-> * Returns a timestamp of the last entering attempt or `0` if the player is not connected
+> * Returns the timestamp of the last entering attempt or `0` if the player is not connected
 
 
 #### AntiCheatGetLastShotTime(playerid)
 
 > Use to get a player's last shot timestamp
 > * `playerid` - The ID of the player
-> * Returns a timestamp of the last shot or `0` if the player is not connected
+> * Returns the timestamp of the last shot or `0` if the player is not connected
 
 
 #### AntiCheatGetLastSpawnTime(playerid)
 
 > Use to get a player's last spawn timestamp
 > * `playerid` - The ID of the player
-> * Returns a timestamp of the last spawn or `0` if the player is not connected
+> * Returns the timestamp of the last spawn or `0` if the player is not connected
 
 
 #### AntiCheatIntEnterExitsIsEnabled(playerid)
@@ -469,6 +469,31 @@ Added in v1.9.41:
 > * `playerid` - ID of the player to be checked whether the anti-NOP enabled/disabled for him
 > * `nopcode` - ID of the anti-NOP
 > * Return `1 (true)` if enabled or `0 (false)` if disabled
+
+
+
+Added in v1.9.42:
+
+
+#### AntiCheatGetVehicleDriver(vehicleid)
+
+> Use to get the ID of the driver of the vehicle
+> * `vehicleid` - The ID of the vehicle
+> * Returns the ID of the driver or `INVALID_PLAYER_ID` if the vehicle does not exist
+
+
+#### AntiCheatGetVehicleInterior(vehicleid)
+
+> Use to get the ID of the interior of the vehicle
+> * `vehicleid` - The ID of the vehicle
+> * Returns the ID of the interior or `0` if the vehicle does not exist
+
+
+#### AntiCheatGetVehiclePaintjob(vehicleid)
+
+> Use to get the ID of the paintjob of the vehicle
+> * `vehicleid` - The ID of the vehicle
+> * Returns the ID of the paintjob or `3` if the vehicle does not exist
 
 # Multilingual:
 The script can be configured in any of the available languages. To do it, just download the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
