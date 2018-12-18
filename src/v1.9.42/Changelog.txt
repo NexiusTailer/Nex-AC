@@ -1,9 +1,0 @@
-Changes:
-* Removed version mismatch warning for 0.3.DL server version
-* Now anticheat is distributed in one file for 0.3.7-R1 and 0.3.7-R2
-* Added AntiCheatGetVehicleDriver, AntiCheatGetVehicleInterior and AntiCheatGetVehiclePaintjob functions
-* Improved protection against Silent Aims
-
-Fixes:
-* Fixed the bypass of anti-teleport hack when the cheater could teleport from under the map
-* Minor improvements and fixes

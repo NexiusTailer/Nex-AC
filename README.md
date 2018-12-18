@@ -1,4 +1,4 @@
-[Download latest release (v1.9.42)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.42)
+[Download latest release (v1.9.43)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.43)
 
 # [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
@@ -494,6 +494,42 @@ Added in v1.9.42:
 > Use to get the ID of the paintjob of the vehicle
 > * `vehicleid` - The ID of the vehicle
 > * Returns the ID of the paintjob or `3` if the vehicle does not exist
+
+
+
+Added in v1.9.43:
+
+
+#### AntiCheatGetVehiclePos(vehicleid, &Float:x, &Float:y, &Float:z)
+
+> Use to get a vehicle position
+> * `vehicleid` - The ID of the vehicle
+> * `&Float:x` - The variable for storage the x coordinate, passed by reference
+> * `&Float:y` - The variable for storage the y coordinate, passed by reference
+> * `&Float:z` - The variable for storage the z coordinate, passed by reference
+
+
+#### AntiCheatGetVehicleZAngle(vehicleid, &Float:z_angle)
+
+> Use to get the vehicle z rotation
+> * `vehicleid` - The ID of the vehicle
+> * `&Float:z_angle` - The variable for storage the z rotation, passed by reference
+
+
+#### AntiCheatGetVehicleSpawnPos(vehicleid, &Float:x, &Float:y, &Float:z)
+
+> Use to get a vehicle spawn position
+> * `vehicleid` - The ID of the vehicle
+> * `&Float:x` - The variable for storage the x coordinate, passed by reference
+> * `&Float:y` - The variable for storage the y coordinate, passed by reference
+> * `&Float:z` - The variable for storage the z coordinate, passed by reference
+
+
+#### AntiCheatGetVehicleSpawnZAngle(vehicleid, &Float:z_angle)
+
+> Use to get the vehicle spawn z rotation
+> * `vehicleid` - The ID of the vehicle
+> * `&Float:z_angle` - The variable for storage the z rotation, passed by reference
 
 # Multilingual:
 The script can be configured in any of the available languages. To do it, just download the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
