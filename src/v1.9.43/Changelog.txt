@@ -1,5 +1,5 @@
 Changes:
 * Ability to run anticheat on older server versions (down to 0.3e inclusive)
-** Correct work on older versions is not guaranteed and part of the functionality that isn't available in older versions is just disabled
+** Correct work on older versions is not guaranteed and part of the functionality that isn't available in older versions will be just disabled
 * Added AntiCheatGetVehiclePos, AntiCheatGetVehicleZAngle, AntiCheatGetVehicleSpawnPos and AntiCheatGetVehicleSpawnZAngle functions
 * Increased and tweaked some distances
