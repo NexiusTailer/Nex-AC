@@ -1,5 +1,5 @@
 Changes:
-* Improved anti-fakeKill
+* Improved anti-FakeKill
 * Added anti-teleport hack (onfoot and in car) and speedhack (in car) in the timer
 * Improved anti-unoccupied vehicles teleport hack (for trailers)
 * Minor improvements and fixes
