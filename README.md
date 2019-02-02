@@ -579,6 +579,7 @@ The script can be configured in any of the available languages. To do it, just d
 * Trung.Tin - Vietnamese translation
 * willbedie - Albanian translation
 * aktah - Thai translation
+* Michael.Richmond - Moldovan translation
 
 This script also contains materials from third-party open source projects.
 
