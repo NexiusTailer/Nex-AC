@@ -1,0 +1,12 @@
+Changes:
+* Improved compatibility with Pawn.Raknet and sscanf
+* Added "#define AC_USE_NPC" to enable/disable NPC checks
+** You can disable this option to increase performance if you don't use NPC
+* Improved anti-teleport onfoot/in vehicle and protection from damagers
+* Increased some delays and warnings
+
+Fixes:
+* Fixed a bug in anti-teleport in vehicle with a kick when player enter/exit from the default modshops
+* Fixed a bypass in anti-ammo hack with the ammo given by the server immediately after cheating their negative value
+* Fixed frequent unoccupied vehicles teleport for a few meters back when a player exited from it on a speed
+* Fixed a bug in anti-NOPs with a kick when fist was set as a weapon by the server and a player had brass knuckles before it
