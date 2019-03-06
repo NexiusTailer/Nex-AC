@@ -35,6 +35,10 @@
 	#define AC_CONFIG_FILE				"nex-ac_settings.cfg"
 #endif
 
+#if !defined ANOP_CONFIG_FILE
+	#define ANOP_CONFIG_FILE				"nex-anop_settings.cfg"
+#endif
+
 #if !defined AC_MAX_CLASSES
 	#define AC_MAX_CLASSES				320
 #endif
@@ -1670,6 +1674,17 @@ ac_fpublic ac_EnableAntiCheat(code, enable)
 			}
 		#endif
 	}
+	new File:ac_cfgFile, ac_strtmp[10], ac_string[415];
+    if((ac_cfgFile = fopen(AC_CONFIG_FILE, io_write)))
+	{
+		for(new ac_i = 0; ac_i < sizeof ac_ACAllow; ac_i++)
+		{
+			format(ac_strtmp, sizeof ac_strtmp, "%d //%d\r\n", ac_ACAllow[ac_i], ac_i);
+			strcat(ac_string, ac_strtmp);
+		}
+		fwrite(ac_cfgFile, ac_string);
+		fclose(ac_cfgFile);
+	}
 	return 1;
 }
 
@@ -1689,6 +1704,17 @@ ac_fpublic ac_EnableAntiNOP(nopcode, enable)
 			if(IsPlayerConnected(ac_i)) ACInfo[ac_i][acNOPAllow][nopcode] = ac_NOPAllow[nopcode];
 		}
 	#endif
+	new File:anop_cfgFile, anop_strtmp[10], anop_string[415];
+    if((anop_cfgFile = fopen(ANOP_CONFIG_FILE, io_write)))
+	{
+		for(new anop_i = 0; anop_i < sizeof ac_NOPAllow; anop_i++)
+		{
+			format(anop_strtmp, sizeof anop_strtmp, "%d //%d\r\n", ac_NOPAllow[anop_i], anop_i);
+			strcat(anop_string, anop_strtmp);
+		}
+		fwrite(anop_cfgFile, anop_string);
+		fclose(anop_cfgFile);
+	}
 	return 1;
 }
 
@@ -3041,6 +3067,7 @@ static fs_AntiCheatSetNextDialog(playerid, dialogid)
 public OnGameModeInit()
 {
 	if(!ac_LoadCfg()) printf(CFG_OPENING_ERROR, AC_CONFIG_FILE);
+    if(!anop_LoadCfg()) printf(CFG_OPENING_ERROR, ANOP_CONFIG_FILE);
 	if(ac_ACAllow[42])
 	{
 		#if !AC_USE_QUERY
@@ -8561,4 +8588,46 @@ static ac_LoadCfg()
 	return 1;
 }
 
+static anop_LoadCfg()
+{
+	static anop_strtmp[10];
+	new anop_i, anop_string[415], File:anop_cfgFile;
+	if(fexist(ANOP_CONFIG_FILE))
+	{
+		if((anop_cfgFile = fopen(ANOP_CONFIG_FILE, io_read)))
+		{
+			#if defined sscanf
+				new anop_j;
+			#endif
+			while(fread(anop_cfgFile, anop_string) > 0)
+			{
+				#if defined sscanf
+					sscanf(anop_string, "i'//'i", anop_j, anop_i);
+					ac_NOPAllow[anop_i] = !!anop_j;
+				#else
+					if((anop_i = strfind(anop_string, "//")) != -1)
+					{
+						strmid(anop_strtmp, anop_string, anop_i + 2, strlen(anop_string));
+						if(0 <= (anop_i = strval(anop_strtmp)) < sizeof ac_NOPAllow) ac_NOPAllow[anop_i] = !!strval(anop_string);
+					}
+				#endif
+			}
+			fclose(anop_cfgFile);
+		}
+		else return 0;
+	}
+	else if((anop_cfgFile = fopen(ANOP_CONFIG_FILE, io_write)))
+	{
+		#undef ANOP_CONFIG_FILE
+		for(; anop_i < sizeof ac_NOPAllow; ++anop_i)
+		{
+			format(anop_strtmp, sizeof anop_strtmp, "%d //%d\r\n", ac_NOPAllow[anop_i], anop_i);
+			strcat(anop_string, anop_strtmp);
+		}
+		fwrite(anop_cfgFile, anop_string);
+		fclose(anop_cfgFile);
+	}
+	else return 0;
+	return 1;
+}
 #endif
