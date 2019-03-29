@@ -5516,7 +5516,7 @@ public OnGameModeExit()
 	}
 	ACInfo[playerid][acCall][27] = ACInfo[playerid][acCall][6] = ac_gtc;
 	new ac_model = GetVehicleModel(vehicleid);
-	if(ACInfo[playerid][acACAllow][44] && !(569 <= ac_model <= 570) && !IsVehicleStreamedIn(vehicleid, playerid))
+	if(ACInfo[playerid][acACAllow][44] && !(569 <= ac_model <= 570) && !IsVehicleStreamedIn(vehicleid, playerid) && GetPlayerSurfingVehicleID(playerid) != vehicleid)
 	{
 		#if defined DEBUG
 			printf("[Nex-AC debug] Veh: %d, veh model: %d, ispassenger: %d", vehicleid, ac_model, ispassenger);
@@ -5525,7 +5525,8 @@ public OnGameModeExit()
 	}
 	new ac_doors, ac_tmp;
 	GetVehicleParamsEx(vehicleid, ac_tmp, ac_tmp, ac_tmp, ac_doors, ac_tmp, ac_tmp, ac_tmp);
-	if(ispassenger || ac_doors != VEHICLE_PARAMS_ON)
+	if(GetPlayerSurfingVehicleID(playerid) == INVALID_VEHICLE_ID &&
+	(ispassenger || ac_doors != VEHICLE_PARAMS_ON))
 	{
 		if(ACInfo[playerid][acEnterVeh] != vehicleid)
 		{
@@ -5535,6 +5536,7 @@ public OnGameModeExit()
 		}
 	}
 	else ACInfo[playerid][acEnterVeh] = 0;
+	if(!IsVehicleStreamedIn(vehicleid, playerid) && GetPlayerSurfingVehicleID(playerid) == INVALID_VEHICLE_ID)
 	#if !defined _inc_y_hooks && !defined _INC_y_hooks\
 		&& defined ac_OnPlayerEnterVehicle
 		return ac_OnPlayerEnterVehicle(playerid, vehicleid, ispassenger);
@@ -5969,6 +5971,7 @@ public OnGameModeExit()
 				}
 				GetPlayerVelocity(playerid, ac_x, ac_y, ac_z);
 				ACInfo[playerid][acSpeed] = ac_GetSpeed(ac_x, ac_y, ac_z);
+				ACInfo[playerid][acSet][5] = -1;
 				ACInfo[playerid][acGtc][18] = ACInfo[playerid][acGtc][10] = ac_i + 1650;
 			}
 		}
@@ -6036,6 +6039,7 @@ public OnGameModeExit()
 						ACInfo[playerid][acCheatCount][11] = 0;
 						ACInfo[playerid][acVehDmgRes] = false;
 					}
+					if(newstate == PLAYER_STATE_PASSENGER && ACInfo[playerid][acKicked] < 1) ACInfo[playerid][acSet][5] = GetPlayerVehicleSeat(playerid);
 					ACInfo[playerid][acEnterVeh] = 0;
 				}
 				if(ACInfo[playerid][acACAllow][44])
@@ -7684,6 +7688,26 @@ public OnGameModeExit()
 					SetVehicleZAngle(ac_tData[PR_trailerId], ACVehInfo[ac_tData[PR_trailerId]][acZAngle]);
 					SetVehiclePos(ac_tData[PR_trailerId], ac_x, ac_y, ac_z);
 					return 0;
+				}
+			}
+		}
+		else if(packetid == 211)
+		{
+			new passengerData[PR_PassengerSync];
+			BS_IgnoreBits(bs, 8);
+			BS_ReadPassengerSync(bs, passengerData);
+			if(ACInfo[playerid][acACAllow][2])
+			{
+				if(ACInfo[playerid][acEnterVeh] == 0 && (ACInfo[playerid][acSet][5] != passengerData[PR_seatId] || passengerData[PR_seatId] < 1) && 
+				GetTickCount() > ACInfo[playerid][acGtc][1] + GetPlayerPing(playerid))
+				{
+					#if defined DEBUG
+						printf("[Nex-AC debug] acSeat: %d, rakSeat: %d, veh: %d, playerid: %d",
+						ACInfo[playerid][acSet][5], passengerData[PR_seatId], passengerData[PR_vehicleId], playerid);
+					#endif
+					#if defined OnCheatDetected
+						ac_KickWithCode(playerid, "", 0, 2, 7);
+					#endif
 				}
 			}
 		}
