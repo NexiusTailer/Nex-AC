@@ -5516,7 +5516,8 @@ public OnGameModeExit()
 	}
 	ACInfo[playerid][acCall][27] = ACInfo[playerid][acCall][6] = ac_gtc;
 	new ac_model = GetVehicleModel(vehicleid);
-	if(ACInfo[playerid][acACAllow][44] && !(569 <= ac_model <= 570) && !IsVehicleStreamedIn(vehicleid, playerid) && GetPlayerSurfingVehicleID(playerid) != vehicleid)
+	if(ACInfo[playerid][acACAllow][44] && !(569 <= ac_model <= 570) && 
+	!IsVehicleStreamedIn(vehicleid, playerid) && GetPlayerSurfingVehicleID(playerid) != vehicleid)
 	{
 		#if defined DEBUG
 			printf("[Nex-AC debug] Veh: %d, veh model: %d, ispassenger: %d", vehicleid, ac_model, ispassenger);
@@ -5525,8 +5526,7 @@ public OnGameModeExit()
 	}
 	new ac_doors, ac_tmp;
 	GetVehicleParamsEx(vehicleid, ac_tmp, ac_tmp, ac_tmp, ac_doors, ac_tmp, ac_tmp, ac_tmp);
-	if(GetPlayerSurfingVehicleID(playerid) == INVALID_VEHICLE_ID &&
-	(ispassenger || ac_doors != VEHICLE_PARAMS_ON))
+	if(ispassenger || ac_doors != VEHICLE_PARAMS_ON)
 	{
 		if(ACInfo[playerid][acEnterVeh] != vehicleid)
 		{
@@ -5536,7 +5536,6 @@ public OnGameModeExit()
 		}
 	}
 	else ACInfo[playerid][acEnterVeh] = 0;
-	if(!IsVehicleStreamedIn(vehicleid, playerid) && GetPlayerSurfingVehicleID(playerid) == INVALID_VEHICLE_ID)
 	#if !defined _inc_y_hooks && !defined _INC_y_hooks\
 		&& defined ac_OnPlayerEnterVehicle
 		return ac_OnPlayerEnterVehicle(playerid, vehicleid, ispassenger);
@@ -5960,7 +5959,7 @@ public OnGameModeExit()
 					new ac_model = GetVehicleModel(ACInfo[playerid][acVeh]);
 					ac_s = ACVehInfo[ACInfo[playerid][acVeh]][acDriver];
 					ac_x = GetPlayerDistanceFromPoint(playerid, ACInfo[playerid][acPosX], ACInfo[playerid][acPosY], ACInfo[playerid][acPosZ]);
-					if(ac_x >= 180.0 || ac_x >= 50.0 && (ac_s == INVALID_PLAYER_ID || ac_i < ACInfo[ac_s][acUpdateTick] + 2000) && !(ac_model == 449 || 537 <= ac_model <= 538 || 569 <= ac_model <= 570))
+					if(ac_x >= 180.0 || ac_x >= 50.0 && (ac_s == INVALID_PLAYER_ID || ac_i < ACInfo[ac_s][acUpdateTick] + 2000 || GetPlayerSurfingVehicleID(playerid) != INVALID_VEHICLE_ID) && !(ac_model == 449 || 537 <= ac_model <= 538 || 569 <= ac_model <= 570))
 					{
 						#if defined DEBUG
 							if(ac_s == INVALID_PLAYER_ID) printf("[Nex-AC debug] Veh model: %d, dist: %f", ac_model, ac_x);
@@ -6039,7 +6038,6 @@ public OnGameModeExit()
 						ACInfo[playerid][acCheatCount][11] = 0;
 						ACInfo[playerid][acVehDmgRes] = false;
 					}
-					if(newstate == PLAYER_STATE_PASSENGER && ACInfo[playerid][acKicked] < 1) ACInfo[playerid][acSet][5] = GetPlayerVehicleSeat(playerid);
 					ACInfo[playerid][acEnterVeh] = 0;
 				}
 				if(ACInfo[playerid][acACAllow][44])
@@ -7698,8 +7696,7 @@ public OnGameModeExit()
 			BS_ReadPassengerSync(bs, passengerData);
 			if(ACInfo[playerid][acACAllow][2])
 			{
-				if(ACInfo[playerid][acEnterVeh] == 0 && (ACInfo[playerid][acSet][5] != passengerData[PR_seatId] || passengerData[PR_seatId] < 1) && 
-				GetTickCount() > ACInfo[playerid][acGtc][1] + GetPlayerPing(playerid))
+				if(passengerData[PR_seatId] < 1 && GetTickCount() > ACInfo[playerid][acGtc][1] + GetPlayerPing(playerid))
 				{
 					#if defined DEBUG
 						printf("[Nex-AC debug] acSeat: %d, rakSeat: %d, veh: %d, playerid: %d",
