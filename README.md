@@ -1,4 +1,4 @@
-[Download latest release (v1.9.45)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.45)
+[Download latest release (v1.9.46)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.46)
 
 # [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
@@ -35,12 +35,12 @@ Anti-DoS combines customizable anti-flood, anti-DoS at network level and a lot o
 * Anti-High ping
 * Anti-Fake NPC
 * Anti-Dialog hack
-* Protection from the sandbox
-* Protection against invalid version
-* Anti-flood change seat
-* Flood protection connects to one slot
+* Protection from sandbox
+* Protection from invalid version
+* Protection from flood by seat changing
+* Protection from connection flood in one slot
 * Anti-Rcon hack (brute/brute-forse)
-* Anti-flood callback functions *(complete list below)*
+* Anti-callback functions flood *(complete list below)*
 * Anti-crashers *(complete list below)*
 * Anti-NOP's *(complete list below)*
 * Anti-Dos
@@ -534,12 +534,14 @@ Added in v1.9.43:
 # Multilingual:
 The script can be configured in any of the available languages. To do it, just download the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
 
+* *.lang* files can be opened even in default notepad and easily edited
+
 ##### *It is also recommended to check for using any other anticheats in order to avoid conflicts with them.*
 
 # Installation:
 1. Download version of the anticheat which compatible with the version of your server
 2. Download the language file *(.lang)* in your preferred language
-3. Copy both files to a folder *"/pawno/include"* which is located in the folder with the server
+3. Copy both files to a folder *"/pawno/include"* which is located in a folder with the server
 4. In gamemode and all filterscripts, after *#include "a_samp"* write the following: *#include "nex-ac"*  
 ***Warning! If you use Streamer Plugin by Incognito, Timerfix plugin by Dan, foreach, sscanf, Pawn.RakNet or y_hooks, include it before nex-ac!***  
 *Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including the anticheat*
