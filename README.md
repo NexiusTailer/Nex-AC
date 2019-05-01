@@ -183,7 +183,7 @@ Added in v1.8.8:
 
 > Use to get weapons and ammo in a certain slot of a player
 > * `playerid` - The ID of the player
-> * `slot` - The slot in which need get the weapons and ammo
+> * `slot` - The slot in which need to get the weapons and ammo
 > * `&weapons` - Variable for storage weapon ID, passed by reference
 > * `&ammo` - Variable for storage amount of ammo, passed by reference
 
@@ -255,7 +255,7 @@ Added in v1.8.8:
 
 #### AntiCheatGetVehicleID(playerid)
 
-> Use to get the ID of the vehicle in which a player is in
+> Use to get the ID of the vehicle in which a player is
 > * `playerid` - The ID of the player
 > * Returns the ID of the vehicle or `0` if the player is not connected
 
@@ -269,7 +269,7 @@ Added in v1.8.8:
 
 #### AntiCheatGetVehicleSeat(playerid)
 
-> Use to get the seat in the vehicle on which the player is in
+> Use to get the seat in the vehicle on which the player is
 > * `playerid` - The ID of the player
 > * Returns the ID of the seat or `-1` if the player is not connected
 
@@ -530,6 +530,17 @@ Added in v1.9.43:
 > Use to get the vehicle spawn z rotation
 > * `vehicleid` - The ID of the vehicle
 > * `&Float:z_angle` - The variable for storage the z rotation, passed by reference
+
+
+
+Added in v1.9.46:
+
+
+#### AntiCheatGetInterior(playerid)
+
+> Use to get the ID of the interior in which a player is
+> * `playerid` - The ID of the player
+> * Returns the ID of the interior or `0` if the player is not connected
 
 # Multilingual:
 The script can be configured in any of the available languages. To do it, just download the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
