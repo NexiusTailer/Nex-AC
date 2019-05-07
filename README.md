@@ -593,6 +593,7 @@ The script can be configured in any of the available languages. To do it, just d
 * willbedie - Albanian translation
 * aktah - Thai translation
 * Michael.Richmond - Moldavian translation
+* NemanjaMAX - Bosnian translation
 
 This script also contains materials from third-party open source projects.
 

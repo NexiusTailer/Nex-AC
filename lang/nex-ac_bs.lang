@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] ID %d se pojavljuje kao sumnjiv. Razlog (Kod): %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] IP adresa %s se pojavljuje kao sumnjiva. Razlog (Kod): %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Ova verzija Nex-AC nije odgovarajuća Vašoj verziji servera!",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Greška pri kreiranju/otvaranju %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d premašuje maksimalni broj (%d) flood pokušaja. Javni ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] ID %d se konektovao sa pogrešnom verzijom. (%s)",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d premašuje %d maksimalnih konekcija sa jedne IP adrese",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Loš RCON login od strane IP (%s) lozinkom %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d je iskoristio NOP %s",
+#endif
+
+	KICK_MSG[] =			"Kikovani ste zbog korišenja nedozvoljenih programa (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Premašili ste broj konekcija sa iste IP adrese",
+	UNKNOWN_CLIENT_MSG[] =	"Ova verzija klijenta se ne može koristiti na ovom serveru",
+
+	LOADED_MSG_1[] =		" Nex-AC ucitan!",
+	LOADED_MSG_2[] =		" Nex-AC verzija: %s",
+	LOADED_MSG_3[] =		" Autor: Nexius | Prevod: Pinch",
+
+	STATS_STRING_1[] =		" Nex-AC statistika",
+	STATS_STRING_2[] =		" Detektovanih i sprijecenih:",
+	STATS_STRING_3[] =		"  %d pokušaja citovanja",
+	STATS_STRING_4[] =		"  %d pokušaja hakovanja",
+	STATS_STRING_5[] =		"  %d pokušaja krešovanja",
+	STATS_STRING_6[] =		"  %d pokušaja floodinga",
+	STATS_STRING_7[] =		"  %d napada",
+	STATS_STRING_8[] =		" Ukupno %d je detektovano i kažnjeno od strane Nex-ACa.";
