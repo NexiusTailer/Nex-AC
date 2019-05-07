@@ -2236,9 +2236,9 @@ stock acc_EnableStuntBonusForPlayer(playerid, enable)
 	#define Dialog_Show ac_Dialog_Show
 #endif
 
-stock orig_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[]) return ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2);
+stock orig_ShowPlayerDialog(playerid, dialogid, style, const caption[], const info[], const button1[], const button2[]) return ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2);
 
-stock acc_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[])
+stock acc_ShowPlayerDialog(playerid, dialogid, style, const caption[], const info[], const button1[], const button2[])
 {
 	if(ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2))
 	{
@@ -8741,7 +8741,7 @@ static ac_FloodDetect(playerid, publicid)
 	return 0;
 }
 
-static ac_KickWithCode(playerid, ip_address[], type, code, code2 = 0)
+static ac_KickWithCode(playerid, const ip_address[], type, code, code2 = 0)
 {
 	if(type == 0 && (!IsPlayerConnected(playerid) || ACInfo[playerid][acKicked] > 0)) return 0;
 	ac_sInfo[5]++;
