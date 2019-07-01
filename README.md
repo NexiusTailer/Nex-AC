@@ -1,4 +1,4 @@
-[Download latest release (v1.9.46)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.46)
+[Download latest release (v1.9.47)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.47)
 
 # [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
@@ -118,6 +118,7 @@ It also simplifies the process of translation of anticheat into other languages
 > * `ip_address[]` - IP-address of the cheater
 > * `type` - Type of cheating (when `0` it returns the ID, when `1` - IP)
 > * `code` - Code (ID) of the anti-cheat
+> * This callback does not handle returns
 
 
 #### EnableAntiCheat(code, enable)
@@ -125,6 +126,7 @@ It also simplifies the process of translation of anticheat into other languages
 > Use to enable/disable one of the anti-cheats
 > * `code` - ID of the anti-cheat
 > * `enable` - `1` to enable/`0` to disable
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the `code` parameter contains an invalid ID of the anti-cheat
 
 
 #### EnableAntiCheatForPlayer(playerid, code, enable)
@@ -133,6 +135,7 @@ It also simplifies the process of translation of anticheat into other languages
 > * `playerid` - ID of the player who needs to enable/disable the anti-cheat
 > * `code` - ID of the anti-cheat
 > * `enable` - `1` to enable/`0` to disable
+> * Returns `1` if the function executed successfully, `0` if the player is not connected or `-1` if the `code` parameter contains an invalid ID of the anti-cheat
 
 
 
@@ -163,6 +166,7 @@ Added in v1.8.8:
 > Use to get the amount of a player's health
 > * `playerid` - The ID of the player
 > * `&Float:health` - Variable for storage health, passed by reference
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the player is not connected
 
 
 #### AntiCheatGetArmour(playerid, &Float:armour)
@@ -170,6 +174,7 @@ Added in v1.8.8:
 > Use to get the amount of a player's armour
 > * `playerid` - The ID of the player
 > * `&Float:armour` - Variable for storage armour, passed by reference
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the player is not connected
 
 
 #### AntiCheatGetVehicleHealth(vehicleid, &Float:health)
@@ -177,6 +182,7 @@ Added in v1.8.8:
 > Use to get the amount of the vehicle health
 > * `vehicleid` - The ID of the vehicle
 > * `&Float:health` - Variable for storage health, passed by reference
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the vehicle does not exist
 
 
 #### AntiCheatGetWeaponData(playerid, slot, &weapons, &ammo)
@@ -186,6 +192,7 @@ Added in v1.8.8:
 > * `slot` - The slot in which need to get the weapons and ammo
 > * `&weapons` - Variable for storage weapon ID, passed by reference
 > * `&ammo` - Variable for storage amount of ammo, passed by reference
+> * Returns `1` if the function executed successfully, `0` if the player is not connected or `-1` if the slot is specified incorrectly
 
 
 #### AntiCheatGetSpawnWeapon(playerid, &weapon1, &weapon1_ammo, &weapon2, &weapon2_ammo, &weapon3, &weapon3_ammo)
@@ -198,6 +205,7 @@ Added in v1.8.8:
 > * `&weapon2_ammo` - The variable for storage the amount of ammo for the weapon 2, passed by reference
 > * `&weapon3` - Variable for storage the weapon 3, passed by reference
 > * `&weapon3_ammo` - The variable for storage the amount of ammo for the weapon 3, passed by reference
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the player is not connected
 
 
 #### AntiCheatGetPos(playerid, &Float:x, &Float:y, &Float:z)
@@ -207,6 +215,7 @@ Added in v1.8.8:
 > * `&Float:x` - The variable for storage the x coordinate, passed by reference
 > * `&Float:y` - The variable for storage the y coordinate, passed by reference
 > * `&Float:z` - The variable for storage the z coordinate, passed by reference
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the player is not connected
 
 
 #### AntiCheatGetVehicleVelocity(vehicleid, &Float:x, &Float:y, &Float:z)
@@ -216,6 +225,7 @@ Added in v1.8.8:
 > * `&Float:x` - The variable for storage the x speed, passed by reference
 > * `&Float:y` - The variable for storage the y speed, passed by reference
 > * `&Float:z` - The variable for storage the z speed, passed by reference
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the vehicle does not exist
 
 
 #### AntiCheatGetSpeed(playerid)
@@ -392,6 +402,7 @@ Added in v1.9.37:
 > * `code` - Code (ID) of the anti-cheat
 > * `code2` - Sub-code (ID) of the anti-cheat check
 > * `count` - Count of warnings triggered on suspected cheater
+> * This callback does not handle returns
 
 
 #### public OnFloodWarning(playerid, publicid, count)
@@ -400,6 +411,7 @@ Added in v1.9.37:
 > * `playerid` - ID of the suspected flooder
 > * `publicid` - ID of the public that was called too quickly
 > * `count` - Count of warnings triggered on suspected flooder
+> * This callback does not handle returns
 
 
 #### public OnNOPWarning(playerid, nopid, count)
@@ -408,6 +420,7 @@ Added in v1.9.37:
 > * `playerid` - ID of the suspected cheater
 > * `nopid` - ID of the NOP check
 > * `count` - Count of warnings triggered on suspected cheater
+> * This callback does not handle returns
 
 
 #### AntiCheatKickWithDesync(playerid, code)
@@ -415,6 +428,7 @@ Added in v1.9.37:
 > Use to kick with desync a particular player by the anticheat
 > * `playerid` - ID of the player who will be kicked with desync for the delay time
 > * `code` - ID of the anti-cheat (with some codes the player's vehicle will be resynced after his disconnection)
+> * Returns `1` if the function executed successfully, `0` if the player is not connected or `-1` if the player has already been kicked
 
 
 #### AntiCheatIsKickedWithDecync(playerid)
@@ -435,6 +449,7 @@ Added in v1.9.40:
 > * `&Float:x` - The variable for storage the x coordinate, passed by reference
 > * `&Float:y` - The variable for storage the y coordinate, passed by reference
 > * `&Float:z` - The variable for storage the z coordinate, passed by reference
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the player is not connected
 
 
 
@@ -446,6 +461,7 @@ Added in v1.9.41:
 > Use to enable/disable one of the anti-NOPs
 > * `nopcode` - ID of the anti-NOP
 > * `enable` - `1` to enable/`0` to disable
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the `nopcode` parameter contains an invalid ID of the anti-NOP
 
 
 #### EnableAntiNOPForPlayer(playerid, nopcode, enable)
@@ -454,6 +470,7 @@ Added in v1.9.41:
 > * `playerid` - ID of the player who needs to enable/disable the anti-NOP
 > * `nopcode` - ID of the anti-NOP
 > * `enable` - `1` to enable/`0` to disable
+> * Returns `1` if the function executed successfully, `0` if the player is not connected or `-1` if the `nopcode` parameter contains an invalid ID of the anti-NOP
 
 
 #### IsAntiNOPEnabled(nopcode)
@@ -507,6 +524,7 @@ Added in v1.9.43:
 > * `&Float:x` - The variable for storage the x coordinate, passed by reference
 > * `&Float:y` - The variable for storage the y coordinate, passed by reference
 > * `&Float:z` - The variable for storage the z coordinate, passed by reference
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the vehicle does not exist
 
 
 #### AntiCheatGetVehicleZAngle(vehicleid, &Float:z_angle)
@@ -514,6 +532,7 @@ Added in v1.9.43:
 > Use to get the vehicle z rotation
 > * `vehicleid` - The ID of the vehicle
 > * `&Float:z_angle` - The variable for storage the z rotation, passed by reference
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the vehicle does not exist
 
 
 #### AntiCheatGetVehicleSpawnPos(vehicleid, &Float:x, &Float:y, &Float:z)
@@ -523,6 +542,7 @@ Added in v1.9.43:
 > * `&Float:x` - The variable for storage the x coordinate, passed by reference
 > * `&Float:y` - The variable for storage the y coordinate, passed by reference
 > * `&Float:z` - The variable for storage the z coordinate, passed by reference
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the vehicle does not exist
 
 
 #### AntiCheatGetVehicleSpawnZAngle(vehicleid, &Float:z_angle)
@@ -530,6 +550,7 @@ Added in v1.9.43:
 > Use to get the vehicle spawn z rotation
 > * `vehicleid` - The ID of the vehicle
 > * `&Float:z_angle` - The variable for storage the z rotation, passed by reference
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the vehicle does not exist
 
 
 
