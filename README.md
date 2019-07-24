@@ -1,4 +1,4 @@
-[Download latest release (v1.9.47)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.47)
+[Download latest release (v1.9.48)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.48)
 
 # [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
@@ -39,11 +39,11 @@ Anti-DoS combines customizable anti-flood, anti-DoS at network level and a lot o
 * Protection from invalid version
 * Protection from flood by seat changing
 * Protection from connection flood in one slot
-* Anti-Rcon hack (brute/brute-forse)
+* Anti-Rcon hack (brute/brute-force)
 * Anti-callback functions flood *(complete list below)*
 * Anti-crashers *(complete list below)*
-* Anti-NOP's *(complete list below)*
-* Anti-Dos
+* Anti-NOPs *(complete list below)*
+* Anti-DoS
 
 # Additional features:
 ##### * Setting anticheat from file
@@ -85,7 +85,7 @@ It also simplifies the process of translation of anticheat into other languages
 * OnVehicleDamageStatusUpdate
 * OnPlayerSelectObject
 
-## Anti-NOP's:
+## Anti-NOPs:
 * SpawnPlayer
 * SetPlayerPos
 * SetVehiclePos
@@ -247,13 +247,6 @@ Added in v1.8.8:
 > Use to get the ID of the opened dialog of a player
 > * `playerid` - The ID of the player
 > * Returns the ID of the dialog or `-1` if the player is not connected
-
-
-#### AntiCheatGetMoney(playerid)
-
-> Use to get the amount of a player's money
-> * `playerid` - The ID of the player
-> * Returns the amount of money or `0` if the player is not connected
 
 
 #### AntiCheatGetEnterVehicle(playerid)

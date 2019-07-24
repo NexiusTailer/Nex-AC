@@ -1,0 +1,10 @@
+Changes:
+* Improved anti-speedhack onfoot
+* OnPlayerRequestClass and OnPlayerRequestSpawn can no longer be spoofed if the player is spawned
+* Added "#define AC_USE_CONFIG_FILES" that allow you to enable/disable loading .cfg files with anticheat settings
+* Removed AntiCheatGetMoney function (it was a duplicate of GetPlayerMoney)
+* Changed some delays and warnings
+* Minor improvements and fixes
+
+Fixes:
+* Fixed some cases when afk player could be kicked for NOPs
