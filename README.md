@@ -1,4 +1,4 @@
-[Download latest release (v1.9.48)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.48)
+[Download latest release (v1.9.49)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.49)
 
 # [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
@@ -424,7 +424,7 @@ Added in v1.9.37:
 > * Returns `1` if the function executed successfully, `0` if the player is not connected or `-1` if the player has already been kicked
 
 
-#### AntiCheatIsKickedWithDecync(playerid)
+#### AntiCheatIsKickedWithDesync(playerid)
 
 > Use to check whether a player is (being) kicked or not
 > * `playerid` - The ID of the player
@@ -568,7 +568,7 @@ The script can be configured in any of the available languages. To do it, just d
 2. Download the language file *(.lang)* in your preferred language
 3. Copy both files to a folder *"/pawno/include"* which is located in a folder with the server
 4. In gamemode and all filterscripts, after *#include "a_samp"* write the following: *#include "nex-ac"*  
-***Warning! If you use Streamer Plugin by Incognito, Timerfix plugin by Dan, foreach, sscanf, Pawn.RakNet or y_hooks, include it before nex-ac!***  
+***Warning! If you use Streamer Plugin by Incognito, foreach, sscanf or Pawn.RakNet, include it before nex-ac!***  
 *Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including the anticheat*
 5. Compile the modified scripts
 
