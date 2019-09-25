@@ -2087,7 +2087,7 @@ stock acc_CreatePickup(model, type, Float:X, Float:Y, Float:Z, virtualworld = 0)
 		{
 			#if defined FILTERSCRIPT
 				CallRemoteFunction("ac_CreateDynamicPickup", "iii", ac_pickupid, modelid, type);
-			#elseif AC_USE_PICKUP_WEAPONS
+			#elseif defined AC_USE_PICKUP_WEAPONS
 				ac_CreateDynamicPickup(ac_pickupid, modelid, type);
 			#endif
 		}
