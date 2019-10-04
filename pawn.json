@@ -1,5 +1,5 @@
 {
 	"user": "NexiusTailer",
 	"repo": "Nex-AC",
-	"entry": "src\\v1.9.49\\nex-ac.inc"
+	"include_path": "src\\v1.9.49\\nex-ac.inc"
 }
