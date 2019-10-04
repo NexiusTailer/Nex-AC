@@ -1,5 +1,8 @@
 {
 	"user": "NexiusTailer",
 	"repo": "Nex-AC",
-	"include_path": "src\\v1.9.49"
+	"include_path": "src\\v1.9.49",
+	"dependencies": [
+		"sampctl/samp-stdlib"
+	]
 }
