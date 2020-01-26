@@ -1,0 +1,16 @@
+Changes:
+* Improved anti-FlyHack in vehicle and compatibility with weapon-config
+* Added anti-AirBreak in unoccupied vehicles from passenger seat
+* Improved protection against OnPlayerWeaponShot and OnPlayerRequestClass spoofing
+* Added protection against the lastest entering players crasher (powered by Pawn.RakNet)
+* Added AntiCheatGetEnterVehicleSeat, AntiCheatGetWeaponInSlot, AntiCheatGetAmmoInSlot, AntiCheatIsInSpectate, AntiCheatGetVehicleSpeed ​​and AntiCheatIsVehicleSpawned functions
+* Anti-flood (car parts) now completely ignores strobe lights mod
+* Tweaked some anti-flood settings and other warnings
+* Minor optimization, bug fixes and improvements
+
+Fixes:
+* Fixed some coordinates to check if player is in ammu-nation
+* Fixed cases with changing some data by anticheat after spawn if they also has changed in the gamemode
+* Fixed a bug when anticheat didn't reset the ID of the last pickup picked up by player when destroying it
+* Fixed a bug with included Streamer Plugin and using its dynamic pickups from filterscript
+* Fixed false SpeedHack detection when player jumped on bikes
