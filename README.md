@@ -1,4 +1,4 @@
-[Download latest release (v1.9.50)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.50)
+[Download latest release (v1.9.51)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.51)
 
 # [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
@@ -616,7 +616,7 @@ The script can be configured in any of the available languages. To do it, just d
 2. Download the language file *(.lang)* in your preferred language
 3. Copy both files to a folder *"/pawno/include"* which is located in a folder with the server
 4. In gamemode and all filterscripts, after *#include "a_samp"* write the following: *#include "nex-ac"*  
-***Warning! If you use Streamer Plugin by Incognito, foreach, sscanf or Pawn.RakNet, include it before nex-ac!***  
+***Warning! If you use Streamer Plugin by Incognito, Pawn.RakNet, foreach, sscanf, YSF or SKY, include it before nex-ac!***  
 *Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including the anticheat*
 5. Compile the modified scripts
 

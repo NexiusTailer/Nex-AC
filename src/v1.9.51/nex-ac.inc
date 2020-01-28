@@ -1,4 +1,4 @@
-//Nex-AC by Nexius v1.9.50 (0.3.7)
+//Nex-AC by Nexius v1.9.51 (0.3.7)
 
 #if defined _nex_ac_included
 	#endinput
@@ -26,7 +26,7 @@
 	#include <nex-ac_en.lang>	//Localization
 #endif
 
-#define	NEX_AC_VERSION				"1.9.50"
+#define	NEX_AC_VERSION				"1.9.51"
 
 #define AC_SERVER_VERSION			"0.3.7"
 #define AC_SERVER_DL_VERSION		"0.3.DL"
@@ -842,6 +842,7 @@ enum acInfo
 	bool:acOnline,
 	bool:acDeathRes,
 	bool:acVehDmgRes,
+	bool:acForceClass,
 	bool:acClassRes,
 	bool:acDead,
 	bool:acTpToZ,
@@ -1346,8 +1347,9 @@ ac_fpublic ac_TogglePlayerSpectating(playerid, toggle)
 					ACInfo[playerid][acSetWeapon][ac_i] = -1;
 					ACInfo[playerid][acGiveAmmo][ac_i] = -65535;
 				}
-				ACInfo[playerid][acTpToZ] = false;
+				ACInfo[playerid][acForceClass] =
 				ACInfo[playerid][acUnFrozen] = true;
+				ACInfo[playerid][acTpToZ] = false;
 				ACInfo[playerid][acSet][7] = 1;
 				#if defined FreezeSyncPacket
 					FreezeSyncPacket(playerid, E_ALL_SYNC, false);
@@ -3595,6 +3597,7 @@ public OnPlayerConnect(playerid)
 			}
 		}
 		ACInfo[playerid][acSpec] =
+		ACInfo[playerid][acForceClass] =
 		ACInfo[playerid][acDeathRes] = false;
 		ACInfo[playerid][acClassRes] =
 		ACInfo[playerid][acDead] = true;
@@ -3773,6 +3776,7 @@ public OnPlayerSpawn(playerid)
 			ACInfo[playerid][acAmmo][ac_i] = 0;
 		}
 		ACInfo[playerid][acModShop] =
+		ACInfo[playerid][acForceClass] =
 		ACInfo[playerid][acClassRes] =
 		ACInfo[playerid][acDead] = false;
 		ACInfo[playerid][acLastPickup] =
@@ -6154,12 +6158,15 @@ public OnPlayerRequestClass(playerid, classid)
 	if(ACInfo[playerid][acKicked] > 0) return 0;
 	new ac_i;
 	#if !defined PAWNRAKNET_INC_
-		#if defined IsPlayerSpawned
-			if(IsPlayerSpawned(playerid)) return 0;
-		#else
-			ac_i = GetPlayerState(playerid);
-			if(PLAYER_STATE_ONFOOT <= ac_i < PLAYER_STATE_WASTED || ac_i == PLAYER_STATE_SPAWNED) return 0;
-		#endif
+		if(!ACInfo[playerid][acForceClass])
+		{
+			#if defined IsPlayerSpawned
+				if(IsPlayerSpawned(playerid)) return 0;
+			#else
+				ac_i = GetPlayerState(playerid);
+				if(PLAYER_STATE_ONFOOT <= ac_i < PLAYER_STATE_WASTED || ac_i == PLAYER_STATE_SPAWNED) return 0;
+			#endif
+		}
 	#endif
 	#if AC_USE_NPC
 		if(!IsPlayerNPC(playerid))
@@ -8054,39 +8061,55 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 			}
 			case 210:
 			{
-				new ac_tData[PR_TrailerSync];
+				new ac_tData[PR_TrailerSync], trailerid;
 				BS_IgnoreBits(bs, 8);
 				BS_ReadTrailerSync(bs, ac_tData);
-				if(!(1 <= ac_tData[PR_trailerId] < MAX_VEHICLES) ||
-				ACVehInfo[ac_tData[PR_trailerId]][acDriver] != INVALID_PLAYER_ID) return 0;
-				else if(ACInfo[playerid][acACAllow][5])
+				trailerid = ac_tData[PR_trailerId];
+				if(!(1 <= trailerid < MAX_VEHICLES) || ACVehInfo[trailerid][acDriver] != INVALID_PLAYER_ID) return 0;
+				if(ACInfo[playerid][acACAllow][31] &&
+				(floatabs(ac_tData[PR_velocity][0]) - floatabs(ACVehInfo[trailerid][acVelX]) >= 4.0 ||
+				floatabs(ac_tData[PR_velocity][1]) - floatabs(ACVehInfo[trailerid][acVelY]) >= 4.0 ||
+				floatabs(ac_tData[PR_velocity][2]) - floatabs(ACVehInfo[trailerid][acVelZ]) >= 4.0))
 				{
-					new Float:ac_dist = GetVehicleDistanceFromPoint(ac_tData[PR_trailerId], ac_tData[PR_position][0], ac_tData[PR_position][1], ac_tData[PR_position][2]);
+					#if defined DEBUG
+						printf("[Nex-AC debug] Pos x, y, z: %f, %f, %f, vel x, y, z: %f, %f, %f",
+						ac_tData[PR_position][0], ac_tData[PR_position][1], ac_tData[PR_position][2], ac_tData[PR_velocity][0], ac_tData[PR_velocity][1], ac_tData[PR_velocity][2]);
+					#endif
+					return ac_KickWithCode(playerid, "", 0, 31, 3);
+				}
+				if(ACInfo[playerid][acACAllow][5])
+				{
+					new Float:ac_dist = GetVehicleDistanceFromPoint(trailerid, ac_tData[PR_position][0], ac_tData[PR_position][1], ac_tData[PR_position][2]);
 					if(ac_dist >= 80.0)
 					{
 						new Float:ac_x, Float:ac_y, Float:ac_z;
-						GetVehiclePos(ac_tData[PR_trailerId], ac_x, ac_y, ac_z);
+						GetVehiclePos(trailerid, ac_x, ac_y, ac_z);
 						#if defined DEBUG
-							printf("[Nex-AC debug] Dist: %f, old pos z: %f, veh: %d, playerid: %d",
-							ac_dist, ac_z, ac_tData[PR_trailerId], playerid);
+							printf("[Nex-AC debug] Dist: %f, old pos z: %f, veh: %d, playerid: %d", ac_dist, ac_z, trailerid, playerid);
 						#endif
 						#if defined OnCheatDetected
 							ac_KickWithCode(playerid, "", 0, 5, 2);
 						#endif
-						GetVehicleZAngle(ac_tData[PR_trailerId], ACVehInfo[ac_tData[PR_trailerId]][acZAngle]);
+						GetVehicleZAngle(trailerid, ACVehInfo[trailerid][acZAngle]);
 						#if defined SetVehicleFakeZAngleForPlayer
-							SetVehicleFakeZAngleForPlayer(playerid, ac_tData[PR_trailerId], ACVehInfo[ac_tData[PR_trailerId]][acZAngle]);
+							SetVehicleFakeZAngleForPlayer(playerid, trailerid, ACVehInfo[trailerid][acZAngle]);
 						#else
-							SetVehicleZAngle(ac_tData[PR_trailerId], ACVehInfo[ac_tData[PR_trailerId]][acZAngle]);
+							SetVehicleZAngle(trailerid, ACVehInfo[trailerid][acZAngle]);
 						#endif
 						#if defined SetVehicleFakePosForPlayer
-							SetVehicleFakePosForPlayer(playerid, ac_tData[PR_trailerId], ac_x, ac_y, ac_z);
+							SetVehicleFakePosForPlayer(playerid, trailerid, ac_x, ac_y, ac_z);
 						#else
-							SetVehiclePos(ac_tData[PR_trailerId], ac_x, ac_y, ac_z);
+							SetVehiclePos(trailerid, ac_x, ac_y, ac_z);
 						#endif
 						return 0;
 					}
 				}
+				new ac_vsp = ac_GetSpeed(ac_tData[PR_velocity][0], ac_tData[PR_velocity][1], ac_tData[PR_velocity][2]);
+				ACVehInfo[trailerid][acSpeedDiff] = ac_vsp - ACVehInfo[trailerid][acSpeed];
+				ACVehInfo[trailerid][acVelX] = ac_tData[PR_velocity][0];
+				ACVehInfo[trailerid][acVelY] = ac_tData[PR_velocity][1];
+				ACVehInfo[trailerid][acVelZ] = ac_tData[PR_velocity][2];
+				ACVehInfo[trailerid][acSpeed] = ac_vsp;
 				BS_ResetReadPointer(bs);
 			}
 			case 211:
@@ -8133,7 +8156,7 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 	public OnIncomingRPC(playerid, rpcid, BitStream:bs)
 	{
 		if(ACInfo[playerid][acKicked] > 0 && ACInfo[playerid][acOnline]) return 0;
-		if(rpcid == 128)
+		if(rpcid == 128 && !ACInfo[playerid][acForceClass])
 		{
 			#if defined IsPlayerSpawned
 				if(IsPlayerSpawned(playerid)) return 0;

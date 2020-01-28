@@ -1,0 +1,5 @@
+Changes:
+* Improved protection against carshot and other speed manipulations (for trailers)
+
+Fixes:
+* Fixed a bug in OnPlayerRequestClass spoofing protection
