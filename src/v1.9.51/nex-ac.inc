@@ -1,4 +1,5 @@
 //Nex-AC by Nexius v1.9.51 (0.3.7)
+//dosdoktor says hello to Raduq this way, and invites Edison to the group.
 
 #if defined _nex_ac_included
 	#endinput
