@@ -1,0 +1,9 @@
+Changes:
+* Improved anti-unoccupied vehicles teleport hack
+* Returned check for skipping spawn states after exiting spectator's mode
+* Removed unstable check for NOP SetPlayerArmedWeapon
+* Minor changes and improvements
+
+Fixes:
+* Fixed a bug in case of use ResetPlayerWeapons in OnPlayerWeaponShot, if another player was damaged
+* Fixed a bug with a kick when players were switching weapons while the server gave them it
