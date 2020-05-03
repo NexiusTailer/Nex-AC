@@ -8190,7 +8190,7 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 		#if defined BS_SendRPC
 			BS_SendRPC(bs, playerid, 159);
 		#else
-			BS_RPC(bs, playerid, 159);
+			PR_RPC(bs, playerid, 159);
 		#endif
 		BS_Delete(bs);
 		return 1;
@@ -8204,7 +8204,7 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 		#if defined BS_SendRPC
 			BS_SendRPC(bs, playerid, 160);
 		#else
-			BS_RPC(bs, playerid, 160);
+			PR_RPC(bs, playerid, 160);
 		#endif
 		BS_Delete(bs);
 		return 1;
