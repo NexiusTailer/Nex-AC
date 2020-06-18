@@ -1,4 +1,4 @@
-[Download latest release (v1.9.52)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.52)
+[Download latest release (v1.9.53)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.53)
 
 # [Nex-AC - Anticheat system](http://forum.sa-mp.com/showthread.php?t=579963)
 
@@ -603,6 +603,20 @@ Added in v1.9.50:
 > * `vehicleid` - The ID of the vehicle to check
 > * Returns `1 (true)` if it is or `0 (false)` if it is not
 
+
+
+Added in v1.9.53:
+
+
+#### AntiCheatGetPickupPos(pickupid, &Float:x, &Float:y, &Float:z)
+
+> Use to get the position of a pickup
+> * `pickupid` - The ID of the pickup to get the position of
+> * `&Float:x` - A variable to store the x coordinate in, passed by reference
+> * `&Float:y` - A variable to store the y coordinate in, passed by reference
+> * `&Float:z` - A variable to store the z coordinate in, passed by reference
+> * Returns `1 (true)` if the function executed successfully or `0 (false)` if the pickup does not exist
+
 # Multilingual:
 The script can be configured in any of the available languages. To do it, just download the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
 
@@ -620,7 +634,7 @@ The script can be configured in any of the available languages. To do it, just d
 5. Compile the modified scripts
 
 ## Thanks:
-* Magic_York, Roberto_York, TheHero, Nike_33, Vitalik_Gonsor, Mix_Rargard, Unisheld, f0Re3t - testing
+* f0Re3t, Vitalik_Gonsor, Magic_York, Roberto_York, TheHero, Nike_33, Mix_Rargard, Unisheld - testing
 * ZiGGi, Urukhay, Yashas, theYiin, RaefaldhiAmartya, PatchwerkQWER, kvann, rt-2 - advices on the code
 * Carper - German translation
 * Jstylezzz - Dutch translation

@@ -1,0 +1,15 @@
+Changes:
+* Added AntiCheatGetPickupPos function
+* Removed additional compatibility with y_dialog
+* Improved optional support for YSF, SKY and Streamer Plugin
+* Improvements for anti-invisible hack (using Pawn.RakNet)
+* Added validity checks of trainSpeed ​​parameter in driver sync (powered by Pawn.RakNet)
+* Added validity checks of vehicleHealth parameter in unoccupied vehicle sync (powered by Pawn.RakNet)
+* Improved stability of anti-ammo hack for players in vehicle
+* Improved anti-CarShot from passenger seat
+* Minor improvements and bug fixes
+
+Fixes:
+* Fixed a bug in anti-Silent Aim with a kick when shooting a rapid-fire weapon
+* Fixed bypass of high ping protection when a player could intentionally spoof it by 65535
+* Fixed a bug in OnPlayerRequestSpawn which prevented NPC spawn
