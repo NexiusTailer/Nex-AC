@@ -7356,6 +7356,10 @@ public OnPlayerRequestSpawn(playerid)
 		}
 	#if AC_USE_NPC
 		}
+		else
+		{
+			return 1;
+		}
 	#endif
 	#if defined ac_OnPlayerRequestSpawn
 		new ac_i = ac_OnPlayerRequestSpawn(playerid);
