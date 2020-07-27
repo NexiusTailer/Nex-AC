@@ -3329,6 +3329,16 @@ stock AntiCheatIsVehicleSpawned(vehicleid)
 	#endif
 }
 
+
+stock AntiCheatGetTickCount()
+{
+	#if defined NEXAC_COMPAT_WINDOWS
+		return GetTickCount();
+	#else
+		return GetTickCount();
+	#endif
+}
+
 #if defined FILTERSCRIPT
 
 static fs_AntiCheatGetNextDialog(playerid)
