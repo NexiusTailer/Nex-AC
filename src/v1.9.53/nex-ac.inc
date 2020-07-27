@@ -3333,9 +3333,9 @@ stock AntiCheatIsVehicleSpawned(vehicleid)
 stock AntiCheatGetTickCount()
 {
 	#if defined AC_COMPAT_WINDOWS
-		return GetTickCount();
-	#else
 		return tickcount();
+	#else
+		return GetTickCount();
 	#endif
 }
 
