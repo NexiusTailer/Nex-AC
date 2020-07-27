@@ -631,6 +631,7 @@ The script can be configured in any of the available languages. To do it, just d
 4. In gamemode and all filterscripts, after *#include "a_samp"* write the following: *#include "nex-ac"*  
 ***Warning! If you use Streamer Plugin by Incognito, Pawn.RakNet, foreach, sscanf, YSF or SKY, include it before nex-ac!***  
 *Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including the anticheat*
+*Also If you are hosting on Windows, you must have "#define AC_COMPAT_WINDOWS" before including the anticheat*
 5. Compile the modified scripts
 
 ## Thanks:
