@@ -628,10 +628,14 @@ The script can be configured in any of the available languages. To do it, just d
 1. Download version of the anticheat which compatible with the version of your server
 2. Download the language file *(.lang)* in your preferred language
 3. Copy both files to a folder *"/pawno/include"* which is located in a folder with the server
-4. In gamemode and all filterscripts, after *#include "a_samp"* write the following: *#include "nex-ac"*  
-***Warning! If you use Streamer Plugin by Incognito, Pawn.RakNet, foreach, sscanf, YSF or SKY, include it before nex-ac!***  
-*Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including the anticheat*
+4. In gamemode and all filterscripts, after *#include "a_samp"* write the following: *#include "nex-ac"*
 5. Compile the modified scripts
+
+***Warnings:***
+ * If you use Streamer Plugin by Incognito, Pawn.RakNet, foreach, sscanf, YSF or SKY, include it before nex-ac;
+ * If you are hosting on Windows, you need to include a library that fixes 'GetTickCount'. That could be samp-fixes.inc or YSF. Otherwise you need to change all 'GetTickCount' for 'tickcount' in this include. Do not do this on Linux, this is only for people hosting their server on Windows (see this issue: https://github.com/NexiusTailer/Nex-AC/issues/172);
+ * Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including the anticheat;
+ 
 
 ## Thanks:
 * f0Re3t, Vitalik_Gonsor, Magic_York, Roberto_York, TheHero, Nike_33, Mix_Rargard, Unisheld - testing
