@@ -8796,8 +8796,8 @@ ac_fpublic ac_Timer(playerid)
 	}
 	if(ACInfo[playerid][acKicked] < 1)
 	{
-		ACInfo[playerid][acTimerTick] = ac_gtc;
 		ACInfo[playerid][acTimerID] = SetTimerEx("ac_Timer", 1000, false, "i", playerid);
+		ACInfo[playerid][acTimerTick] = GetTickCount();
 	}
 	return 1;
 }
