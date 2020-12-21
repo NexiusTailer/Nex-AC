@@ -1,7 +1,7 @@
 Changes:
 * Improved anti-speedhack in vehicle
 * Improved validation of unoccupied sync parameters (using Pawn.RakNet)
-* Added protection against invisibility through invalid camera mode with a detonator in hand (powered by Pawn.RakNet)
+* Added protection against invisibility sending invalid camera mode with a detonator in hand (powered by Pawn.RakNet)
 * Improved behavior of OnCheatDetected triggering for onfoot/in vehicle teleport, if the punishment isn't set to kick
 * Added "#define AC_MAX_SKINS" (312 by default)
 * Minor improvements
