@@ -1,4 +1,4 @@
-[Download latest release (v1.9.53)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.53)
+[Download latest release (v1.9.54)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.54)
 
 # Nex-AC - Anticheat system
 
