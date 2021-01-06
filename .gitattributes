@@ -1,2 +1,4 @@
+*.inc working-tree-encoding=CP1251
+
 *.pwn linguist-language=Pawn
 *.inc linguist-language=Pawn
