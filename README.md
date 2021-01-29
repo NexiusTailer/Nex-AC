@@ -46,14 +46,14 @@ Anti-DoS combines customizable anti-flood, anti-DoS at network level and a lot o
 * Anti-DoS
 
 # Additional features:
-#### * Setting anticheat from file
+* **Setting anticheat from file**  
 The settings is located in a separate file (scriptfiles\nex-ac_settings.cfg)
-#### * Statistics viewing
+* **Statistics viewing**  
 Ability to view statistics of the anticheat for all the time of server work since its launch
 Displayed automatically when the server turns off. Stored in a server log (server_log.txt)
-#### * Logging the most important actions
+* **Logging the most important actions**  
 Optionally, you can enable debug-mode for logging all actions
-#### * Multilingual
+* **Multilingual**  
 Ability to set any of the available languages.  
 It also simplifies the process of translation of anticheat into other languages
 
