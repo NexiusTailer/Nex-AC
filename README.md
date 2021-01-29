@@ -546,7 +546,3 @@ The script can be configured in any of the available languages. To do it, just d
 * NemanjaMAX - Bosnian translation
 
 This script also contains materials from third-party open source projects.
-
-P.s. I developed this anticheat for about a year and spent on it a lot of effort and time. I really hope that it will be useful to you.
-
-Enjoy!
