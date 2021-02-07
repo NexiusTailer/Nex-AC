@@ -1,5 +1,6 @@
 {
 	"user": "NexiusTailer",
 	"repo": "Nex-AC",
+	"include_path": "lang/nex-ac_en.lang",
 	"include_path": "src/v1.9.54"
 }
