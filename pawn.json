@@ -1,6 +1,13 @@
 {
 	"user": "NexiusTailer",
 	"repo": "Nex-AC",
-	"include_path": "lang/nex-ac_en.lang",
-	"include_path": "src/v1.9.54"
+	"build":
+	{
+		"input": "src/v1.9.54",
+		"includes": ["lang/nex-ac_en.lang"],
+		"compiler":
+		{
+			"version": "3.10.8"
+		}
+	},
 }
