@@ -1,3 +1,5 @@
+v1.9.54
+
 Changes:
 * Improved anti-speedhack in vehicle
 * Improved validation of unoccupied sync parameters (using Pawn.RakNet)
