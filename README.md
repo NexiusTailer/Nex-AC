@@ -1,5 +1,3 @@
-[Download latest release (v1.9.54)](https://github.com/NexiusTailer/Nex-AC/tree/master/src/v1.9.54)
-
 # Nex-AC - Anticheat system
 
 Nex Anticheat (Nex-AC) - is a comprehensive protection which combines powerful anticheat and protection against various attacks (flood, DoS).  
