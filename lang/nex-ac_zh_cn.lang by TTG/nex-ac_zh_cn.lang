@@ -1,0 +1,38 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] ID %d 有可疑行为. 原因代码: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] IP %s 有可疑行为. 原因代码: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] 此版本的反作弊不适用于服务器当前的SAMP版本",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] 创建/打开 %s 时出错!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d 尝试超过 %d 次洪水攻击. 公共ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] ID %d 的版本无效. 版本: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d 从同一个IP地址建立超过 %d 个连接",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] 错误的RCON的登陆来自IP %s 使用密码 %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d 使用NOP %s",
+#endif
+
+	KICK_MSG[] =			"你因涉嫌使用作弊程序而被踢出 (#%03d)",
+	MAX_CONNECTS_MSG[] =	"你已经超出同一个IP地址的最大连接数",
+	UNKNOWN_CLIENT_MSG[] =	"此客户端的版本无法连接服务器",
+
+	LOADED_MSG_1[] =		" 反作弊Nex-AC已加载!",
+	LOADED_MSG_2[] =		" 反作弊版本: %s",
+	LOADED_MSG_3[] =		" 作者: Nexius",
+
+	STATS_STRING_1[] =		" 反作弊Nex-AC统计",
+	STATS_STRING_2[] =		" 检测并阻止:",
+	STATS_STRING_3[] =		"  %d 次作弊",
+	STATS_STRING_4[] =		"  %d 次黑客行为",
+	STATS_STRING_5[] =		"  %d 次崩溃行为",
+	STATS_STRING_6[] =		"  %d 次洪水",
+	STATS_STRING_7[] =		"  %d 次攻击",
+	STATS_STRING_8[] =		" 一共检测并处罚作弊玩家 %d 名";
+	
