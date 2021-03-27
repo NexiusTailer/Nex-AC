@@ -542,6 +542,6 @@ The script can be configured in any of the available languages. To do it, just d
 * aktah - Thai translation
 * Michael.Richmond - Moldavian translation
 * NemanjaMAX - Bosnian translation
-* TTG - Chinese translation
+* TTG - simplified Chinese translation
 
 This script also contains materials from third-party open source projects.
