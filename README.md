@@ -493,7 +493,7 @@ The script can be configured in any of the available languages. To do it, just d
 
 * *.lang* files can be opened even in default notepad and easily edited
 
-##### *It is also recommended to check for using any other anticheats in order to avoid conflicts with them.*
+***It is also recommended to check for using any other anticheats in order to avoid conflicts with them.***
 
 # Installation:
 1. Download version of the anticheat which compatible with the version of your server
@@ -508,7 +508,7 @@ The script can be configured in any of the available languages. To do it, just d
  * Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including the anticheat
  
 
-## Thanks:
+# Thanks:
 * f0Re3t, Vitalik_Gonsor, Magic_York, Roberto_York, TheHero, Nike_33, Mix_Rargard, Unisheld - testing
 * ZiGGi, Urukhay, Yashas, theYiin, RaefaldhiAmartya, PatchwerkQWER, kvann, rt-2 - advices on the code
 * Carper - German translation
@@ -542,5 +542,6 @@ The script can be configured in any of the available languages. To do it, just d
 * aktah - Thai translation
 * Michael.Richmond - Moldavian translation
 * NemanjaMAX - Bosnian translation
+* TTG - Chinese translation
 
 This script also contains materials from third-party open source projects.
