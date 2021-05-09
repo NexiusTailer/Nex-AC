@@ -514,7 +514,7 @@ The script can be configured in any of the available languages. To do it, just d
 * Carper - German translation
 * Jstylezzz - Dutch translation
 * J4Rr3x, Sasino97 - Italian translation
-* Alex Westbrook, JustBored - Spanish translation
+* Alex Westbrook, JustBored, Frenzoid - Spanish translation
 * lashona, ArthourP, DAKYSKYE - Georgian translation
 * wampiros6 - Polish translation
 * DeitY, Dragony92 - Serbian translation
