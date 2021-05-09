@@ -1,0 +1,35 @@
+#if defined _nex_ac_lang_included
+        #endinput
+#endif
+#define _nex_ac_lang_included
+ 
+new
+        SUSPICION_1[] =                 "[Nex-AC] Se sospecha del ID %d. Razón número: %03d%s",
+        SUSPICION_2[] =                 "[Nex-AC] Se sospecha de la IP %s. Razón: %03d%s",
+        VERSION_WARNING[] =             "[Nex-AC] La versión del anticheat no coincide con la versión del servidor",
+        CFG_OPENING_ERROR[] =           "[Nex-AC] Error al crear / abrir %s!",
+ 
+#if defined DEBUG
+        DEBUG_CODE_1[] =                "[Nex-AC debug] La ID %d ha superado %d los intentos de inundación del chat. ID: %d",
+        DEBUG_CODE_2[] =                "[Nex-AC debug] Version incorrecta de el %d ID. version: %s",
+        DEBUG_CODE_3[] =                "[Nex-AC debug] La ID %d ha superado el limite de %d conexiones desde la misma dirección IP",
+        DEBUG_CODE_4[] =                "[Nex-AC debug] Intento fallido de autenticación remota via RCON; IP %s contraseña %s",
+        DEBUG_CODE_5[] =                "[Nex-AC debug] La ID %d ha usado NOP %s",
+#endif
+ 
+        KICK_MSG[] =                    "Se le ha desconectado por sospecha de uso de trampas (#%03d)",
+        MAX_CONNECTS_MSG[] =            "Se ha superado el numero maximo de conexiones desde la misma de direccion IP",
+        UNKNOWN_CLIENT_MSG[] =          "Esta version del cliente no es la adecuada para jugar en el servidor",
+ 
+        LOADED_MSG_1[] =                " Nex-AC cargado!",
+        LOADED_MSG_2[] =                " version: %s",
+        LOADED_MSG_3[] =                " Autor: Nexius",
+ 
+        STATS_STRING_1[] =              " Estadisticas Nex-AC",
+        STATS_STRING_2[] =              " Detectado y evitado:",
+        STATS_STRING_3[] =              "  %d tramposos",
+        STATS_STRING_4[] =              "  %d intentos de trampas",
+        STATS_STRING_5[] =              "  %d intentos de colapso",
+        STATS_STRING_6[] =              "  %d intentos de inundación del chat",
+        STATS_STRING_7[] =              "  %d ataques",
+        STATS_STRING_8[] =              " Cantidad de tramposos detectados: %d";
