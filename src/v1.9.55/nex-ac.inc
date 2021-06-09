@@ -9,7 +9,7 @@
 
 #if !defined FILTERSCRIPT
 
-#if !defined DEBUG
+#if !defined NO_NEX_AC_DEBUG
 	#define DEBUG
 #endif
 
