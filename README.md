@@ -50,7 +50,7 @@ The settings is located in a separate file (scriptfiles\nex-ac_settings.cfg)
 Ability to view statistics of the anticheat for all the time of server work since its launch
 Displayed automatically when the server turns off. Stored in a server log (server_log.txt)
 * **Logging the most important actions**  
-Optionally, you can enable debug-mode for logging all actions
+Optionally, you can enable debug-mode for logging all actions. To disable it, add `#define NO_NEX_AC_DEBUG` before `#include <nex-ac>`
 * **Multilingual**  
 Ability to set any of the available languages.  
 It also simplifies the process of translation of anticheat into other languages
