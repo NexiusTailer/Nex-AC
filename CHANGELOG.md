@@ -1,21 +1,18 @@
-v1.9.55
+v1.9.56
 
 Changes:
-* Improved compatibility with weapon-config
-* Improved anti-carshot from passenger seat
-* Improved some invalid data checks in different syncs (using Pawn.RakNet)
-* Improved protection from invisibility sending invalid camera mode with a detonator in hand (using Pawn.RakNet)
-* Removed GetPlayerSyncWeapon function (when connecting YSF) due to its instability
-* Changed default punishment for anti-CarJack
-* Changed speed limits for some anticheats
+* Improved protection from fake NPCs without connecting YSF plugin
+* Improved validation of unoccupied sync parameters (using Pawn.RakNet)
+* Improved performance of the Pawn.RakNet dependent code
+* Corrected some anti-flood settings
+* Minor improvements and fixes
 
 Fixes:
-* Fixed a bug when some variables were not reset after spawn
-* Fixed a bug in anti-teleport hack with a kick entering a vehicle when it's being teleported by anticheat
-* Fixed detections of anti-flood by vehicle parts when colliding with something with strobe lights on
-* Minor fixes and improvements
-
-There is full support for sampctl now (no more problems with the location of default .lang files)
+* Fixed anti-NOP SpawnPlayer in spectator mode
+* Fixed a bug with updating the previous values ​​of health and armour when entering vehicles
+* Fixed bypassing anti-speedhack onfoot and in vehicle when the player was given speed by the server
+* Fixed triggering of anti-CarShot from passenger seat with a sharp decrease in speeds
+* Fixed anti-pickups teleport for streamer pickups
 
 The latest example of setting public OnCheatDetected in your gamemode:
 ```
