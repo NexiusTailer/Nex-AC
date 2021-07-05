@@ -488,6 +488,9 @@ Added in v1.9.53:
 > * `&Float:z` - A variable to store the z coordinate in, passed by reference
 > * Returns `1 (true)` if the function executed successfully or `0 (false)` if the pickup does not exist
 
+
+[Example of setting **OnCheatDetected** in your gamemode](https://github.com/NexiusTailer/Nex-AC/blob/master/CHANGELOG.md)
+
 # Multilingual:
 The script can be configured in any of the available languages. To do it, just download the desired localization, save it in a directory with the main include *(nex_ac.inc)* and recompile your script.
 
