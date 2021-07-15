@@ -502,10 +502,10 @@ The script can be configured in any of the available languages. To do it, just d
 1. Download version of the anticheat which compatible with the version of your server
 2. Download the language file *(.lang)* in your preferred language
 3. Copy both files to a folder *"/pawno/include"* which is located in a folder with the server
-4. In gamemode after *#include <a_samp>* write the following:
+4. If you want to use custom .lang file, in gamemode after *#include <a_samp>* write the following:
 ```
 #define DEBUG
-#include <nex-ac_ru.lang>
+#include <nex-ac_ru.lang> //or any other
 #include <nex-ac>
 ```
 5. In all filterscripts after *#include <a_samp>* write the following:
