@@ -502,8 +502,17 @@ The script can be configured in any of the available languages. To do it, just d
 1. Download version of the anticheat which compatible with the version of your server
 2. Download the language file *(.lang)* in your preferred language
 3. Copy both files to a folder *"/pawno/include"* which is located in a folder with the server
-4. In gamemode and all filterscripts, after *#include "a_samp"* write the following: *#include "nex-ac"*
-5. Compile the modified scripts
+4. In gamemode after *#include <a_samp>* write the following:
+```
+#define DEBUG
+#include <nex-ac_ru.lang>
+#include <nex-ac>
+```
+5. In all filterscripts after *#include <a_samp>* write the following:
+```
+#include <nex-ac>
+```
+6. Compile the modified scripts
 
 ***Warnings:***
  * If you use Streamer Plugin by Incognito, Pawn.RakNet, foreach, sscanf, YSF or SKY, include it before nex-ac
