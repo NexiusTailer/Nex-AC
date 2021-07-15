@@ -505,7 +505,7 @@ The script can be configured in any of the available languages. To do it, just d
 4. In gamemode after *#include <a_samp>* write the following:
 ```
 #define DEBUG
-#include <nex-ac_en.lang>
+#include <nex-ac_en.lang> //or any other
 #include <nex-ac>
 ```
 5. In all filterscripts after *#include <a_samp>* write the following:
