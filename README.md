@@ -52,7 +52,7 @@ Displayed automatically when the server turns off. Stored in a server log (serve
 * **Logging the most important actions**  
 Optionally, you can enable debug-mode for logging all actions
 * **Multilingual**  
-Ability to set any of the available languages.  
+Ability to set any of the available languages  
 It also simplifies the process of translation of anticheat into other languages
 
 ## List of publics which are protected by anti-flood:
