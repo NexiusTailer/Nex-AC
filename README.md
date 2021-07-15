@@ -129,7 +129,7 @@ It also simplifies the process of translation of anticheat into other languages
 > * `enable` - `1` to enable/`0` to disable
 > * Returns `1` if the function executed successfully, `0` if the player is not connected or `-1` if the `code` parameter contains an invalid ID of the anti-cheat
   
-
+  
 Added in v1.3:
 
 #### IsAntiCheatEnabled(code)
@@ -143,7 +143,7 @@ Added in v1.3:
 > * `code` - The ID of the anti-cheat to check
 > * Return `1 (true)` if enabled or `0 (false)` if disabled
   
-
+  
 Added in v1.8.8:
 
 #### AntiCheatGetHealth(playerid, &Float:health)
@@ -309,7 +309,7 @@ Added in v1.8.8:
 > * `playerid` - The ID of the player to check
 > * Returns `1 (true)` if it is or `0 (false)` if it is not
   
-
+  
 Added in v1.9.37:
 
 #### public OnCheatWarning(playerid, ip_address[], type, code, code2, count)
@@ -347,7 +347,7 @@ Added in v1.9.37:
 > * `playerid` - The ID of the player to check
 > * Returns `1` for kick onfoot, `2` for kick in a vehicle (driver), `3` if player is already disconnected or `0` if he isn't kicked
   
-
+  
 Added in v1.9.40:
 
 #### AntiCheatGetSpawnPos(playerid, &Float:x, &Float:y, &Float:z)
@@ -358,7 +358,7 @@ Added in v1.9.40:
 > * `&Float:z` - A variable to store the z coordinate in, passed by reference
 > * Returns `1 (true)` if the function executed successfully or `0 (false)` if the player is not connected
   
-
+  
 Added in v1.9.41:
 
 #### EnableAntiNOP(nopcode, enable)
@@ -385,7 +385,7 @@ Added in v1.9.41:
 > * `nopcode` - The ID of the anti-NOP to check
 > * Return `1 (true)` if enabled or `0 (false)` if disabled
   
-
+  
 Added in v1.9.42:
 
 #### AntiCheatGetVehicleDriver(vehicleid)
@@ -403,7 +403,7 @@ Added in v1.9.42:
 > * `vehicleid` - The ID of the vehicle to get the paintjob ID of
 > * Returns the ID of the paintjob or `3` if the vehicle does not exist
   
-
+  
 Added in v1.9.43:
 
 #### AntiCheatGetVehiclePos(vehicleid, &Float:x, &Float:y, &Float:z)
@@ -434,7 +434,7 @@ Added in v1.9.43:
 > * `&Float:z_angle` - A variable to store the z rotation in, passed by reference
 > * Returns `1 (true)` if the function executed successfully or `0 (false)` if the vehicle does not exist
   
-
+  
 Added in v1.9.46:
 
 #### AntiCheatGetInterior(playerid)
@@ -442,7 +442,7 @@ Added in v1.9.46:
 > * `playerid` - The ID of the player to get the interior ID of
 > * Returns the ID of the interior or `0` if the player is not connected
   
-
+  
 Added in v1.9.50:
 
 #### AntiCheatGetEnterVehicleSeat(playerid)
@@ -477,7 +477,7 @@ Added in v1.9.50:
 > * `vehicleid` - The ID of the vehicle to check
 > * Returns `1 (true)` if it is or `0 (false)` if it is not
   
-
+  
 Added in v1.9.53:
 
 #### AntiCheatGetPickupPos(pickupid, &Float:x, &Float:y, &Float:z)
