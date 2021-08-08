@@ -29,70 +29,70 @@
 #define	NEX_AC_VERSION				"1.9.56"
 
 #define AC_SERVER_VERSION			"0.3.7"
-#define AC_SERVER_DL_VERSION		"0.3.DL"
+#define AC_SERVER_DL_VERSION			"0.3.DL"
 
 #if !defined AC_CLIENT_VERSION
-	#define AC_CLIENT_VERSION			"0.3"
+	#define AC_CLIENT_VERSION		"0.3"
 #endif
 
 #if !defined AC_USE_CONFIG_FILES
-	#define AC_USE_CONFIG_FILES				true
+	#define AC_USE_CONFIG_FILES		true
 #endif
 
 #if !defined AUTOSAVE_SETTINGS_IN_CONFIG
-	#define AUTOSAVE_SETTINGS_IN_CONFIG		false
+	#define AUTOSAVE_SETTINGS_IN_CONFIG	false
 #endif
 
 #if AC_USE_CONFIG_FILES
 	#if !defined AC_CONFIG_FILE
-		#define AC_CONFIG_FILE				"nex-ac_settings.cfg"
+		#define AC_CONFIG_FILE		"nex-ac_settings.cfg"
 	#endif
 
 	#if !defined AC_NOP_CONFIG_FILE
-		#define AC_NOP_CONFIG_FILE			"nex-ac_nop_settings.cfg"
+		#define AC_NOP_CONFIG_FILE	"nex-ac_nop_settings.cfg"
 	#endif
 #else
 	#pragma unused CFG_OPENING_ERROR
 #endif
 
 #if !defined AC_USE_AMMUNATIONS
-	#define AC_USE_AMMUNATIONS				true
+	#define AC_USE_AMMUNATIONS		true
 #endif
 
 #if !defined AC_USE_PICKUP_WEAPONS
-	#define AC_USE_PICKUP_WEAPONS			true
+	#define AC_USE_PICKUP_WEAPONS		true
 #endif
 
 #if !defined AC_USE_RESTAURANTS
-	#define AC_USE_RESTAURANTS				true
+	#define AC_USE_RESTAURANTS		true
 #endif
 
 #if !defined AC_USE_VENDING_MACHINES
-	#define AC_USE_VENDING_MACHINES			true
+	#define AC_USE_VENDING_MACHINES		true
 #endif
 
 #if !defined AC_USE_TUNING_GARAGES
-	#define AC_USE_TUNING_GARAGES			true
+	#define AC_USE_TUNING_GARAGES		true
 #endif
 
 #if !defined AC_USE_PAYNSPRAY
-	#define AC_USE_PAYNSPRAY				true
+	#define AC_USE_PAYNSPRAY		true
 #endif
 
 #if !defined AC_USE_CASINOS
-	#define AC_USE_CASINOS					true
+	#define AC_USE_CASINOS			true
 #endif
 
 #if !defined AC_USE_NPC
-	#define AC_USE_NPC						true
+	#define AC_USE_NPC			true
 #endif
 
 #if !defined AC_USE_QUERY
-	#define AC_USE_QUERY					true
+	#define AC_USE_QUERY			true
 #endif
 
 #if !defined AC_USE_STATISTICS
-	#define AC_USE_STATISTICS				true
+	#define AC_USE_STATISTICS		true
 #endif
 
 #if !AC_USE_STATISTICS
@@ -107,35 +107,35 @@
 #endif
 
 #if !defined AC_DEFAULT_COLOR
-	#define AC_DEFAULT_COLOR				-1
+	#define AC_DEFAULT_COLOR		-1
 #endif
 
 #if !defined AC_MAX_CLASSES
-	#define AC_MAX_CLASSES					320
+	#define AC_MAX_CLASSES			320
 #endif
 
 #if !defined AC_MAX_SKINS
-	#define AC_MAX_SKINS					312
+	#define AC_MAX_SKINS			312
 #endif
 
 #if !defined AC_MAX_CONNECTS_FROM_IP
-	#define AC_MAX_CONNECTS_FROM_IP			1
+	#define AC_MAX_CONNECTS_FROM_IP		1
 #endif
 
 #if !defined AC_MAX_RCON_LOGIN_ATTEMPT
-	#define AC_MAX_RCON_LOGIN_ATTEMPT		1
+	#define AC_MAX_RCON_LOGIN_ATTEMPT	1
 #endif
 
 #if !defined AC_MAX_MSGS_REC_DIFF
-	#define AC_MAX_MSGS_REC_DIFF			800
+	#define AC_MAX_MSGS_REC_DIFF		800
 #endif
 
 #if !defined AC_MAX_PING
-	#define AC_MAX_PING						500
+	#define AC_MAX_PING			500
 #endif
 
 #if !defined AC_MIN_TIME_RECONNECT
-	#define AC_MIN_TIME_RECONNECT			12		//In seconds
+	#define AC_MIN_TIME_RECONNECT		12		//In seconds
 #endif
 
 #if !defined AC_SPEEDHACK_VEH_RESET_DELAY
@@ -143,31 +143,31 @@
 #endif
 
 #if !defined AC_MAX_NOP_WARNINGS
-	#define AC_MAX_NOP_WARNINGS				8
+	#define AC_MAX_NOP_WARNINGS		8
 #endif
 
 #if !defined AC_MAX_NOP_TIMER_WARNINGS
-	#define AC_MAX_NOP_TIMER_WARNINGS		3
+	#define AC_MAX_NOP_TIMER_WARNINGS	3
 #endif
 
 #if !defined AC_MAX_PING_WARNINGS
-	#define AC_MAX_PING_WARNINGS			8
+	#define AC_MAX_PING_WARNINGS		8
 #endif
 
 #if !defined AC_MAX_MONEY_WARNINGS
-	#define AC_MAX_MONEY_WARNINGS			2
+	#define AC_MAX_MONEY_WARNINGS		2
 #endif
 
 #if !defined AC_MAX_AIR_WARNINGS
-	#define AC_MAX_AIR_WARNINGS				4
+	#define AC_MAX_AIR_WARNINGS		4
 #endif
 
 #if !defined AC_MAX_AIR_VEH_WARNINGS
-	#define AC_MAX_AIR_VEH_WARNINGS			4
+	#define AC_MAX_AIR_VEH_WARNINGS		4
 #endif
 
 #if !defined AC_MAX_SPEEDHACK_WARNINGS
-	#define AC_MAX_SPEEDHACK_WARNINGS		4
+	#define AC_MAX_SPEEDHACK_WARNINGS	4
 #endif
 
 #if !defined AC_MAX_SPEEDHACK_VEH_WARNINGS
@@ -175,7 +175,7 @@
 #endif
 
 #if !defined AC_MAX_FLYHACK_WARNINGS
-	#define AC_MAX_FLYHACK_WARNINGS			2
+	#define AC_MAX_FLYHACK_WARNINGS		2
 #endif
 
 #if !defined AC_MAX_FLYHACK_BIKE_WARNINGS
@@ -183,43 +183,43 @@
 #endif
 
 #if !defined AC_MAX_FLYHACK_VEH_WARNINGS
-	#define AC_MAX_FLYHACK_VEH_WARNINGS		4
+	#define AC_MAX_FLYHACK_VEH_WARNINGS	4
 #endif
 
 #if !defined AC_MAX_CARSHOT_WARNINGS
-	#define AC_MAX_CARSHOT_WARNINGS			4
+	#define AC_MAX_CARSHOT_WARNINGS		4
 #endif
 
 #if !defined AC_MAX_GODMODE_WARNINGS
-	#define AC_MAX_GODMODE_WARNINGS			3
+	#define AC_MAX_GODMODE_WARNINGS		3
 #endif
 
 #if !defined AC_MAX_GODMODE_VEH_WARNINGS
-	#define AC_MAX_GODMODE_VEH_WARNINGS		3
+	#define AC_MAX_GODMODE_VEH_WARNINGS	3
 #endif
 
 #if !defined AC_MAX_FAKE_WEAPON_WARNINGS
-	#define AC_MAX_FAKE_WEAPON_WARNINGS		2
+	#define AC_MAX_FAKE_WEAPON_WARNINGS	2
 #endif
 
 #if !defined AC_MAX_SILENT_AIM_WARNINGS
-	#define AC_MAX_SILENT_AIM_WARNINGS		2
+	#define AC_MAX_SILENT_AIM_WARNINGS	2
 #endif
 
 #if !defined AC_MAX_PRO_AIM_WARNINGS
-	#define AC_MAX_PRO_AIM_WARNINGS			2
+	#define AC_MAX_PRO_AIM_WARNINGS		2
 #endif
 
 #if !defined AC_MAX_AFK_GHOST_WARNINGS
-	#define AC_MAX_AFK_GHOST_WARNINGS		2
+	#define AC_MAX_AFK_GHOST_WARNINGS	2
 #endif
 
 #if !defined AC_MAX_RAPID_FIRE_WARNINGS
-	#define AC_MAX_RAPID_FIRE_WARNINGS		16
+	#define AC_MAX_RAPID_FIRE_WARNINGS	16
 #endif
 
 #if !defined AC_MAX_AUTO_C_WARNINGS
-	#define AC_MAX_AUTO_C_WARNINGS			8
+	#define AC_MAX_AUTO_C_WARNINGS		8
 #endif
 
 #if !defined AC_MAX_TELEPORT_GLITCH_WARNINGS
@@ -227,7 +227,7 @@
 #endif
 
 #if !defined AC_MAX_CJ_RUN_WARNINGS
-	#define AC_MAX_CJ_RUN_WARNINGS			3
+	#define AC_MAX_CJ_RUN_WARNINGS		3
 #endif
 
 #define ac_fpublic%0(%1) forward%0(%1); public%0(%1)
