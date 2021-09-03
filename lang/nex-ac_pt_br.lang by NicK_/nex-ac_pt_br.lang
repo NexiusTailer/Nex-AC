@@ -1,0 +1,38 @@
+//For Nex-AC v1.0 (0.3.7-R1) 
+//PT (BR) by NicK_ -> http://forum.sa-mp.com/member.php?u=171517
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Suspeita no ID %d. CГіdigo de motivo: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Suspeita no IP %s. CГіdigo de motivo: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Esta versГЈo do anticheat nГЈo Г© compatГ­vel com a versГЈo do servidor",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Erro ao criar/abrir %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d excedeu %d tentativas de flooding. Public ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] VersГЈo invГЎlida no ID %d. VersГЈo: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d excedeu %d conexГµes por um IP",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Tentativa de login na RCON pelo IP %s usando senha %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d usando NOP %s",
+#endif
+
+	KICK_MSG[] =			"VocГЄ foi kickado por suspeitas de uso de cheating (#%03d)",
+	MAX_CONNECTS_MSG[] =	"VocГЄ excedeu o nГєmero mГЎximo de conexГµes pelo seu IP",
+	UNKNOWN_CLIENT_MSG[] =	"Esta versГЈo do cliente nГЈo Г© adequada para jogar no servidor",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC carregado!",
+	LOADED_MSG_2[] =		" Anticheat versГЈo: %s",
+	LOADED_MSG_3[] =		" Autor: Nexius (PT-BR by NicK_)",
+
+	STATS_STRING_1[] =		" EstatГ­sticas do anticheat Nex-AC",
+	STATS_STRING_2[] =		" Detectando e previnindo:",
+	STATS_STRING_3[] =		"  %d tentativas de cheating",
+	STATS_STRING_4[] =		"  %d tentativas de hacking",
+	STATS_STRING_5[] =		"  %d tentativas de crashing",
+	STATS_STRING_6[] =		"  %d tentativas de flooding",
+	STATS_STRING_7[] =		"  %d attaques",
+	STATS_STRING_8[] =		" Total de detecГ§Гµes e puniГ§Гµes em %d cheaters";

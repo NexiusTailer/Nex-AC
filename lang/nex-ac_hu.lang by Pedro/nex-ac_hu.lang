@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] GyanГєba keveredett a jГЎtГ©kos.. (ID %d). Indok kГіd: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] GyanГєba keveredett a jГЎtГ©kos.. (IP %s). Indok kГіd: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Az anticheat verziГіja nem felel meg a szerver verziГіjГЎhoz!",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Hiba a lГ©trehozГЎsban/megnyitГЎsban (%s)!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] A jГЎtГ©kos (ID %d) meghaladta az engedГ©lyezett, %d flood limitet.. (ID: %d)",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] HibГЎs verziГі (ID %d). VerziГі: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] A jГЎtГ©kos (ID %d) IP cГ­mГ©rЕ‘l mГЎr, %d csatlakozГЎs tГ¶rtГ©nt, ami mГЎr tilos.",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] HibГЎs RCON belГ©pГ©s! (IP %s) BeГ­rt jelszГі: %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] A jГЎtГ©kos (ID %d) '%s' NOP-t hasznГЎlt!",
+#endif
+
+	KICK_MSG[] =			"SajnГЎlom, de csalГЎs gyanГєjГЎba keveredtГ©l.. (Indok kГіd: #%03d)",
+	MAX_CONNECTS_MSG[] =	"SajnГЎlom, de elГ©rted az 1 IP cГ­mrЕ‘l tГ¶rtГ©nЕ‘ csatlakozГЎsoknak a plafonjГЎt!",
+	UNKNOWN_CLIENT_MSG[] =	"A kliens verziГіd nem felel meg a szerver verziГіjГЎhoz, Г­gy nem csatlakozhatsz!",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC betГ¶ltve!",
+	LOADED_MSG_2[] =		" Anticheat verziГі: %s",
+	LOADED_MSG_3[] =		" KГ©szГ­tЕ‘: Nexius",
+
+	STATS_STRING_1[] =		" Statisztika anticheat Nex-AC",
+	STATS_STRING_2[] =		" Felismert, megakadГЎlyozott esemГ©nyek:",
+	STATS_STRING_3[] =		"  %d csalГі",
+	STATS_STRING_4[] =		"  %d hacker",
+	STATS_STRING_5[] =		"  %d kifagyГЎs",
+	STATS_STRING_6[] =		"  %d floodolГЎs",
+	STATS_STRING_7[] =		"  %d tГЎmadГЎs",
+	STATS_STRING_8[] =		" Г–sszesen %d csalГі lett eddig 'elintГ©zve'.";

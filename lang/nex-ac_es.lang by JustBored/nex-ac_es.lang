@@ -1,0 +1,35 @@
+#if defined _nex_ac_lang_included
+        #endinput
+#endif
+#define _nex_ac_lang_included
+ 
+new
+        SUSPICION_1[] =                 "[Nex-AC] Se sospecha del ID %d. RazГіn nГєmero: %03d%s",
+        SUSPICION_2[] =                 "[Nex-AC] Se sospecha de la IP %s. RazГіn: %03d%s",
+        VERSION_WARNING[] =             "[Nex-AC] La versiГіn del anticheat no concuerda con la versiГіn del servidor",
+        CFG_OPENING_ERROR[] =           "[Nex-AC] Error al crear / abrir %s!",
+ 
+#if defined DEBUG
+        DEBUG_CODE_1[] =                "[Nex-AC debug] ID %d ha superado %d los intentos de flood. ID: %d",
+        DEBUG_CODE_2[] =                "[Nex-AC debug] version incorrecta de el %d ID. version: %s",
+        DEBUG_CODE_3[] =                "[Nex-AC debug] ID %d ha superado el limite de %d conexiones desde 1 direcciГіn IP",
+        DEBUG_CODE_4[] =                "[Nex-AC debug] Intento de login RCON incorrecto; IP %s contraseГ±a %s",
+        DEBUG_CODE_5[] =                "[Nex-AC debug] ID %d ha usado NOP %s",
+#endif
+ 
+        KICK_MSG[] =                    "Se le ha desconectado por sospecha de trucos (#%03d)",
+        MAX_CONNECTS_MSG[] =            "Se ha superado el numero maximo de conexiones desde 1 de direccion IP",
+        UNKNOWN_CLIENT_MSG[] =          "Esta version del cliente no es adecuada para jugar en el servidor",
+ 
+        LOADED_MSG_1[] =                " Nex-AC cargado!",
+        LOADED_MSG_2[] =                " version: %s",
+        LOADED_MSG_3[] =                " Autor: Nexius",
+ 
+        STATS_STRING_1[] =              " Estadisticas Nex-AC",
+        STATS_STRING_2[] =              " Detectado y evitado:",
+        STATS_STRING_3[] =              "  %d cheaters",
+        STATS_STRING_4[] =              "  %d intentos de hack",
+        STATS_STRING_5[] =              "  %d intentos de crash",
+        STATS_STRING_6[] =              "  %d intentos de flood",
+        STATS_STRING_7[] =              "  %d ataques",
+        STATS_STRING_8[] =              " Cantidad de cheaters detectados: %d";

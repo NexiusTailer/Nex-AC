@@ -1,0 +1,37 @@
+//Pro Nex-AC v1.0 (0.3.7-R1)
+ 
+#if defined _nex_ac_lang_included
+        #endinput
+#endif
+#define _nex_ac_lang_included
+ 
+new
+        SUSPICION_1[] =                 "[Nex-AC] PozitivnГ­ je na %d ID. KГіd pЕ™Г­ДЌiny: %03d%s",
+        SUSPICION_2[] =                 "[Nex-AC] PozitivnГ­ je na IP %s. KГіd pЕ™Г­ДЌiny: %03d%s",
+        VERSION_WARNING[] =             "[Nex-AC] Tato verze anticheat nenГ­ vhodnГЅ pro verzi serveru",
+        CFG_OPENING_ERROR[] =   "[Nex-AC] Chyba pЕ™i vytvoЕ™enГ­/otevЕ™enГ­ %s!",
+ 
+#if defined DEBUG
+        DEBUG_CODE_1[] =                "[Nex-AC debug] ID %d pЕ™ekroДЌil %d pokusy flood. VeЕ™ejnГЅ ID: %d",
+        DEBUG_CODE_2[] =                "[Nex-AC debug] NeplatnГЎ verze u %d ID. Verze: %s",
+        DEBUG_CODE_3[] =                "[Nex-AC debug] ID %d pЕ™ekroДЌil %d РїРѕРґРєР»СЋС‡РµРЅРёР№ СЃ 1 IP-adresa",
+        DEBUG_CODE_4[] =                "[Nex-AC debug] NeЕЎЕҐastnГЅ vstup do RCON z IP %s pomocГ­ hesla %s",
+        DEBUG_CODE_5[] =                "[Nex-AC debug] ID %d pouЕѕil NOP %s",
+#endif
+ 
+        KICK_MSG[] =                    "Byli jste kicked na zГЎkladД› podezЕ™enГ­ z pouЕѕitГ­ cheat software (#%03d)",
+        MAX_CONNECTS_MSG[] =    "PЕ™ekroДЌili jste maximГЎlnГ­ poДЌet pЕ™ipojenГ­ z 1 IP adresy",
+        UNKNOWN_CLIENT_MSG[] =  "Tato verze klienta nenГ­ vhodnГЅ pro hranГ­ na serveru",
+ 
+        LOADED_MSG_1[] =                " Anticheat Nex-AC naloЕѕeno!",
+        LOADED_MSG_2[] =                " Anticheat verzi: %s",
+        LOADED_MSG_3[] =                " Autor: Nexius",
+ 
+        STATS_STRING_1[] =              " Statistiky anticheat Nex-AC",
+        STATS_STRING_2[] =              " Odhaleno a odvrГЎceno:",
+        STATS_STRING_3[] =              "  %d pokusy cheating",
+        STATS_STRING_4[] =              "  %d pokusy vloupГЎnГ­",
+        STATS_STRING_5[] =              "  %d pokusy crash",
+        STATS_STRING_6[] =              "  %d pokusy flood",
+        STATS_STRING_7[] =              "  %d ГєtokЕЇ",
+        STATS_STRING_8[] =              "Jen objeven a kicked %d cheaters";
