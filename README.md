@@ -486,8 +486,6 @@ The script can be configured in any of the available languages. To do it, just d
 
 * *.lang* files can be opened even in default notepad and easily edited
 
-***It is also recommended to check for using any other anticheats in order to avoid conflicts with them.***
-
 # Installation:
 1. Download version of the anticheat which compatible with the version of your server
 2. Download the language file *(.lang)* in your preferred language
@@ -505,8 +503,8 @@ The script can be configured in any of the available languages. To do it, just d
 6. Compile the modified scripts
 
 ***Warnings:***
+ * Check for using any other anticheats in order to avoid conflicts with them
  * If you use Streamer Plugin by Incognito, Pawn.RakNet, foreach, sscanf, YSF or SKY, include it before nex-ac
- * If you are hosting on Windows, you need to include a library that fixes 'GetTickCount'. Otherwise you need to change all 'GetTickCount' for 'tickcount' in this include. Do not do this on Linux, this is only for people hosting their server on Windows
  * Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including the anticheat
  
 
