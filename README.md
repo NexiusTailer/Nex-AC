@@ -486,7 +486,7 @@ The script can be configured in any of the available languages. To do it, just d
 
 * *.lang* files can be opened even in default notepad and easily edited
 
-*Did not find your language? Help the project :)*  
+*Did not find your language? Help the project* :)  
 If you know well a language that is not in the "lang" folder, please translate anticheat into this language. To do this, just send the translated .lang file via Pull Request.  
 I will be very glad of your help and add you in the list of those who helped the development of the anticheat.
 
