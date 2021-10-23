@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+ 
+#if defined _nex_ac_lang_included
+        #endinput
+#endif
+#define _nex_ac_lang_included
+ 
+new
+        SUSPICION_1[] =                 "[Nex-AC] प्लेयर को चीट्स प्रोग्राम के लिए सस्पेक्ट किया जाता है, ID %d. Reason code: %03d%s",
+        SUSPICION_2[] =                 "[Nex-AC] प्लेयर को चीट्स प्रोग्राम के लिए सस्पेक्ट किया जाता है, IP %s. Reason code: %03d%s",
+        VERSION_WARNING[] =             "[Nex-AC] यह एंटीचीट वर्जन वर्तमान सैम्प सर्वर के लिए बना नहीं है!",
+        CFG_OPENING_ERROR[] =   "[Nex-AC] बनाने या खोलने में गड़बड़ी %s!",
+ 
+#if defined DEBUG
+        DEBUG_CODE_1[] =                "[Nex-AC debug] ID %d ने फ्लड एटेम्पट %d पार कर दिया, Public ID: %d",
+        DEBUG_CODE_2[] =                "[Nex-AC debug] इनवैलिड वर्शन द्वारा  ID %d. वर्शन: %s",
+        DEBUG_CODE_3[] =                "[Nex-AC debug] ID %d ने एक आईपी एड्रेस से कनेक्शन %d पार कर दिया ",
+        DEBUG_CODE_4[] =                "[Nex-AC debug] गलत RCON लॉगिन द्वारा IP %s उसिंग पासवर्ड %s",
+        DEBUG_CODE_5[] =                "[Nex-AC debug] ID %d ने उपयोग किया NOP %s",
+#endif
+ 
+        KICK_MSG[] =                    "आपको सर्वर द्वारा चीट्स प्रोग्राम के लिए निकला गया है (#%03d)",
+        MAX_CONNECTS_MSG[] =    "आपने एक आईपी एड्रेस से कनेक्शन की अधिकतम संख्या को पार कर दीया है",
+        UNKNOWN_CLIENT_MSG[] =  " यह क्लाइंट वर्शन सर्वर वर्शन के साथ संगत नहीं है ",
+ 
+        LOADED_MSG_1[] =                " Anticheat Nex-AC loaded!",
+        LOADED_MSG_2[] =                " Anticheat version: %s",
+        LOADED_MSG_3[] =                " Author: Nexius",
+ 
+        STATS_STRING_1[] =              " Statistics anticheat Nex-AC",
+        STATS_STRING_2[] =              " Detected and prevented:",
+        STATS_STRING_3[] =              "  %d चीटिंग प्रयास",
+        STATS_STRING_4[] =              "  %d हैकिंग प्रयास",
+        STATS_STRING_5[] =              "  %d क्रेशिंग प्रयास",
+        STATS_STRING_6[] =              "  %d फ्लूडिंग प्रयास",
+        STATS_STRING_7[] =              "  %d अटैक्स",
+        STATS_STRING_8[] =              " कुल पता और पुनिषेद %d ";
