@@ -547,5 +547,6 @@ I will be very glad of your help and add you in the list of those who helped the
 * Michael.Richmond - Moldavian translation
 * NemanjaMAX - Bosnian translation
 * TTG - simplified Chinese translation
+* Abraar - Hindi translation
 
 This script also contains materials from third-party open source projects.
