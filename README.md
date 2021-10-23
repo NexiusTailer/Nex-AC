@@ -524,6 +524,7 @@ I will be very glad of your help and add you in the list of those who helped the
 * DeitY, Dragony92 - Serbian translation
 * NicK_ - Brazilian Portuguese translation
 * KyleSmith, infin1tyy - Improved English translation
+* Abraar - Hindi translation
 * M4D - Persian (Farsi) Translation
 * Valera_Kovshikov - Ukrainian translation
 * RaefaldhiAmartya - Indonesian translation
