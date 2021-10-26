@@ -1,5 +1,4 @@
-*.inc text working-tree-encoding=Windows-1251
-*.lang text working-tree-encoding=Windows-1251
+*.lang text working-tree-encoding=CP1251
 
 *.pwn linguist-language=Pawn
 *.inc linguist-language=Pawn
