@@ -1,18 +1,14 @@
-v1.9.56
+v1.9.57
 
 Changes:
-* Improved protection from fake NPCs without connecting YSF plugin
-* Improved validation of unoccupied sync parameters (using Pawn.RakNet)
-* Improved performance of the Pawn.RakNet dependent code
-* Corrected some anti-flood settings
-* Minor improvements and fixes
+* Improved anti-dialog crasher (expanded list of forbidden characters in inputtext)
+* Validation of unoccupied sync parameters has been improved and optimized (when Pawn.RakNet is used)
 
 Fixes:
-* Fixed anti-NOP SpawnPlayer in spectator mode
-* Fixed a bug with updating the previous values ​​of health and armour when entering vehicles
-* Fixed bypassing anti-speedhack onfoot and in vehicle when the player was given speed by the server
-* Fixed triggering of anti-CarShot from passenger seat with a sharp decrease in speeds
-* Fixed anti-pickups teleport for streamer pickups
+* Fixed a bug where some variables would not reset when the player exited spectating mode
+* Fixed possible errors when using Pawn.RakNet handlers if their names matched
+* Fixed some packet ID's for old server versions (when Pawn.RakNet is used)
+* Minor fixes and improvements
 
 The latest example of setting public OnCheatDetected in your gamemode:
 ```
