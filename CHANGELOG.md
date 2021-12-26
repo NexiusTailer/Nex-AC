@@ -1,13 +1,12 @@
-v1.9.57
+v1.9.58
 
 Changes:
-* Improved anti-dialog crasher (expanded list of forbidden characters in inputtext)
-* Validation of unoccupied sync parameters has been improved and optimized (when Pawn.RakNet is used)
+* Improved protections from SpeedHack onfoot and CarShot from the passenger seat
+* Added protection from visual damage spoofing for other player's and unoccupied vehicles
 
 Fixes:
-* Fixed a bug where some variables would not reset when the player exited spectating mode
-* Fixed possible errors when using Pawn.RakNet handlers if their names matched
-* Fixed some packet ID's for old server versions (when Pawn.RakNet is used)
+* Fixed a bug in anti-fake spawn when a series of spawns would only trigger checks on the first instance
+* Fixed a bypass in anti-dialog crasher when some forbidden characters were combined with each other
 * Minor fixes and improvements
 
 The latest example of setting public OnCheatDetected in your gamemode:
