@@ -209,7 +209,7 @@ Added in v1.8.8:
 
 #### AntiCheatGetDialog(playerid)
 > Use to get the ID of the opened dialog for a player
-> * `playerid` - The ID of the player to get the active dialog ID of
+> * `playerid` - The ID of the player to get the active dialog ID for
 > * Returns the ID of the dialog or `-1` if the player is not connected
 
 #### AntiCheatGetEnterVehicle(playerid)
