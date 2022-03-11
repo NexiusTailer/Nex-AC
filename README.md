@@ -171,14 +171,14 @@ Added in v1.8.8:
 > * Returns `1` if the function executed successfully, `0` if the player is not connected or `-1` if the slot specified is invalid
 
 #### AntiCheatGetSpawnWeapon(playerid, &weapon1, &weapon1_ammo, &weapon2, &weapon2_ammo, &weapon3, &weapon3_ammo)
-> Use to get spawn weapons and ammo of a player
+> Use to get the spawn weapons and ammo of a player
 > * `playerid` - The ID of the player whose spawn weapons and ammo to retrieve
-> * `&weapon1` - A variable in which to store the weapon 1, passed by reference
-> * `&weapon1_ammo` - A variable in which to store the amount of ammo for the weapon 1, passed by reference
-> * `&weapon2` - A variable in which to store the weapon 2, passed by reference
-> * `&weapon2_ammo` - A variable in which to store the amount of ammo for the weapon 2, passed by reference
-> * `&weapon3` - A variable in which to store the weapon 3, passed by reference
-> * `&weapon3_ammo` - A variable in which to store the amount of ammo for the weapon 3, passed by reference
+> * `&weapon1` - A variable in which to store weapon 1, passed by reference
+> * `&weapon1_ammo` - A variable in which to store the amount of ammo for weapon 1, passed by reference
+> * `&weapon2` - A variable in which to store weapon 2, passed by reference
+> * `&weapon2_ammo` - A variable in which to store the amount of ammo for weapon 2, passed by reference
+> * `&weapon3` - A variable in which to store weapon 3, passed by reference
+> * `&weapon3_ammo` - A variable in which to store the amount of ammo for weapon 3, passed by reference
 > * Returns `1 (true)` if the function executed successfully or `0 (false)` if the player is not connected
 
 #### AntiCheatGetPos(playerid, &Float:x, &Float:y, &Float:z)
