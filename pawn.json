@@ -2,7 +2,7 @@
 	"user": "NexiusTailer",
 	"repo": "Nex-AC",
 	"include_path": "src/v1.9.58",
-	"dev_dependencies": ["sampctl/samp-stdlib"],
+	"dev_dependencies": ["pawn-lang/samp-stdlib"],
 	"build":
 	{
 		"compiler":

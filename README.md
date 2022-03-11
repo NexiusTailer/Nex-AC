@@ -138,32 +138,32 @@ Added in v1.3:
 
 #### IsAntiCheatEnabledForPlayer(playerid, code)
 > Use to check whether one of the anti-cheats is enabled/disabled for a specific player
-> * `playerid` - The ID of the player to be checked whether the anti-cheat enabled/disabled for him
+> * `playerid` - The ID of the player to be checked whether the anti-cheat is enabled/disabled for him
 > * `code` - The ID of the anti-cheat to check
 > * Return `1 (true)` if enabled or `0 (false)` if disabled
 
 Added in v1.8.8:
 
 #### AntiCheatGetHealth(playerid, &Float:health)
-> Use to get the amount of the player's health
+> Use to get the amount of the player's health (according to anticheat data)
 > * `playerid` - The ID of the player to get the health of
 > * `&Float:health` - A variable to store the health in, passed by reference
 > * Returns `1 (true)` if the function executed successfully or `0 (false)` if the player is not connected
 
 #### AntiCheatGetArmour(playerid, &Float:armour)
-> Use to get the amount of the player's armour
+> Use to get the amount of the player's armour (according to anticheat data)
 > * `playerid` - The ID of the player to get the armour of
 > * `&Float:armour` - A variable to store the armour in, passed by reference
 > * Returns `1 (true)` if the function executed successfully or `0 (false)` if the player is not connected
 
 #### AntiCheatGetVehicleHealth(vehicleid, &Float:health)
-> Use to get the amount of the vehicle's health
+> Use to get the amount of the vehicle's health (according to anticheat data)
 > * `vehicleid` - The ID of the vehicle to get the health of
 > * `&Float:health` - A variable to store the health in, passed by reference
 > * Returns `1 (true)` if the function executed successfully or `0 (false)` if the vehicle does not exist
 
 #### AntiCheatGetWeaponData(playerid, slot, &weapons, &ammo)
-> Use to get the weapon and ammo in a specific player's weapon slot
+> Use to get the weapon and ammo in a specific player's weapon slot (according to anticheat data)
 > * `playerid` - The ID of the player whose weapon data to retrieve
 > * `slot` - The slot to get the weapon and ammo for
 > * `&weapons` - A variable to store the weapon ID in, passed by reference
@@ -182,7 +182,7 @@ Added in v1.8.8:
 > * Returns `1 (true)` if the function executed successfully or `0 (false)` if the player is not connected
 
 #### AntiCheatGetPos(playerid, &Float:x, &Float:y, &Float:z)
-> Use to get the position of a player
+> Use to get the position of a player (according to anticheat data)
 > * `playerid` - The ID of the player to get the position of
 > * `&Float:x` - A variable to store the x coordinate in, passed by reference
 > * `&Float:y` - A variable to store the y coordinate in, passed by reference
@@ -190,7 +190,7 @@ Added in v1.8.8:
 > * Returns `1 (true)` if the function executed successfully or `0 (false)` if the player is not connected
 
 #### AntiCheatGetVehicleVelocity(vehicleid, &Float:x, &Float:y, &Float:z)
-> Use to get the velocity of a vehicle
+> Use to get the velocity of a vehicle (according to anticheat data)
 > * `vehicleid` - The ID of the vehicle to get the velocity of
 > * `&Float:x` - A variable to store the x velocity in, passed by reference
 > * `&Float:y` - A variable to store the y velocity in, passed by reference
@@ -203,77 +203,77 @@ Added in v1.8.8:
 > * Returns the player's speed or `0` if the player is not connected
 
 #### AntiCheatGetAnimationIndex(playerid)
-> Use to get the index (ID) of a player's current animation
+> Use to get the index (ID) of the player's current animation (according to anticheat data)
 > * `playerid` - The ID of the player to get the animation index of
 > * Returns the ID of the animation or `0` if the player is not connected
 
 #### AntiCheatGetDialog(playerid)
-> Use to get the ID of the opened dialog of a player
+> Use to get the ID of the opened dialog for a player
 > * `playerid` - The ID of the player to get the active dialog ID of
 > * Returns the ID of the dialog or `-1` if the player is not connected
 
 #### AntiCheatGetEnterVehicle(playerid)
-> Use to get the ID of the vehicle the player attempted to enter last time
+> Use to get the ID of the vehicle a player attempted to enter last time
 > * `playerid` - The ID of the player to get the last entered vehicle ID of
 > * Returns the ID of the entered vehicle or `0` if the player is not connected
 
 #### AntiCheatGetVehicleID(playerid)
-> Use to get the ID of the vehicle the player is currently in
+> Use to get the ID of the vehicle a player is currently in (according to anticheat data)
 > * `playerid` - The ID of the player in the vehicle to get the ID of
 > * Returns the ID of the vehicle or `0` if the player is not connected
 
 #### AntiCheatGetWeapon(playerid)
-> Use to get the current weapon ID of a player
+> Use to get the ID of the player's current weapon (according to anticheat data)
 > * `playerid` - The ID of the player to get the currently held weapon of
 > * Returns the ID of the weapon or `-1` if the player is not connected
 
 #### AntiCheatGetVehicleSeat(playerid)
-> Use to get the seat of the vehicle the player is currently in
+> Use to get the seat of the vehicle a player is currently in (according to anticheat data)
 > * `playerid` - The ID of the player to get the seat of
 > * Returns the ID of the seat or `-1` if the player is not connected
 
 #### AntiCheatGetSpecialAction(playerid)
-> Use to get the ID of the special action of a player
+> Use to get the ID of the player's special action (according to anticheat data)
 > * `playerid` - The ID of the player to get the special action of
 > * Returns the ID of the special action or `0` if the player is not connected
 
 #### AntiCheatGetLastSpecialAction(playerid)
-> Use to get the ID of the previous special action of a player
+> Use to get the ID of the player's previous special action
 > * `playerid` - The ID of the player to get the previous special action of
 > * Returns the ID of the previous special action or `0` if the player is not connected
 
 #### AntiCheatGetLastShotWeapon(playerid)
-> Use to get the ID of the last weapon the player shot from
+> Use to get the ID of the last weapon a player shot from
 > * `playerid` - The ID of the player to get the last shot weapon ID of
 > * Returns the ID of the last shot weapon or `-1` if the player is not connected
 
 #### AntiCheatGetLastPickup(playerid)
-> Use to get the ID of the last pickup which the player picked up
+> Use to get the ID of the last pickup which a player picked up
 > * `playerid` - The ID of the player to get the last picked up pickup ID of
 > * Returns the ID of the last picked up pickup or `-1` if the player is not connected
 
 #### AntiCheatGetLastUpdateTime(playerid)
-> Use to get a player's last update tick
+> Use to get the player's last update tick
 > * `playerid` - The ID of the player to get the last update tick of
 > * Returns the tick of the last update or `0` if the player is not connected
 
 #### AntiCheatGetLastReloadTime(playerid)
-> Use to get a player's last weapon reload tick
+> Use to get the player's last weapon reload tick
 > * `playerid` - The ID of the player to get the last reload tick of
 > * Returns the tick of the last reload or `0` if the player is not connected
 
 #### AntiCheatGetLastEnteredVehTime(playerid)
-> Use to get a player's last entering vehicle attempt tick
+> Use to get the player's last entering vehicle attempt tick
 > * `playerid` - The ID of the player to get the last entering vehicle attempt tick of
 > * Returns the tick of the last entering attempt or `0` if the player is not connected
 
 #### AntiCheatGetLastShotTime(playerid)
-> Use to get a player's last weapon shot tick
+> Use to get the player's last weapon shot tick
 > * `playerid` - The ID of the player to get the last shot tick of
 > * Returns the tick of the last shot or `0` if the player is not connected
 
 #### AntiCheatGetLastSpawnTime(playerid)
-> Use to get a player's last spawn tick
+> Use to get the player's last spawn tick
 > * `playerid` - The ID of the player to get the last spawn tick of
 > * Returns the tick of the last spawn or `0` if the player is not connected
 
@@ -376,31 +376,31 @@ Added in v1.9.41:
 
 #### IsAntiNOPEnabledForPlayer(playerid, nopcode)
 > Use to check whether one of the anti-NOPs is enabled/disabled for a specific player
-> * `playerid` - The ID of the player to be checked whether the anti-NOP enabled/disabled for him
+> * `playerid` - The ID of the player to be checked whether the anti-NOP is enabled/disabled for him
 > * `nopcode` - The ID of the anti-NOP to check
 > * Return `1 (true)` if enabled or `0 (false)` if disabled
 
 Added in v1.9.42:
 
 #### AntiCheatGetVehicleDriver(vehicleid)
-> Use to get the ID of the driver ID of the vehicle
+> Use to get the ID of the driver of a vehicle
 > * `vehicleid` - The ID of the vehicle to get the driver ID of
 > * Returns the ID of the driver or `INVALID_PLAYER_ID` if the vehicle does not exist
 
 #### AntiCheatGetVehicleInterior(vehicleid)
-> Use to get the ID of the current interior ID of the vehicle
+> Use to get the ID of the current interior of a vehicle
 > * `vehicleid` - The ID of the vehicle to get the interior ID of
 > * Returns the ID of the interior or `0` if the vehicle does not exist
 
 #### AntiCheatGetVehiclePaintjob(vehicleid)
-> Use to get the ID of the paintjob ID of the vehicle
+> Use to get the ID of the paintjob of a vehicle
 > * `vehicleid` - The ID of the vehicle to get the paintjob ID of
 > * Returns the ID of the paintjob or `3` if the vehicle does not exist
 
 Added in v1.9.43:
 
 #### AntiCheatGetVehiclePos(vehicleid, &Float:x, &Float:y, &Float:z)
-> Use to get the position of a vehicle
+> Use to get the position of a vehicle (according to anticheat data)
 > * `vehicleid` - The ID of the vehicle to get the position of
 > * `&Float:x` - A variable to store the x coordinate in, passed by reference
 > * `&Float:y` - A variable to store the y coordinate in, passed by reference
@@ -408,7 +408,7 @@ Added in v1.9.43:
 > * Returns `1 (true)` if the function executed successfully or `0 (false)` if the vehicle does not exist
 
 #### AntiCheatGetVehicleZAngle(vehicleid, &Float:z_angle)
-> Use to get the z rotation of a vehicle
+> Use to get the z rotation of a vehicle (according to anticheat data)
 > * `vehicleid` - The ID of the vehicle to get the z rotation of
 > * `&Float:z_angle` - A variable to store the z rotation in, passed by reference
 > * Returns `1 (true)` if the function executed successfully or `0 (false)` if the vehicle does not exist
@@ -430,25 +430,25 @@ Added in v1.9.43:
 Added in v1.9.46:
 
 #### AntiCheatGetInterior(playerid)
-> Use to get the ID of the interior the player is currently in
+> Use to get the ID of the interior a player is currently in (according to anticheat data)
 > * `playerid` - The ID of the player to get the interior ID of
 > * Returns the ID of the interior or `0` if the player is not connected
 
 Added in v1.9.50:
 
 #### AntiCheatGetEnterVehicleSeat(playerid)
-> Use to get the seat of the vehicle the player attempted to enter last time
+> Use to get the seat of the vehicle a player attempted to enter last time
 > * `playerid` - The ID of the player to get the last entered seat of
 > * Returns the ID of the entered seat or `-1` if the player is not connected
 
 #### AntiCheatGetWeaponInSlot(playerid, slot)
-> Use to get the weapon ID in a specific player's weapon slot
+> Use to get the weapon ID in a specific player's weapon slot (according to anticheat data)
 > * `playerid` - The ID of the player to get the weapon ID of
 > * `slot` - The slot to get the weapon ID for
 > * Returns the ID of weapon in a specific slot, `-1` if the player is not connected or `-2` if the slot specified is invalid
 
 #### AntiCheatGetAmmoInSlot(playerid, slot)
-> Use to get the ammo in a specific player's weapon slot
+> Use to get the ammo in a specific player's weapon slot (according to anticheat data)
 > * `playerid` - The ID of the player to get the ammo of
 > * `slot` - The slot to get the ammo for
 > * Returns the amount of ammo in a specific slot, `-1` if the player is not connected or `-2` if the slot specified is invalid
