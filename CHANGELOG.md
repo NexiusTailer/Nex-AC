@@ -1,12 +1,14 @@
-v1.9.58
+v1.9.59
 
 Changes:
-* Improved protections from SpeedHack onfoot and CarShot from the passenger seat
-* Added protection from visual damage spoofing for other player's and unoccupied vehicles
+* Improved protection from invalid attached objects
+* Improved protection from invalid damage (now there are checks for actors as well)
+* Added blocking of invalid shots, which were previously logged by built-in server checks (when Pawn.RakNet is used)
+* Improved anti-trailer teleport (when Pawn.RakNet is used)
 
 Fixes:
-* Fixed a bug in anti-fake spawn when a series of spawns would only trigger checks on the first instance
-* Fixed a bypass in anti-dialog crasher when some forbidden characters were combined with each other
+* Fixed an issue with SetVehicleParamsForPlayer when the closed doors status of vehicles wasn't considered
+* Fixed possible runtime errors when OnPlayerSelectedMenuRow and OnPlayerExitedMenu could handle not fully connected player
 * Minor fixes and improvements
 
 The latest example of setting public OnCheatDetected in your gamemode:
