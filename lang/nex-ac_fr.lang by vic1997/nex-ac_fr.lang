@@ -8,20 +8,20 @@
 new
 	SUSPICION_1[] =			"[Nex-AC] Suspections sur l'ID %d. Code de raison: %03d%s",
 	SUSPICION_2[] =			"[Nex-AC] Suspections sur l'IP %s. Code de raison: %03d%s",
-	VERSION_WARNING[] =		"[Nex-AC] Cette version ne correspond pas Г  la version du serveur",
+	VERSION_WARNING[] =		"[Nex-AC] Cette version ne correspond pas à la version du serveur",
 	CFG_OPENING_ERROR[] =	"[Nex-AC] Impossible de creer / open %s!",
 
 #if defined DEBUG
 	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d depasse %d tentative de flood. Public ID: %d",
 	DEBUG_CODE_2[] =		"[Nex-AC debug] Mauvaise version par ID %d . Version: %s",
-	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d dГ©passe %d connexion avec 1 adresse IP",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d dépasse %d connexion avec 1 adresse IP",
 	DEBUG_CODE_4[] =		"[Nex-AC debug] Mauvais identifiant RCON de l'IP %s avec le mot de passe %s",
 	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d utilise NOP %s",
 #endif
 
-	KICK_MSG[] =			"Vous avez ete expulse pour des soupГ§ons d'utilisation de programmes de triche (#%03d)",
+	KICK_MSG[] =			"Vous avez ete expulse pour des soupçons d'utilisation de programmes de triche (#%03d)",
 	MAX_CONNECTS_MSG[] =	"Vous avez depasse le nombre maximal de connexions sur une adresse IP",
-	UNKNOWN_CLIENT_MSG[] =	"Cette version du client n'est pas adaptГ© pour jouer sur ce serveur",
+	UNKNOWN_CLIENT_MSG[] =	"Cette version du client n'est pas adapté pour jouer sur ce serveur",
 
 	LOADED_MSG_1[] =		" Anticheat Nex-AC charge !",
 	LOADED_MSG_2[] =		" Version anti-triche: %s",

@@ -23,9 +23,9 @@ new
 	MAX_CONNECTS_MSG[] =	"Siz kop spar bir adresda oyuna girdiniz ",
 	UNKNOWN_CLIENT_MSG[] =	"Sizin oyun wersiyany dogry gelemok ",
 
-	LOADED_MSG_1[] =		" РђРЅС‚РёС‡РёС‚ Nex-AC Р·Р°РіСЂСѓР¶РµРЅ!",
-	LOADED_MSG_2[] =		" Р’РµСЂСЃРёСЏ Р°РЅС‚РёС‡РёС‚Р°: %s",
-	LOADED_MSG_3[] =		" РђРІС‚РѕСЂ: Nexius",
+	LOADED_MSG_1[] =		" Античит Nex-AC загружен!",
+	LOADED_MSG_2[] =		" Версия античита: %s",
+	LOADED_MSG_3[] =		" Автор: Nexius",
 
 	STATS_STRING_1[] =		" Statistika gorayjy Nex-AC",
 	STATS_STRING_2[] =		" Tapyldy we yogadyldy:",

@@ -15,14 +15,14 @@ new
 #if defined DEBUG
 	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d asiri %d flood yapti. Genel ID: %d",
 	DEBUG_CODE_2[] =		"[Nex-AC debug] Gecersiz surum kullanan %d. Versiyon: %s",
-	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d asiri %d aynД± IP uzerinden baglanma.",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d asiri %d aynı IP uzerinden baglanma.",
 	DEBUG_CODE_4[] =		"[Nex-AC debug] RCON girisi yapmaya calisan IP %s kullanilan sifre %s",
 	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d NOP kullanmakta %s",
 #endif
 
-	KICK_MSG[] =			"Hile programД± kullanД±yor olabileceДџinizden dolayД± sunucudan atД±ldД±nД±z (#%03d).",
-	MAX_CONNECTS_MSG[] =	"Bir IP Гјzerinden baДџlanma sД±nД±rД±nД± aЕџtД±n.",
-	UNKNOWN_CLIENT_MSG[] =	"Bu eklenti sunucu Гјzerinde oynamak iГ§in uygun deДџil.",
+	KICK_MSG[] =			"Hile programı kullanıyor olabileceğinizden dolayı sunucudan atıldınız (#%03d).",
+	MAX_CONNECTS_MSG[] =	"Bir IP üzerinden bağlanma sınırını aştın.",
+	UNKNOWN_CLIENT_MSG[] =	"Bu eklenti sunucu üzerinde oynamak için uygun değil.",
 
 	LOADED_MSG_1[] =		" Hile korumasi Nex-AC yuklendi!",
 	LOADED_MSG_2[] =		" Hile korumasi versiyon: %s",

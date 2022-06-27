@@ -8,7 +8,7 @@
 new
         SUSPICION_1[] =                 "[Nex-AC] Sospetto su ID %d. Codice: %03d%s",
         SUSPICION_2[] =                 "[Nex-AC] Sospetto su IP %s. Codice: %03d%s",
-        VERSION_WARNING[] =             "[Nex-AC] Questa versione dell'anti-cheat non ГЁ adatta per la versione del server.",
+        VERSION_WARNING[] =             "[Nex-AC] Questa versione dell'anti-cheat non è adatta per la versione del server.",
         CFG_OPENING_ERROR[] =   "[Nex-AC] Errore durante la creazione/l'apertura di %s!",
  
 #if defined DEBUG
@@ -21,7 +21,7 @@ new
  
         KICK_MSG[] =                    "Sei stato kickato con il sospetto di uso di cheat (#%03d)",
         MAX_CONNECTS_MSG[] =    "Hai superato il massimo di connessioni da un IP.",
-        UNKNOWN_CLIENT_MSG[] =  "Questa versione del client non ГЁ adatta per giocare su questo server.",
+        UNKNOWN_CLIENT_MSG[] =  "Questa versione del client non è adatta per giocare su questo server.",
  
         LOADED_MSG_1[] =                " Anticheat Nex-AC caricato!",
         LOADED_MSG_2[] =                " Versione anticheat: %s",
