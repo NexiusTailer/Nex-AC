@@ -9,6 +9,7 @@ Fixes:
 * Tweaked validation checks for unoccupied sync parameters
 
 The latest example of setting public OnCheatDetected in your gamemode:
+
 ```pawn
 forward OnCheatDetected(playerid, ip_address[], type, code);
 public OnCheatDetected(playerid, ip_address[], type, code)
