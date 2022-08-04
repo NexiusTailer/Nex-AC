@@ -1,15 +1,12 @@
-v1.9.59
+v1.9.60
 
 Changes:
-* Improved protection from invalid attached objects
-* Improved protection from invalid damage (now there are checks for actors as well)
-* Added blocking of invalid shots, which were previously logged by built-in server checks (when Pawn.RakNet is used)
-* Improved anti-trailer teleport (when Pawn.RakNet is used)
+* Added check for spoofing by special actions of entering and exiting from a vehicle
+* Minor improvements and fixes
 
 Fixes:
-* Fixed an issue with SetVehicleParamsForPlayer when the closed doors status of vehicles wasn't considered
-* Fixed possible runtime errors when OnPlayerSelectedMenuRow and OnPlayerExitedMenu could handle not fully connected player
-* Minor fixes and improvements
+* Fixed a bug in anti-FlyHack with a kick when the server give velocity to a player using some animations
+* Tweaked validation checks for unoccupied sync parameters
 
 The latest example of setting public OnCheatDetected in your gamemode:
 ```pawn
