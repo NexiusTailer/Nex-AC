@@ -1,4 +1,4 @@
-v1.9.60
+**v1.9.60**
 
 Changes:
 * Added check for spoofing by special actions of entering and exiting from a vehicle
