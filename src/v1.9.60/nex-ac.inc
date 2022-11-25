@@ -13,6 +13,8 @@
 	#define DEBUG
 #endif
 
+// define AC_USE_OMP if you use open.mp server for start your scripts
+
 #if !defined NO_SUSPICION_LOGS
 	//#define NO_SUSPICION_LOGS
 #endif
@@ -30,6 +32,7 @@
 
 #define AC_SERVER_VERSION			"0.3.7"
 #define AC_SERVER_DL_VERSION		"0.3.DL"
+#define AC_SERVER_OMP_VERSION		"open.mp"
 
 #if !defined AC_CLIENT_VERSION
 	#define AC_CLIENT_VERSION			"0.3"
@@ -1785,10 +1788,14 @@ ac_fpublic ac_EnableAntiCheat(code, enable)
 						ac_QueryEnable = (GetServerVarAsBool("query") != 0);
 					#endif
 				#endif
-				#if defined GetConsoleVarAsBool
-					ac_RconEnable = (GetConsoleVarAsBool("rcon") != 0);
+				#if defined AC_USE_OMP
+					ac_RconEnable = (GetConsoleVarAsBool("rcon.enable") != 0);
 				#else
-					ac_RconEnable = (GetServerVarAsBool("rcon") != 0);
+					#if defined GetConsoleVarAsBool
+						ac_RconEnable = (GetConsoleVarAsBool("rcon") != 0);
+					#else
+						ac_RconEnable = (GetServerVarAsBool("rcon") != 0);
+					#endif
 				#endif
 			}
 			#if !AC_USE_QUERY
@@ -3485,17 +3492,26 @@ public OnGameModeInit()
 			SendRconCommand("query 0");
 		#endif
 		#undef AC_USE_QUERY
-		#if defined GetConsoleVarAsBool
-			ac_RconEnable = (GetConsoleVarAsBool("rcon") != 0);
+
+		#if defined AC_USE_OMP
+			ac_RconEnable = (GetConsoleVarAsBool("rcon.enable") != 0);
 		#else
-			ac_RconEnable = (GetServerVarAsBool("rcon") != 0);
+			#if defined GetConsoleVarAsBool
+				ac_RconEnable = (GetConsoleVarAsBool("rcon") != 0);
+			#else
+				ac_RconEnable = (GetServerVarAsBool("rcon") != 0);
+			#endif
 		#endif
 		SendRconCommand("rcon 0");
 	}
-	#if defined GetConsoleVarAsInt
-		ac_LagCompMode = (GetConsoleVarAsInt("lagcompmode") != 0);
+	#if defined AC_USE_OMP
+		ac_LagCompMode = (GetConsoleVarAsInt("game.lag_compensation_mode") != 0);
 	#else
-		ac_LagCompMode = (GetServerVarAsInt("lagcompmode") != 0);
+		#if defined GetConsoleVarAsInt
+			ac_LagCompMode = (GetConsoleVarAsInt("lagcompmode") != 0);
+		#else
+			ac_LagCompMode = (GetServerVarAsInt("lagcompmode") != 0);
+		#endif
 	#endif
 	print(" ");
 	print("--------------------------------------");
@@ -3512,7 +3528,7 @@ public OnGameModeInit()
 	#else
 		GetServerVarAsString("version", ac_strtmp, sizeof ac_strtmp);
 	#endif
-	if(strfind(ac_strtmp, AC_SERVER_VERSION) == -1 && strfind(ac_strtmp, AC_SERVER_DL_VERSION) == -1) print(VERSION_WARNING);
+	if(strfind(ac_strtmp, AC_SERVER_VERSION) == -1 && strfind(ac_strtmp, AC_SERVER_DL_VERSION) == -1 && strfind(ac_strtmp, AC_SERVER_OMP_VERSION) == -1) print(VERSION_WARNING);
 	#undef AC_SERVER_DL_VERSION
 	#undef AC_SERVER_VERSION
 	#if defined ac_OnGameModeInit
@@ -9208,7 +9224,7 @@ ac_fpublic ac_Timer(playerid)
 #if !defined OnCheatDetected
 	//Don't make changes in this public
 	//To customize punishments, declare 'OnCheatDetected' in your script
-	ac_fpublic ac_OnCheatDetected(playerid, ip_address[], type, code)
+	ac_fpublic ac_OnCheatDetected(playerid, const ip_address[], type, code)
 	{
 		if(type)
 		{
@@ -9656,7 +9672,7 @@ static ac_FloodDetect(playerid, publicid)
 	return 0;
 }
 
-static ac_KickWithCode(playerid, ip_address[], type, code, code2 = 0)
+static ac_KickWithCode(playerid, const ip_address[], type, code, code2 = 0)
 {
 	if(type == 0 && (!IsPlayerConnected(playerid) || ACInfo[playerid][acKicked] > 0)) return 0;
 	#if AC_USE_STATISTICS
