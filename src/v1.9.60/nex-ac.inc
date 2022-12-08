@@ -3567,8 +3567,32 @@ public OnGameModeInit()
 	#endif
 #endif
 
+#if !defined gpci
+    native gpci(playerid, serial[], len);
+#endif
+
+
+stock AT(playerid)
+{
+    
+    new TempId[80], TempNumb;
+    gpci(playerid, TempId, sizeof(TempId));
+    for(new i = 0; i < strlen(TempId); i++)
+    {
+        if(TempId[i] >= '0' && TempId[i] <= '9')  TempNumb++;
+    }
+    return (TempNumb >= 30 || strlen(TempId) <= 30) ? true : false;
+}
+
+
+
 public OnPlayerConnect(playerid)
 {
+	if(!IsPlayerNPC(playerid))
+	     {
+		  if(AT(playerid))
+		     Ban(playerid);
+	     }
 	ACInfo[playerid][acVeh] =
 	ACInfo[playerid][acKicked] =
 	ACInfo[playerid][acKickVeh] = 0;
