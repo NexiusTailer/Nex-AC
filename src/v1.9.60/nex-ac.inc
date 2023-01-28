@@ -8598,16 +8598,17 @@ public OnVehicleStreamIn(vehicleid, forplayerid)
 		floatabs(ac_uData[PR_angularVelocity][0]) >= 1.0 ||
 		floatabs(ac_uData[PR_angularVelocity][1]) >= 1.0 ||
 		floatabs(ac_uData[PR_angularVelocity][2]) >= 1.0) return 0;
-		#if defined VectorSize
-			if((ac_uData[PR_roll][0] * ac_uData[PR_direction][0]) +
+		new Float:abs_scalar_mul_roll_dir = floatabs(
+			(ac_uData[PR_roll][0] * ac_uData[PR_direction][0]) +
 			(ac_uData[PR_roll][1] * ac_uData[PR_direction][1]) +
-			(ac_uData[PR_roll][2] * ac_uData[PR_direction][2]) >= 0.000001 ||
+			(ac_uData[PR_roll][2] * ac_uData[PR_direction][2])
+		);
+		#if defined VectorSize
+			if(	abs_scalar_mul_roll_dir > 0.000001 ||
 			floatabs(1.0 - VectorSize(ac_uData[PR_direction][0], ac_uData[PR_direction][1], ac_uData[PR_direction][2])) >= 0.000001 ||
 			floatabs(1.0 - VectorSize(ac_uData[PR_roll][0], ac_uData[PR_roll][1], ac_uData[PR_roll][2])) >= 0.000001) return 0;
 		#else
-			if((ac_uData[PR_roll][0] * ac_uData[PR_direction][0]) +
-			(ac_uData[PR_roll][1] * ac_uData[PR_direction][1]) +
-			(ac_uData[PR_roll][2] * ac_uData[PR_direction][2]) >= 0.000001 ||
+			if(	abs_scalar_mul_roll_dir > 0.000001 ||
 			floatabs(1.0 - floatsqroot(floatpower(ac_uData[PR_direction][0], 2.0) +
 			floatpower(ac_uData[PR_direction][1], 2.0) + floatpower(ac_uData[PR_direction][2], 2.0))) >= 0.000001 ||
 			floatabs(1.0 - floatsqroot(floatpower(ac_uData[PR_roll][0], 2.0) +
