@@ -1,7 +1,7 @@
 {
 	"user": "NexiusTailer",
 	"repo": "Nex-AC",
-	"include_path": "src/v1.9.60",
+	"include_path": "src/v1.9.61",
 	"build":
 	{
 		"compiler":

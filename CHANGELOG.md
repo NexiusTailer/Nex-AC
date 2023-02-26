@@ -1,12 +1,18 @@
-**v1.9.60**
+**v1.9.61**
 
 Changes:
-* Added check for spoofing by special actions of entering and exiting from a vehicle
-* Minor improvements and fixes
+* Optimized protection against fake NPCs with YSF plugin included
+* Improved some checks if surfing on per-player objects (when YSF is used)
+* Improved quaternion validation in trailer sync (when Pawn.RakNet is used)
+* Adjusted certain speed limits in anti-speedhack onfoot
+* Removed version mismatch warning for open.mp server
 
 Fixes:
-* Fixed a bug in anti-FlyHack with a kick when the server give velocity to a player using some animations
 * Tweaked validation checks for unoccupied sync parameters
+* Fixed a bug with a parachute kick that could be received by the player with a slight delay
+* Fixed incorrect behavior of trailers on older server versions (when Pawn.RakNet is used)
+* Fixed a bug with zeroing of vehicle entering flag in some cases
+* Minor fixes and improvements
 
 The latest example of setting public OnCheatDetected in your gamemode:
 
