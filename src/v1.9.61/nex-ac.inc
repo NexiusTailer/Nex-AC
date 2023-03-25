@@ -3947,6 +3947,7 @@ public OnPlayerSpawn(playerid)
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
+        if(killerid == 65535 || killerid == INVALID_PLAYER_ID || playerid != INVALID_PLAYER_ID) return 0;
 	if(ACInfo[playerid][acKicked] > 0) return 0;
 	if(ACInfo[playerid][acACAllow][28] &&
 	(ACInfo[playerid][acDead] || !ACInfo[playerid][acDeathRes] &&
@@ -3985,6 +3986,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 	public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid)
 #endif
 {
+        if(issuerid == 65535 || issuerid == INVALID_PLAYER_ID || playerid != INVALID_PLAYER_ID) return 0;
 	if(ACInfo[playerid][acKicked] > 0) return 1;
 	#if defined OnPlayerWeaponShot
 		if(ACInfo[playerid][acACAllow][47] &&
@@ -4041,6 +4043,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 	public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
 #endif
 {
+        if(damagedid == 65535 || damagedid == INVALID_PLAYER_ID) return 0;
 	if(ACInfo[playerid][acKicked] > 0) return 1;
 	if(ACInfo[playerid][acACAllow][47])
 	{
