@@ -769,6 +769,49 @@ static stock const Float:ac_wMinRange[] =
 	50.0, 50.0, 50.0, 4.0, 65.0
 };
 
+static new const CHEATS_TYPE[][42] =
+{
+   "AirBreak (onfoot)","AirBreak (in vehicle)","Teleport hack (onfoot)","Teleport hack (in vehicle)",
+   "Teleport hack (into/between vehicles)","Teleport hack (vehicle to player)","Teleport hack (pickups)",
+   "FlyHack (onfoot)","FlyHack (in vehicle)","SpeedHack (onfoot)","SpeedHack (in vehicle)",
+   "Health hack (in vehicle)","Health hack (onfoot)","Armour hack","Money hack","Weapon hack",
+   "Ammo hack (add)","Ammo hack (infinite)","Special actions hack","GodMode from bullets (onfoot)",
+   "GodMode from bullets (in vehicle)","Invisible hack","Lagcomp-Spoof","Tuning hack",
+   "Parkour mod","Quick turn","Rapid fire","Fake Spawn","Fake Kill","Pro Aim","CJ run","CarShot",
+   "CarJack","UnFreeze","AFK Ghost","Full Aiming","Fake NPC","Reconnect","High ping",
+   "Dialog hack"," exceeded connects from single IP limit","invalid SA-MP version","RCON hack",
+   "Tuning crasher","Invalid seat crasher","Dialog crasher","Attached object crasher","Weapon Crasher",
+   "Flood connects to one slot","Flood callback functions","flood change seat","DDOS","NOP's",
+   "Remote Jack","InvalidCamera","BadBulletDataOrigin","BadBulletDataHitPos",
+   "Bullet Crasher","Cleo","AutoBullet","Enter Crasher","Quantum Crasher"
+};
+static new const CALLBACKS_TYPE[][30] =
+{
+   "OnDialogResponse","OnEnterExitModShop","OnPlayerClickMap","OnPlayerClickPlayer",
+   "OnPlayerClickTextDraw","OnPlayerCommandText","OnPlayerEnterVehicle","OnPlayerExitVehicle",
+   "OnPlayerPickUpPickup","OnPlayerRequestClass","OnPlayerSelectedMenuRow","OnPlayerStateChange",
+   "OnVehicleMod","OnVehiclePaintjob","OnVehicleRespray","OnVehicleDeath","OnPlayerText",
+   "OnPlayerEnterCheckpoint","OnPlayerLeaveCheckpoint","OnPlayerRequestSpawn","OnPlayerExitedMenu",
+   "OnPlayerEnterRaceCheckpoint","OnPlayerLeaveRaceCheckpoint","OnPlayerClickPlayerTextDraw",
+   "OnVehicleDamageStatusUpdate","OnVehicleSirenStateChange","OnPlayerSelectObject","Cross-public"
+};
+static new const NOPS_TYPE[][25] =
+{
+   "GivePlayerWeapon","SetPlayerAmmo","SetPlayerInterior","SetPlayerHealth",
+   "SetVehicleHealth","SetPlayerArmour","SetPlayerSpecialAction","PutPlayerInVehicle",
+   "TogglePlayerSpectating","SpawnPlayer","SetPlayerPos","RemovePlayerFromVehicle",
+   "GivePlayerWeapon","SetPlayerAmmo"
+};
+static new const CLEO_SCRIPTS[][25] =
+{
+   "Fugga.cs","PlayerBugger.cs","CarSwing.cs"
+};
+
+stock GetCheatTypeByID(cheatid) return (0 <= cheatid < sizeof(CHEATS_TYPE) ? CHEATS_TYPE[cheatid] : "Unknown");
+stock GetFloodTypeByID(callbackid) return (0 <= callbackid < sizeof(CALLBACKS_TYPE) ? CALLBACKS_TYPE[callbackid] : "Unknown");
+stock GetNOPTypeByID(nopid) return (0 <= nopid < sizeof(NOPS_TYPE) ? NOPS_TYPE[nopid] : "Unknown");
+stock GetCleoScriptByID(scriptid) return (0 <= scriptid < sizeof(CLEO_SCRIPTS) ? CLEO_SCRIPTS[scriptid] : "Unknown");
+
 enum acInfo
 {
 	Float:acPosX,
@@ -9251,8 +9294,8 @@ ac_fpublic ac_Timer(playerid)
 					#else
 						static ac_strtmp[sizeof KICK_MSG * 4];
 					#endif
-					format(ac_strtmp, sizeof ac_strtmp, KICK_MSG, code);
-					SendClientMessage(playerid, AC_DEFAULT_COLOR, ac_strtmp);
+				    format(ac_strtmp, sizeof ac_strtmp, KICK_MSG, CHEATS_TYPE[code]);
+				    SendClientMessage(playerid, AC_DEFAULT_COLOR, ac_strtmp);
 					#undef AC_DEFAULT_COLOR
 				}
 			}
@@ -9704,8 +9747,8 @@ static ac_KickWithCode(playerid, ip_address[], type, code, code2 = 0)
 	#else
 		new ac_strtmp[6];
 		if(code2) format(ac_strtmp, sizeof ac_strtmp, " (%d)", code2);
-		if(type) printf(SUSPICION_2, ip_address, code, ac_strtmp);
-		else printf(SUSPICION_1, playerid, code, ac_strtmp);
+		if(type) printf(SUSPICION_2, ip_address, CHEATS_TYPE[code], code, ac_strtmp);
+		else printf(SUSPICION_1, playerid, CHEATS_TYPE[code], code, ac_strtmp);
 	#endif
 	#if defined OnCheatDetected
 		OnCheatDetected(playerid, ip_address, type, code);
