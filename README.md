@@ -496,7 +496,7 @@ I will be very glad of your help and add you in the list of those who helped the
 3. Copy both files to a folder *"/pawno/include"* which is located in a folder with the server
 4. In your gamemode, after *#include <a_samp>* write the following:
 ```
-#define DEBUG
+#define AC_DEBUG
 #include <nex-ac_en.lang> //or any other
 #include <nex-ac>
 ```

@@ -11,7 +11,7 @@ new
 	VERSION_WARNING[] =		"[Nex-AC] Sizin oyun wersiyany dogry gelemok",
 	CFG_OPENING_ERROR[] =	"[Nex-AC] Yalnyslyk  acyk/yapyk %s!",
 
-#if defined DEBUG
+#if defined AC_DEBUG
 	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d gecdi %d kop gaytalama. Public ID: %d",
 	DEBUG_CODE_2[] =		"[Nex-AC debug] Yalnys wersiya  %d ID. Wersiya: %s",
 	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d gecdi %d oyuna girmani  bir 1 IP-adres",
@@ -23,9 +23,9 @@ new
 	MAX_CONNECTS_MSG[] =	"Siz kop spar bir adresda oyuna girdiniz ",
 	UNKNOWN_CLIENT_MSG[] =	"Sizin oyun wersiyany dogry gelemok ",
 
-	LOADED_MSG_1[] =		" Античит Nex-AC загружен!",
-	LOADED_MSG_2[] =		" Версия античита: %s",
-	LOADED_MSG_3[] =		" Автор: Nexius",
+	LOADED_MSG_1[] =		" пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Nex-AC пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!",
+	LOADED_MSG_2[] =		" пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: %s",
+	LOADED_MSG_3[] =		" пїЅпїЅпїЅпїЅпїЅ: Nexius",
 
 	STATS_STRING_1[] =		" Statistika gorayjy Nex-AC",
 	STATS_STRING_2[] =		" Tapyldy we yogadyldy:",

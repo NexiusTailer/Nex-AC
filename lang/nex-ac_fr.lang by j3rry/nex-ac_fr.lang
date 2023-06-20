@@ -11,11 +11,11 @@ new
 	VERSION_WARNING[] =		"[Nex-AC] Cette version ne convient pas a la version du serveur anti-triche",
 	CFG_OPENING_ERROR[] =	"[Nex-AC] Impossible de creer / open %s!",
 
-#if defined DEBUG
+#if defined AC_DEBUG
 	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d Depasse %d Essayer d'inonder. Public ID: %d",
 	DEBUG_CODE_2[] =		"[Nex-AC debug] Mauvaise version %d ID. Version: %s",
 	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d Depasse %d lien avec 1 IP-Adresse",
-	DEBUG_CODE_4[] =		"[Nex-AC debug] Entree infructueuse RCON ñ IP %s En utilisant le mot de passe %s",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Entree infructueuse RCON ï¿½ IP %s En utilisant le mot de passe %s",
 	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d utilise NOP %s",
 #endif
 

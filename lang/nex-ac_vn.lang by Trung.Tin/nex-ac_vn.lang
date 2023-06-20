@@ -11,7 +11,7 @@ new
 	VERSION_WARNING[] =		"[NEX-AC] Phien ban hien tai cua anticheat khong tuong thich voi phien ban hien tai cua server",
 	CFG_OPENING_ERROR[] =	"[NEX-AC] Loi tao/mo %s!",
 
-#if defined DEBUG
+#if defined AC_DEBUG
 	DEBUG_CODE_1[] =		"[NEX-AC debug] ID %d da vuot qua %d flood attempts. Public ID: %d",
 	DEBUG_CODE_2[] =		"[NEX-AC debug] ID %d su dung phien ban khong hop le. Phien ban: %s",
 	DEBUG_CODE_3[] =		"[NEX-AC debug] ID %d vuot qua %d lan ket noi tren 1 IP-address",

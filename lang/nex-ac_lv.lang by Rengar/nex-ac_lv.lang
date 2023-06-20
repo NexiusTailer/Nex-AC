@@ -12,11 +12,11 @@ new
 	CFG_OPENING_ERROR[] =	"[Nex-AC] Izveidosanas/Atversanas kluda %s!",
 	
 
-#if defined DEBUG
+#if defined AC_DEBUG
 	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d parsniedza %d flooda meginajumus. Public ID: %d",
 	DEBUG_CODE_2[] =		"[Nex-AC debug] Nekoretka versija %d ID. Versija: %s",
 	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d parsniedza %d savienojumu no 1 IP-adreses",
-	DEBUG_CODE_4[] =		"[Nex-AC debug] Неудачный вход в RCON с IP %s используя пароль %s",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ RCON пїЅ IP %s пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ %s",
 	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d izmantoja NOP %s",
 #endif
 

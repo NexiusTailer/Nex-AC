@@ -9,7 +9,7 @@ new
         VERSION_WARNING[] =             "[Nex-AC] La versión del anticheat no concuerda con la versión del servidor",
         CFG_OPENING_ERROR[] =           "[Nex-AC] Error al crear / abrir %s!",
  
-#if defined DEBUG
+#if defined AC_DEBUG
         DEBUG_CODE_1[] =                "[Nex-AC debug] ID %d ha superado %d los intentos de flood. ID: %d",
         DEBUG_CODE_2[] =                "[Nex-AC debug] version incorrecta de el %d ID. version: %s",
         DEBUG_CODE_3[] =                "[Nex-AC debug] ID %d ha superado el limite de %d conexiones desde 1 dirección IP",
