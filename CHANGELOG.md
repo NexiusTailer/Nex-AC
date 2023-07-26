@@ -1,18 +1,21 @@
-**v1.9.61**
+**v1.9.62**
 
 Changes:
-* Optimized protection against fake NPCs with YSF plugin included
-* Improved some checks if surfing on per-player objects (when YSF is used)
-* Improved quaternion validation in trailer sync (when Pawn.RakNet is used)
-* Adjusted certain speed limits in anti-speedhack onfoot
-* Removed version mismatch warning for open.mp server
+* Improved check for spoofing by special actions of entering and exiting from a vehicle
+* Coordinates for ammu-nations, restaurants and pay'n'sprays are now taken from the game files
+* High ping protection no longer ignores players whose ping drops to normal values only occasionally
+* Added support for some functions from YSF plugin which were also added to open.mp server
+* Streamer_UpdateEx is now hooked by anticheat when called from filterscripts as well
+* Minor improvements and fixes
 
 Fixes:
-* Tweaked validation checks for unoccupied sync parameters
-* Fixed a bug with a parachute kick that could be received by the player with a slight delay
-* Fixed incorrect behavior of trailers on older server versions (when Pawn.RakNet is used)
-* Fixed a bug with zeroing of vehicle entering flag in some cases
-* Minor fixes and improvements
+* Fixed a bug with a kick for teleport in some cases when exiting RC vehicles
+* Fixed a bug with a parachute kick that could be received when exiting air RC vehicles
+* Fixed a bug with a kick when picking up health pickups, when player's health was already above 100
+* Fixed a bug with a kick when picking up health, armour and weapon pickups of types 4 and 5
+* Fixed false detection in anti-flood with fast entering and exiting from train carriages
+* Tweaked anti-rapid fire settings for desert eagle and shotgun
+* Fixed several bugs in anti-NOP for special actions
 
 The latest example of setting public OnCheatDetected in your gamemode:
 
