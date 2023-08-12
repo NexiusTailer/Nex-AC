@@ -1,4 +1,4 @@
-# [Nex-AC - Anticheat system](https://pawn-wiki.ru/index.php?/topic/27641-nex-ac/)
+# [Nex-AC - Anticheat system](https://pawn.wiki/index.php?/topic/27641-nex-ac/)
 
 Nex Anticheat (Nex-AC) - is a comprehensive protection which combines powerful anticheat and protection against various attacks (flood, DoS).  
 Anticheat detects popular cheats instantly punishing cheaters.  
