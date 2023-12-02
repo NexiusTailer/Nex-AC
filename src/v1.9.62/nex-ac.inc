@@ -2481,9 +2481,9 @@ stock acc_EnableStuntBonusForPlayer(playerid, enable)
 #endif
 #define EnableStuntBonusForPlayer acc_EnableStuntBonusForPlayer
 
-stock orig_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[]) return ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2);
+stock orig_ShowPlayerDialog(playerid, dialogid, style, const caption[], const info[], const button1[], const button2[]) return ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2);
 
-stock acc_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[])
+stock acc_ShowPlayerDialog(playerid, dialogid, style, const caption[], const info[], const button1[], const button2[])
 {
 	if(ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2))
 	{
@@ -4240,7 +4240,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 #if defined FILTERSCRIPT
 
-public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+public OnDialogResponse(playerid, dialogid, response, listitem, const inputtext[])
 {
 	if(dialogid != AntiCheatGetDialog(playerid))
 	{
@@ -6163,7 +6163,7 @@ public OnPlayerCommandText(playerid, cmdtext[])
 #endif
 #define OnPlayerCommandText ac_OnPlayerCommandText
 #if defined ac_OnPlayerCommandText
-	forward ac_OnPlayerCommandText(playerid, cmdtext[]);
+	forward ac_OnPlayerCommandText(playerid, const cmdtext[]);
 #endif
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
@@ -9402,7 +9402,7 @@ ac_fpublic ac_Timer(playerid)
 #if !defined OnCheatDetected
 	//Don't make changes in this public
 	//To customize punishments, declare 'OnCheatDetected' in your script
-	ac_fpublic ac_OnCheatDetected(playerid, ip_address[], type, code)
+	ac_fpublic ac_OnCheatDetected(playerid, const ip_address[], type, code)
 	{
 		if(type)
 		{
@@ -9868,7 +9868,7 @@ static ac_FloodDetect(playerid, publicid)
 	return 0;
 }
 
-static ac_KickWithCode(playerid, ip_address[], type, code, code2 = 0)
+static ac_KickWithCode(playerid, const ip_address[], type, code, code2 = 0)
 {
 	if(type == 0 && (!IsPlayerConnected(playerid) || ACInfo[playerid][acKicked] > 0)) return 0;
 	#if AC_USE_STATISTICS
