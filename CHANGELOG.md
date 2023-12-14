@@ -1,21 +1,17 @@
-**v1.9.62**
+**v1.9.63**
 
 Changes:
-* Improved check for spoofing by special actions of entering and exiting from a vehicle
-* Coordinates for ammu-nations, restaurants and pay'n'sprays are now taken from the game files
-* High ping protection no longer ignores players whose ping drops to normal values only occasionally
-* Added support for some functions from YSF plugin which were also added to open.mp server
-* Streamer_UpdateEx is now hooked by anticheat when called from filterscripts as well
-* Minor improvements and fixes
+* Increased the maximum number of warnings for anti-flyhack in vehicle
+* Improved compatibility with older versions of Streamer Plugin (down to 2.8.2)
+* Improved protection from various bypasses with spectating mode or death
+* Tweaked some values in anti-speedhack onfoot
 
 Fixes:
-* Fixed a bug with a kick for teleport in some cases when exiting RC vehicles
-* Fixed a bug with a parachute kick that could be received when exiting air RC vehicles
-* Fixed a bug with a kick when picking up health pickups, when player's health was already above 100
-* Fixed a bug with a kick when picking up health, armour and weapon pickups of types 4 and 5
-* Fixed false detection in anti-flood with fast entering and exiting from train carriages
-* Tweaked anti-rapid fire settings for desert eagle and shotgun
-* Fixed several bugs in anti-NOP for special actions
+* Fixed issues with some anti-NOPs when exiting AFK
+* Fixed several potential bugs in anti-health hack (onfoot/in vehicle) and armour hack
+* Fixed a bug with a kick for entering vehicle if it was previously moved as a trailer
+* Fixed display of debug message when protection from fake NPC was triggered
+* Minor fixes and improvements
 
 The latest example of setting public OnCheatDetected in your gamemode:
 
