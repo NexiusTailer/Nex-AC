@@ -1,16 +1,17 @@
-**v1.9.63**
+**v1.9.64**
 
 Changes:
-* Increased the maximum number of warnings for anti-flyhack in vehicle
-* Improved compatibility with older versions of Streamer Plugin (down to 2.8.2)
-* Improved protection from various bypasses with spectating mode or death
-* Tweaked some values in anti-speedhack onfoot
+* Improved protection from invalid attached objects
+* Optimized protection from sandboxie and fake NPCs (comparing IPs as integers)
+* Several improvements for anti-trailer teleport (when Pawn.RakNet is used)
+* Added support for console variable names from open.mp server
+* Reduced code duplication inside native function hooks
 
 Fixes:
-* Fixed issues with some anti-NOPs when exiting AFK
-* Fixed several potential bugs in anti-health hack (onfoot/in vehicle) and armour hack
-* Fixed a bug with a kick for entering vehicle if it was previously moved as a trailer
-* Fixed display of debug message when protection from fake NPC was triggered
+* Fixed several anti-teleport bypasses related to PutPlayerInVehicle
+* Fixed a bug with a kick in vehicle if it was teleported by others during its entering
+* Fixed a bug with a kick exiting vehicle if the player was previously teleported in AFK
+* Tweaked validation checks for unoccupied sync parameters
 * Minor fixes and improvements
 
 The latest example of setting public OnCheatDetected in your gamemode:
