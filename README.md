@@ -519,7 +519,7 @@ I will be very glad of your help and add you in the list of those who helped the
 * Jstylezzz - Dutch translation
 * J4Rr3x, Sasino97 - Italian translation
 * Alex Westbrook, JustBored, Frenzoid - Spanish translation
-* lashona, ArthourP, DAKYSKYE - Georgian translation
+* lashona, ArthourP, DAKYSKYE, Lashoo28 - Georgian translation
 * wampiros6 - Polish translation
 * DeitY, Dragony92 - Serbian translation
 * NicK_ - Brazilian Portuguese translation
