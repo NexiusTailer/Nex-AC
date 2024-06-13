@@ -8587,7 +8587,7 @@ public OnVehicleStreamIn(vehicleid, forplayerid)
 #if defined PAWNRAKNET_INC_
 	public OnIncomingPacket(playerid, packetid, BitStream:bs)
 	{
-		if(ACInfo[playerid][acKicked] > 0 && ACInfo[playerid][acOnline]) return 0;
+		if(playerid >= 0 && ACInfo[playerid][acKicked] > 0 && ACInfo[playerid][acOnline]) return 0;
 		#if defined ac_OnIncomingPacket
 			return ac_OnIncomingPacket(playerid, packetid, bs);
 		#else
@@ -8607,7 +8607,7 @@ public OnVehicleStreamIn(vehicleid, forplayerid)
 
 	public OnIncomingRPC(playerid, rpcid, BitStream:bs)
 	{
-		if(ACInfo[playerid][acKicked] > 0 && ACInfo[playerid][acOnline]) return 0;
+		if(playerid >= 0 && ACInfo[playerid][acKicked] > 0 && ACInfo[playerid][acOnline]) return 0;
 		#if defined ac_OnIncomingRPC
 			return ac_OnIncomingRPC(playerid, rpcid, bs);
 		#else
