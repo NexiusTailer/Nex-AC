@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+ 
+#if defined _nex_ac_lang_included
+        #endinput
+#endif
+#define _nex_ac_lang_included
+ 
+new
+        SUSPICION_1[] =                 "[Nex-AC] சந்தேகத்திற்குரிய வீரர், ID %d. காரணம் குறியீடு: %03d%s",
+        SUSPICION_2[] =                 "[Nex-AC] சந்தேகத்திற்குரிய வீரர், IP %s. காரணம் குறியீடு: %03d%s",
+        VERSION_WARNING[] =             "[Nex-AC] ஆன்டிசீட் பதிப்பு தற்போதைய SA-MP சேவையகத்துடன் இணக்கமாக இல்லை",
+        CFG_OPENING_ERROR[] =   "[Nex-AC] உருவாக்குவதில் அல்லது திறப்பதில் பிழை %s!",
+ 
+#if defined DEBUG
+        DEBUG_CODE_1[] =                "[Nex-AC debug] ID %d வெள்ள முயற்சிகளை %d தாண்டிவிட்டது. பொது அடையாளம்: %d",
+        DEBUG_CODE_2[] =                "[Nex-AC debug] ID %d மூலம் தவறான பதிப்பு. பதிப்பு: %s",
+        DEBUG_CODE_3[] =                "[Nex-AC debug] ID %d ஆனது 1 IP முகவரியில் இருந்து %d இணைப்புகளை மீறியது",
+        DEBUG_CODE_4[] =                "[Nex-AC debug] IP %s மூலம் தவறான RCON உள்நுழைவு, கடவுச்சொல்லைப் பயன்படுத்துதல் %s",
+        DEBUG_CODE_5[] =                "[Nex-AC debug] ID %d NOP பயன்படுத்தப்பட்டது %s",
+#endif
+ 
+        KICK_MSG[] =                    "ஏமாற்று நிரல்களைப் பயன்படுத்துகிறார் என்ற சந்தேகத்தின் பேரில் நீங்கள் உதைக்கப்பட்டுள்ளீர்கள் (#%03d)",
+        MAX_CONNECTS_MSG[] =    "1 IP முகவரியிலிருந்து அதிகபட்ச இணைப்புகளின் எண்ணிக்கையைத் தாண்டிவிட்டீர்கள்",
+        UNKNOWN_CLIENT_MSG[] =  "கிளையண்டின் இந்தப் பதிப்பு சர்வர் பதிப்போடு இணங்கவில்லை.",
+ 
+        LOADED_MSG_1[] =                " ஆண்டிசீட் Nex-AC ஏற்றப்பட்டது!",
+        LOADED_MSG_2[] =                " ஆண்டிசீட் பதிப்பு: %s",
+        LOADED_MSG_3[] =                " நூலாசிரியர்: Nexius",
+ 
+        STATS_STRING_1[] =              " புள்ளிவிபரம் ஏமாற்று Nex-AC",
+        STATS_STRING_2[] =              " கண்டறிந்து தடுக்கப்பட்டது:",
+        STATS_STRING_3[] =              "  %d ஏமாற்று முயற்சிகள்",
+        STATS_STRING_4[] =              "  %d ஹேக்கிங் முயற்சிகள்",
+        STATS_STRING_5[] =              "  %d செயலிழக்கும் முயற்சிகள்",
+        STATS_STRING_6[] =              "  %d வெள்ள முயற்சிகள்",
+        STATS_STRING_7[] =              "  %d தாக்குதல்கள்",
+        STATS_STRING_8[] =              " மொத்தம் %d ஏமாற்றுக்காரர்கள் கண்டறியப்பட்டு தண்டிக்கப்பட்டனர்";
