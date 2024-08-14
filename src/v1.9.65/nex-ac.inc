@@ -1,4 +1,4 @@
-//Nex-AC by Nexius v1.9.64 (0.3.7)
+//Nex-AC by Nexius v1.9.65 (0.3.7)
 
 #if defined _nex_ac_included
 	#endinput
@@ -26,7 +26,7 @@
 	#include <nex-ac_en.lang>	//Localization
 #endif
 
-#define NEX_AC_VERSION				"1.9.64"
+#define NEX_AC_VERSION				"1.9.65"
 
 #define AC_SERVER_VERSION			"0.3."
 #define AC_SERVER_OMP_VERSION		"open.mp"
@@ -152,6 +152,10 @@
 
 #if !defined AC_MAX_PING_WARNINGS
 	#define AC_MAX_PING_WARNINGS			8
+#endif
+
+#if !defined AC_MAX_INV_WARNINGS
+	#define AC_MAX_INV_WARNINGS				3
 #endif
 
 #if !defined AC_MAX_MONEY_WARNINGS
@@ -295,7 +299,8 @@ static bool:ac_ACAllow[] =
 
 	true,	//51 Anti-DoS
 
-	true	//52 Anti-NOPs
+	true,	//52 Anti-NOPs
+	true 	//53 Anti-Invisible shooter
 },
 
 bool:ac_NOPAllow[] =
@@ -824,7 +829,7 @@ enum acInfo
 	acGtcSetWeapon[13],
 	acGtcGiveAmmo[13],
 	acNOPCount[12],
-	acCheatCount[22],
+	acCheatCount[23],
 	acCall[sizeof ac_Mtfc],
 	acFloodCount[sizeof ac_Mtfc],
 	bool:acNOPAllow[sizeof ac_NOPAllow],
@@ -6930,6 +6935,27 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 				#endif
 			}
 			else ACInfo[playerid][acCheatCount][5] = 0;
+		}
+		if(ACInfo[playerid][acACAllow][53])
+		{
+		    new Float:b_dist = ac_oZ - ACInfo[playerid][acPosZ];
+			if(floatabs(b_dist) > 5.0)
+			{
+				if(++ACInfo[playerid][acCheatCount][22] > AC_MAX_INV_WARNINGS)
+				{
+					#if defined DEBUG
+						printf("[Nex-AC debug] Player Z: %f, Bullet Sent Z: %f", ACInfo[playerid][acPosZ], ac_oZ);
+					#endif
+					#if defined OnCheatDetected
+						ac_KickWithCode(playerid, "", 0, 53);
+						if(ACInfo[playerid][acIsKicked] > 0) return 0;
+						ACInfo[playerid][acCheatCount][22] = 0;
+					#else
+						return ac_KickWithCode(playerid, "", 0, 53);
+					#endif
+				}
+				return 0;
+			}
 		}
 		new ac_gtc = GetTickCount(), ac_gpp = GetPlayerPing(playerid);
 		if(ACInfo[playerid][acACAllow][29])
