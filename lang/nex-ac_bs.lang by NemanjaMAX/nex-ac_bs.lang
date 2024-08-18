@@ -19,7 +19,7 @@ new
 	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d je iskoristio NOP %s",
 #endif
 
-	KICK_MSG[] =			"Kikovani ste zbog korišenja nedozvoljenih programa (#%03d)",
+	KICK_MSG[] =			"Kikovani ste zbog korištenja nedozvoljenih programa (#%03d)",
 	MAX_CONNECTS_MSG[] =	"Premašili ste broj konekcija sa iste IP adrese",
 	UNKNOWN_CLIENT_MSG[] =	"Ova verzija klijenta se ne može koristiti na ovom serveru",
 
