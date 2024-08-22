@@ -509,8 +509,9 @@ I will be very glad of your help and add you in the list of those who helped the
 ***Warnings:***
  * Check for using any other anticheats in order to avoid conflicts with them
  * If you use Streamer Plugin by Incognito, Pawn.RakNet, foreach, sscanf, YSF or SKY, include it before nex-ac
- * Also keep in mind that filterscript must have "#define FILTERSCRIPT" before including the anticheat
- 
+ ** Some libraries like fixes, mdialog or tdw_dialog may also require to be included before nex-ac
+ * Keep in mind that filterscript must have "#define FILTERSCRIPT" before including the anticheat
+
 
 # Thanks:
 * f0Re3t, Vitalik_Gonsor, Magic_York, Roberto_York, TheHero, Nike_33, Mix_Rargard, Unisheld - testing
