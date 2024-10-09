@@ -11,7 +11,7 @@ new
 	VERSION_WARNING[] =		"[Nex-AC] Ta wersja Antycheat nie nadaje się do wersji tej serwera",
 	CFG_OPENING_ERROR[] =	"[Nex-AC] Błąd tworzenia/otwierania %s!",
 
-#if defined DEBUG
+#if defined AC_DEBUG
 	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d przekroczył %d prób floodu. Publiczne ID: %d",
 	DEBUG_CODE_2[] =		"[Nex-AC debug] Nieprawidłowa wersja gracza ID %d. Wersja: %s",
 	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d przekroczył %d połączeń z 1 adresu IP",
