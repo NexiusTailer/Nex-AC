@@ -11,7 +11,7 @@ new
         VERSION_WARNING[] =             "[Nex-AC] ஆன்டிசீட் பதிப்பு தற்போதைய SA-MP சேவையகத்துடன் இணக்கமாக இல்லை",
         CFG_OPENING_ERROR[] =   "[Nex-AC] உருவாக்குவதில் அல்லது திறப்பதில் பிழை %s!",
  
-#if defined DEBUG
+#if defined AC_DEBUG
         DEBUG_CODE_1[] =                "[Nex-AC debug] ID %d வெள்ள முயற்சிகளை %d தாண்டிவிட்டது. பொது அடையாளம்: %d",
         DEBUG_CODE_2[] =                "[Nex-AC debug] ID %d மூலம் தவறான பதிப்பு. பதிப்பு: %s",
         DEBUG_CODE_3[] =                "[Nex-AC debug] ID %d ஆனது 1 IP முகவரியில் இருந்து %d இணைப்புகளை மீறியது",
