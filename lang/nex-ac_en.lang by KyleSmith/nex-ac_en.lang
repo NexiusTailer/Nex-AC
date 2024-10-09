@@ -11,7 +11,7 @@ new
         VERSION_WARNING[] =             "[Nex-AC] The anticheat version is not compatible with the current SA-MP Server",
         CFG_OPENING_ERROR[] =   "[Nex-AC] Error creating or opening %s!",
  
-#if defined DEBUG
+#if defined AC_DEBUG
         DEBUG_CODE_1[] =                "[Nex-AC debug] ID %d exceeded %d flood attempts. Public ID: %d",
         DEBUG_CODE_2[] =                "[Nex-AC debug] Invalid version by ID %d. Version: %s",
         DEBUG_CODE_3[] =                "[Nex-AC debug] ID %d exceeded %d connections from 1 IP-address",
