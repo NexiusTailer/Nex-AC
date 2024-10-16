@@ -1,17 +1,18 @@
-**v1.9.64**
+**v1.9.65**
 
 Changes:
-* Improved protection from invalid attached objects
-* Optimized protection from sandboxie and fake NPCs (comparing IPs as integers)
-* Several improvements for anti-trailer teleport (when Pawn.RakNet is used)
-* Added support for console variable names from open.mp server
-* Reduced code duplication inside native function hooks
+* Minor code optimization in OnPlayerUpdate
+* Improved anti-AFK Ghost, now it also detects perfect invisible hack
+* Improved validations in several synchronization types (when Pawn.RakNet is used)
+* Anti-NOP SpawnPlayer and NOP SetPlayerInterior have been moved to the timer
+* Improved anti-teleport for RC vehicles
 
 Fixes:
-* Fixed several anti-teleport bypasses related to PutPlayerInVehicle
-* Fixed a bug with a kick in vehicle if it was teleported by others during its entering
-* Fixed a bug with a kick exiting vehicle if the player was previously teleported in AFK
-* Tweaked validation checks for unoccupied sync parameters
+* Fixed the behavior of one second timer when it was recreated too often
+* Fixed a bug with a kick for NOP PutPlayerInVehicle if vehicle was respawned when putting in
+* Fixed a bug with a kick for NOP RemovePlayerFromVehicle if player was in RC vehicles
+* Fixed several bypasses for anti-speedhack (onfoot) which temporarily allowed high speeds
+* Fixed several bypasses for anti-teleport related to PutPlayerInVehicle
 * Minor fixes and improvements
 
 The latest example of setting public OnCheatDetected in your gamemode:
