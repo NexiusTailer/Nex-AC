@@ -494,13 +494,13 @@ I will be very glad of your help and add you in the list of those who helped the
 1. Download latest anticheat version from the repo
 2. Download the language file *(.lang)* in your preferred language
 3. Copy both files to a folder *"/pawno/include"* which is located in a folder with the server
-4. In your gamemode, after *#include <a_samp>* write the following:
+4. In your gamemode, after "#include <a_samp>" write the following:
 ```pawn
 #define DEBUG
 #include <nex-ac_en.lang> //or any other
 #include <nex-ac>
 ```
-5. In all filterscripts, after *#include <a_samp>* write the following:
+5. In all filterscripts, after "#include <a_samp>" write the following:
 ```pawn
 #include <nex-ac>
 ```
