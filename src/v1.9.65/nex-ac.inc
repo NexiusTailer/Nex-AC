@@ -3002,14 +3002,14 @@ stock acc_RepairVehicle(vehicleid)
 #endif
 #define RepairVehicle acc_RepairVehicle
 
-stock orig_UpdateVehicleDamageStatus(vehicleid, panels, doors, lights, tires) return UpdateVehicleDamageStatus(vehicleid, panels, doors, lights, tires);
+stock orig_UpdateVehicleDamageStatus(vehicleid, ac_panels, ac_doors, ac_lights, ac_tires) return UpdateVehicleDamageStatus(vehicleid, ac_panels, ac_doors, ac_lights, ac_tires);
 
-stock acc_UpdateVehicleDamageStatus(vehicleid, panels, doors, lights, tires)
+stock acc_UpdateVehicleDamageStatus(vehicleid, ac_panels, ac_doors, ac_lights, ac_tires)
 {
 	#if defined FILTERSCRIPT
-		return CallRemoteFunction("ac_UpdateVehicleDamageStatus", "idddd", vehicleid, panels, doors, lights, tires);
+		return CallRemoteFunction("ac_UpdateVehicleDamageStatus", "idddd", vehicleid, ac_panels, ac_doors, ac_lights, ac_tires);
 	#else
-		return ac_UpdateVehicleDamageStatus(vehicleid, panels, doors, lights, tires);
+		return ac_UpdateVehicleDamageStatus(vehicleid, ac_panels, ac_doors, ac_lights, ac_tires);
 	#endif
 }
 
@@ -3038,14 +3038,14 @@ stock acc_SetVehicleParamsEx(vehicleid, ac_engine, ac_lights, ac_alarm, ac_doors
 #endif
 #define SetVehicleParamsEx acc_SetVehicleParamsEx
 
-stock orig_SetVehicleParamsForPlayer(vehicleid, playerid, objective, doorslocked) return SetVehicleParamsForPlayer(vehicleid, playerid, objective, doorslocked);
+stock orig_SetVehicleParamsForPlayer(vehicleid, playerid, ac_objective, ac_doorslocked) return SetVehicleParamsForPlayer(vehicleid, playerid, ac_objective, ac_doorslocked);
 
-stock acc_SetVehicleParamsForPlayer(vehicleid, playerid, objective, doorslocked)
+stock acc_SetVehicleParamsForPlayer(vehicleid, playerid, ac_objective, ac_doorslocked)
 {
 	#if defined FILTERSCRIPT
-		return CallRemoteFunction("ac_SetVehicleParamsForPlayer", "iiii", vehicleid, playerid, objective, doorslocked);
+		return CallRemoteFunction("ac_SetVehicleParamsForPlayer", "iiii", vehicleid, playerid, ac_objective, ac_doorslocked);
 	#else
-		return ac_SetVehicleParamsForPlayer(vehicleid, playerid, objective, doorslocked);
+		return ac_SetVehicleParamsForPlayer(vehicleid, playerid, ac_objective, ac_doorslocked);
 	#endif
 }
 
