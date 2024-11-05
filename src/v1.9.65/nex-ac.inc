@@ -4547,7 +4547,7 @@ public OnPlayerUpdate(playerid)
 			{
 				if(ACInfo[playerid][acSetWeapon][ac_s] > 0)
 				{
-					if(ACInfo[playerid][acSetWeapon][ac_s] == ac_w)
+					if(ACInfo[playerid][acSetWeapon][ac_s] == ac_w || ACInfo[playerid][acGiveAmmo][ac_s] == 0)
 					{
 						ACInfo[playerid][acSetWeapon][ac_s] = -1;
 						ACInfo[playerid][acWeapon][ac_s] = ac_w;
@@ -9039,7 +9039,7 @@ ac_fpublic ac_Timer(playerid)
 					{
 						if(ACInfo[playerid][acSetWeapon][ac_i] > 0)
 						{
-							if(ACInfo[playerid][acSetWeapon][ac_i] == ac_w)
+							if(ACInfo[playerid][acSetWeapon][ac_i] == ac_w || ACInfo[playerid][acGiveAmmo][ac_i] == 0)
 							{
 								ACInfo[playerid][acSetWeapon][ac_i] = -1;
 								ACInfo[playerid][acWeapon][ac_i] = ac_w;
