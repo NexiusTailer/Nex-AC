@@ -1,0 +1,38 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+    #endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+    SUSPICION_1[] =         "[Nex-AC] %d ID ucun aktivlesdirilib. Sebeb kodu: %03d%s",
+    SUSPICION_2[] =         "[Nex-AC] IP %s ucun aktivlesdirilib. Sebeb kodu: %03d%s",
+    VERSION_WARNING[] =     "[Nex-AC] Bu versiya antixiti server versiyasina uygun deyil",
+    CFG_OPENING_ERROR[] =   "[Nex-AC] Faylin yaradilmasi/achilmasi xetasi%s!",
+
+#if defined DEBUG
+    DEBUG_CODE_1[] =        "[Nex-AC debug] ID %d %d defe flood cehdi etdi. Public ID: %d",
+    DEBUG_CODE_2[] =        "[Nex-AC debug] %d ID-de sehv versiya. Versiya: %s",
+    DEBUG_CODE_3[] =        "[Nex-AC debug] ID %d 1 IP-den %d baglantini kechdi",
+    DEBUG_CODE_4[] =        "[Nex-AC debug] IP %s ile parol %s istifade ederek ugursuz RCON giris cehdi",
+    DEBUG_CODE_5[] =        "[Nex-AC debug] ID %d NOP istifade etdi %s",
+#endif
+
+    KICK_MSG[] =            "Cit proqramindan istifade shubhesi ile kenarlasdirildiniz (#%03d)",
+    MAX_CONNECTS_MSG[] =    "1 IP-den maksimum baglanti sayini kechdiniz",
+    UNKNOWN_CLIENT_MSG[] =  "Bu musteri versiyasi serverde oyun ucun uygun deyil",
+
+    LOADED_MSG_1[] =        " Nex-AC antixiti yuklendi!",
+    LOADED_MSG_2[] =        " Antixitin versiyasi: %s",
+    LOADED_MSG_3[] =        " Muellif: Nexius",
+
+    STATS_STRING_1[] =      " Nex-AC antixit statistikasI",
+    STATS_STRING_2[] =      " Ashkar ve qarsisi alindi:",
+    STATS_STRING_3[] =      "  %d cit cehdi",
+    STATS_STRING_4[] =      "  %d sindirma cehdi",
+    STATS_STRING_5[] =      "  %d crash cehdi",
+    STATS_STRING_6[] =      "  %d flood cehdi",
+    STATS_STRING_7[] =      "  %d hucum",
+    STATS_STRING_8[] =      " Umumilikde %d cit istifadecisi ashkar edilerek cezalandirildi";
+

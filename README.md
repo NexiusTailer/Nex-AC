@@ -548,6 +548,7 @@ I will be very glad of your help and add you in the list of those who helped the
 * Michael.Richmond - Moldavian translation
 * NemanjaMAX - Bosnian translation
 * TTG - simplified Chinese translation
+* Mateusz - Azerbaijani translation
 * Karthi - Tamil translation
 * Abraar - Hindi translation
 
