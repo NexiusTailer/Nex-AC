@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Mistanke vedrørende ID %d. Årsagskode: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Mistanke vedrørende IP %s. Årsagskode: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Denne version af anticheat er ikke kompatibel med serverversionen",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Fejl ved oprettelse/åbning af %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] ID %d overskred %d overbelastningsforsøg. Offentligt ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Ugyldig version for ID %d. Version: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] ID %d overskred %d forbindelser fra én IP-adresse",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Mislykket RCON-login fra IP %s med adgangskode %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d anvendte NOP %s",
+#endif
+
+	KICK_MSG[] =			"Du blev fjernet på grund af mistanke om brug af snydeprogrammer (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Du har overskredet det maksimale antal forbindelser fra én IP-adresse",
+	UNKNOWN_CLIENT_MSG[] =	"Denne version af klienten er ikke kompatibel med serveren",
+
+	LOADED_MSG_1[] =		" Anticheat Nex-AC er blevet indlæst!",
+	LOADED_MSG_2[] =		" Anticheat-version: %s",
+	LOADED_MSG_3[] =		" Udvikler: Nexius",
+
+	STATS_STRING_1[] =		" Statistik for Nex-AC anticheat",
+	STATS_STRING_2[] =		" Opdaget og forhindret:",
+	STATS_STRING_3[] =		"  %d snydeforsøg",
+	STATS_STRING_4[] =		"  %d hackforsøg",
+	STATS_STRING_5[] =		"  %d nedbrydningsforsøg",
+	STATS_STRING_6[] =		"  %d overbelastningsforsøg",
+	STATS_STRING_7[] =		"  %d angreb",
+	STATS_STRING_8[] =		" I alt opdaget og straffet %d snydere"; 
