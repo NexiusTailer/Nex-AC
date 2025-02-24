@@ -1,0 +1,37 @@
+//For Nex-AC v1.0 (0.3.7-R1)
+
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[Nex-AC] Υποψία για το ID %d. Κωδικός αιτίας: %03d%s",
+	SUSPICION_2[] =			"[Nex-AC] Υποψία για την IP %s. Κωδικός αιτίας: %03d%s",
+	VERSION_WARNING[] =		"[Nex-AC] Αυτή η έκδοση του anticheat δεν είναι συμβατή με την έκδοση του διακομιστή",
+	CFG_OPENING_ERROR[] =	"[Nex-AC] Σφάλμα κατά τη δημιουργία/άνοιγμα του %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[Nex-AC debug] Το ID %d ξεπέρασε %d προσπάθειες πλημμύρας. Δημόσιο ID: %d",
+	DEBUG_CODE_2[] =		"[Nex-AC debug] Μη έγκυρη έκδοση από το ID %d. Έκδοση: %s",
+	DEBUG_CODE_3[] =		"[Nex-AC debug] Το ID %d ξεπέρασε %d συνδέσεις από 1 διεύθυνση IP",
+	DEBUG_CODE_4[] =		"[Nex-AC debug] Αποτυχημένη σύνδεση RCON από την IP %s με κωδικό πρόσβασης %s",
+	DEBUG_CODE_5[] =		"[Nex-AC debug] Το ID %d χρησιμοποίησε NOP %s",
+#endif
+
+	KICK_MSG[] =			"Αποκλειστήκατε λόγω υποψίας χρήσης προγραμμάτων εξαπάτησης (#%03d)",
+	MAX_CONNECTS_MSG[] =	"Έχετε υπερβεί τον μέγιστο αριθμό συνδέσεων από 1 διεύθυνση IP",
+	UNKNOWN_CLIENT_MSG[] =	"Αυτή η έκδοση του προγράμματος-πελάτη δεν είναι συμβατή με τον διακομιστή",
+
+	LOADED_MSG_1[] =		" Το Anticheat Nex-AC φορτώθηκε επιτυχώς!",
+	LOADED_MSG_2[] =		" Έκδοση anticheat: %s",
+	LOADED_MSG_3[] =		" Δημιουργός: Nexius",
+
+	STATS_STRING_1[] =		" Στατιστικά του anticheat Nex-AC",
+	STATS_STRING_2[] =		" Εντοπίστηκαν και αποτράπηκαν:",
+	STATS_STRING_3[] =		"  %d προσπάθειες εξαπάτησης",
+	STATS_STRING_4[] =		"  %d προσπάθειες παραβίασης",
+	STATS_STRING_5[] =		"  %d προσπάθειες κατάρρευσης",
+	STATS_STRING_6[] =		"  %d προσπάθειες πλημμύρας",
+	STATS_STRING_7[] =		"  %d επιθέσεις",
+	STATS_STRING_8[] =		" Συνολικά εντοπίστηκαν και τιμωρήθηκαν %d παραβάτες"; 
