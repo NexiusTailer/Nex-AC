@@ -547,6 +547,7 @@ I will be very glad of your help and add you in the list of those who helped the
 * aktah - Thai translation
 * Michael.Richmond - Moldavian translation
 * NemanjaMAX - Bosnian translation
+* dunningkrueg - Greek and Danish translation
 * TTG - simplified Chinese translation
 * Mateusz - Azerbaijani translation
 * Karthi - Tamil translation
