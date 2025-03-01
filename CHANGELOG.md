@@ -1,18 +1,16 @@
-**v1.9.65**
+**v1.9.66**
 
 Changes:
-* Minor code optimization in OnPlayerUpdate
-* Improved anti-AFK Ghost, now it also detects perfect invisible hack
-* Improved validations in several synchronization types (when Pawn.RakNet is used)
-* Anti-NOP SpawnPlayer and NOP SetPlayerInterior have been moved to the timer
-* Improved anti-teleport for RC vehicles
+* Expanded the list of callbacks that consider NPCs
+* Added pre-hooks support for higher priority of ALS hooks by the anticheat
+* Improved checks that determine the moment of dropping jetpack for its re-pickup
+* Improved validations in aim synchronization (when Pawn.RakNet is used)
 
 Fixes:
-* Fixed the behavior of one second timer when it was recreated too often
-* Fixed a bug with a kick for NOP PutPlayerInVehicle if vehicle was respawned when putting in
-* Fixed a bug with a kick for NOP RemovePlayerFromVehicle if player was in RC vehicles
-* Fixed several bypasses for anti-speedhack (onfoot) which temporarily allowed high speeds
-* Fixed several bypasses for anti-teleport related to PutPlayerInVehicle
+* Fixed a bug in anti-CJ run when it stopped detecting in some cases
+* Fixed a bug with a kick for flyhack (onfoot) with driver's animation after leaving boats
+* Fixed anti-GivePlayerWeapon NOP when giving ammo in the amount of 0 or more than 32767
+* Fixed a bug with array index out of bounds when reading incorrect .cfg files
 * Minor fixes and improvements
 
 The latest example of setting public OnCheatDetected in your gamemode:
