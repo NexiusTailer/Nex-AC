@@ -1,6 +1,8 @@
 # [Nex-AC - Anticheat system](https://pawn.wiki/index.php?/topic/27641-nex-ac/)
 
-Nex Anticheat (Nex-AC) - is a comprehensive protection which combines powerful anticheat and protection against various attacks (flood, DoS). Anticheat detects popular cheats instantly punishing cheaters. Anti-DoS combines customizable anti-flood, anti-DoS at network level and a lot of protection tools against hacking, crashers etc.
+Nex Anticheat (Nex-AC) - is a comprehensive protection which combines powerful anticheat and protection against various attacks (flood, DoS).  
+Anticheat detects popular cheats instantly punishing cheaters.  
+Anti-DoS combines customizable anti-flood, anti-DoS at network level and a lot of protection tools against hacking, crashers etc.
 
 ## List of basic anti-cheats:
 * Anti-AirBreak (onfoot/in vehicle)
