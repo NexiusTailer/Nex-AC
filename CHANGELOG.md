@@ -1,17 +1,16 @@
-**v1.9.66**
+**v1.9.67**
 
 Changes:
-* Expanded the list of callbacks that consider NPCs
-* Added pre-hooks support for higher priority of ALS hooks by the anticheat
-* Improved checks that determine the moment of dropping jetpack for its re-pickup
-* Improved validations in aim synchronization (when Pawn.RakNet is used)
+* Improved protection from invalid tuning (paintjob) on open.mp server
+* Considered a few cases of CJ animation appearing on other skins for anti-CJ run
+* NOP numbering in OnNOPWarning now matches EnableAntiNOP(ForPlayer)
+* Minor improvements and fixes
 
 Fixes:
-* Fixed a bug in anti-CJ run when it stopped detecting in some cases
-* Fixed a bug with a kick for flyhack (onfoot) with driver's animation after leaving boats
-* Fixed anti-GivePlayerWeapon NOP when giving ammo in the amount of 0 or more than 32767
-* Fixed a bug with array index out of bounds when reading incorrect .cfg files
-* Minor fixes and improvements
+* Fixed a bug in OnPlayerConnect that prevented NPCs from joining in some cases
+* Fixed a bug in anti-NOP RemovePlayerFromVehicle with a kick while being in trains
+* Fixed anti-NOP triggering for special actions during a long fall
+* Fixed anti-health hack behavior when setting float inf values
 
 The latest example of setting public OnCheatDetected in your gamemode:
 
