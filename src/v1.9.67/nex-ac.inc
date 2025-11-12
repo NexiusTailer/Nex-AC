@@ -2571,15 +2571,15 @@ stock acc_GivePlayerWeapon(playerid, weaponid, ammo)
 #endif
 #define GivePlayerWeapon acc_GivePlayerWeapon
 
-stock orig_SetPlayerAmmo(playerid, weaponslot, ammo) return SetPlayerAmmo(playerid, weaponslot, ammo);
+stock orig_SetPlayerAmmo(playerid, weaponid, ammo) return SetPlayerAmmo(playerid, weaponid, ammo);
 
-stock acc_SetPlayerAmmo(playerid, weaponslot, ammo)
+stock acc_SetPlayerAmmo(playerid, weaponid, ammo)
 {
 	if(!(0 <= playerid < MAX_PLAYERS)) return 0;
 	#if defined FILTERSCRIPT
-		return CallRemoteFunction("ac_SetPlayerAmmo", "iid", playerid, weaponslot, ammo);
+		return CallRemoteFunction("ac_SetPlayerAmmo", "iid", playerid, weaponid, ammo);
 	#else
-		return ac_SetPlayerAmmo(playerid, weaponslot, ammo);
+		return ac_SetPlayerAmmo(playerid, weaponid, ammo);
 	#endif
 }
 
