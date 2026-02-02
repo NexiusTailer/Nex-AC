@@ -2442,7 +2442,11 @@ stock acc_EnableStuntBonusForPlayer(playerid, enable)
 
 stock orig_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[]) return ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2);
 
-stock acc_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[])
+#if defined _INC_open_mp
+stock acc_ShowPlayerDialog(playerid, dialogid, style, const caption[], const info[], const button1[], const button2[], OPEN_MP_TAGS:...)
+#else
+stock acc_ShowPlayerDialog(playerid, dialogid, style, const caption[], const info[], const button1[], const button2[])
+#endif
 {
 	if(ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2))
 	{
