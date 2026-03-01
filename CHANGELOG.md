@@ -1,16 +1,15 @@
-**v1.9.67**
+**v1.9.68**
 
 Changes:
-* Improved protection from invalid tuning (paintjob) on open.mp server
-* Considered a few cases of CJ animation appearing on other skins for anti-CJ run
-* NOP numbering in OnNOPWarning now matches EnableAntiNOP(ForPlayer)
+* Improved validation checks within protections from AFK Ghost and Pro Aim
+* Changed the punishment for negative damage in related callbacks (damage block instead of kick)
+* Improved stability when getting incorrect return values ​​from various natives
 * Minor improvements and fixes
 
 Fixes:
-* Fixed a bug in OnPlayerConnect that prevented NPCs from joining in some cases
-* Fixed a bug in anti-NOP RemovePlayerFromVehicle with a kick while being in trains
-* Fixed anti-NOP triggering for special actions during a long fall
-* Fixed anti-health hack behavior when setting float inf values
+* Fixed a bug with parameters for hooked callbacks in y_prehook integration
+* Fixed behavior of anti-NOPs when setting health while being in spectator mode
+* Fixed some false detections of anti-GodMode onfoot and in vehicle
 
 The latest example of setting public OnCheatDetected in your gamemode:
 
