@@ -5,7 +5,11 @@
 #endif
 #define _nex_ac_included
 
-#tryinclude <a_samp>
+#tryinclude <open.mp>
+
+#if !defined _INC_open_mp
+	#include <a_samp>
+#endif
 
 #if !defined FILTERSCRIPT
 
@@ -230,6 +234,11 @@
 	#define AC_MAX_CJ_RUN_WARNINGS			8
 #endif
 
+#if !defined SAMP_CONST_CORRECT
+	#define AC_CONST
+#else 
+	#define AC_CONST const
+#endif
 #define ac_fpublic%0(%1) forward%0(%1); public%0(%1)
 #define ac_AbsoluteAngle(%0) ((floatround(%0, floatround_floor) % 360) + floatfract(%0))
 #define ac_abs(%0) (((%0) < 0) ? (-(%0)) : ((%0)))
@@ -965,7 +974,11 @@ ac_fpublic ac_AddPlayerClass(classid, Float:spawn_x, Float:spawn_y, Float:spawn_
 
 ac_fpublic ac_SetSpawnInfo(playerid, team, skin, Float:ac_x, Float:ac_y, Float:ac_z, Float:rotation, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo)
 {
-	if(!SetSpawnInfo(playerid, team, skin, ac_x, ac_y, ac_z, rotation, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo)) return 0;
+    #if defined _INC_open_mp
+        if(!SetSpawnInfo(playerid, team, skin, ac_x, ac_y, ac_z, rotation, WEAPON:weapon1, weapon1_ammo, WEAPON:weapon2, weapon2_ammo, WEAPON:weapon3, weapon3_ammo)) return 0;
+    #else
+        if(!SetSpawnInfo(playerid, team, skin, ac_x, ac_y, ac_z, rotation, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo)) return 0;
+    #endif
 	ACInfo[playerid][acSpawnPosX] = ac_x;
 	ACInfo[playerid][acSpawnPosY] = ac_y;
 	ACInfo[playerid][acSpawnPosZ] = ac_z;
@@ -1116,11 +1129,7 @@ ac_fpublic ac_DestroyVehicle(vehicleid)
 			foreach(new ac_i : Player)
 			{
 		#else
-			#if defined GetPlayerPoolSize
-				for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
-			#else
-				for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
-			#endif
+			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
 			{
 				if(!IsPlayerConnected(ac_i)) continue;
 		#endif
@@ -1146,11 +1155,7 @@ ac_fpublic ac_DestroyPickup(pickupid)
 			foreach(new ac_i : Player)
 			{
 		#else
-			#if defined GetPlayerPoolSize
-				for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
-			#else
-				for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
-			#endif
+			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
 			{
 				if(!IsPlayerConnected(ac_i)) continue;
 		#endif
@@ -1174,11 +1179,7 @@ ac_fpublic ac_DestroyPickup(pickupid)
 				foreach(new ac_i : Player)
 				{
 			#else
-				#if defined GetPlayerPoolSize
-					for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
-				#else
-					for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
-				#endif
+				for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
 				{
 					if(!IsPlayerConnected(ac_i)) continue;
 			#endif
@@ -1220,11 +1221,7 @@ ac_fpublic ac_EnableStuntBonusForAll(enable)
 	#if defined foreach
 		foreach(new ac_i : Player) ACInfo[ac_i][acStuntBonus] = ac_StuntBonus;
 	#else
-		#if defined GetPlayerPoolSize
-			for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
-		#else
-			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
-		#endif
+		for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
 		{
 			if(!IsPlayerConnected(ac_i)) continue;
 			ACInfo[ac_i][acStuntBonus] = ac_StuntBonus;
@@ -1404,7 +1401,11 @@ ac_fpublic ac_GivePlayerWeapon(playerid, weaponid, ammo)
 		ACInfo[playerid][acGtcSetWeapon][ac_s] =
 		ACInfo[playerid][acGtcGiveAmmo][ac_s] = GetTickCount() + 2850;
 	}
-	return GivePlayerWeapon(playerid, weaponid, ammo);
+    #if defined _INC_open_mp
+        return GivePlayerWeapon(playerid, WEAPON:weaponid, ammo);
+    #else
+        return GivePlayerWeapon(playerid, weaponid, ammo);
+    #endif
 }
 
 ac_fpublic ac_SetPlayerAmmo(playerid, weaponid, ammo)
@@ -1422,7 +1423,11 @@ ac_fpublic ac_SetPlayerAmmo(playerid, weaponid, ammo)
 			ACInfo[playerid][acGtcGiveAmmo][ac_s] = GetTickCount() + 2850;
 		}
 	}
-	return SetPlayerAmmo(playerid, weaponid, ammo);
+	#if defined _INC_open_mp
+        return SetPlayerAmmo(playerid, WEAPON:weaponid, ammo);
+    #else
+        return SetPlayerAmmo(playerid, weaponid, ammo);
+    #endif
 }
 
 ac_fpublic ac_ResetPlayerWeapons(playerid)
@@ -1456,34 +1461,39 @@ ac_fpublic ac_ResetPlayerMoney(playerid)
 
 ac_fpublic ac_GetPlayerMoney(playerid) return ACInfo[playerid][acMoney];
 
-ac_fpublic ac_SetPlayerSpecialAction(playerid, actionid)
-{
+#if defined _INC_open_mp
+    ac_fpublic ac_SetPlayerSpecialAction(playerid, SPECIAL_ACTION:actionid)
+    {
+#else
+    ac_fpublic ac_SetPlayerSpecialAction(playerid, actionid)
+    {
+#endif
 	if(!SetPlayerSpecialAction(playerid, actionid)) return 0;
-	if(actionid == SPECIAL_ACTION_USEJETPACK || 24 <= actionid <= 25 ||
-	(actionid == SPECIAL_ACTION_USECELLPHONE || actionid == 68 || SPECIAL_ACTION_DANCE1 <= actionid <= SPECIAL_ACTION_DANCE4) && ACInfo[playerid][acVeh] <= 0 ||
+	if(actionid == SPECIAL_ACTION_USEJETPACK || SPECIAL_ACTION_CUFFED <= actionid <= SPECIAL_ACTION_CARRY ||
+	(actionid == SPECIAL_ACTION_USECELLPHONE || _:actionid == 68 || SPECIAL_ACTION_DANCE1 <= actionid <= SPECIAL_ACTION_DANCE4) && ACInfo[playerid][acVeh] <= 0 ||
 	(actionid == SPECIAL_ACTION_HANDSUP || SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_DRINK_SPRUNK) &&
-	ACInfo[playerid][acSpecAct] != SPECIAL_ACTION_ENTER_VEHICLE && ACInfo[playerid][acVeh] <= 0 ||
-	actionid == SPECIAL_ACTION_STOPUSECELLPHONE && ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_USECELLPHONE ||
-	actionid == SPECIAL_ACTION_NONE && ACInfo[playerid][acSpecAct] != SPECIAL_ACTION_DUCK &&
-	ACInfo[playerid][acSpecAct] != SPECIAL_ACTION_ENTER_VEHICLE && ACInfo[playerid][acSpecAct] != SPECIAL_ACTION_HANDSUP)
+	ACInfo[playerid][acSpecAct] != _:SPECIAL_ACTION_ENTER_VEHICLE && ACInfo[playerid][acVeh] <= 0 ||
+	actionid == SPECIAL_ACTION_STOPUSECELLPHONE && ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_USECELLPHONE ||
+	actionid == SPECIAL_ACTION_NONE && ACInfo[playerid][acSpecAct] != _:SPECIAL_ACTION_DUCK &&
+	ACInfo[playerid][acSpecAct] != _:SPECIAL_ACTION_ENTER_VEHICLE && ACInfo[playerid][acSpecAct] != _:SPECIAL_ACTION_HANDSUP)
 	{
 		ACInfo[playerid][acNOPCount][6] = 0;
-		if((actionid == 68 || SPECIAL_ACTION_HANDSUP <= actionid <= SPECIAL_ACTION_USECELLPHONE || SPECIAL_ACTION_DRINK_BEER <= actionid <= 25) &&
-		SPECIAL_ACTION_DANCE1 <= ACInfo[playerid][acSpecAct] <= SPECIAL_ACTION_DANCE4 ||
-		(actionid == SPECIAL_ACTION_HANDSUP || SPECIAL_ACTION_DRINK_BEER <= actionid <= 25) &&
-		SPECIAL_ACTION_USEJETPACK <= ACInfo[playerid][acSpecAct] <= SPECIAL_ACTION_EXIT_VEHICLE ||
-		(actionid == 68 || SPECIAL_ACTION_DRINK_BEER <= actionid <= 25) && ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_USECELLPHONE ||
-		SPECIAL_ACTION_DRINK_BEER <= actionid <= 25 &&
-		(ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_DUCK || ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_HANDSUP || ACInfo[playerid][acSpecAct] == 68) ||
-		24 <= actionid <= 25 && SPECIAL_ACTION_DRINK_BEER <= ACInfo[playerid][acSpecAct] <= SPECIAL_ACTION_DRINK_SPRUNK ||
-		(actionid == SPECIAL_ACTION_NONE || 24 <= actionid <= 25) && ACInfo[playerid][acVeh] > 0 ||
+		if((_:actionid == 68 || SPECIAL_ACTION_HANDSUP <= actionid <= SPECIAL_ACTION_USECELLPHONE || SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_CARRY) &&
+		_:SPECIAL_ACTION_DANCE1 <= ACInfo[playerid][acSpecAct] <= _:SPECIAL_ACTION_DANCE4 ||
+		(actionid == SPECIAL_ACTION_HANDSUP || SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_CARRY) &&
+		_:SPECIAL_ACTION_USEJETPACK <= ACInfo[playerid][acSpecAct] <= _:SPECIAL_ACTION_EXIT_VEHICLE ||
+		(_:actionid == 68 || SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_CARRY) && ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_USECELLPHONE ||
+		SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_CARRY &&
+		(ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_DUCK || ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_HANDSUP || _:ACInfo[playerid][acSpecAct] == 68) ||
+		SPECIAL_ACTION_CUFFED <= actionid <= SPECIAL_ACTION_CARRY && _:SPECIAL_ACTION_DRINK_BEER <= ACInfo[playerid][acSpecAct] <= _:SPECIAL_ACTION_DRINK_SPRUNK ||
+		(actionid == SPECIAL_ACTION_NONE || SPECIAL_ACTION_CUFFED <= actionid <= SPECIAL_ACTION_CARRY) && ACInfo[playerid][acVeh] > 0 ||
 		actionid == SPECIAL_ACTION_USEJETPACK && (1128 <= ACInfo[playerid][acAnim] <= 1134 || 1538 <= ACInfo[playerid][acAnim] <= 1544) ||
-		actionid == 25 && ACInfo[playerid][acSpecAct] == 24) ACInfo[playerid][acNextSpecAct] = actionid;
+		_:actionid == 68 && ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_CUFFED) ACInfo[playerid][acNextSpecAct] = actionid;
 		else
 		{
 			if(actionid == SPECIAL_ACTION_STOPUSECELLPHONE) actionid = SPECIAL_ACTION_NONE;
 			else if(actionid == SPECIAL_ACTION_USEJETPACK || actionid == SPECIAL_ACTION_HANDSUP ||
-			actionid == 68 || SPECIAL_ACTION_DANCE1 <= actionid <= SPECIAL_ACTION_DANCE4 ||
+			_:actionid == 68 || SPECIAL_ACTION_DANCE1 <= actionid <= SPECIAL_ACTION_DANCE4 ||
 			SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_DRINK_SPRUNK) ACInfo[playerid][acNextSpecAct] = ACInfo[playerid][acSpecAct];
 			else ACInfo[playerid][acNextSpecAct] = -1;
 			ACInfo[playerid][acSet][3] = actionid;
@@ -1550,8 +1560,8 @@ ac_fpublic ac_PutPlayerInVehicle(playerid, vehicleid, seatid)
 {
 	new ac_model = GetVehicleModel(vehicleid);
 	if(!IsPlayerConnected(playerid) || ac_model <= 0) return 0;
-	if(!(SPECIAL_ACTION_DANCE1 <= ACInfo[playerid][acSpecAct] <= SPECIAL_ACTION_DANCE4) &&
-	!(SPECIAL_ACTION_DRINK_BEER <= ACInfo[playerid][acSpecAct] <= SPECIAL_ACTION_DRINK_SPRUNK) &&
+	if(!(_:SPECIAL_ACTION_DANCE1 <= ACInfo[playerid][acSpecAct] <= _:SPECIAL_ACTION_DANCE4) &&
+	!(_:SPECIAL_ACTION_DRINK_BEER <= ACInfo[playerid][acSpecAct] <= _:SPECIAL_ACTION_DRINK_SPRUNK) &&
 	GetPlayerVirtualWorld(playerid) == GetVehicleVirtualWorld(vehicleid))
 	{
 		ACInfo[playerid][acNOPCount][7] = 0;
@@ -1668,7 +1678,11 @@ ac_fpublic ac_SetVehicleHealth(vehicleid, Float:health, repair)
 
 ac_fpublic ac_UpdateVehicleDamageStatus(vehicleid, panels, doors, lights, tires)
 {
-	if(!UpdateVehicleDamageStatus(vehicleid, panels, doors, lights, tires)) return 0;
+    #if defined _INC_open_mp
+        if(!UpdateVehicleDamageStatus(vehicleid, VEHICLE_PANEL_STATUS:panels, VEHICLE_DOOR_STATUS:doors, VEHICLE_LIGHT_STATUS:lights, VEHICLE_TIRE_STATUS:tires)) return 0;
+    #else
+        if(!UpdateVehicleDamageStatus(vehicleid, panels, doors, lights, tires)) return 0;
+    #endif
 	ACVehInfo[vehicleid][acPanels] = panels;
 	ACVehInfo[vehicleid][acDoors] = doors;
 	ACVehInfo[vehicleid][acLights] = lights;
@@ -1682,11 +1696,7 @@ ac_fpublic ac_SetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet
 	#if defined foreach
 		foreach(new ac_i : Player) ACVehInfo[vehicleid][acLocked][ac_i] = doors;
 	#else
-		#if defined GetPlayerPoolSize
-			for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
-		#else
-			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
-		#endif
+		for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
 		{
 			if(!IsVehicleStreamedIn(vehicleid, ac_i)) continue;
 			ACVehInfo[vehicleid][acLocked][ac_i] = doors;
@@ -1831,11 +1841,7 @@ ac_fpublic ac_EnableAntiCheat(code, enable)
 			foreach(new ac_i : Player)
 			{
 		#else
-			#if defined GetPlayerPoolSize
-				for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
-			#else
-				for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
-			#endif
+			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
 			{
 				if(!IsPlayerConnected(ac_i)) continue;
 		#endif
@@ -1869,11 +1875,7 @@ ac_fpublic ac_EnableAntiCheat(code, enable)
 			foreach(new ac_i : Player)
 			{
 		#else
-			#if defined GetPlayerPoolSize
-				for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
-			#else
-				for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
-			#endif
+			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
 			{
 				if(!IsPlayerConnected(ac_i)) continue;
 		#endif
@@ -1905,11 +1907,7 @@ ac_fpublic ac_EnableAntiNOP(nopcode, enable)
 		foreach(new ac_i : Player)
 		{
 	#else
-		#if defined GetPlayerPoolSize
-			for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
-		#else
-			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
-		#endif
+		for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
 		{
 			if(!IsPlayerConnected(ac_i)) continue;
 	#endif
@@ -2156,7 +2154,11 @@ stock acc_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y, Float:spawn_z,
 
 stock acc_AddPlayerClass(modelid, Float:spawn_x, Float:spawn_y, Float:spawn_z, Float:z_angle, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo)
 {
-	new ac_class = AddPlayerClass(modelid, spawn_x, spawn_y, spawn_z, z_angle, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo);
+    #if defined _INC_open_mp
+        new ac_class = AddPlayerClass(modelid, spawn_x, spawn_y, spawn_z, z_angle, WEAPON:weapon1, weapon1_ammo, WEAPON:weapon2, weapon2_ammo, WEAPON:weapon3, weapon3_ammo);
+    #else
+        new ac_class = AddPlayerClass(modelid, spawn_x, spawn_y, spawn_z, z_angle, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo);
+    #endif
 	#if defined FILTERSCRIPT
 		CallRemoteFunction("ac_AddPlayerClass", "ifffididid", ac_class, spawn_x, spawn_y, spawn_z, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo);
 	#else
@@ -2451,12 +2453,21 @@ stock acc_EnableStuntBonusForPlayer(playerid, enable)
 #endif
 #define EnableStuntBonusForPlayer acc_EnableStuntBonusForPlayer
 
-stock orig_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[]) return ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2);
+#if defined _INC_open_mp
+    stock orig_ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE:style, caption[], info[], button1[], button2[]) return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE:style, caption, info, button1, button2);
+#else
+    stock orig_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[]) return ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2);
+#endif
 
-stock acc_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[])
+stock acc_ShowPlayerDialog(playerid, dialogid, style, AC_CONST caption[], AC_CONST info[], AC_CONST button1[], AC_CONST button2[])
 {
-	if(ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2))
-	{
+    #if defined _INC_open_mp
+        if(ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE:style, caption, info, button1, button2))
+        {
+    #else
+        if(ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2))
+        {
+    #endif
 		#if defined FILTERSCRIPT
 			return CallRemoteFunction("ac_ShowPlayerDialog", "idi", playerid, dialogid, true);
 		#else
@@ -2681,7 +2692,11 @@ stock acc_SetPlayerSpecialAction(playerid, actionid)
 	#if defined FILTERSCRIPT
 		return CallRemoteFunction("ac_SetPlayerSpecialAction", "ii", playerid, actionid);
 	#else
-		return ac_SetPlayerSpecialAction(playerid, actionid);
+		#if defined _INC_open_mp
+            return ac_SetPlayerSpecialAction(playerid, SPECIAL_ACTION:actionid);
+        #else
+            return ac_SetPlayerSpecialAction(playerid, actionid);
+        #endif
 	#endif
 }
 
@@ -2704,7 +2719,11 @@ stock acc_PlayerSpectatePlayer(playerid, targetplayerid, mode = SPECTATE_MODE_NO
 			ac_PlayerSpecPlayerOrVehicle(playerid);
 		#endif
 	}
-	return PlayerSpectatePlayer(playerid, targetplayerid, mode);
+	#if defined _INC_open_mp
+		return PlayerSpectatePlayer(playerid, targetplayerid, SPECTATE_MODE:mode);
+	#else
+		return PlayerSpectatePlayer(playerid, targetplayerid, mode);
+	#endif
 }
 
 #if defined _ALS_PlayerSpectatePlayer
@@ -2726,7 +2745,11 @@ stock acc_PlayerSpectateVehicle(playerid, targetvehicleid, mode = SPECTATE_MODE_
 			ac_PlayerSpecPlayerOrVehicle(playerid);
 		#endif
 	}
-	return PlayerSpectateVehicle(playerid, targetvehicleid, mode);
+    #if defined _INC_open_mp
+        return PlayerSpectateVehicle(playerid, targetvehicleid, SPECTATE_MODE:mode);
+    #else
+        return PlayerSpectateVehicle(playerid, targetvehicleid, mode);
+    #endif
 }
 
 #if defined _ALS_PlayerSpectateVehicle
@@ -3818,11 +3841,7 @@ public OnPlayerConnect(playerid)
 				{
 					if(ac_j == playerid) continue;
 			#else
-				#if defined GetPlayerPoolSize
-					for(new ac_j = GetPlayerPoolSize(); ac_j >= 0; --ac_j)
-				#else
-					for(new ac_j = MAX_PLAYERS - 1; ac_j >= 0; --ac_j)
-				#endif
+				for(new ac_j = MAX_PLAYERS - 1; ac_j >= 0; --ac_j)
 				{
 					#if AC_USE_NPC
 						if(ac_j == playerid || !IsPlayerConnected(ac_j) || IsPlayerNPC(ac_j)) continue;
@@ -4127,7 +4146,11 @@ public OnPlayerSpawn(playerid)
 	#endif
 #endif
 
+#if defined _INC_open_mp
+public OnPlayerDeath(playerid, killerid, WEAPON:reason)
+#else
 public OnPlayerDeath(playerid, killerid, reason)
+#endif
 {
 	if(ACInfo[playerid][acKicked] > 0) return 0;
 	#if AC_USE_NPC
@@ -4136,7 +4159,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 	#endif
 		if(ACInfo[playerid][acACAllow][28] &&
 		(ACInfo[playerid][acDead] || !ACInfo[playerid][acDeathRes] &&
-		(reason != WEAPON_COLLISION && reason != 255 || killerid != INVALID_PLAYER_ID)))
+		(reason != WEAPON_COLLISION && _:reason != 255 || killerid != INVALID_PLAYER_ID)))
 		{
 			#if defined DEBUG
 				printf("[Nex-AC debug] Is dead: %d, death res: %d, killerid: %d, reason: %d",
@@ -4179,14 +4202,23 @@ public OnPlayerDeath(playerid, killerid, reason)
 #else
 	#define OnPlayerDeath ac_OnPlayerDeath
 	#if defined ac_OnPlayerDeath
-		forward ac_OnPlayerDeath(playerid, killerid, reason);
+	    #if defined _INC_open_mp
+		    forward ac_OnPlayerDeath(playerid, killerid, WEAPON:reason);
+	    #else
+		    forward ac_OnPlayerDeath(playerid, killerid, reason);
+	    #endif
 	#endif
 #endif
 
-#if defined OnPlayerWeaponShot
-	public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
+
+#if defined _INC_open_mp
+	public OnPlayerTakeDamage(playerid, issuerid, Float:amount, WEAPON:weaponid, bodypart)
 #else
-	public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid)
+	#if defined OnPlayerWeaponShot
+		public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
+	#else
+		public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid)
+	#endif
 #endif
 {
 	if(ACInfo[playerid][acKicked] > 0 || amount < 0.0) return 1;
@@ -4232,17 +4264,25 @@ public OnPlayerDeath(playerid, killerid, reason)
 #endif
 #define OnPlayerTakeDamage ac_OnPlayerTakeDamage
 #if defined ac_OnPlayerTakeDamage
-	#if defined OnPlayerWeaponShot
-		forward ac_OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
+	#if defined _INC_open_mp
+		forward ac_OnPlayerTakeDamage(playerid, issuerid, Float:amount, WEAPON:weaponid, bodypart);
 	#else
-		forward ac_OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid);
+		#if defined OnPlayerWeaponShot
+			forward ac_OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
+		#else
+			forward ac_OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid);
+		#endif
 	#endif
 #endif
 
-#if defined OnPlayerWeaponShot
-	public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
+#if defined _INC_open_mp
+	public OnPlayerGiveDamage(playerid, damagedid, Float:amount, WEAPON:weaponid, bodypart)
 #else
-	public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
+	#if defined OnPlayerWeaponShot
+		public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
+	#else
+		public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
+	#endif
 #endif
 {
 	if(ACInfo[playerid][acKicked] > 0 || amount < 0.0) return 1;
@@ -4272,8 +4312,8 @@ public OnPlayerDeath(playerid, killerid, reason)
 		#endif
 		{
 			new ac_s = ac_wSlot[weaponid];
-			if(ACInfo[playerid][acWeapon][ac_s] != weaponid &&
-			ACInfo[playerid][acSetWeapon][ac_s] != weaponid && weaponid != WEAPON_FLAMETHROWER)
+			if(ACInfo[playerid][acWeapon][ac_s] != _:weaponid &&
+			ACInfo[playerid][acSetWeapon][ac_s] != _:weaponid && weaponid != WEAPON_FLAMETHROWER)
 			{
 				if(GetTickCount() - ACInfo[playerid][acGtc][6] > GetPlayerPing(playerid))
 				{
@@ -4310,10 +4350,14 @@ public OnPlayerDeath(playerid, killerid, reason)
 #endif
 #define OnPlayerGiveDamage ac_OnPlayerGiveDamage
 #if defined ac_OnPlayerGiveDamage
-	#if defined OnPlayerWeaponShot
-		forward ac_OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart);
+	#if defined _INC_open_mp
+		forward ac_OnPlayerGiveDamage(playerid, damagedid, Float:amount, WEAPON:weaponid, bodypart);
 	#else
-		forward ac_OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid);
+		#if defined OnPlayerWeaponShot
+			forward ac_OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart);
+		#else
+			forward ac_OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid);
+		#endif
 	#endif
 #endif
 
@@ -4435,11 +4479,7 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 			foreach(new ac_j : Player)
 			{
 		#else
-			#if defined GetPlayerPoolSize
-				for(new ac_j = GetPlayerPoolSize(); ac_j >= 0; --ac_j)
-			#else
-				for(new ac_j = MAX_PLAYERS - 1; ac_j >= 0; --ac_j)
-			#endif
+			for(new ac_j = MAX_PLAYERS - 1; ac_j >= 0; --ac_j)
 			{
 				if(!IsPlayerConnected(ac_j)) continue;
 		#endif
@@ -4453,11 +4493,7 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 			foreach(new ac_j : Player)
 			{
 		#else
-			#if defined GetPlayerPoolSize
-				for(new ac_j = GetPlayerPoolSize(); ac_j >= 0; --ac_j)
-			#else
-				for(new ac_j = MAX_PLAYERS - 1; ac_j >= 0; --ac_j)
-			#endif
+			for(new ac_j = MAX_PLAYERS - 1; ac_j >= 0; --ac_j)
 			{
 				if(!IsPlayerConnected(ac_j)) continue;
 		#endif
@@ -4627,10 +4663,10 @@ public OnPlayerUpdate(playerid)
 		if(!IsPlayerDying(playerid))
 		{
 	#endif
-		new ac_gpp = GetPlayerPing(playerid), ac_w, ac_sa;
+		new ac_gpp = GetPlayerPing(playerid), ac_sa, ac_w;
 		if(!ACInfo[playerid][acSpec] &&
-		(ac_sa = GetPlayerState(playerid)) != PLAYER_STATE_SPECTATING &&
-		(ac_w = GetPlayerWeapon(playerid)) != -1)
+		(ac_sa = GetPlayerState(playerid)) != _:PLAYER_STATE_SPECTATING &&
+		(_:ac_w = GetPlayerWeapon(playerid)) != -1)
 		{
 			new ac_s = ac_wSlot[ac_w], ac_a = GetPlayerAmmo(playerid),
 			Float:ac_pX, Float:ac_pY, Float:ac_pZ, Float:ac_tmp, ac_i;
@@ -4656,12 +4692,12 @@ public OnPlayerUpdate(playerid)
 			{
 				if(ACInfo[playerid][acSetWeapon][ac_s] > 0)
 				{
-					if(ACInfo[playerid][acSetWeapon][ac_s] == ac_w || ACInfo[playerid][acGiveAmmo][ac_s] == 0)
+					if(ACInfo[playerid][acSetWeapon][ac_s] == _:ac_w || ACInfo[playerid][acGiveAmmo][ac_s] == 0)
 					{
 						ACInfo[playerid][acSetWeapon][ac_s] = -1;
 						ACInfo[playerid][acWeapon][ac_s] = ac_w;
 					}
-					else if(!(PLAYER_STATE_DRIVER <= ac_sa <= PLAYER_STATE_PASSENGER) &&
+					else if(!(_:PLAYER_STATE_DRIVER <= ac_sa <= _:PLAYER_STATE_PASSENGER) &&
 					ac_gtc - ACInfo[playerid][acGtcSetWeapon][ac_s] > ac_gpp)
 					{
 						#if defined FreezeSyncPacket
@@ -4733,9 +4769,9 @@ public OnPlayerUpdate(playerid)
 						}
 					}
 				}
-				if(ACInfo[playerid][acHoldWeapon] != ac_w)
+				if(ACInfo[playerid][acHoldWeapon] != _:ac_w)
 				{
-					if(ACInfo[playerid][acWeapon][ac_s] != ac_w)
+					if(ACInfo[playerid][acWeapon][ac_s] != _:ac_w)
 					{
 						#if AC_USE_PICKUP_WEAPONS
 							#if defined Streamer_GetDistanceToItem\
@@ -4749,7 +4785,7 @@ public OnPlayerUpdate(playerid)
 							Streamer_GetIntData(STREAMER_TYPE_PICKUP, ACInfo[playerid][acLastPickup] - MAX_PICKUPS, E_STREAMER_EXTRA_ID) == ac_w + 100 &&
 							ac_a <= (ac_IsAmmoSharingInSlot(ac_s) ? (ACInfo[playerid][acAmmo][ac_s] + ac_pAmmo[ac_w]) : ac_pAmmo[ac_w]) && ac_tmp <= 15.0)
 							#else
-							if(0 <= ACInfo[playerid][acLastPickup] < MAX_PICKUPS && ACPickInfo[ACInfo[playerid][acLastPickup]][acWeapon] == ac_w &&
+							if(0 <= ACInfo[playerid][acLastPickup] < MAX_PICKUPS && ACPickInfo[ACInfo[playerid][acLastPickup]][acWeapon] == _:ac_w &&
 							ac_a <= (ac_IsAmmoSharingInSlot(ac_s) ? (ACInfo[playerid][acAmmo][ac_s] + ac_pAmmo[ac_w]) : ac_pAmmo[ac_w]) &&
 							IsPlayerInRangeOfPoint(playerid, 15.0, ACPickInfo[ACInfo[playerid][acLastPickup]][acPosX],
 							ACPickInfo[ACInfo[playerid][acLastPickup]][acPosY], ACPickInfo[ACInfo[playerid][acLastPickup]][acPosZ]))
@@ -4775,11 +4811,17 @@ public OnPlayerUpdate(playerid)
 								else
 								{
 							#endif
-								if(ac_w == 0 || ac_w == WEAPON_BOMB ||
-								ac_w == WEAPON_PARACHUTE && ACInfo[playerid][acParachute] > 0 &&
+                                #if defined _INC_open_mp
+								if(ac_w == 0 || ac_w == _:WEAPON_BOMB ||
+								ac_w == _:WEAPON_PARACHUTE && ACInfo[playerid][acParachute] > 0 &&
 								(ACInfo[playerid][acVeh] > 0 || ac_gtc - ACInfo[playerid][acGtc][15] <= ac_gpp))
+								#else
+								if(ac_w == 0 || ac_w == _:WEAPON_BOMB ||
+								ac_w == _:WEAPON_PARACHUTE && ACInfo[playerid][acParachute] > 0 &&
+								(ACInfo[playerid][acVeh] > 0 || ac_gtc - ACInfo[playerid][acGtc][15] <= ac_gpp))
+								#endif
 								{
-									if(ac_w == WEAPON_PARACHUTE) ACInfo[playerid][acParachute] = 0;
+									if(ac_w == _:WEAPON_PARACHUTE) ACInfo[playerid][acParachute] = 0;
 									ACInfo[playerid][acWeapon][ac_s] = ac_w;
 									ACInfo[playerid][acAmmo][ac_s] = ac_a;
 								}
@@ -4807,8 +4849,8 @@ public OnPlayerUpdate(playerid)
 					}
 				}
 				else if(ACInfo[playerid][acAmmo][ac_s] != ac_a &&
-				!(PLAYER_STATE_DRIVER <= ac_sa <= PLAYER_STATE_PASSENGER) && 7 <= ac_s <= 9 &&
-				ac_w != WEAPON_MINIGUN && ACInfo[playerid][acGiveAmmo][ac_s] == -65535)
+				!(_:PLAYER_STATE_DRIVER <= ac_sa <= _:PLAYER_STATE_PASSENGER) && 7 <= ac_s <= 9 &&
+				ac_w != _:WEAPON_MINIGUN && ACInfo[playerid][acGiveAmmo][ac_s] == -65535)
 				{
 					if(ACInfo[playerid][acACAllow][16] &&
 					(ACInfo[playerid][acAmmo][ac_s] == 0 || ac_a > ACInfo[playerid][acAmmo][ac_s] ||
@@ -5070,11 +5112,11 @@ public OnPlayerUpdate(playerid)
 			ac_i = GetVehicleModel(ac_vehid);
 			if(ACInfo[playerid][acSet][8] != -1)
 			{
-				if(ACInfo[playerid][acSet][8] == ac_vehid && ac_sa != PLAYER_STATE_ONFOOT &&
+				if(ACInfo[playerid][acSet][8] == ac_vehid && ac_sa != _:PLAYER_STATE_ONFOOT &&
 				(ACInfo[playerid][acSet][4] == ac_s || ACInfo[playerid][acSet][4] == -1))
 				{
 					if(ACInfo[playerid][acACAllow][4] && !ac_IsATrainPartEx(ac_i) &&
-					ac_sa == PLAYER_STATE_DRIVER && ACInfo[playerid][acVeh] != ac_vehid)
+					ac_sa == _:PLAYER_STATE_DRIVER && ACInfo[playerid][acVeh] != ac_vehid)
 					{
 						new Float:ac_dist = GetPlayerDistanceFromPoint(playerid, ACVehInfo[ac_vehid][acPosX], ACVehInfo[ac_vehid][acPosY], ACVehInfo[ac_vehid][acPosZ]);
 						ac_tmp = GetPlayerDistanceFromPoint(playerid, ACInfo[playerid][acPutPosX], ACInfo[playerid][acPutPosY], ACInfo[playerid][acPutPosZ]);
@@ -5101,7 +5143,7 @@ public OnPlayerUpdate(playerid)
 						if(ac_IsValidVehicleModel(ac_t) &&
 						(ac_IsAnAircraft(ac_t) || ac_IsAnAircraftRC(ac_t))) ACInfo[playerid][acParachute] = 2;
 					}
-					if(ac_sa == PLAYER_STATE_DRIVER)
+					if(ac_sa == _:PLAYER_STATE_DRIVER)
 					{
 						ACVehInfo[ac_vehid][acDriver] = playerid;
 						GetVehicleZAngle(ac_vehid, ACVehInfo[ac_vehid][acZAngle]);
@@ -5162,7 +5204,7 @@ public OnPlayerUpdate(playerid)
 				if(ACInfo[playerid][acSet][7] != -1)
 				{
 					ac_dist_set = GetPlayerDistanceFromPoint(playerid, ACInfo[playerid][acSetPosX], ACInfo[playerid][acSetPosY], (ACInfo[playerid][acTpToZ] ? ac_pZ : ACInfo[playerid][acSetPosZ]));
-					if(ac_dist_set < 15.0 && (ACInfo[playerid][acSet][7] == 3 || ac_sa == PLAYER_STATE_ONFOOT))
+					if(ac_dist_set < 15.0 && (ACInfo[playerid][acSet][7] == 3 || ac_sa == _:PLAYER_STATE_ONFOOT))
 					{
 						ACInfo[playerid][acSet][7] = -1;
 						ACInfo[playerid][acCheatCount][1] =
@@ -5213,7 +5255,7 @@ public OnPlayerUpdate(playerid)
 				}
 				new Float:ac_vX, Float:ac_vY, Float:ac_vZ,
 				Float:ac_dist = GetPlayerDistanceFromPoint(playerid, ACInfo[playerid][acPosX], ACInfo[playerid][acPosY], ACInfo[playerid][acPosZ]);
-				if(ac_vehid > 0 && ac_sa != PLAYER_STATE_ONFOOT)
+				if(ac_vehid > 0 && ac_sa != _:PLAYER_STATE_ONFOOT)
 				{
 					if(ACInfo[playerid][acVeh] > 0)
 					{
@@ -5270,7 +5312,7 @@ public OnPlayerUpdate(playerid)
 						}
 						else ACInfo[playerid][acSet][9] = -1;
 					}
-					if(ac_sa == PLAYER_STATE_DRIVER)
+					if(ac_sa == _:PLAYER_STATE_DRIVER)
 					{
 						if(ACInfo[playerid][acACAllow][32] && ACVehInfo[ac_vehid][acDriver] != playerid &&
 						ACVehInfo[ac_vehid][acDriver] != INVALID_PLAYER_ID)
@@ -5282,7 +5324,11 @@ public OnPlayerUpdate(playerid)
 							#if defined OnCheatDetected
 								ac_KickWithCode(playerid, "", 0, 32, 1);
 							#endif
-							ClearAnimations(playerid, 1);
+							#if defined _INC_open_mp
+                                ClearAnimations(playerid, SYNC_ALL);
+                            #else
+                                ClearAnimations(playerid, 1);
+                            #endif
 							return 0;
 						}
 						new Float:ac_vHealth;
@@ -5668,8 +5714,8 @@ public OnPlayerUpdate(playerid)
 						if(ACInfo[playerid][acACAllow][30] && !ac_PedAnims)
 						{
 							ac_i = GetPlayerSkin(playerid);
-							if((ac_sa == 1231 || ac_sa == 1246) && ac_IsValidSkin(ac_i) && ac_i != 0 && ac_w != WEAPON_PARACHUTE &&
-							ac_specact != SPECIAL_ACTION_USECELLPHONE && !(SPECIAL_ACTION_DRINK_BEER <= ac_specact <= 25))
+							if((ac_sa == 1231 || ac_sa == 1246) && ac_IsValidSkin(ac_i) && ac_i != 0 && ac_w != _:WEAPON_PARACHUTE &&
+							ac_specact != _:SPECIAL_ACTION_USECELLPHONE && !(_:SPECIAL_ACTION_DRINK_BEER <= ac_specact <= _:SPECIAL_ACTION_CARRY))
 							{
 								if(++ACInfo[playerid][acCheatCount][17] > AC_MAX_CJ_RUN_WARNINGS)
 								{
@@ -5713,8 +5759,8 @@ public OnPlayerUpdate(playerid)
 						else if(ac_gtc - ACInfo[playerid][acGtc][5] > ac_gpp)
 						{
 							if(ACInfo[playerid][acACAllow][52] && ACInfo[playerid][acNOPAllow][6] &&
-							ac_vZ > -0.1 && ac_specact != SPECIAL_ACTION_DUCK &&
-							!(SPECIAL_ACTION_ENTER_VEHICLE <= ac_specact <= SPECIAL_ACTION_EXIT_VEHICLE))
+							ac_vZ > -0.1 && ac_specact != _:SPECIAL_ACTION_DUCK &&
+							!(_:SPECIAL_ACTION_ENTER_VEHICLE <= ac_specact <= _:SPECIAL_ACTION_EXIT_VEHICLE))
 							{
 								if(++ACInfo[playerid][acNOPCount][6] > AC_MAX_NOP_WARNINGS)
 								{
@@ -5746,14 +5792,14 @@ public OnPlayerUpdate(playerid)
 							}
 						}
 					}
-					else if(ac_specact != ACInfo[playerid][acSpecAct])
+					else if(ac_specact != _:ACInfo[playerid][acSpecAct])
 					{
-						if(ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_USEJETPACK)
+						if(ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_USEJETPACK)
 						{
 							ACInfo[playerid][acDropJpX] = ACInfo[playerid][acPosX];
 							ACInfo[playerid][acDropJpY] = ACInfo[playerid][acPosY];
 						}
-						if(ac_specact == ACInfo[playerid][acNextSpecAct]) ACInfo[playerid][acNextSpecAct] = -1;
+						if(ac_specact == _:ACInfo[playerid][acNextSpecAct]) ACInfo[playerid][acNextSpecAct] = -1;
 						else if(ACInfo[playerid][acACAllow][18])
 						{
 							switch(ac_specact)
@@ -5775,9 +5821,9 @@ public OnPlayerUpdate(playerid)
 								}
 								case SPECIAL_ACTION_DUCK:
 								{
-									if(ACInfo[playerid][acSpecAct] > SPECIAL_ACTION_NONE &&
-									!(SPECIAL_ACTION_ENTER_VEHICLE <= ACInfo[playerid][acSpecAct] <= SPECIAL_ACTION_EXIT_VEHICLE) &&
-									!(SPECIAL_ACTION_DRINK_BEER <= ACInfo[playerid][acSpecAct] <= 25))
+									if(ACInfo[playerid][acSpecAct] > _:SPECIAL_ACTION_NONE &&
+									!(_:SPECIAL_ACTION_ENTER_VEHICLE <= ACInfo[playerid][acSpecAct] <= _:SPECIAL_ACTION_EXIT_VEHICLE) &&
+									!(_:SPECIAL_ACTION_DRINK_BEER <= ACInfo[playerid][acSpecAct] <= 25))
 									{
 										#if defined DEBUG
 											printf("[Nex-AC debug] AC spec act: %d, spec act: %d", ACInfo[playerid][acSpecAct], ac_specact);
@@ -5825,14 +5871,14 @@ public OnPlayerUpdate(playerid)
 								}
 								default:
 								{
-									if(!((SPECIAL_ACTION_DRINK_BEER <= ac_specact <= 25 &&
-									ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_DUCK ||
-									ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_ENTER_VEHICLE) &&
-									ac_specact == ACInfo[playerid][acLastSpecAct]) &&
+									if(!((_:SPECIAL_ACTION_DRINK_BEER <= ac_specact <= 25 &&
+									ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_DUCK ||
+									ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_ENTER_VEHICLE) &&
+									ac_specact == _:ACInfo[playerid][acLastSpecAct]) &&
 									(ACInfo[playerid][acVeh] <= 0 &&
-									(ac_specact != SPECIAL_ACTION_EXIT_VEHICLE || ac_gtc - ACInfo[playerid][acGtc][15] > 1350) ||
-									ac_specact != SPECIAL_ACTION_EXIT_VEHICLE &&
-									!(24 <= ac_specact <= 25) && ac_specact != SPECIAL_ACTION_USECELLPHONE))
+									(ac_specact != _:SPECIAL_ACTION_EXIT_VEHICLE || ac_gtc - ACInfo[playerid][acGtc][15] > 1350) ||
+									ac_specact != _:SPECIAL_ACTION_EXIT_VEHICLE &&
+									!(24 <= ac_specact <= 25) && ac_specact != _:SPECIAL_ACTION_USECELLPHONE))
 									{
 										#if defined DEBUG
 											printf("[Nex-AC debug] AC spec act: %d, spec act: %d, last spec act: %d, old veh: %d",
@@ -6059,7 +6105,11 @@ public OnPlayerUpdate(playerid)
 	#endif
 #endif
 
-public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
+#if defined _INC_open_mp
+	public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
+#else
+	public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
+#endif
 {
 	if(ACInfo[playerid][acKicked] > 0) return 0;
 	#if AC_USE_NPC
@@ -6072,7 +6122,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			ac_i = GetVehicleModel(ACInfo[playerid][acVeh]);
 			if(ac_IsValidVehicleModel(ac_i) && (ac_IsAnAircraft(ac_i) || ac_IsAnAircraftRC(ac_i))) ACInfo[playerid][acParachute] = 1;
-			if(ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_USEJETPACK &&
+			if(ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_USEJETPACK &&
 			GetPlayerSpecialAction(playerid) != SPECIAL_ACTION_USEJETPACK)
 			{
 				ACInfo[playerid][acDropJpX] = ACInfo[playerid][acPosX];
@@ -6096,7 +6146,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 #endif
 #define OnPlayerKeyStateChange ac_OnPlayerKeyStateChange
 #if defined ac_OnPlayerKeyStateChange
-	forward ac_OnPlayerKeyStateChange(playerid, newkeys, oldkeys);
+	#if defined _INC_open_mp
+		forward ac_OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys);
+	#else
+		forward ac_OnPlayerKeyStateChange(playerid, newkeys, oldkeys);
+	#endif
 #endif
 
 public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
@@ -6127,7 +6181,11 @@ public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 	forward ac_OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ);
 #endif
 
+#if defined _INC_open_mp
+public OnPlayerClickPlayer(playerid, clickedplayerid, CLICK_SOURCE:source)
+#else
 public OnPlayerClickPlayer(playerid, clickedplayerid, source)
+#endif
 {
 	if(ACInfo[playerid][acKicked] > 0) return 1;
 	new ac_gtc = GetTickCount();
@@ -6156,7 +6214,11 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 #endif
 #define OnPlayerClickPlayer ac_OnPlayerClickPlayer
 #if defined ac_OnPlayerClickPlayer
-	forward ac_OnPlayerClickPlayer(playerid, clickedplayerid, source);
+    #if defined _INC_open_mp
+        forward ac_OnPlayerClickPlayer(playerid, clickedplayerid, CLICK_SOURCE:source);
+    #else
+        forward ac_OnPlayerClickPlayer(playerid, clickedplayerid, source);
+    #endif
 #endif
 
 #if defined OnPlayerClickTextDraw
@@ -6274,7 +6336,11 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 					ACInfo[playerid][acEnterRes] = false;
 					SetVehicleFakePosForPlayer(playerid, vehicleid, ACVehInfo[vehicleid][acPosX], ACVehInfo[vehicleid][acPosY], ACVehInfo[vehicleid][acPosZ]);
 					SetVehicleFakeZAngleForPlayer(playerid, vehicleid, ACVehInfo[vehicleid][acZAngle]);
-					ClearAnimations(playerid, 1);
+					#if defined _INC_open_mp
+                        ClearAnimations(playerid, SYNC_ALL);
+                    #else
+                        ClearAnimations(playerid, 1);
+                    #endif
 				}
 			}
 		#endif
@@ -6599,11 +6665,18 @@ public OnPlayerRequestClass(playerid, classid)
 		}
 		ACInfo[playerid][acClassRes] = true;
 		ACInfo[playerid][acCall][27] = ACInfo[playerid][acCall][9] = ac_i;
-		#if defined GetPlayerClass
-			GetPlayerClass(classid, ac_i, ac_i,
-			ACInfo[playerid][acSpawnPosX], ACInfo[playerid][acSpawnPosY], ACInfo[playerid][acSpawnPosZ], _,
-			ACInfo[playerid][acSpawnWeapon1], ACInfo[playerid][acSpawnAmmo1], ACInfo[playerid][acSpawnWeapon2],
-			ACInfo[playerid][acSpawnAmmo2], ACInfo[playerid][acSpawnWeapon3], ACInfo[playerid][acSpawnAmmo3]);
+        #if defined GetPlayerClass
+			#if defined _INC_open_mp
+				GetPlayerClass(classid, ac_i, ac_i,
+				ACInfo[playerid][acSpawnPosX], ACInfo[playerid][acSpawnPosY], ACInfo[playerid][acSpawnPosZ], _,
+				WEAPON:ACInfo[playerid][acSpawnWeapon1], ACInfo[playerid][acSpawnAmmo1], WEAPON:ACInfo[playerid][acSpawnWeapon2],
+				ACInfo[playerid][acSpawnAmmo2], WEAPON:ACInfo[playerid][acSpawnWeapon3], ACInfo[playerid][acSpawnAmmo3]);
+			#else
+				GetPlayerClass(classid, ac_i, ac_i,
+				ACInfo[playerid][acSpawnPosX], ACInfo[playerid][acSpawnPosY], ACInfo[playerid][acSpawnPosZ], _,
+				ACInfo[playerid][acSpawnWeapon1], ACInfo[playerid][acSpawnAmmo1], ACInfo[playerid][acSpawnWeapon2],
+				ACInfo[playerid][acSpawnAmmo2], ACInfo[playerid][acSpawnWeapon3], ACInfo[playerid][acSpawnAmmo3]);
+			#endif
 		#else
 			ACInfo[playerid][acSpawnPosX] = ac_ClassPos[classid][0];
 			ACInfo[playerid][acSpawnPosY] = ac_ClassPos[classid][1];
@@ -6670,7 +6743,11 @@ public OnPlayerSelectedMenuRow(playerid, row)
 	forward ac_OnPlayerSelectedMenuRow(playerid, row);
 #endif
 
+#if defined _INC_open_mp
+public OnPlayerStateChange(playerid, PLAYER_STATE:newstate, PLAYER_STATE:oldstate)
+#else
 public OnPlayerStateChange(playerid, newstate, oldstate)
+#endif
 {
 	if(ACInfo[playerid][acKicked] > 0) return 0;
 	#if AC_USE_NPC
@@ -6926,7 +7003,11 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 							#if defined OnCheatDetected
 								ac_KickWithCode(ac_s, "", 0, 32, 2);
 							#endif
-							ClearAnimations(ac_s, 1);
+                            #if defined _INC_open_mp
+								ClearAnimations(ac_s, SYNC_ALL);
+							#else
+								ClearAnimations(ac_s, 1);
+							#endif
 						}
 						ACVehInfo[ac_vehid][acDriver] = playerid;
 						GetPlayerPos(playerid, ACInfo[playerid][acPosX], ACInfo[playerid][acPosY], ACInfo[playerid][acPosZ]);
@@ -6987,13 +7068,21 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 	CHAIN_FORWARD:AC_OnPlayerStateChange(playerid, newstate, oldstate) = 1;
 #else
 	#define OnPlayerStateChange ac_OnPlayerStateChange
-	#if defined ac_OnPlayerStateChange
-		forward ac_OnPlayerStateChange(playerid, newstate, oldstate);
-	#endif
+	    #if defined ac_OnPlayerStateChange
+		    #if defined _INC_open_mp
+                forward ac_OnPlayerStateChange(playerid, PLAYER_STATE:newstate, PLAYER_STATE:oldstate);
+            #else
+                forward ac_OnPlayerStateChange(playerid, newstate, oldstate);
+            #endif
+        #endif
 #endif
 
 #if defined OnPlayerWeaponShot
+#if defined _INC_open_mp
+	public OnPlayerWeaponShot(playerid, WEAPON:weaponid, BULLET_HIT_TYPE:hittype, hitid, Float:fX, Float:fY, Float:fZ)
+#else
 	public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
+#endif
 	{
 		#if defined IsPlayerDying
 			if(ACInfo[playerid][acKicked] > 0 || IsPlayerDying(playerid)) return 0;
@@ -7156,8 +7245,8 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 					#endif
 					{
 						if(ac_gtc - ACInfo[hitid][acSetPosTick] > ac_gpp &&
-						IsPlayerInRangeOfPoint(hitid, ac_wMinRange[weaponid - 22], ac_oX, ac_oY, ac_oZ) &&
-						!(SPECIAL_ACTION_ENTER_VEHICLE <= ACInfo[hitid][acSpecAct] <= SPECIAL_ACTION_EXIT_VEHICLE))
+						IsPlayerInRangeOfPoint(hitid, ac_wMinRange[_:weaponid - 22], ac_oX, ac_oY, ac_oZ) &&
+						!(_:SPECIAL_ACTION_ENTER_VEHICLE <= ACInfo[hitid][acSpecAct] <= _:SPECIAL_ACTION_EXIT_VEHICLE))
 						{
 							ac_t = GetPlayerTeam(playerid);
 							if(ac_t == NO_TEAM || ac_t != GetPlayerTeam(hitid))
@@ -7227,7 +7316,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		ac_t = GetPlayerState(playerid);
 		if(ACInfo[playerid][acACAllow][47])
 		{
-			if(ac_t == PLAYER_STATE_DRIVER)
+			if(ac_t == _:PLAYER_STATE_DRIVER)
 			{
 				#if defined DEBUG
 					printf("[Nex-AC debug] Weaponid: %d, state: %d, veh model: %d, veh: %d",
@@ -7237,8 +7326,8 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			}
 			else
 			{
-				if(ACInfo[playerid][acLastWeapon] != weaponid && ac_t != PLAYER_STATE_PASSENGER ||
-				ACInfo[playerid][acWeapon][ac_s] != weaponid && ACInfo[playerid][acSetWeapon][ac_s] != weaponid)
+				if(ACInfo[playerid][acLastWeapon] != _:weaponid && ac_t != _:PLAYER_STATE_PASSENGER ||
+				ACInfo[playerid][acWeapon][ac_s] != _:weaponid && ACInfo[playerid][acSetWeapon][ac_s] != _:weaponid)
 				{
 					if(++ACInfo[playerid][acCheatCount][16] > AC_MAX_FAKE_WEAPON_WARNINGS)
 					{
@@ -7262,9 +7351,9 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		if(ACInfo[playerid][acACAllow][26])
 		{
 			ac_i = ac_gtc - ACInfo[playerid][acShotTick];
-			if(ACInfo[playerid][acShotWeapon] == weaponid)
+			if(ACInfo[playerid][acShotWeapon] == _:weaponid)
 			{
-				if(weaponid != WEAPON_MINIGUN && ac_t != PLAYER_STATE_PASSENGER)
+				if(weaponid != WEAPON_MINIGUN && ac_t != _:PLAYER_STATE_PASSENGER)
 				{
 					if(ac_gtc - ACInfo[playerid][acReloadTick] < 110)
 					{
@@ -7300,7 +7389,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 						#endif
 					}
 					else ACInfo[playerid][acCheatCount][8] = 0;
-					if(weaponid == 24 && ac_i < 240 || weaponid == 25 && ac_i < 480 || 33 <= weaponid <= 34 && ac_i < 380)
+					if(weaponid == WEAPON_DEAGLE && ac_i < 240 || weaponid == WEAPON_SHOTGUN && ac_i < 480 || WEAPON_RIFLE <= weaponid <= WEAPON_SNIPER && ac_i < 380)
 					{
 						if(++ACInfo[playerid][acCheatCount][12] > AC_MAX_AUTO_C_WARNINGS)
 						{
@@ -7336,7 +7425,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			}
 			if(GetPlayerWeaponState(playerid) == WEAPONSTATE_LAST_BULLET) ACInfo[playerid][acReloadTick] = ac_gtc;
 		}
-		if(ACInfo[playerid][acACAllow][17] && ac_t != PLAYER_STATE_PASSENGER &&
+		if(ACInfo[playerid][acACAllow][17] && ac_t != _:PLAYER_STATE_PASSENGER &&
 		ACInfo[playerid][acGiveAmmo][ac_s] == -65535 && ac_gtc - ACInfo[playerid][acGtc][6] > ac_gpp)
 		{
 			ac_t = GetPlayerAmmo(playerid);
@@ -7439,7 +7528,11 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 	#else
 		#define OnPlayerWeaponShot ac_OnPlayerWeaponShot
 		#if defined ac_OnPlayerWeaponShot
-			forward ac_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
+			#if defined _INC_open_mp
+				forward ac_OnPlayerWeaponShot(playerid, WEAPON:weaponid, BULLET_HIT_TYPE:hittype, hitid, Float:fX, Float:fY, Float:fZ);
+			#else
+				forward ac_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
+			#endif
 		#endif
 	#endif
 #endif
@@ -7629,11 +7722,7 @@ public OnVehicleSpawn(vehicleid)
 		foreach(new ac_i : Player)
 		{
 	#else
-		#if defined GetPlayerPoolSize
-			for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
-		#else
-			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
-		#endif
+		for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
 		{
 			if(!IsPlayerConnected(ac_i)) continue;
 	#endif
@@ -8009,7 +8098,7 @@ public OnPlayerLeaveRaceCheckpoint(playerid)
 public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 {
 	if(ACInfo[playerid][acKicked] > 0) return 1;
-	new ac_panels, ac_doors, ac_lights, ac_tires;
+    new ac_panels, ac_doors, ac_lights, ac_tires;
 	#if !defined PAWNRAKNET_INC_
 	if(ACVehInfo[vehicleid][acDriver] != playerid)
 	{
@@ -8021,7 +8110,11 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 		return 1;
 	}
 	#endif
-	GetVehicleDamageStatus(vehicleid, ac_panels, ac_doors, ac_lights, ac_tires);
+	#if defined _INC_open_mp
+        GetVehicleDamageStatus(vehicleid, VEHICLE_PANEL_STATUS:ac_panels, VEHICLE_DOOR_STATUS:ac_doors, VEHICLE_LIGHT_STATUS:ac_lights, VEHICLE_TYRE_STATUS:ac_tires);
+    #else
+        GetVehicleDamageStatus(vehicleid, ac_panels, ac_doors, ac_lights, ac_tires);
+    #endif
 	if(ACVehInfo[vehicleid][acPanels] != ac_panels || ACVehInfo[vehicleid][acDoors] != ac_doors ||
 	ACVehInfo[vehicleid][acTires] != ac_tires)
 	{
@@ -8187,7 +8280,11 @@ public OnVehicleStreamIn(vehicleid, forplayerid)
 #endif
 
 #if defined OnPlayerSelectObject
-	public OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ)
+	#if defined _INC_open_mp
+		public OnPlayerSelectObject(playerid, SELECT_OBJECT:type, objectid, modelid, Float:fX, Float:fY, Float:fZ)
+	#else
+		public OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ)
+	#endif
 	{
 		if(ACInfo[playerid][acKicked] > 0) return 1;
 		new ac_i = GetTickCount();
@@ -8231,9 +8328,13 @@ public OnVehicleStreamIn(vehicleid, forplayerid)
 		#define _ALS_OnPlayerSelectObject
 	#endif
 	#define OnPlayerSelectObject ac_OnPlayerSelectObject
-	#if defined ac_OnPlayerSelectObject
-		forward ac_OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ);
-	#endif
+    #if defined ac_OnPlayerSelectObject
+        #if defined _INC_open_mp
+            forward ac_OnPlayerSelectObject(playerid, SELECT_OBJECT:type, objectid, modelid, Float:fX, Float:fY, Float:fZ);
+        #else
+            forward ac_OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ);
+        #endif
+    #endif
 #endif
 
 #if defined OnTrailerUpdate
@@ -8629,7 +8730,11 @@ public OnVehicleStreamIn(vehicleid, forplayerid)
 #endif
 
 #if defined OnPlayerGiveDamageActor
-	public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float:amount, weaponid, bodypart)
+	#if defined _INC_open_mp
+		public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float:amount, WEAPON:weaponid, bodypart)
+	#else
+		public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float:amount, weaponid, bodypart)
+	#endif
 	{
 		if(ACInfo[playerid][acKicked] > 0 || amount < 0.0) return 1;
 		if(ACInfo[playerid][acACAllow][47] &&
@@ -8655,13 +8760,21 @@ public OnVehicleStreamIn(vehicleid, forplayerid)
 		#define _ALS_OnPlayerGiveDamageActor
 	#endif
 	#define OnPlayerGiveDamageActor ac_OnPlayerGiveDamageActor
-	#if defined ac_OnPlayerGiveDamageActor
-		forward ac_OnPlayerGiveDamageActor(playerid, damaged_actorid, Float:amount, weaponid, bodypart);
-	#endif
+    #if defined ac_OnPlayerGiveDamageActor
+        #if defined _INC_open_mp
+            forward ac_OnPlayerGiveDamageActor(playerid, damaged_actorid, Float:amount, WEAPON:weaponid, bodypart);
+        #else
+            forward ac_OnPlayerGiveDamageActor(playerid, damaged_actorid, Float:amount, weaponid, bodypart);
+        #endif
+    #endif
 #endif
 
 #if defined OnPlayerEditAttachedObject
-	public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
+	#if defined _INC_open_mp
+		public OnPlayerEditAttachedObject(playerid, EDIT_RESPONSE:response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
+	#else
+		public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
+	#endif
 	{
 		if(ACInfo[playerid][acKicked] > 0) return 1;
 		if(ACInfo[playerid][acACAllow][46] &&
@@ -8686,9 +8799,13 @@ public OnVehicleStreamIn(vehicleid, forplayerid)
 		#define _ALS_OnPlayerEditAttachedObject
 	#endif
 	#define OnPlayerEditAttachedObject ac_OnPlayerEditAttachedObject
-	#if defined ac_OnPlayerEditAttachedObject
-		forward ac_OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ);
-	#endif
+    #if defined ac_OnPlayerEditAttachedObject
+        #if defined _INC_open_mp
+            forward ac_OnPlayerEditAttachedObject(playerid, EDIT_RESPONSE:response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ);
+        #else
+            forward ac_OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ);
+        #endif
+    #endif
 #endif
 
 #if defined OnPlayerEnterDynamicArea
@@ -8846,7 +8963,7 @@ public OnVehicleStreamIn(vehicleid, forplayerid)
 		{
 			case 3, 7, 8, 14..16, 18, 22, 29, 46, 47, 51, 53, 55..59, 62..64:
 			{
-				if(ACInfo[playerid][acLastWeapon] == WEAPON_BOMB)
+				if(ACInfo[playerid][acLastWeapon] == _:WEAPON_BOMB)
 				{
 					ac_aData[PR_camMode] = 4;
 					BS_SetWriteOffset(bs, 8);
@@ -8949,16 +9066,16 @@ public OnVehicleStreamIn(vehicleid, forplayerid)
 			BS_WriteOnFootSync(bs, ac_fData);
 		}
 		new ac_i = GetTickCount();
-		if(ac_fData[PR_specialAction] == SPECIAL_ACTION_ENTER_VEHICLE &&
+		if(ac_fData[PR_specialAction] == _:SPECIAL_ACTION_ENTER_VEHICLE &&
 		ac_i - ACInfo[playerid][acEnterVehTick] > 3850 ||
-		ac_fData[PR_specialAction] == SPECIAL_ACTION_EXIT_VEHICLE &&
+		ac_fData[PR_specialAction] == _:SPECIAL_ACTION_EXIT_VEHICLE &&
 		ACInfo[playerid][acVeh] <= 0 && ac_i - ACInfo[playerid][acGtc][15] > 1350)
 		{
 			ac_fData[PR_specialAction] = 0;
 			BS_SetWriteOffset(bs, 8);
 			BS_WriteOnFootSync(bs, ac_fData);
 		}
-		if(ac_fData[PR_weaponId] == WEAPON_BOMB && ACInfo[playerid][acCamMode] != 4)
+		if(ac_fData[PR_weaponId] == _:WEAPON_BOMB && ACInfo[playerid][acCamMode] != 4)
 		{
 			ac_i = ACInfo[playerid][acWeapon][0];
 			ac_fData[PR_weaponId] = ac_i;
@@ -9264,8 +9381,12 @@ ac_fpublic ac_Timer(playerid)
 				ac_s = ac_wSlot[ac_s];
 				for(new ac_i, ac_w, ac_a, bool:ac_cw; ac_i <= 12; ++ac_i)
 				{
-					GetPlayerWeaponData(playerid, ac_i, ac_w, ac_a);
-					if(ac_w == WEAPON_SATCHEL) ac_cw = true;
+					#if defined _INC_open_mp
+						GetPlayerWeaponData(playerid, WEAPON_SLOT:ac_i, WEAPON:ac_w, ac_a);
+					#else
+						GetPlayerWeaponData(playerid, ac_i, ac_w, ac_a);
+					#endif
+					if(ac_w == _:WEAPON_SATCHEL) ac_cw = true;
 					if(ac_s != ac_i)
 					{
 						if(ACInfo[playerid][acSetWeapon][ac_i] > 0)
@@ -9325,11 +9446,11 @@ ac_fpublic ac_Timer(playerid)
 									else
 									{
 								#endif
-									if(ac_w == 0 || ac_w == WEAPON_BOMB && ac_cw ||
-									ac_w == WEAPON_PARACHUTE && ACInfo[playerid][acParachute] > 0 &&
+									if(ac_w == 0 || ac_w == _:WEAPON_BOMB && ac_cw ||
+									ac_w == _:WEAPON_PARACHUTE && ACInfo[playerid][acParachute] > 0 &&
 									(ACInfo[playerid][acVeh] > 0 || ac_gtc - ACInfo[playerid][acGtc][15] <= ac_gpp))
 									{
-										if(ac_w == WEAPON_PARACHUTE) ACInfo[playerid][acParachute] = 0;
+										if(ac_w == _:WEAPON_PARACHUTE) ACInfo[playerid][acParachute] = 0;
 										ACInfo[playerid][acWeapon][ac_i] = ac_w;
 										ACInfo[playerid][acAmmo][ac_i] = ac_a;
 									}
@@ -9448,10 +9569,10 @@ ac_fpublic ac_Timer(playerid)
 				}
 			}
 			ac_s = GetPlayerState(playerid);
-			if(ac_s == PLAYER_STATE_DRIVER)
+			if(ac_s == _:PLAYER_STATE_DRIVER)
 			{
 				ac_t = ACInfo[playerid][acVeh];
-				if(ACInfo[playerid][acACAllow][35] && GetPlayerCameraMode(playerid) == 55) ac_KickWithCode(playerid, "", 0, 35);
+				if(ACInfo[playerid][acACAllow][35] && _:GetPlayerCameraMode(playerid) == 55) ac_KickWithCode(playerid, "", 0, 35);
 				if(ACInfo[playerid][acACAllow][3] && ACInfo[playerid][acSet][8] == -1)
 				{
 					new Float:ac_time, Float:ac_maxdist = 140.0,
@@ -9497,7 +9618,7 @@ ac_fpublic ac_Timer(playerid)
 				}
 				ACVehInfo[ac_t][acLastSpeed] = ac_s;
 			}
-			else if(ac_s == PLAYER_STATE_ONFOOT)
+			else if(ac_s == _:PLAYER_STATE_ONFOOT)
 			{
 				#if defined GetPlayerSurfingPlayerObjectID
 				if(ACInfo[playerid][acACAllow][2] && ACInfo[playerid][acSet][8] == -1 &&
@@ -9678,8 +9799,8 @@ ac_fpublic ac_Timer(playerid)
 #if !defined OnCheatDetected
 	//Don't make changes in this public
 	//To customize punishments, declare 'OnCheatDetected' in your script
-	ac_fpublic ac_OnCheatDetected(playerid, ip_address[], type, code)
-	{
+    ac_fpublic ac_OnCheatDetected(playerid, AC_CONST ip_address[], type, code)
+    {
 		if(type)
 		{
 			#if defined BlockIpAddress
@@ -9903,11 +10024,7 @@ static ac_IsVehicleSeatOccupied(vehicleid, seat)
 			ACInfo[ac_i][acSeat] == seat) return 1;
 		}
 	#else
-		#if defined GetPlayerPoolSize
-			for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
-		#else
-			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
-		#endif
+		for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
 		{
 			if(IsPlayerConnected(ac_i) &&
 			ACInfo[ac_i][acVeh] == vehicleid &&
@@ -10154,7 +10271,7 @@ static ac_FloodDetect(playerid, publicid)
 	return 0;
 }
 
-static ac_KickWithCode(playerid, ip_address[], type, code, code2 = 0)
+static ac_KickWithCode(playerid, AC_CONST ip_address[], type, code, code2 = 0)
 {
 	if(type == 0 && (!IsPlayerConnected(playerid) || ACInfo[playerid][acKicked] > 0)) return 0;
 	#if AC_USE_STATISTICS

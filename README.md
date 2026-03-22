@@ -123,10 +123,10 @@ It also simplifies the process of translation of anticheat into other languages
 <details>
 <summary>Click to expand the list</summary>
 
-**public OnCheatDetected(playerid, ip_address[], type, code)**
+**public OnCheatDetected(playerid, AC_CONST ip_address[], type, code)**
 > Called when triggers one of the anti-cheats
 > * `playerid` - The ID of the cheater
-> * `ip_address[]` - IP-address of the cheater
+> * `AC_CONST ip_address[]` - IP-address of the cheater
 > * `type` - Type of cheating (when `0` it returns the ID, when `1` - IP)
 > * `code` - The code (ID) of the anti-cheat
 > * This callback does not handle returns
