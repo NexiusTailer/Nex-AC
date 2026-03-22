@@ -1129,7 +1129,11 @@ ac_fpublic ac_DestroyVehicle(vehicleid)
 			foreach(new ac_i : Player)
 			{
 		#else
-			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+			#if defined GetPlayerPoolSize
+				for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
+			#else
+				for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+			#endif
 			{
 				if(!IsPlayerConnected(ac_i)) continue;
 		#endif
@@ -1155,7 +1159,11 @@ ac_fpublic ac_DestroyPickup(pickupid)
 			foreach(new ac_i : Player)
 			{
 		#else
-			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+			#if defined GetPlayerPoolSize
+				for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
+			#else
+				for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+			#endif
 			{
 				if(!IsPlayerConnected(ac_i)) continue;
 		#endif
@@ -1179,7 +1187,11 @@ ac_fpublic ac_DestroyPickup(pickupid)
 				foreach(new ac_i : Player)
 				{
 			#else
-				for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+				#if defined GetPlayerPoolSize
+					for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
+				#else
+					for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+				#endif
 				{
 					if(!IsPlayerConnected(ac_i)) continue;
 			#endif
@@ -1221,7 +1233,11 @@ ac_fpublic ac_EnableStuntBonusForAll(enable)
 	#if defined foreach
 		foreach(new ac_i : Player) ACInfo[ac_i][acStuntBonus] = ac_StuntBonus;
 	#else
-		for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+		#if defined GetPlayerPoolSize
+			for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
+		#else
+			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+		#endif
 		{
 			if(!IsPlayerConnected(ac_i)) continue;
 			ACInfo[ac_i][acStuntBonus] = ac_StuntBonus;
@@ -1460,40 +1476,74 @@ ac_fpublic ac_ResetPlayerMoney(playerid)
 }
 
 ac_fpublic ac_GetPlayerMoney(playerid) return ACInfo[playerid][acMoney];
-
-#if defined _INC_open_mp
-    ac_fpublic ac_SetPlayerSpecialAction(playerid, SPECIAL_ACTION:actionid)
-    {
-#else
-    ac_fpublic ac_SetPlayerSpecialAction(playerid, actionid)
-    {
-#endif
-	if(!SetPlayerSpecialAction(playerid, actionid)) return 0;
-	if(actionid == SPECIAL_ACTION_USEJETPACK || SPECIAL_ACTION_CUFFED <= actionid <= SPECIAL_ACTION_CARRY ||
-	(actionid == SPECIAL_ACTION_USECELLPHONE || _:actionid == 68 || SPECIAL_ACTION_DANCE1 <= actionid <= SPECIAL_ACTION_DANCE4) && ACInfo[playerid][acVeh] <= 0 ||
-	(actionid == SPECIAL_ACTION_HANDSUP || SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_DRINK_SPRUNK) &&
-	ACInfo[playerid][acSpecAct] != _:SPECIAL_ACTION_ENTER_VEHICLE && ACInfo[playerid][acVeh] <= 0 ||
-	actionid == SPECIAL_ACTION_STOPUSECELLPHONE && ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_USECELLPHONE ||
-	actionid == SPECIAL_ACTION_NONE && ACInfo[playerid][acSpecAct] != _:SPECIAL_ACTION_DUCK &&
-	ACInfo[playerid][acSpecAct] != _:SPECIAL_ACTION_ENTER_VEHICLE && ACInfo[playerid][acSpecAct] != _:SPECIAL_ACTION_HANDSUP)
+ac_fpublic ac_SetPlayerSpecialAction(playerid, actionid)
+{
+	#if defined _INC_open_mp
+		if(!SetPlayerSpecialAction(playerid, SPECIAL_ACTION:actionid)) return 0;
+	#else
+		if(!SetPlayerSpecialAction(playerid, actionid)) return 0;
+	#endif
+	#if defined _INC_open_mp
+	if(SPECIAL_ACTION:actionid == SPECIAL_ACTION_USEJETPACK || SPECIAL_ACTION_CUFFED <= SPECIAL_ACTION:actionid <= SPECIAL_ACTION_CARRY ||
+	(SPECIAL_ACTION:actionid == SPECIAL_ACTION_USECELLPHONE || actionid == 68 || SPECIAL_ACTION_DANCE1 <= SPECIAL_ACTION:actionid <= SPECIAL_ACTION_DANCE4) && ACInfo[playerid][acVeh] <= 0 ||
+	(SPECIAL_ACTION:actionid == SPECIAL_ACTION_HANDSUP || SPECIAL_ACTION_DRINK_BEER <= SPECIAL_ACTION:actionid <= SPECIAL_ACTION_DRINK_SPRUNK) &&
+	SPECIAL_ACTION:ACInfo[playerid][acSpecAct] != SPECIAL_ACTION_ENTER_VEHICLE && ACInfo[playerid][acVeh] <= 0 ||
+	SPECIAL_ACTION:actionid == SPECIAL_ACTION_STOPUSECELLPHONE && SPECIAL_ACTION:ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_USECELLPHONE ||
+	SPECIAL_ACTION:actionid == SPECIAL_ACTION_NONE && SPECIAL_ACTION:ACInfo[playerid][acSpecAct] != SPECIAL_ACTION_DUCK &&
+	SPECIAL_ACTION:ACInfo[playerid][acSpecAct] != SPECIAL_ACTION_ENTER_VEHICLE && SPECIAL_ACTION:ACInfo[playerid][acSpecAct] != SPECIAL_ACTION_HANDSUP)
 	{
 		ACInfo[playerid][acNOPCount][6] = 0;
-		if((_:actionid == 68 || SPECIAL_ACTION_HANDSUP <= actionid <= SPECIAL_ACTION_USECELLPHONE || SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_CARRY) &&
-		_:SPECIAL_ACTION_DANCE1 <= ACInfo[playerid][acSpecAct] <= _:SPECIAL_ACTION_DANCE4 ||
-		(actionid == SPECIAL_ACTION_HANDSUP || SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_CARRY) &&
-		_:SPECIAL_ACTION_USEJETPACK <= ACInfo[playerid][acSpecAct] <= _:SPECIAL_ACTION_EXIT_VEHICLE ||
-		(_:actionid == 68 || SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_CARRY) && ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_USECELLPHONE ||
-		SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_CARRY &&
-		(ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_DUCK || ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_HANDSUP || _:ACInfo[playerid][acSpecAct] == 68) ||
-		SPECIAL_ACTION_CUFFED <= actionid <= SPECIAL_ACTION_CARRY && _:SPECIAL_ACTION_DRINK_BEER <= ACInfo[playerid][acSpecAct] <= _:SPECIAL_ACTION_DRINK_SPRUNK ||
-		(actionid == SPECIAL_ACTION_NONE || SPECIAL_ACTION_CUFFED <= actionid <= SPECIAL_ACTION_CARRY) && ACInfo[playerid][acVeh] > 0 ||
+		if((actionid == 68 || SPECIAL_ACTION_HANDSUP <= SPECIAL_ACTION:actionid <= SPECIAL_ACTION_USECELLPHONE || SPECIAL_ACTION_DRINK_BEER <= SPECIAL_ACTION:actionid <= SPECIAL_ACTION_CARRY) &&
+		SPECIAL_ACTION_DANCE1 <= SPECIAL_ACTION:ACInfo[playerid][acSpecAct] <= SPECIAL_ACTION_DANCE4 ||
+		(SPECIAL_ACTION:actionid == SPECIAL_ACTION_HANDSUP || SPECIAL_ACTION_DRINK_BEER <= SPECIAL_ACTION:actionid <= SPECIAL_ACTION_CARRY) &&
+		SPECIAL_ACTION_USEJETPACK <= SPECIAL_ACTION:ACInfo[playerid][acSpecAct] <= SPECIAL_ACTION_EXIT_VEHICLE ||
+		(actionid == 68 || SPECIAL_ACTION_DRINK_BEER <= SPECIAL_ACTION:actionid <= SPECIAL_ACTION_CARRY) && SPECIAL_ACTION:ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_USECELLPHONE ||
+		SPECIAL_ACTION_DRINK_BEER <= SPECIAL_ACTION:actionid <= SPECIAL_ACTION_CARRY &&
+		(SPECIAL_ACTION:ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_DUCK || SPECIAL_ACTION:ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_HANDSUP || ACInfo[playerid][acSpecAct] == 68) ||
+		SPECIAL_ACTION_CUFFED <= SPECIAL_ACTION:actionid <= SPECIAL_ACTION_CARRY && SPECIAL_ACTION_DRINK_BEER <= SPECIAL_ACTION:ACInfo[playerid][acSpecAct] <= SPECIAL_ACTION_DRINK_SPRUNK ||
+		(SPECIAL_ACTION:actionid == SPECIAL_ACTION_NONE || SPECIAL_ACTION_CUFFED <= SPECIAL_ACTION:actionid <= SPECIAL_ACTION_CARRY) && ACInfo[playerid][acVeh] > 0 ||
+		SPECIAL_ACTION:actionid == SPECIAL_ACTION_USEJETPACK && (1128 <= ACInfo[playerid][acAnim] <= 1134 || 1538 <= ACInfo[playerid][acAnim] <= 1544) ||
+		actionid == 25 && ACInfo[playerid][acSpecAct] == 24) ACInfo[playerid][acNextSpecAct] = actionid;
+		else
+		{
+			if(SPECIAL_ACTION:actionid == SPECIAL_ACTION_STOPUSECELLPHONE) actionid = _:SPECIAL_ACTION_NONE;
+			else if(SPECIAL_ACTION:actionid == SPECIAL_ACTION_USEJETPACK || SPECIAL_ACTION:actionid == SPECIAL_ACTION_HANDSUP ||
+			actionid == 68 || SPECIAL_ACTION_DANCE1 <= SPECIAL_ACTION:actionid <= SPECIAL_ACTION_DANCE4 ||
+			SPECIAL_ACTION_DRINK_BEER <= SPECIAL_ACTION:actionid <= SPECIAL_ACTION_DRINK_SPRUNK) ACInfo[playerid][acNextSpecAct] = ACInfo[playerid][acSpecAct];
+			else ACInfo[playerid][acNextSpecAct] = -1;
+			ACInfo[playerid][acSet][3] = actionid;
+			ACInfo[playerid][acGtc][5] = GetTickCount() + 3250;
+			#if defined FreezeSyncPacket
+				if(!ACInfo[playerid][acUnFrozen]) FreezeSyncPacket(playerid, E_ALL_SYNC, false);
+			#endif
+		}
+	}
+	#else
+	if(actionid == SPECIAL_ACTION_USEJETPACK || 24 <= actionid <= 25 ||
+	(actionid == SPECIAL_ACTION_USECELLPHONE || actionid == 68 || SPECIAL_ACTION_DANCE1 <= actionid <= SPECIAL_ACTION_DANCE4) && ACInfo[playerid][acVeh] <= 0 ||
+	(actionid == SPECIAL_ACTION_HANDSUP || SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_DRINK_SPRUNK) &&
+	ACInfo[playerid][acSpecAct] != SPECIAL_ACTION_ENTER_VEHICLE && ACInfo[playerid][acVeh] <= 0 ||
+	actionid == SPECIAL_ACTION_STOPUSECELLPHONE && ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_USECELLPHONE ||
+	actionid == SPECIAL_ACTION_NONE && ACInfo[playerid][acSpecAct] != SPECIAL_ACTION_DUCK &&
+	ACInfo[playerid][acSpecAct] != SPECIAL_ACTION_ENTER_VEHICLE && ACInfo[playerid][acSpecAct] != SPECIAL_ACTION_HANDSUP)
+	{
+		ACInfo[playerid][acNOPCount][6] = 0;
+		if((actionid == 68 || SPECIAL_ACTION_HANDSUP <= actionid <= SPECIAL_ACTION_USECELLPHONE || SPECIAL_ACTION_DRINK_BEER <= actionid <= 25) &&
+		SPECIAL_ACTION_DANCE1 <= ACInfo[playerid][acSpecAct] <= SPECIAL_ACTION_DANCE4 ||
+		(actionid == SPECIAL_ACTION_HANDSUP || SPECIAL_ACTION_DRINK_BEER <= actionid <= 25) &&
+		SPECIAL_ACTION_USEJETPACK <= ACInfo[playerid][acSpecAct] <= SPECIAL_ACTION_EXIT_VEHICLE ||
+		(actionid == 68 || SPECIAL_ACTION_DRINK_BEER <= actionid <= 25) && ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_USECELLPHONE ||
+		SPECIAL_ACTION_DRINK_BEER <= actionid <= 25 &&
+		(ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_DUCK || ACInfo[playerid][acSpecAct] == SPECIAL_ACTION_HANDSUP || ACInfo[playerid][acSpecAct] == 68) ||
+		24 <= actionid <= 25 && SPECIAL_ACTION_DRINK_BEER <= ACInfo[playerid][acSpecAct] <= SPECIAL_ACTION_DRINK_SPRUNK ||
+		(actionid == SPECIAL_ACTION_NONE || 24 <= actionid <= 25) && ACInfo[playerid][acVeh] > 0 ||
 		actionid == SPECIAL_ACTION_USEJETPACK && (1128 <= ACInfo[playerid][acAnim] <= 1134 || 1538 <= ACInfo[playerid][acAnim] <= 1544) ||
-		_:actionid == 68 && ACInfo[playerid][acSpecAct] == _:SPECIAL_ACTION_CUFFED) ACInfo[playerid][acNextSpecAct] = actionid;
+		actionid == 25 && ACInfo[playerid][acSpecAct] == 24) ACInfo[playerid][acNextSpecAct] = actionid;
 		else
 		{
 			if(actionid == SPECIAL_ACTION_STOPUSECELLPHONE) actionid = SPECIAL_ACTION_NONE;
 			else if(actionid == SPECIAL_ACTION_USEJETPACK || actionid == SPECIAL_ACTION_HANDSUP ||
-			_:actionid == 68 || SPECIAL_ACTION_DANCE1 <= actionid <= SPECIAL_ACTION_DANCE4 ||
+			actionid == 68 || SPECIAL_ACTION_DANCE1 <= actionid <= SPECIAL_ACTION_DANCE4 ||
 			SPECIAL_ACTION_DRINK_BEER <= actionid <= SPECIAL_ACTION_DRINK_SPRUNK) ACInfo[playerid][acNextSpecAct] = ACInfo[playerid][acSpecAct];
 			else ACInfo[playerid][acNextSpecAct] = -1;
 			ACInfo[playerid][acSet][3] = actionid;
@@ -1503,6 +1553,7 @@ ac_fpublic ac_GetPlayerMoney(playerid) return ACInfo[playerid][acMoney];
 			#endif
 		}
 	}
+	#endif
 	return 1;
 }
 
@@ -1696,7 +1747,11 @@ ac_fpublic ac_SetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet
 	#if defined foreach
 		foreach(new ac_i : Player) ACVehInfo[vehicleid][acLocked][ac_i] = doors;
 	#else
-		for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+		#if defined GetPlayerPoolSize
+			for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
+		#else
+			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+		#endif
 		{
 			if(!IsVehicleStreamedIn(vehicleid, ac_i)) continue;
 			ACVehInfo[vehicleid][acLocked][ac_i] = doors;
@@ -1704,6 +1759,7 @@ ac_fpublic ac_SetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet
 	#endif
 	return 1;
 }
+
 
 ac_fpublic ac_SetVehicleParamsForPlayer(vehicleid, playerid, objective, doorslocked)
 {
@@ -1841,7 +1897,11 @@ ac_fpublic ac_EnableAntiCheat(code, enable)
 			foreach(new ac_i : Player)
 			{
 		#else
-			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+			#if defined GetPlayerPoolSize
+				for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
+			#else
+				for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+			#endif
 			{
 				if(!IsPlayerConnected(ac_i)) continue;
 		#endif
@@ -1875,7 +1935,11 @@ ac_fpublic ac_EnableAntiCheat(code, enable)
 			foreach(new ac_i : Player)
 			{
 		#else
-			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+			#if defined GetPlayerPoolSize
+				for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
+			#else
+				for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+			#endif
 			{
 				if(!IsPlayerConnected(ac_i)) continue;
 		#endif
@@ -1907,7 +1971,11 @@ ac_fpublic ac_EnableAntiNOP(nopcode, enable)
 		foreach(new ac_i : Player)
 		{
 	#else
-		for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+		#if defined GetPlayerPoolSize
+			for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
+		#else
+			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+		#endif
 		{
 			if(!IsPlayerConnected(ac_i)) continue;
 	#endif
@@ -3841,7 +3909,11 @@ public OnPlayerConnect(playerid)
 				{
 					if(ac_j == playerid) continue;
 			#else
-				for(new ac_j = MAX_PLAYERS - 1; ac_j >= 0; --ac_j)
+				#if defined GetPlayerPoolSize
+					for(new ac_j = GetPlayerPoolSize(); ac_j >= 0; --ac_j)
+				#else
+					for(new ac_j = MAX_PLAYERS - 1; ac_j >= 0; --ac_j)
+				#endif
 				{
 					#if AC_USE_NPC
 						if(ac_j == playerid || !IsPlayerConnected(ac_j) || IsPlayerNPC(ac_j)) continue;
@@ -4479,7 +4551,11 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 			foreach(new ac_j : Player)
 			{
 		#else
-			for(new ac_j = MAX_PLAYERS - 1; ac_j >= 0; --ac_j)
+			#if defined GetPlayerPoolSize
+				for(new ac_j = GetPlayerPoolSize(); ac_j >= 0; --ac_j)
+			#else
+				for(new ac_j = MAX_PLAYERS - 1; ac_j >= 0; --ac_j)
+			#endif
 			{
 				if(!IsPlayerConnected(ac_j)) continue;
 		#endif
@@ -4493,7 +4569,11 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 			foreach(new ac_j : Player)
 			{
 		#else
-			for(new ac_j = MAX_PLAYERS - 1; ac_j >= 0; --ac_j)
+			#if defined GetPlayerPoolSize
+				for(new ac_j = GetPlayerPoolSize(); ac_j >= 0; --ac_j)
+			#else
+				for(new ac_j = MAX_PLAYERS - 1; ac_j >= 0; --ac_j)
+			#endif
 			{
 				if(!IsPlayerConnected(ac_j)) continue;
 		#endif
@@ -7722,7 +7802,11 @@ public OnVehicleSpawn(vehicleid)
 		foreach(new ac_i : Player)
 		{
 	#else
-		for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+		#if defined GetPlayerPoolSize
+			for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
+		#else
+			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+		#endif
 		{
 			if(!IsPlayerConnected(ac_i)) continue;
 	#endif
@@ -8098,7 +8182,11 @@ public OnPlayerLeaveRaceCheckpoint(playerid)
 public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 {
 	if(ACInfo[playerid][acKicked] > 0) return 1;
-    new ac_panels, ac_doors, ac_lights, ac_tires;
+    new 
+        ac_panels, 
+        ac_doors, 
+        ac_lights, 
+        ac_tires;
 	#if !defined PAWNRAKNET_INC_
 	if(ACVehInfo[vehicleid][acDriver] != playerid)
 	{
@@ -10024,7 +10112,11 @@ static ac_IsVehicleSeatOccupied(vehicleid, seat)
 			ACInfo[ac_i][acSeat] == seat) return 1;
 		}
 	#else
-		for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+		#if defined GetPlayerPoolSize
+			for(new ac_i = GetPlayerPoolSize(); ac_i >= 0; --ac_i)
+		#else
+			for(new ac_i = MAX_PLAYERS - 1; ac_i >= 0; --ac_i)
+		#endif
 		{
 			if(IsPlayerConnected(ac_i) &&
 			ACInfo[ac_i][acVeh] == vehicleid &&
