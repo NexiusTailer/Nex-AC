@@ -11,6 +11,12 @@
 	#include <a_samp>
 #endif
 
+#if !defined SAMP_CONST_CORRECT
+	#define AC_CONST
+#else 
+	#define AC_CONST const
+#endif
+
 #if !defined FILTERSCRIPT
 
 #if !defined DEBUG
@@ -234,11 +240,6 @@
 	#define AC_MAX_CJ_RUN_WARNINGS			8
 #endif
 
-#if !defined SAMP_CONST_CORRECT
-	#define AC_CONST
-#else 
-	#define AC_CONST const
-#endif
 #define ac_fpublic%0(%1) forward%0(%1); public%0(%1)
 #define ac_AbsoluteAngle(%0) ((floatround(%0, floatround_floor) % 360) + floatfract(%0))
 #define ac_abs(%0) (((%0) < 0) ? (-(%0)) : ((%0)))
@@ -2208,7 +2209,11 @@ stock acc_AddPlayerClass(modelid, Float:spawn_x, Float:spawn_y, Float:spawn_z, F
 
 stock acc_AddPlayerClassEx(teamid, modelid, Float:spawn_x, Float:spawn_y, Float:spawn_z, Float:z_angle, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo)
 {
-	new ac_class = AddPlayerClassEx(teamid, modelid, spawn_x, spawn_y, spawn_z, z_angle, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo);
+	#if defined _INC_open_mp
+		new ac_class = AddPlayerClassEx(teamid, modelid, spawn_x, spawn_y, spawn_z, z_angle, WEAPON:weapon1, weapon1_ammo, WEAPON:weapon2, weapon2_ammo, WEAPON:weapon3, weapon3_ammo);
+	#else
+		new ac_class = AddPlayerClassEx(teamid, modelid, spawn_x, spawn_y, spawn_z, z_angle, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo);
+	#endif
 	#if defined FILTERSCRIPT
 		CallRemoteFunction("ac_AddPlayerClass", "ifffididid", ac_class, spawn_x, spawn_y, spawn_z, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo);
 	#else
@@ -2715,6 +2720,7 @@ stock acc_GetPlayerMoney(playerid)
 #else
 	#define _ALS_GetPlayerMoney
 #endif
+
 #define GetPlayerMoney acc_GetPlayerMoney
 
 stock orig_SetPlayerSpecialAction(playerid, actionid) return SetPlayerSpecialAction(playerid, actionid);
@@ -2724,11 +2730,7 @@ stock acc_SetPlayerSpecialAction(playerid, actionid)
 	#if defined FILTERSCRIPT
 		return CallRemoteFunction("ac_SetPlayerSpecialAction", "ii", playerid, actionid);
 	#else
-		#if defined _INC_open_mp
-			return ac_SetPlayerSpecialAction(playerid, SPECIAL_ACTION:actionid);
-		#else
-			return ac_SetPlayerSpecialAction(playerid, actionid);
-		#endif
+		return ac_SetPlayerSpecialAction(playerid, actionid);
 	#endif
 }
 
@@ -5759,7 +5761,7 @@ public OnPlayerUpdate(playerid)
 						{
 							ac_i = GetPlayerSkin(playerid);
 							if((ac_sa == 1231 || ac_sa == 1246) && ac_IsValidSkin(ac_i) && ac_i != 0 && ac_w != _:WEAPON_PARACHUTE &&
-							ac_specact != _:SPECIAL_ACTION_USECELLPHONE && !(_:SPECIAL_ACTION_DRINK_BEER <= ac_specact <= _:SPECIAL_ACTION_CARRY))
+							ac_specact != _:SPECIAL_ACTION_USECELLPHONE && !(_:SPECIAL_ACTION_DRINK_BEER <= ac_specact <= 25))
 							{
 								if(++ACInfo[playerid][acCheatCount][17] > AC_MAX_CJ_RUN_WARNINGS)
 								{
