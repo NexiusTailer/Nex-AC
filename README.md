@@ -123,10 +123,10 @@ It also simplifies the process of translation of anticheat into other languages
 <details>
 <summary>Click to expand the list</summary>
 
-**public OnCheatDetected(playerid, AC_CONST ip_address[], type, code)**
+**public OnCheatDetected(playerid, ip_address[], type, code)**
 > Called when triggers one of the anti-cheats
 > * `playerid` - The ID of the cheater
-> * `AC_CONST ip_address[]` - IP-address of the cheater
+> * `ip_address[]` - IP-address of the cheater
 > * `type` - Type of cheating (when `0` it returns the ID, when `1` - IP)
 > * `code` - The code (ID) of the anti-cheat
 > * This callback does not handle returns
@@ -514,11 +514,6 @@ I will be very glad of your help and add you in the list of those who helped the
 #define DEBUG
 #include <nex-ac_en.lang> //or any other
 #include <nex-ac>
-```
-  * If using open.mp libs & compiler, also add this at the top of your gamemode:
-```pawn
-#define SAMP_COMPAT
-#pragma warning disable 214, 239
 ```
 5. In all filterscripts, right after "#include <a_samp>" write the following:
 ```pawn
