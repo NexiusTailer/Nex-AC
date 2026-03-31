@@ -4230,28 +4230,28 @@ public OnPlayerDeath(playerid, killerid, reason)
 }
 
 #if defined _ALS_OnPlayerDeath
-    #undef OnPlayerDeath
+	#undef OnPlayerDeath
 #else
-    #define _ALS_OnPlayerDeath
+	#define _ALS_OnPlayerDeath
 #endif
 
 #if defined _INC_y_prehook
-    #define OnPlayerDeath(%0) CHAIN_PUBLIC:AC_OnPlayerDeath(%0)
-    #if defined _INC_open_mp
-        CHAIN_FORWARD:AC_OnPlayerDeath(playerid, killerid, WEAPON:reason) = 1;
-    #else
-        CHAIN_FORWARD:AC_OnPlayerDeath(playerid, killerid, reason) = 1;
-    #endif
+	#define OnPlayerDeath(%0) CHAIN_PUBLIC:AC_OnPlayerDeath(%0)
+	#if defined _INC_open_mp
+		CHAIN_FORWARD:AC_OnPlayerDeath(playerid, killerid, WEAPON:reason) = 1;
+	#else
+		CHAIN_FORWARD:AC_OnPlayerDeath(playerid, killerid, reason) = 1;
+	#endif
 #else
-    #define OnPlayerDeath ac_OnPlayerDeath
-    
-    #if defined ac_OnPlayerDeath
-        #if defined _INC_open_mp
-            forward ac_OnPlayerDeath(playerid, killerid, WEAPON:reason);
-        #else
-            forward ac_OnPlayerDeath(playerid, killerid, reason);
-        #endif
-    #endif
+	#define OnPlayerDeath ac_OnPlayerDeath
+	
+	#if defined ac_OnPlayerDeath
+		#if defined _INC_open_mp
+			forward ac_OnPlayerDeath(playerid, killerid, WEAPON:reason);
+		#else
+			forward ac_OnPlayerDeath(playerid, killerid, reason);
+		#endif
+	#endif
 #endif
 
 
@@ -7111,27 +7111,27 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 }
 
 #if defined _ALS_OnPlayerStateChange
-    #undef OnPlayerStateChange
+	#undef OnPlayerStateChange
 #else
-    #define _ALS_OnPlayerStateChange
+	#define _ALS_OnPlayerStateChange
 #endif
 
 #if defined _INC_y_prehook
-    #define OnPlayerStateChange(%0) CHAIN_PUBLIC:AC_OnPlayerStateChange(%0)
-    #if defined _INC_open_mp
-        CHAIN_FORWARD:AC_OnPlayerStateChange(playerid, PLAYER_STATE:newstate, PLAYER_STATE:oldstate) = 1;
-    #else
-        CHAIN_FORWARD:AC_OnPlayerStateChange(playerid, newstate, oldstate) = 1;
-    #endif
+	#define OnPlayerStateChange(%0) CHAIN_PUBLIC:AC_OnPlayerStateChange(%0)
+	#if defined _INC_open_mp
+		CHAIN_FORWARD:AC_OnPlayerStateChange(playerid, PLAYER_STATE:newstate, PLAYER_STATE:oldstate) = 1;
+	#else
+		CHAIN_FORWARD:AC_OnPlayerStateChange(playerid, newstate, oldstate) = 1;
+	#endif
 #else
-    #define OnPlayerStateChange ac_OnPlayerStateChange
-    #if defined ac_OnPlayerStateChange
-        #if defined _INC_open_mp
-            forward ac_OnPlayerStateChange(playerid, PLAYER_STATE:newstate, PLAYER_STATE:oldstate);
-        #else
-            forward ac_OnPlayerStateChange(playerid, newstate, oldstate);
-        #endif
-    #endif
+	#define OnPlayerStateChange ac_OnPlayerStateChange
+	#if defined ac_OnPlayerStateChange
+		#if defined _INC_open_mp
+			forward ac_OnPlayerStateChange(playerid, PLAYER_STATE:newstate, PLAYER_STATE:oldstate);
+		#else
+			forward ac_OnPlayerStateChange(playerid, newstate, oldstate);
+		#endif
+	#endif
 #endif
 
 #if defined OnPlayerWeaponShot
@@ -7575,27 +7575,27 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 	}
 
 #if defined _ALS_OnPlayerWeaponShot
-    #undef OnPlayerWeaponShot
+	#undef OnPlayerWeaponShot
 #else
-    #define _ALS_OnPlayerWeaponShot
+	#define _ALS_OnPlayerWeaponShot
 #endif
 
 #if defined _INC_y_prehook
-    #define OnPlayerWeaponShot(%0) CHAIN_PUBLIC:AC_OnPlayerWeaponShot(%0)
-    #if defined _INC_open_mp
-        CHAIN_FORWARD:AC_OnPlayerWeaponShot(playerid, WEAPON:weaponid, BULLET_HIT_TYPE:hittype, hitid, Float:fX, Float:fY, Float:fZ) = 1;
-    #else
-        CHAIN_FORWARD:AC_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ) = 1;
-    #endif
+	#define OnPlayerWeaponShot(%0) CHAIN_PUBLIC:AC_OnPlayerWeaponShot(%0)
+	#if defined _INC_open_mp
+		CHAIN_FORWARD:AC_OnPlayerWeaponShot(playerid, WEAPON:weaponid, BULLET_HIT_TYPE:hittype, hitid, Float:fX, Float:fY, Float:fZ) = 1;
+	#else
+		CHAIN_FORWARD:AC_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ) = 1;
+	#endif
 #else
-    #define OnPlayerWeaponShot ac_OnPlayerWeaponShot
-    #if defined ac_OnPlayerWeaponShot
-        #if defined _INC_open_mp
-            forward ac_OnPlayerWeaponShot(playerid, WEAPON:weaponid, BULLET_HIT_TYPE:hittype, hitid, Float:fX, Float:fY, Float:fZ);
-        #else
-            forward ac_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
-        #endif
-    #endif
+	#define OnPlayerWeaponShot ac_OnPlayerWeaponShot
+	#if defined ac_OnPlayerWeaponShot
+		#if defined _INC_open_mp
+			forward ac_OnPlayerWeaponShot(playerid, WEAPON:weaponid, BULLET_HIT_TYPE:hittype, hitid, Float:fX, Float:fY, Float:fZ);
+		#else
+			forward ac_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
+		#endif
+	#endif
 #endif
 
 public OnVehicleMod(playerid, vehicleid, componentid)
