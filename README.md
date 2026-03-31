@@ -515,11 +515,6 @@ I will be very glad of your help and add you in the list of those who helped the
 #include <nex-ac_en.lang> //or any other
 #include <nex-ac>
 ```
-  * If using open.mp libs & compiler, also add this at the top of your gamemode:
-```pawn
-#define SAMP_COMPAT
-#pragma warning disable 214, 239
-```
 5. In all filterscripts, right after "#include <a_samp>" write the following:
 ```pawn
 #include <nex-ac>
