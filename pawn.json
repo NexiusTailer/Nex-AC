@@ -1,12 +1,5 @@
 {
 	"user": "NexiusTailer",
 	"repo": "Nex-AC",
-	"include_path": "src/v1.9.68",
-	"build":
-	{
-		"compiler":
-		{
-			"version": "3.10.8"
-		}
-	}
+	"include_path": "src/v1.9.69"
 }

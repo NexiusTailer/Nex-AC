@@ -1,15 +1,13 @@
-**v1.9.68**
+**v1.9.69**
 
 Changes:
-* Improved validation checks within protections from AFK Ghost and Pro Aim
-* Changed the punishment for negative damage in related callbacks (damage block instead of kick)
-* Improved stability when getting incorrect return values ​​from various natives
-* Minor improvements and fixes
+* Added omp-stdlib support (no more need to use NO_TAGS)
+* Improved checks for weapon pickups (AC_USE_PICKUP_WEAPONS)
+* Minor optimizations and improvements
 
 Fixes:
-* Fixed a bug with parameters for hooked callbacks in y_prehook integration
-* Fixed behavior of anti-NOPs when setting health while being in spectator mode
-* Fixed some false detections of anti-GodMode onfoot and in vehicle
+* Fixed tag issues when using older Streamer Plugin versions
+* Fixed filtering for invalid GXTs in uppercase
 
 The latest example of setting public OnCheatDetected in your gamemode:
 
