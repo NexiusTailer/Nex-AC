@@ -123,7 +123,7 @@ It also simplifies the process of translation of anticheat into other languages
 <details>
 <summary>Click to expand the list</summary>
 
-**public OnCheatDetected(playerid, ip_address[], type, code)**
+**public OnCheatDetected(playerid, const ip_address[], type, code)**
 > Called when triggers one of the anti-cheats
 > * `playerid` - The ID of the cheater
 > * `ip_address[]` - IP-address of the cheater
@@ -324,7 +324,7 @@ Added in v1.8.8:
 
 Added in v1.9.37:
 
-**public OnCheatWarning(playerid, ip_address[], type, code, code2, count)**
+**public OnCheatWarning(playerid, const ip_address[], type, code, code2, count)**
 > Called when triggers any warnings of one of the anti-cheats
 > * `playerid` - The ID of the suspected cheater
 > * `ip_address[]` - IP-address of the suspected cheater

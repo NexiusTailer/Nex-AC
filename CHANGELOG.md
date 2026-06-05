@@ -12,8 +12,8 @@ Fixes:
 The latest example of setting public OnCheatDetected in your gamemode:
 
 ```pawn
-forward OnCheatDetected(playerid, ip_address[], type, code);
-public OnCheatDetected(playerid, ip_address[], type, code)
+forward OnCheatDetected(playerid, const ip_address[], type, code);
+public OnCheatDetected(playerid, const ip_address[], type, code)
 {
 	if(type) BlockIpAddress(ip_address, 0);
 	else
