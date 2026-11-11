@@ -1,13 +1,16 @@
-**v1.9.69**
+**v1.9.70**
 
 Changes:
-* Added omp-stdlib support (no more need to use NO_TAGS)
-* Improved checks for weapon pickups (AC_USE_PICKUP_WEAPONS)
-* Minor optimizations and improvements
+* Added optional parameters to a few natives when using omp-stdlib
+* Parameters in callbacks are now validated even if anti-crashers are disabled
+* Improved PlayerSpectate(Player/Vehicle) handling on open.mp server
+* Minor improvements and corrections
 
 Fixes:
-* Fixed tag issues when using older Streamer Plugin versions
-* Fixed filtering for invalid GXTs in uppercase
+* Fixed a bug that caused kick for GodMode when hitting passengers in vehicle
+* Fixed protection categories in statistics calculation (when AC_USE_STATISTICS is enabled)
+* Fixed delay behavior when giving weapons across multiple slots simultaneously
+* Fixed a bug that caused kick for brass knuckles after resetting and re-giving weapons
 
 The latest example of setting public OnCheatDetected in your gamemode:
 
